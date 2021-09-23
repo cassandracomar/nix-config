@@ -51,7 +51,6 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.blacklistedKernelModules = [ "snd_hda_intel" "snd_soc_skl" ];
   boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
 
   # set ZFS options

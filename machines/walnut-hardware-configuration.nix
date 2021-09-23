@@ -8,6 +8,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" ];
   boot.initrd.kernelModules = [ ];
+  boot.blacklistedKernelModules = [ "snd_hda_intel" "snd_soc_skl" ];
   boot.kernelModules =
     [ "acpi_call" "kvm_intel" "yoga-usage-mode" "cpuid" "i2c-dev" "coretemp" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
