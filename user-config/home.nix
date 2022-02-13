@@ -1,45 +1,68 @@
 { lib, config, pkgs, options, ... }:
 let
+  mozilla-overlays = import (builtins.fetchTarball {
+    url = "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz";
+  });
   nixpkgs = (import <nixpkgs> {
     overlays = [
       (import (builtins.fetchTarball
         "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-    ];
-  });
-  nixos = import <nixos-unstable> {
-    overlays = [
       (import (builtins.fetchGit {
         url = "https://github.com/nix-community/emacs-overlay.git";
         ref = "master";
       }))
+      mozilla-overlays
+      (self: super: {
+        calibre = super.calibre.overrideAttrs (oldAttrs: {
+          # We want to have pycryptodome around in order to support DeDRM
+          nativeBuildInputs = oldAttrs.nativeBuildInputs
+            ++ [ self.python3Packages.pycryptodome ];
+        });
+      })
+      # (import /home/cassandra/src/github.com/nix-community/emacs-overlay)
     ];
-  };
+  });
   nixpkgs-master = (import (/home/cassandra/src/github.com/nixos/nixpkgs) { });
-  rustChannel = nixpkgs.rust-bin.nightly."2021-06-23";
+  rustChannel = nixpkgs.rust-bin.stable.latest;
   rustpkgs = rustChannel.default.override {
     targets = [ "wasm32-unknown-unknown" ];
     extensions = [ "rust-src" "clippy-preview" "rust-analysis" ];
   };
-  fetchCargoTarball =
-    nixpkgs.rustPlatform.fetchCargoTarball.override { cargo = rustpkgs; };
-  rustPlatform = {
-    rust = {
-      rustc = rustpkgs;
-      cargo = rustpkgs;
+  complete_alias = pkgs.stdenv.mkDerivation {
+    name = "complete_alias";
+    version = "1.18.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "cykerway";
+      repo = "complete-alias";
+      rev = "4fcd018faa9413e60ee4ec9f48ebeac933c8c372";
+      sha256 = "sha256-fZisrhdu049rCQ5Q90sFWFo8GS/PRgS29B1eG8dqlaI=";
     };
-    fetchCargoTarball = fetchCargoTarball;
-    buildRustPackage = nixpkgs.rustPlatform.buildRustPackage.override {
-      rustc = rustpkgs;
-      fetchCargoTarball = fetchCargoTarball;
-    };
-    rustcSrc = rustChannel.rust-src;
-    rustLibSrc = "${rustChannel.rust-src}/library";
+    buildInputs = [ pkgs.bash-completion ];
+    installPhase = ''
+      install -Dm444 -t $out/share/bash-completion/completions complete_alias
+    '';
   };
-  rust-analyzer-pkg = nixpkgs-master.rust-analyzer.override {
-    rustPlatform = rustPlatform;
-    rust-analyzer-unwrapped = nixpkgs-master.rust-analyzer-unwrapped.override {
-      rustPlatform = rustPlatform;
-    };
+  kubernetes_aliases = pkgs.writeTextFile {
+    name = "kubernetes_aliases";
+    destination = "/share/bash-completion/completions/kubernetes_aliases";
+    text = ''
+      source ${complete_alias}/share/bash-completion/completions/complete_alias
+
+      alias devctl="kubectl --context=cassandracomar@dev.k8s.ditto.live"
+      complete -F _complete_alias devctl
+
+      alias stgctl="kubectl --context=cassandracomar@stg.k8s.ditto.live"
+      complete -F _complete_alias stgctl
+
+      alias prodctl="kubectl --context=cassandra@prod.k8s.ditto.live"
+      complete -F _complete_alias prodctl
+
+      alias particleprodctl="kubectl --context=cassandracomar@particle-prod.k8s.ditto.live"
+      complete -F _complete_alias particleprodctl
+
+      alias particlestgctl="kubectl --context=cassandracomar@particle-stg.k8s.ditto.live"
+      complete -F _complete_alias particlestgctl
+    '';
   };
 in {
   nixpkgs.overlays = [
@@ -55,6 +78,15 @@ in {
           "https://discord.com/api/download?platform=linux&format=tar.gz";
       });
     })
+    (self: super: {
+      calibre = super.calibre.overrideAttrs (oldAttrs: {
+        # We want to have pycryptodome around in order to support DeDRM
+        nativeBuildInputs = oldAttrs.nativeBuildInputs
+          ++ [ self.python3Packages.pycryptodome ];
+      });
+    })
+    mozilla-overlays
+    # (import /home/cassandra/src/github.com/nix-community/emacs-overlay)
   ];
 
   # Let Home Manager install and manage itself.
@@ -76,11 +108,13 @@ in {
   home.stateVersion = "20.09";
 
   home.packages = with nixpkgs;
+    with haskell.packages.ghc902;
     with pkgs; [
-      haskellPackages.yeganesh
-      (pkgs.hiPrio haskellPackages.stack)
-      # haskell-language-server
-      haskellPackages.cabal-install
+      yeganesh
+      (pkgs.hiPrio stack)
+      haskell-language-server
+      cabal-install
+      haskell.packages.ghc902.ghc
       dmenu
       dzen2
       conky
@@ -108,6 +142,7 @@ in {
       google-chrome
       scrot
       kubectl
+      krew
       kind
       direnv
       kubernetes-helm
@@ -127,13 +162,11 @@ in {
       pass
       pandoc
       skaffold
-      xournalpp
       discord
       pinta
       bind
       pwgen-secure
       pwgen
-      libreoffice
       cachix
       gnome3.gnome-calculator
       openssl
@@ -157,16 +190,16 @@ in {
       tokei
       htop
       rlwrap
-      wineWowPackages.full
+      wineWowPackages.stable
       winetricks
-      lutris
+      nixpkgs-master.lutris
       vulkan-tools
       virt-viewer
       spotify
       curlFull
       istioctl
       wasm-pack
-      awscli2
+      nixpkgs-master.awscli2
       git-crypt
       vault
       nix-bash-completions
@@ -179,7 +212,7 @@ in {
       (nixpkgs.lowPrio rustpkgs)
       cargo-audit
       cargo-web
-      rust-analyzer-pkg
+      nixpkgs-master.rust-analyzer
       rustfmt
       dbus
       nixpkgs-master.terraform
@@ -194,6 +227,18 @@ in {
       nixpkgs-master.skype
       reaper
       tailscale
+      zenith
+      evtest
+      audacity
+      nixpkgs-master.ocenaudio
+      rustpkgs
+      retroarchFull
+      monero-gui
+      bisq-desktop
+      complete_alias
+      kubernetes_aliases
+      jsonnet-bundler
+      tanka
     ];
 
   systemd.user.startServices = true;
@@ -207,7 +252,7 @@ in {
   home.sessionVariables.XDG_DATA_DIRS =
     "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
   home.sessionVariables.PATH =
-    "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$PATH";
+    "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.krew/bin:$PATH";
   home.sessionVariables.GDK_SCALE = "2";
   home.sessionVariables.GDK_DPI_SCALE = "0.5";
 
@@ -232,12 +277,18 @@ in {
     pointerCursor.package = pkgs.vanilla-dmz;
     pointerCursor.name = "Vanilla-DMZ";
     initExtra = ''
+      # ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
+      ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
       cbatticon &
     '';
+    # profileExtra = ''
+    #   ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
+    # '';
   };
 
   programs.firefox = {
     enable = true;
+    package = nixpkgs.latest.firefox-nightly-bin;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       reddit-enhancement-suite
       https-everywhere
@@ -291,14 +342,23 @@ in {
     hooks = {
       postswitch = {
         "notify-xmonad" = "xmonad --restart";
-        "change-background" = "~/.files/setBackground.sh";
+        "change-background" =
+          "${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png";
+        "reset-dpms" = ''
+          #! ${pkgs.bash}/bin/bash
+          if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
+            ${pkgs.xorg.xset}/bin/xset s on +dpms
+          else
+            ${pkgs.xorg.xset}/bin/xset s off -dpms
+          fi
+        '';
       };
     };
   };
 
   programs.emacs = {
     enable = true;
-    package = nixos.emacsGcc;
+    package = nixpkgs.emacsPgtkGcc;
     extraPackages = epkgs:
       with pkgs; [
         lilypond
@@ -327,18 +387,15 @@ in {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    nix-direnv = {
-      enable = true;
-      enableFlakes = true;
-    };
+    nix-direnv = { enable = true; };
   };
 
   programs.git = {
     enable = true;
     delta.enable = true;
     userName = "Cassandra Comar";
-    userEmail = "cass@ndra.io";
-    signing.key = "0x7740839F808C0207";
+    userEmail = "cassandra@ditto.live";
+    signing.key = "0xF431E5E70CAB3E2E";
     signing.signByDefault = true;
     extraConfig = {
       pull.rebase = false;
@@ -370,4 +427,5 @@ in {
       # configDir = "/home/cassandra/.config/";
     };
   };
+  # programs.steam.enable = true;
 }
