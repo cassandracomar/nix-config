@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+before=$(realpath "$(which emacs)")
+echo "invoking nixos-rebuild"
+
+/run/current-system/sw/bin/nixos-rebuild --flake github:cassandracomar/nix-config $*
+
+if [ "$(realpath $(which emacs))" != "$before" ]; then
+    echo "emacs changed. invoking native compilation rebuild."
+    ~/.emacs.d/bin/doom build
+fi

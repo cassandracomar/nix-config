@@ -1,0 +1,1 @@
+{ host }: ./machines/${host}.nix

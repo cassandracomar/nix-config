@@ -7,14 +7,13 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   # overlays
-  inputs.mozilla = {
-    url = "github:mozilla/nixpkgs-mozilla";
-  };
+  inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
   inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.rust.url = "github:oxalica/rust-overlay";
   inputs.nur.url = "github:nix-community/NUR";
 
-  outputs = { self, nixpkgs, nixpkgs-master, home-manager, mozilla, emacs, rust, nur }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-master, home-manager, mozilla, emacs, rust
+    , nur }@inputs:
     let
       hosts = [ "cherry" "walnut" ];
       homeUsers = [ "cassandra" ];
@@ -29,7 +28,7 @@
           calibre = super.calibre.overrideAttrs (oldAttrs: {
             # We want to have pycryptodome around in order to support DeDRM
             nativeBuildInputs = oldAttrs.nativeBuildInputs
-                                ++ [ self.python3Packages.pycryptodome ];
+              ++ [ self.python3Packages.pycryptodome ];
           });
         })
       ];
@@ -70,32 +69,42 @@
         name = host;
         value = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
-          modules = base-modules ++ [ ./machines/${host}.nix ];
-          specialArgs = {
-            inherit pkgs-master inputs;
-          };
+          modules = base-modules ++ [
+            (import ./host.nix { inherit host; })
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users = pkgs.lib.listToAttrs (map (username: {
+                name = username;
+                value = {
+                  imports = [ (import ./user.nix { inherit username; }) ];
+                };
+              }) homeUsers);
+              home-manager.extraSpecialArgs = { inherit pkgs-master host; };
+            }
+          ];
+          specialArgs = { inherit pkgs-master inputs; };
         };
       }) hosts);
 
-      homeConfigurations = pkgs.lib.listToAttrs (map (username: {
-        name = username;
-        value = home-manager.lib.homeManagerConfiguration {
-          # Specify the path to your home configuration here
-          configuration = import ./user-config/home.nix;
+      # homeConfigurations = pkgs.lib.listToAttrs (map (username: {
+      #   name = username;
+      #   value = home-manager.lib.homeManagerConfiguration {
+      #     # Specify the path to your home configuration here
+      #     configuration = import ./user.nix { inherit username; };
 
-          inherit system username pkgs;
-          homeDirectory = "/home/${username}";
-          # Update the state version as needed.
-          # See the changelog here:
-          # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
-          stateVersion = "21.11";
+      #     inherit system username pkgs;
+      #     homeDirectory = "/home/${username}";
+      #     # Update the state version as needed.
+      #     # See the changelog here:
+      #     # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
+      #     stateVersion = "21.11";
 
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-          extraSpecialArgs = {
-            inherit pkgs-master inputs;
-          };
-        };
-      }) homeUsers);
+      #     # Optionally use extraSpecialArgs
+      #     # to pass through arguments to home.nix
+      #     extraSpecialArgs = { inherit pkgs-master inputs username; };
+      #   };
+      # }) homeUsers);
     };
 }

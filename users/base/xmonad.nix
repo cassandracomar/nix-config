@@ -1,0 +1,75 @@
+{ config, lib, pkgs, ... }:
+
+{
+  home.packages = with pkgs; [
+    dmenu
+    dzen2
+    conky
+    trayer
+    cbatticon
+    gnome3.adwaita-icon-theme
+    qogir-theme
+    scrot
+    ispell
+    gnome3.gnome-calculator
+    lxappearance
+    usbutils
+    xorg.xev
+    brightnessctl
+    gptfdisk
+    bind
+    vlc
+    pinta
+  ];
+
+  xsession = {
+    enable = true;
+    windowManager = {
+      xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
+    };
+    pointerCursor.package = pkgs.vanilla-dmz;
+    pointerCursor.name = "Vanilla-DMZ";
+    initExtra = ''
+      ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
+      cbatticon &
+    '';
+  };
+
+  programs.feh.enable = true;
+  programs.jq.enable = true;
+  programs.autorandr = {
+    enable = true;
+    hooks = {
+      postswitch = {
+        "notify-xmonad" = "xmonad --restart";
+        "change-background" =
+          "${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png";
+        "reset-dpms" = ''
+          #! ${pkgs.bash}/bin/bash
+          if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
+            ${pkgs.xorg.xset}/bin/xset s on +dpms
+          else
+            ${pkgs.xorg.xset}/bin/xset s off -dpms
+          fi
+        '';
+      };
+    };
+  };
+
+  services.dunst = {
+    enable = true;
+    iconTheme.name = "Adwaita";
+    iconTheme.package = pkgs.gnome3.adwaita-icon-theme;
+    settings = {
+      global = {
+        geometry = "600x3-0+40";
+        markup = "full";
+      };
+    };
+  };
+
+  programs.zathura = { enable = true; };
+}
