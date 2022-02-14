@@ -3,8 +3,8 @@
 before=$(realpath "$(which emacs)")
 echo "invoking nixos-rebuild"
 
-nix flake prefetch github:cassandracomar/nix-config
-sudo /run/current-system/sw/bin/nixos-rebuild --flake github:cassandracomar/nix-config $*
+sudo nix flake update /etc/nixos
+sudo /run/current-system/sw/bin/nixos-rebuild $*
 
 if [ "$(realpath $(which emacs))" != "$before" ]; then
     echo "emacs changed. invoking native compilation rebuild."
