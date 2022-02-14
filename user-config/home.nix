@@ -1,29 +1,6 @@
-{ lib, config, pkgs, options, ... }:
+{ pkgs, pkgs-master, ... }:
 let
-  mozilla-overlays = import (builtins.fetchTarball {
-    url = "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz";
-  });
-  nixpkgs = (import <nixpkgs> {
-    overlays = [
-      (import (builtins.fetchTarball
-        "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-      (import (builtins.fetchGit {
-        url = "https://github.com/nix-community/emacs-overlay.git";
-        ref = "master";
-      }))
-      mozilla-overlays
-      (self: super: {
-        calibre = super.calibre.overrideAttrs (oldAttrs: {
-          # We want to have pycryptodome around in order to support DeDRM
-          nativeBuildInputs = oldAttrs.nativeBuildInputs
-            ++ [ self.python3Packages.pycryptodome ];
-        });
-      })
-      # (import /home/cassandra/src/github.com/nix-community/emacs-overlay)
-    ];
-  });
-  nixpkgs-master = (import (/home/cassandra/src/github.com/nixos/nixpkgs) { });
-  rustChannel = nixpkgs.rust-bin.stable.latest;
+  rustChannel = pkgs.rust-bin.stable.latest;
   rustpkgs = rustChannel.default.override {
     targets = [ "wasm32-unknown-unknown" ];
     extensions = [ "rust-src" "clippy-preview" "rust-analysis" ];
@@ -65,181 +42,140 @@ let
     '';
   };
 in {
-  nixpkgs.overlays = [
-    (import (builtins.fetchGit {
-      url = "https://github.com/nix-community/emacs-overlay.git";
-      ref = "master";
-    }))
-    (import (builtins.fetchTarball
-      "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-    (self: super: {
-      discord = super.discord.overrideAttrs (_: {
-        src = builtins.fetchTarball
-          "https://discord.com/api/download?platform=linux&format=tar.gz";
-      });
-    })
-    (self: super: {
-      calibre = super.calibre.overrideAttrs (oldAttrs: {
-        # We want to have pycryptodome around in order to support DeDRM
-        nativeBuildInputs = oldAttrs.nativeBuildInputs
-          ++ [ self.python3Packages.pycryptodome ];
-      });
-    })
-    mozilla-overlays
-    # (import /home/cassandra/src/github.com/nix-community/emacs-overlay)
-  ];
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "cassandra";
-  home.homeDirectory = "/home/cassandra";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "20.09";
-
-  home.packages = with nixpkgs;
-    with haskell.packages.ghc902;
-    with pkgs; [
-      yeganesh
-      (pkgs.hiPrio stack)
-      haskell-language-server
-      cabal-install
-      haskell.packages.ghc902.ghc
-      dmenu
-      dzen2
-      conky
-      trayer
-      sakura
-      cbatticon
-      #dunst
-      gnome3.adwaita-icon-theme
-      qogir-theme
-      powertop
-      sqlite
-      slack
-      zoom-us
-      nixfmt
-      cmake
-      gnumake
-      signal-desktop
-      p7zip
-      unrar
-      unzip
-      monero
-      monero-gui
-      gitAndTools.delta
-      keepassxc
-      google-chrome
-      scrot
-      kubectl
-      krew
-      kind
-      direnv
-      kubernetes-helm
-      minikube
-      docker-machine-kvm2
-      pandoc
-      ispell
-      gradle
-      pass
-      docker-credential-helpers
-      yaml-language-server
-      aws-iam-authenticator
-      yq
-      eksctl
-      lsof
-      docker-credential-helpers
-      pass
-      pandoc
-      skaffold
-      discord
-      pinta
-      bind
-      pwgen-secure
-      pwgen
-      cachix
-      gnome3.gnome-calculator
-      openssl
-      kitty
-      gptfdisk
-      lxappearance
-      usbutils
-      xorg.xev
-      brightnessctl
-      stack
-      vlc
-      nodePackages.bash-language-server
-      nodePackages.dockerfile-language-server-nodejs
-      ripgrep
-      gnupg
-      exa
-      bat
-      fd
-      procs
-      #dust
-      tokei
-      htop
-      rlwrap
-      wineWowPackages.stable
-      winetricks
-      nixpkgs-master.lutris
-      vulkan-tools
-      virt-viewer
-      spotify
-      curlFull
-      istioctl
-      wasm-pack
-      nixpkgs-master.awscli2
-      git-crypt
-      vault
-      nix-bash-completions
-      bash-completion
-      chessx
-      stockfish
-      rclone
-      syncthing
-      openssl
-      (nixpkgs.lowPrio rustpkgs)
-      cargo-audit
-      cargo-web
-      nixpkgs-master.rust-analyzer
-      rustfmt
-      dbus
-      nixpkgs-master.terraform
-      gdb
-      nyxt
-      xclip
-      sbcl
-      buildkit
-      bintools.bintools
-      pkg-config
-      lilypond
-      nixpkgs-master.skype
-      reaper
-      tailscale
-      zenith
-      evtest
-      audacity
-      nixpkgs-master.ocenaudio
-      rustpkgs
-      retroarchFull
-      monero-gui
-      bisq-desktop
-      complete_alias
-      kubernetes_aliases
-      jsonnet-bundler
-      tanka
-    ];
+  home.packages = with pkgs; [
+    haskell.packages.ghc902.yeganesh
+    (pkgs.hiPrio haskell.packages.ghc902.stack)
+    haskell-language-server
+    haskell.packages.ghc902.cabal-install
+    haskell.packages.ghc902.ghc
+    dmenu
+    dzen2
+    conky
+    trayer
+    sakura
+    cbatticon
+    #dunst
+    gnome3.adwaita-icon-theme
+    qogir-theme
+    powertop
+    sqlite
+    slack
+    zoom-us
+    nixfmt
+    cmake
+    gnumake
+    signal-desktop
+    p7zip
+    unrar
+    unzip
+    monero
+    monero-gui
+    gitAndTools.delta
+    keepassxc
+    google-chrome
+    scrot
+    kubectl
+    krew
+    kind
+    direnv
+    kubernetes-helm
+    minikube
+    docker-machine-kvm2
+    pandoc
+    ispell
+    gradle
+    pass
+    docker-credential-helpers
+    yaml-language-server
+    aws-iam-authenticator
+    yq
+    eksctl
+    lsof
+    docker-credential-helpers
+    pass
+    pandoc
+    skaffold
+    discord
+    pinta
+    bind
+    pwgen-secure
+    pwgen
+    cachix
+    gnome3.gnome-calculator
+    openssl
+    kitty
+    gptfdisk
+    lxappearance
+    usbutils
+    xorg.xev
+    brightnessctl
+    stack
+    vlc
+    nodePackages.bash-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    ripgrep
+    gnupg
+    exa
+    bat
+    fd
+    procs
+    #dust
+    tokei
+    htop
+    rlwrap
+    wineWowPackages.stable
+    winetricks
+    lutris
+    vulkan-tools
+    virt-viewer
+    spotify
+    curlFull
+    istioctl
+    wasm-pack
+    awscli2
+    git-crypt
+    vault
+    nix-bash-completions
+    bash-completion
+    chessx
+    stockfish
+    rclone
+    syncthing
+    openssl
+    (pkgs.lowPrio rustpkgs)
+    cargo-audit
+    cargo-web
+    pkgs-master.rust-analyzer
+    rustfmt
+    dbus
+    terraform
+    gdb
+    nyxt
+    xclip
+    sbcl
+    buildkit
+    bintools.bintools
+    pkg-config
+    lilypond
+    skype
+    reaper
+    tailscale
+    zenith
+    evtest
+    audacity
+    pkgs-master.ocenaudio
+    rustpkgs
+    retroarchFull
+    monero-gui
+    bisq-desktop
+    complete_alias
+    kubernetes_aliases
+    jsonnet-bundler
+    tanka
+  ];
 
   systemd.user.startServices = true;
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
@@ -288,7 +224,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = nixpkgs.latest.firefox-nightly-bin;
+    package = pkgs.latest.firefox-nightly-bin;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       reddit-enhancement-suite
       https-everywhere
@@ -358,7 +294,7 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = nixpkgs.emacsPgtkGcc;
+    package = pkgs.emacsPgtkGcc;
     extraPackages = epkgs:
       with pkgs; [
         lilypond

@@ -4,7 +4,6 @@
   # Enable the X11 windowing system
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  #services.xserver.xkbOptions = "eurosign:e";
 
   services.xserver = {
     deviceSection = ''
@@ -52,15 +51,12 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [
-    vaapiIntel
     libvdpau-va-gl
     vaapiVdpau
-    intel-ocl
     pipewire
     pulseaudioFull
   ];
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
-    vaapiIntel
     libvdpau-va-gl
     vaapiVdpau
     pipewire
