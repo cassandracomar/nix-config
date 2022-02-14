@@ -9,11 +9,9 @@
     minikube
     docker-credential-helpers
     pass
-    yaml-language-server
     yq
     eksctl
     skaffold
-    nodePackages.dockerfile-language-server-nodejs
     tailscale
     jsonnet-bundler
     tanka

@@ -11,6 +11,10 @@
     ripgrep
     pandoc
     nodePackages.bash-language-server
+    yaml-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    gcc
+    gnumake
   ];
 
   systemd.user.startServices = true;
@@ -23,8 +27,14 @@
         lilypond
         timidity
         sqlite
+        binutils_nogold
+        gcc
+        gnumake
         epkgs.vterm
+        epkgs.sqlite3
+        epkgs.emacsql
         epkgs.emacsql-sqlite3
+        epkgs.emacsql-libsqlite3
       ];
   };
   services.emacs.enable = true;

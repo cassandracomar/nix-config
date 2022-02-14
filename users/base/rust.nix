@@ -14,6 +14,5 @@ in {
     cargo-web
     rustfmt
     gdb
-    bintools.bintools
   ];
 }
