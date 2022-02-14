@@ -10,6 +10,7 @@
     nixfmt
     ripgrep
     pandoc
+    nodePackages.bash-language-server
   ];
 
   systemd.user.startServices = true;
