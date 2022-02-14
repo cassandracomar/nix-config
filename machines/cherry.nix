@@ -7,6 +7,7 @@
     ../system/hardware/nvidia.nix
     ../system/hardware/acpid.nix
   ];
+  hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" = {
     device = "ZROOT/root/nixos";

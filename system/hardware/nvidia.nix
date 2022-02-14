@@ -15,8 +15,6 @@ in {
     "nvidia.NVreg_EnableBacklightHandler=0"
   ];
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.extraPackages = with pkgs; [ amdvlk ];
-  hardware.opengl.extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     powerManagement.enable = true;

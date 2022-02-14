@@ -46,11 +46,11 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    haskell.packages.ghc902.yeganesh
-    (pkgs.hiPrio haskell.packages.ghc902.stack)
+    haskellPackages.yeganesh
+    (pkgs.hiPrio haskellPackages.stack)
     haskell-language-server
-    haskell.packages.ghc902.cabal-install
-    haskell.packages.ghc902.ghc
+    haskellPackages.cabal-install
+    ghc
     dmenu
     dzen2
     conky
