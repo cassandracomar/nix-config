@@ -1,3 +1,5 @@
+# copy this file to /etc/nixos/flake.nix. then scripts/nixos-rebuild will use the latest pushed version of
+# nix-config to manage the system configuration.
 {
   description = "system flake";
 
