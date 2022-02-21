@@ -31,6 +31,15 @@
             nativeBuildInputs = oldAttrs.nativeBuildInputs
               ++ [ self.python3Packages.pycryptodome ];
           });
+
+          # discord = super.discord.overrideAttrs (_: {
+          #   src = builtins.fetchTarball {
+          #     url =
+          #       "https://discord.com/api/download?platform=linux&format=tar.gz";
+          #     sha256 =
+          #       "sha256:0hdgif8jpp5pz2c8lxas88ix7mywghdf9c9fn95n0dwf8g1c1xbb";
+          #   };
+          # });
         })
       ];
 
@@ -40,7 +49,6 @@
 
         config.packageOverides = pkgs:
           with pkgs; {
-
             steam = steam.override {
               nativeOnly = true;
               extraLibraries = [ pipewire.lib networkmanager ];
@@ -94,24 +102,5 @@
           specialArgs = { inherit pkgs-master inputs; };
         };
       }) hosts);
-
-      # homeConfigurations = pkgs.lib.listToAttrs (map (username: {
-      #   name = username;
-      #   value = home-manager.lib.homeManagerConfiguration {
-      #     # Specify the path to your home configuration here
-      #     configuration = import ./user.nix { inherit username; };
-
-      #     inherit system username pkgs;
-      #     homeDirectory = "/home/${username}";
-      #     # Update the state version as needed.
-      #     # See the changelog here:
-      #     # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
-      #     stateVersion = "21.11";
-
-      #     # Optionally use extraSpecialArgs
-      #     # to pass through arguments to home.nix
-      #     extraSpecialArgs = { inherit pkgs-master inputs username; };
-      #   };
-      # }) homeUsers);
     };
 }

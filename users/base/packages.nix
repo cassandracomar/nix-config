@@ -30,6 +30,10 @@
     pkgs-master.ocenaudio
   ];
 
+  home.file.".config/discord/settings.json".text = ''
+    { "SKIP_HOST_UPDATE": true }
+  '';
+
   programs.obs-studio.enable = true;
   services.syncthing.enable = true;
 }
