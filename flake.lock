@@ -478,7 +478,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-NALfO8TDqxggl0rLBFNmGVh/liAiA8E9N5pgOxpRW8k=",
+        "narHash": "sha256-LLUjF7Wj5RWVePCyQljb+0rmpPAX9QTZXJ111CxptAo=",
         "path": "/home/cassandra/.xmonad",
         "type": "path"
       },
