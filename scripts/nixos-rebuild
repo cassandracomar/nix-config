@@ -1,12 +1,45 @@
 #!/usr/bin/env zsh
 
 before=$(realpath "$(which emacs)")
+NR_EXEC=/run/current-system/sw/bin/nixos-rebuild
+CONFIG_FLAKE_PATH=/home/cassandra/src/github.com/cassandracomar/nix-config
+
+emacs_checked_update() {
+    before=$(realpath "$(which emacs)")
+    $*
+
+    if [ "$(realpath $(which emacs))" != "$before" ]; then
+        echo "emacs changed. invoking native compilation rebuild."
+        ~/.emacs.d/bin/doom build
+    fi
+}
+
 echo "invoking nixos-rebuild"
 
-sudo nix flake update /etc/nixos
-sudo /run/current-system/sw/bin/nixos-rebuild $*
+case $1 in
+    test)
+        sudo $NR_EXEC --override-input nix-config "path:$CONFIG_FLAKE_PATH" $*
+        ;;
+    upgrade)
+        shift
+        case $1 in
+            --all)
+                shift
+                echo "updating all flake inputs: $CONFIG_FLAKE_PATH"
+                nix flake update $CONFIG_FLAKE_PATH --commit-lock-file
+                ;;
+            *)
+                echo "updating flake inputs: $CONFIG_FLAKE_PATH/nixpkgs"
+                nix flake lock $CONFIG_FLAKE_PATH --update-input nixpkgs --commit-lock-file
+                ;;
+        esac
 
-if [ "$(realpath $(which emacs))" != "$before" ]; then
-    echo "emacs changed. invoking native compilation rebuild."
-    ~/.emacs.d/bin/doom build
-fi
+        cd $CONFIG_FLAKE_PATH
+        git push
+        sudo nix flake update /etc/nixos
+        emacs_checked_update sudo $NR_EXEC switch $*
+        ;;
+    *)
+        emacs_checked_update sudo $NR_EXEC $*
+        ;;
+esac
