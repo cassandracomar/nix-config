@@ -2,10 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }: {
+{ pkgs, pkgs-master, ... }: {
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs-master.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';

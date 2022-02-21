@@ -5,6 +5,7 @@
     "path:/home/cassandra/src/github.com/nixos/nixpkgs";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.xmonad-personal.url = "path:/home/cassandra/.xmonad";
 
   # overlays
   inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
@@ -12,8 +13,8 @@
   inputs.rust.url = "github:oxalica/rust-overlay";
   inputs.nur.url = "github:nix-community/NUR";
 
-  outputs = { self, nixpkgs, nixpkgs-master, home-manager, mozilla, emacs, rust
-    , nur }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-master, home-manager, xmonad-personal
+    , mozilla, emacs, rust, nur }@inputs:
     let
       hosts = [ "cherry" "walnut" ];
       homeUsers = [ "cassandra" ];
@@ -78,7 +79,13 @@
               home-manager.users = pkgs.lib.listToAttrs (map (username: {
                 name = username;
                 value = {
-                  imports = [ (import ./user.nix { inherit username; }) ];
+                  imports = [
+                    (import ./user.nix { inherit username; })
+                    ({ pkgs, ... }: {
+                      home.packages =
+                        [ xmonad-personal.defaultPackage.${system} ];
+                    })
+                  ];
                 };
               }) homeUsers);
               home-manager.extraSpecialArgs = { inherit pkgs-master host; };
