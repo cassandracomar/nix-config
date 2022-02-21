@@ -85,11 +85,11 @@
     },
     "emacs": {
       "locked": {
-        "lastModified": 1645414132,
-        "narHash": "sha256-kgdu1X3gRhCP1xCAAKU0G4mxOSP5DmT5g0GYWN1LewI=",
+        "lastModified": 1645469527,
+        "narHash": "sha256-4/IIqR8YaXsZrjujgg4Uwq+5fR3IfgfcUFL6fZSWZRc=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "1a2382410521ef30343c5e7fca090517691883c4",
+        "rev": "cf0c80474bcb44955ee0bb999526de4b2b1fed13",
         "type": "github"
       },
       "original": {
@@ -252,11 +252,11 @@
     },
     "mozilla": {
       "locked": {
-        "lastModified": 1643634764,
-        "narHash": "sha256-EcFlgzZnZSHwZixELYV1pa267t+u5mCeLhSNBeAA/+c=",
+        "lastModified": 1645464064,
+        "narHash": "sha256-YeN4bpPvHkVOpQzb8APTAfE7/R+MFMwJUMkqmfvytSk=",
         "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
-        "rev": "f233fdc4ff6ba2ffeb1e3e3cd6d63bb1297d6996",
+        "rev": "15b7a05f20aab51c4ffbefddb1b448e862dccb7d",
         "type": "github"
       },
       "original": {
@@ -390,11 +390,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1645416458,
-        "narHash": "sha256-XtVCfvqHBntXbfdeURdjvvDsrCf0KysGtzpdrCdzpVY=",
+        "lastModified": 1645465750,
+        "narHash": "sha256-HSRicJtr8TNpBjgUJqosAqndB4jzb68WS2qHccAbMro=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f9465d5c53b3082f162eeefb6d70b64cd9051787",
+        "rev": "fb41f7b358548448ccf9046e6c15ac12e9cd3820",
         "type": "github"
       },
       "original": {
@@ -478,7 +478,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-UYFx4gkg0EHGkmzJEm7ljOfV7zgUIBTX+IjCfcwhDAc=",
+        "narHash": "sha256-CogTeubR35b6yqYHWXOlQEKe+bf4Hc2lrbolZk/5LEM=",
         "path": "/home/cassandra/.xmonad",
         "type": "path"
       },
