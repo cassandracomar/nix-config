@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 
@@ -40,12 +40,12 @@
 
   programs.bash.enable = true;
   programs.bash.initExtra = ''
-    export XDG_DATA_DIRS=$HOME/.nix-profile/share:$XDG_DATA_DIRS
-    source $HOME/.nix-profile/etc/profile.d/bash_completion.sh
-    source ${pkgs.bashCompletion}/share/bash-completion/bash_completion
-    source ${pkgs.nix-bash-completions}/share/bash-completion/completions/*
-    source ${pkgs.git}/share/git/contrib/completion/git-completion.bash
-    source $HOME/.nix-profile/share/bash-completion/completions/*
-    source $HOME/.bash_completion
+    export XDG_DATA_DIRS=${config.home.profileDirectory}/share:$XDG_DATA_DIRS
+    . ${pkgs.bashCompletion}/share/bash-completion/bash_completion
+    . ${pkgs.git}/share/git/contrib/completion/git-completion.bash
+    for c in ${config.home.profileDirectory}/share/bash-completion/completions/*; do
+      . $c
+    done
+    . $HOME/.bash_completion
   '';
 }

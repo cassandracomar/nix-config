@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 before=$(realpath "$(which emacs)")
 NR_EXEC=/run/current-system/sw/bin/nixos-rebuild
