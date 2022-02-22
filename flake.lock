@@ -85,11 +85,11 @@
     },
     "emacs": {
       "locked": {
-        "lastModified": 1645469527,
-        "narHash": "sha256-4/IIqR8YaXsZrjujgg4Uwq+5fR3IfgfcUFL6fZSWZRc=",
+        "lastModified": 1645556069,
+        "narHash": "sha256-ccuvawvKD3iN3YWE1QycoTtVAF4HgNwEc6HAtvjI3YI=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "cf0c80474bcb44955ee0bb999526de4b2b1fed13",
+        "rev": "3b8b7e3a1bf5b36fe87dbdfe58490bf0f939be01",
         "type": "github"
       },
       "original": {
@@ -221,11 +221,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645244400,
-        "narHash": "sha256-o7KCd6ySFZ9/LbS62aTeuFmBWtP7Tt3Q3RcNjYgTgZU=",
+        "lastModified": 1645557328,
+        "narHash": "sha256-7PCAESO8HxuSk1hH1J2ld+kK6fugFqNd+vqIXSGz1ag=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0232fe1b75e6d7864fd82b5c72f6646f87838fc3",
+        "rev": "838d40d61a91e3807836545c4b420572ab2d62eb",
         "type": "github"
       },
       "original": {
@@ -390,11 +390,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1645465750,
-        "narHash": "sha256-HSRicJtr8TNpBjgUJqosAqndB4jzb68WS2qHccAbMro=",
+        "lastModified": 1645558094,
+        "narHash": "sha256-zRntYc2Dvhpi6SLNYpH202QWJGRn0hm5P3VEQjMc/kM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "fb41f7b358548448ccf9046e6c15ac12e9cd3820",
+        "rev": "76221317d154d6ff9046f3a47662f5852a1a9e9a",
         "type": "github"
       },
       "original": {
@@ -438,11 +438,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1645409726,
-        "narHash": "sha256-rji0+Ii6WpBB8VCPh3siV/MFfaSiksNbDHOE1DHcHCA=",
+        "lastModified": 1645496130,
+        "narHash": "sha256-yMaRLy1n940QM12IJp0dDuD6unsFvRNLqZ36q+sZXRQ=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "d12fa61b3991d332d3b18ccb20a27d5e473f876e",
+        "rev": "84cf30277b2685efc762e4f069eeb46cf6422904",
         "type": "github"
       },
       "original": {
@@ -478,7 +478,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-CogTeubR35b6yqYHWXOlQEKe+bf4Hc2lrbolZk/5LEM=",
+        "narHash": "sha256-UYFx4gkg0EHGkmzJEm7ljOfV7zgUIBTX+IjCfcwhDAc=",
         "path": "/home/cassandra/.xmonad",
         "type": "path"
       },
