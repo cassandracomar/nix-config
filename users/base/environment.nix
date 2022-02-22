@@ -11,7 +11,7 @@
   home.sessionVariables.XDG_DATA_DIRS =
     "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
   home.sessionVariables.PATH =
-    "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.krew/bin:$PATH";
+    "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.emacs.d/bin:$HOME/.krew/bin:$PATH";
   home.sessionVariables.GDK_SCALE = "2";
   home.sessionVariables.GDK_DPI_SCALE = "0.5";
 
