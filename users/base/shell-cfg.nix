@@ -41,7 +41,7 @@
   programs.bash.enable = true;
   programs.bash.initExtra = ''
     export XDG_DATA_DIRS=${config.home.profileDirectory}/share:$XDG_DATA_DIRS
-    . ${pkgs.bashCompletion}/share/bash-completion/bash_completion
+    . ${pkgs.bash-completion}/share/bash-completion/bash_completion
     . ${pkgs.git}/share/git/contrib/completion/git-completion.bash
     for c in ${config.home.profileDirectory}/share/bash-completion/completions/*; do
       . $c
