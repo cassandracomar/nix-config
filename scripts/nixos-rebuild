@@ -40,6 +40,7 @@ case $1 in
         emacs_checked_update sudo $NR_EXEC switch $*
         ;;
     *)
+        sudo nix flake update /etc/nixos
         emacs_checked_update sudo $NR_EXEC $*
         ;;
 esac
