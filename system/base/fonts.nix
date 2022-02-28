@@ -47,7 +47,7 @@ in {
       proggyfonts
       arphic-ukai
       arphic-uming
-      font-awesome-ttf
+      font-awesome
       noto-fonts-extra
       source-han-sans-japanese
       source-han-sans-korean
