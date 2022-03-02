@@ -85,11 +85,11 @@
     },
     "emacs": {
       "locked": {
-        "lastModified": 1646068080,
-        "narHash": "sha256-brMfsZk9sC/G9/EvS4IzorjrLsXdvF4NqRvIMy9vjyk=",
+        "lastModified": 1646211794,
+        "narHash": "sha256-We+AHvwxPTri32DFlhz7CgGKV4gpIIVrmjluOOPi+Xk=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "a85d1507551a1bcff4f6178e323d55deb7ee4129",
+        "rev": "a406cd4b91fda99b3f01820434d3e0e46ec5903d",
         "type": "github"
       },
       "original": {
@@ -390,11 +390,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1646051576,
-        "narHash": "sha256-BYztvHhZLnyM6ZzcCutJO+qHJV/O8hMtW12hxz85R+Q=",
+        "lastModified": 1646232638,
+        "narHash": "sha256-gwoo6qTYv40KlqSxSP3rDcer6nE/rXET22SaQJgZi9o=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "aa08f16299a51b6b971459a82f13f7455d0a0035",
+        "rev": "5d3fb922b461e9a9123334e71a0449ba359c6f75",
         "type": "github"
       },
       "original": {
@@ -438,11 +438,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1646014761,
-        "narHash": "sha256-HdXvdU+wV+E1nNzG2vaQsUuBJQID3AB3BX88N8lA37M=",
+        "lastModified": 1646187864,
+        "narHash": "sha256-mGO/X5IHUNdh50aw/2zuPDiXEFbf+HHryK8bIODPpyo=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "c7d9566796b3ad5b257e187e1628488c7429b89e",
+        "rev": "90a7228c33be0ef7f8a10fafa83ced9aaa09afa4",
         "type": "github"
       },
       "original": {
@@ -478,7 +478,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-UYFx4gkg0EHGkmzJEm7ljOfV7zgUIBTX+IjCfcwhDAc=",
+        "narHash": "sha256-NvgfBBukaMACFCVJLyxYlxr8v4zvdRWI3wdmn86G6eM=",
         "path": "/home/cassandra/.xmonad",
         "type": "path"
       },
