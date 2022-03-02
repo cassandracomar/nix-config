@@ -347,7 +347,7 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "narHash": "sha256-8w7DgnTHkJJ5c66GceK4PkVfk9Vd7zNfM9w6UfOtXDc=",
+        "narHash": "sha256-H9HUJI+rjbFAIn2QG9GjEqiO3jHEOtXoyWwXYj8uOeo=",
         "path": "/home/cassandra/src/github.com/nixos/nixpkgs",
         "type": "path"
       },
@@ -478,7 +478,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-NvgfBBukaMACFCVJLyxYlxr8v4zvdRWI3wdmn86G6eM=",
+        "narHash": "sha256-rUslIfQFKSbAfzVlE0LCldYLSYMJlAXETv4TlJkb3vE=",
         "path": "/home/cassandra/.xmonad",
         "type": "path"
       },
