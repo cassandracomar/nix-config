@@ -31,6 +31,7 @@
     };
     dhcpcd.enable = false;
   };
+  # services.headscale.enable = true;
 
   # set up anonymized and encrypted DNS
   services.dnscrypt-proxy2 = {

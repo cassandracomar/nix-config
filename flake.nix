@@ -13,8 +13,12 @@
   inputs.rust.url = "github:oxalica/rust-overlay";
   inputs.nur.url = "github:nix-community/NUR";
 
+  # overrides via overlay
+  inputs.nix-direnv.url = "github:nix-community/nix-direnv";
+  inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs = { self, nixpkgs, nixpkgs-master, home-manager, xmonad-personal
-    , mozilla, emacs, rust, nur }@inputs:
+    , mozilla, emacs, rust, nur, nix-direnv }@inputs:
     let
       hosts = [ "cherry" "walnut" ];
       homeUsers = [ "cassandra" ];
@@ -32,14 +36,10 @@
               ++ [ self.python3Packages.pycryptodome ];
           });
 
-          # discord = super.discord.overrideAttrs (_: {
-          #   src = builtins.fetchTarball {
-          #     url =
-          #       "https://discord.com/api/download?platform=linux&format=tar.gz";
-          #     sha256 =
-          #       "sha256:0hdgif8jpp5pz2c8lxas88ix7mywghdf9c9fn95n0dwf8g1c1xbb";
-          #   };
-          # });
+          nix-direnv = nix-direnv.defaultPackage.${system};
+          vcluster =
+            import ./packages/vcluster.nix { inherit (self) fetchurl stdenv; };
+
         })
       ];
 
@@ -74,6 +74,7 @@
       base-modules = [ kernel ./system/base ];
 
     in {
+      packages.${system} = pkgs;
       nixosConfigurations = pkgs.lib.listToAttrs (map (host: {
         name = host;
         value = nixpkgs.lib.nixosSystem {

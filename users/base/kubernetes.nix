@@ -19,5 +19,6 @@
     awscli2
     vault
     istioctl
+    vcluster
   ];
 }
