@@ -28,6 +28,7 @@
     evtest
     audacity
     pkgs-master.ocenaudio
+    android-studio
   ];
 
   home.file.".config/discord/settings.json".text = ''

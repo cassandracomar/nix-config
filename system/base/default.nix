@@ -32,6 +32,13 @@
     ./x11.nix
   ];
 
+  security.wrappers.hcitool = {
+    source = "${pkgs.bluez}/bin/hcitool";
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_raw,cap_net_admin+eip";
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
