@@ -34,8 +34,4 @@
   networking.hostId = "c667a86a";
   networking.interfaces.wlp2s0.useDHCP = true;
 
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
-  '';
-
 }

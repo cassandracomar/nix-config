@@ -34,6 +34,10 @@ in {
     };
   };
 
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
+  '';
+
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
     hardware.nvidia = {
@@ -41,6 +45,7 @@ in {
       prime.sync.enable = lib.mkForce true;
       powerManagement.enable = lib.mkForce false;
       powerManagement.finegrained = lib.mkForce false;
+      services.xserver.displayManager.sessionCommands = lib.mkForce "";
     };
   };
 }
