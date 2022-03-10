@@ -37,6 +37,9 @@ in {
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
   '';
+  services.xserver.drivers.amdgpu.driverSection = ''
+    BusID "PCI:5:0:0"
+  '';
 
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
@@ -46,6 +49,14 @@ in {
       powerManagement.enable = lib.mkForce false;
       powerManagement.finegrained = lib.mkForce false;
     };
-    services.xserver.displayManager.sessionCommands = lib.mkForce "";
+    hardware.opengl = {
+      package = lib.mkForce pkgs.mesa.drivers;
+      package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
+      extraPackages = [ (pkgs.hiPrio config.hardware.nvidia.package.out) ];
+      extraPackages32 = [ (pkgs.hiPrio config.hardware.nvidia.package.lib32) ];
+    };
+    services.xserver.displayManager.sessionCommands = lib.mkForce ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource "Unknown AMD Radeon GPU @ pci:0000:05:00.0" NVIDIA-0
+    '';
   };
 }
