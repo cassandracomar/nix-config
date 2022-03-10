@@ -37,9 +37,31 @@ in {
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
   '';
-  services.xserver.drivers.amdgpu.driverSection = ''
-    BusID "PCI:5:0:0"
-  '';
+  services.xserver.drivers = [
+    {
+      name = "amdgpu";
+      display = config.hardware.nvidia.prime.offload.enable;
+      modules = [ pkgs.xorg.xf86videoamdgpu ];
+      deviceSection = ''
+        BusID "${config.hardware.nvidia.prime.amdgpuBusId}"
+      '';
+    }
+    {
+      name = "nvidia";
+      modules = [ config.hardware.nvidia.package.bin ];
+      display = !config.hardware.nvidia.prime.offload.enable;
+      deviceSection = ''
+        BusID "${config.hardware.nvidia.prime.nvidiaBusId}"
+        ${lib.optionalString config.hardware.nvidia.powerManagement.finegrained
+        ''Option "NVreg_DynamicPowerManagement=0x02"''}
+      '';
+      screenSection = ''
+        Option "RandRRotation" "on"
+        ${lib.optionalString config.hardware.nvidia.prime.sync.enable
+        ''Option "AllowEmptyInitialConfiguration"''}
+      '';
+    }
+  ];
 
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
