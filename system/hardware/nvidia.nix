@@ -45,7 +45,7 @@ in {
       prime.sync.enable = lib.mkForce true;
       powerManagement.enable = lib.mkForce false;
       powerManagement.finegrained = lib.mkForce false;
-      services.xserver.displayManager.sessionCommands = lib.mkForce "";
     };
+    services.xserver.displayManager.sessionCommands = lib.mkForce "";
   };
 }
