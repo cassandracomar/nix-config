@@ -12,7 +12,7 @@ in {
   environment.systemPackages = [ nvidia-offload ];
   boot.kernelParams = [
     "nvidia.NVreg_DynamicPowerManagement=0x02"
-    "nvidia.NVreg_EnableBacklightHandler=0"
+    # "nvidia.NVreg_EnableBacklightHandler=0"
   ];
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
@@ -31,6 +31,16 @@ in {
 
       # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
       nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
+  specialisation.nvida-sync.configuration = {
+    system.nixos.tags = [ "nvidia-sync" ];
+    hardware.nvidia = {
+      prime.offload.enable = lib.mkForce false;
+      prime.sync.enable = lib.mkForce true;
+      powerManagement.enable = lib.mkForce false;
+      powerManagement.finegrained = lib.mkForce false;
     };
   };
 }
