@@ -80,7 +80,9 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs-master.firefox-nightly-bin;
+    package = pkgs-master.firefox-nightly-bin.override {
+      extraPolicies = { DisableAppUpdate = true; };
+    };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       reddit-enhancement-suite
       https-everywhere
