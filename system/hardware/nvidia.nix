@@ -29,7 +29,7 @@ in {
     };
   };
 
-  services.xserver.displayManager.sessionCommands = ''
+  services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
   '';
 
@@ -44,16 +44,8 @@ in {
     };
 
     hardware.opengl = {
-      package = lib.mkForce pkgs.mesa.drivers;
-      package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
-      extraPackages = with pkgs;
-        [ (pkgs.hiPrio config.hardware.nvidia.package.out) ];
-      extraPackages32 = with pkgs.pkgsi686Linux;
-        [ (pkgs.hiPrio config.hardware.nvidia.package.lib32) ];
+      extraPackages = with pkgs; [ mesa.drivers ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ mesa.drivers ];
     };
-
-    services.xserver.displayManager.setupCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource "Unknown AMD Radeon GPU @ pci:0000:05:00.0" NVIDIA-0
-    '';
   };
 }
