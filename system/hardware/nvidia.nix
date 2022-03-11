@@ -33,64 +33,24 @@ in {
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
   '';
-  services.xserver.drivers = [
-    {
-      name = "amdgpu";
-      display = config.hardware.nvidia.prime.offload.enable;
-      modules = [ pkgs.xorg.xf86videoamdgpu ];
-      deviceSection = ''
-        BusID "${config.hardware.nvidia.prime.amdgpuBusId}"
-      '';
-    }
-    {
-      name = "nvidia";
-      modules = [ config.hardware.nvidia.package.bin ];
-      display = !config.hardware.nvidia.prime.offload.enable;
-      deviceSection = ''
-        BusID "${config.hardware.nvidia.prime.nvidiaBusId}"
-        ${lib.optionalString config.hardware.nvidia.powerManagement.finegrained
-        ''Option "NVreg_DynamicPowerManagement=0x02"''}
-      '';
-      screenSection = ''
-        Option "RandRRotation" "on"
-        ${lib.optionalString config.hardware.nvidia.prime.sync.enable
-        ''Option "AllowEmptyInitialConfiguration"''}
-      '';
-    }
-  ];
-  hardware.opengl = {
-    # package = lib.mkForce pkgs.mesa.drivers;
-    # package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
-    extraPackages = with pkgs; [
-      (pkgs.hiPrio config.hardware.nvidia.package.out)
-      libvdpau-va-gl
-      vaapiVdpau
-      pipewire
-      pulseaudioFull
-      libva-utils
-    ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      (pkgs.hiPrio config.hardware.nvidia.package.lib32)
-      libvdpau-va-gl
-      vaapiVdpau
-      pipewire
-      pulseaudioFull
-      libva-utils
-    ];
-  };
 
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
 
-    services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
+    services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       prime.offload.enable = lib.mkForce false;
       prime.sync.enable = lib.mkForce true;
       powerManagement.enable = lib.mkForce false;
       powerManagement.finegrained = lib.mkForce false;
     };
-    services.xserver.displayManager.sessionCommands = lib.mkForce ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource "Unknown AMD Radeon GPU @ pci:0000:05:00.0" NVIDIA-0
-    '';
+    hardware.opengl = {
+      package = lib.mkForce pkgs.mesa.drivers;
+      package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
+      extraPackages = with pkgs;
+        [ (pkgs.hiPrio config.hardware.nvidia.package.out) ];
+      extraPackages32 = with pkgs.pkgsi686Linux;
+        [ (pkgs.hiPrio config.hardware.nvidia.package.lib32) ];
+    };
   };
 }
