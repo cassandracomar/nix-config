@@ -63,8 +63,8 @@ in {
     }
   ];
   hardware.opengl = {
-    package = lib.mkForce pkgs.mesa.drivers;
-    package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
+    # package = lib.mkForce pkgs.mesa.drivers;
+    # package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
     extraPackages = with pkgs; [
       (pkgs.hiPrio config.hardware.nvidia.package.out)
       libvdpau-va-gl
