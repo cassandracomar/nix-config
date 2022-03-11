@@ -52,5 +52,28 @@ in {
       extraPackages32 = with pkgs.pkgsi686Linux;
         [ (pkgs.hiPrio config.hardware.nvidia.package.lib32) ];
     };
+
+    services.xserver.drivers = [
+      {
+        name = "amdgpu";
+        display = false;
+        modules = [ pkgs.xorg.xf86videoamdgpu ];
+        deviceSection = ''
+          BusID "${config.hardware.nvidia.prime.amdgpuBusId}"
+        '';
+      }
+      {
+        name = "nvidia";
+        modules = [ config.hardware.nvidia.package.bin ];
+        display = true;
+        deviceSection = ''
+          BusID "${config.hardware.nvidia.prime.nvidiaBusId}"
+        '';
+        screenSection = ''
+          Option "RandRRotation" "on"
+          Option "AllowEmptyInitialConfiguration"
+        '';
+      }
+    ];
   };
 }
