@@ -36,20 +36,24 @@ in {
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
 
-    services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       prime.offload.enable = lib.mkForce false;
       prime.sync.enable = lib.mkForce true;
       powerManagement.enable = lib.mkForce false;
       powerManagement.finegrained = lib.mkForce false;
     };
+
     hardware.opengl = {
-      package = lib.mkForce (pkgs.hiPrio config.hardware.nvidia.package.out);
-      package32 =
-        lib.mkForce (pkgs.hiPrio config.hardware.nvidia.package.lib32);
-      extraPackages = with pkgs; [ pkgs.mesa.drivers ];
+      package = lib.mkForce pkgs.mesa.drivers;
+      package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
+      extraPackages = with pkgs;
+        [ (pkgs.hiPrio config.hardware.nvidia.package.out) ];
       extraPackages32 = with pkgs.pkgsi686Linux;
-        [ pkgs.pkgsi686Linux.mesa.drivers ];
+        [ (pkgs.hiPrio config.hardware.nvidia.package.lib32) ];
     };
+
+    services.xserver.displayManager.setupCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource "Unknown AMD Radeon GPU @ pci:0000:05:00.0" NVIDIA-0
+    '';
   };
 }
