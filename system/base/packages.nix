@@ -48,4 +48,5 @@
   programs.adb.enable = true;
 
   programs.steam.enable = true;
+  hardware.steam-hardware.enable = true;
 }
