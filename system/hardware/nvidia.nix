@@ -10,10 +10,6 @@ let
   '';
 in {
   environment.systemPackages = [ nvidia-offload ];
-  boot.kernelParams = [
-    "nvidia.NVreg_DynamicPowerManagement=0x02"
-    # "nvidia.NVreg_EnableBacklightHandler=0"
-  ];
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
