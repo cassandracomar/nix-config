@@ -81,6 +81,8 @@ in {
 
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
+
+    services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
     hardware.nvidia = {
       prime.offload.enable = lib.mkForce false;
       prime.sync.enable = lib.mkForce true;
