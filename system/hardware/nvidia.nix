@@ -33,6 +33,11 @@ in {
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 "Unknown AMD Radeon GPU @ pci:0000:05:00.0"
   '';
 
+  hardware.opengl = {
+    extraPackages = with pkgs; [ libglvnd ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [ libglvnd ];
+  };
+
   specialisation.nvida-sync.configuration = {
     system.nixos.tags = [ "nvidia-sync" ];
 
