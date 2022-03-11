@@ -20,7 +20,6 @@ in {
     modesetting.enable = true;
     prime = {
       offload.enable = true;
-      # sync.enable = true;
 
       # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
       amdgpuBusId = "PCI:5:0:0";
@@ -45,35 +44,12 @@ in {
       powerManagement.finegrained = lib.mkForce false;
     };
     hardware.opengl = {
-      package = lib.mkForce pkgs.mesa.drivers;
-      package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
-      extraPackages = with pkgs;
-        [ (pkgs.hiPrio config.hardware.nvidia.package.out) ];
+      package = lib.mkForce (pkgs.hiPrio config.hardware.nvidia.package.out);
+      package32 =
+        lib.mkForce (pkgs.hiPrio config.hardware.nvidia.package.lib32);
+      extraPackages = with pkgs; [ pkgs.mesa.drivers ];
       extraPackages32 = with pkgs.pkgsi686Linux;
-        [ (pkgs.hiPrio config.hardware.nvidia.package.lib32) ];
+        [ pkgs.pkgsi686Linux.mesa.drivers ];
     };
-
-    services.xserver.drivers = [
-      {
-        name = "amdgpu";
-        display = false;
-        modules = [ pkgs.xorg.xf86videoamdgpu ];
-        deviceSection = ''
-          BusID "${config.hardware.nvidia.prime.amdgpuBusId}"
-        '';
-      }
-      {
-        name = "nvidia";
-        modules = [ config.hardware.nvidia.package.bin ];
-        display = true;
-        deviceSection = ''
-          BusID "${config.hardware.nvidia.prime.nvidiaBusId}"
-        '';
-        screenSection = ''
-          Option "RandRRotation" "on"
-          Option "AllowEmptyInitialConfiguration"
-        '';
-      }
-    ];
   };
 }
