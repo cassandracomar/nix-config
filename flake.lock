@@ -383,7 +383,7 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "narHash": "sha256-SlQtWvQo/kWybABBRR9kOPgD2BwRjBxAYD5NkxN213w=",
+        "narHash": "sha256-0zkonGpuWujMXrBgX/D2SlA6I9Ue6+UHKvg0CwlVV9c=",
         "path": "/home/cassandra/src/github.com/nixos/nixpkgs",
         "type": "path"
       },
