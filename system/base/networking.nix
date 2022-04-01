@@ -15,8 +15,8 @@
   #networking.interfaces.vethc1c7b69.useDHCP = true;
   networking = {
     nameservers = [ # "172.20.0.1"
-      "::1"
       "127.0.0.1"
+      "::1"
     ];
     resolvconf.enable = pkgs.lib.mkForce false;
     resolvconf.useLocalResolver = true;
@@ -25,8 +25,8 @@
       enable = true;
       dns = "none";
       insertNameservers = [ # "172.20.0.1"
-        "::1"
         "127.0.0.1"
+        "::1"
       ];
     };
     dhcpcd.enable = false;
