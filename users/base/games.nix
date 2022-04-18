@@ -2,7 +2,6 @@
 
 {
   home.packages = with pkgs; [
-
     wineWowPackages.stable
     winetricks
     lutris
@@ -10,6 +9,7 @@
     virt-viewer
     chessx
     stockfish
-    retroarchFull
+    retroarchFull.overrideAttrs
+    (old: { cores = with libretro; (lib.remove dosbox old.cores); })
   ];
 }
