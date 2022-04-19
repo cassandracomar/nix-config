@@ -14,9 +14,9 @@ in {
     cargo-web
     rustfmt
     gdb
-    llvmPackages_11.llvm
-    llvmPackages_11.bintools
-    llvmPackages_11.lld
-    llvmPackages_11.clang
+    # llvmPackages_11.llvm
+    # llvmPackages_11.bintools
+    # llvmPackages_11.lld
+    # llvmPackages_11.clang
   ];
 }
