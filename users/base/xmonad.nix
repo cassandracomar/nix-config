@@ -22,6 +22,8 @@
     pinta
   ];
 
+  home.pointerCursor.package = pkgs.vanilla-dmz;
+  home.pointerCursor.name = "Vanilla-DMZ";
   xsession = {
     enable = true;
     windowManager = {
@@ -30,8 +32,6 @@
         enableContribAndExtras = true;
       };
     };
-    pointerCursor.package = pkgs.vanilla-dmz;
-    pointerCursor.name = "Vanilla-DMZ";
     initExtra = ''
       ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
       cbatticon &

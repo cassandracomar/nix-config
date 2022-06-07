@@ -5,8 +5,10 @@
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
   home.sessionVariables.MOZ_ACCELERATED = "1";
   home.sessionVariables.MOZ_WEBRENDER = "1";
-  home.sessionVariables.EDITOR = "${pkgs.emacsPgtkGcc}/bin/emacsclient -t";
-  home.sessionVariables.VISUAL = "${pkgs.emacsPgtkGcc}/bin/emacsclient -c";
+  home.sessionVariables.EDITOR =
+    "${pkgs.emacsPgtkNativeComp}/bin/emacsclient -t";
+  home.sessionVariables.VISUAL =
+    "${pkgs.emacsPgtkNativeComp}/bin/emacsclient -c";
   home.sessionVariables.ALTERNATE = "vim";
   home.sessionVariables.XDG_DATA_DIRS =
     "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
