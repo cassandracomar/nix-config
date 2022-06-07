@@ -420,7 +420,7 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1654633652,
+        "lastModified": 1654635252,
         "narHash": "sha256-l1+k4ocEy89i5UwXNwYsUwTvgbHkDirXD2vcZuEOEc0=",
         "path": "/home/cassandra/src/github.com/nixos/nixpkgs",
         "type": "path"
