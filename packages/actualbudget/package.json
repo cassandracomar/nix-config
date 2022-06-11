@@ -1,0 +1,5 @@
+[
+    { "node2nix": "svanderburg/node2nix.git" },
+    {"actualbudget-server": "file:/home/cassandra/src/github.com/actualbudget/actual-server-fork"},
+    {"actualbudget": "actualbudget/actual"}
+]

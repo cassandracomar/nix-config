@@ -41,6 +41,11 @@
             import ./packages/vcluster.nix { inherit (self) fetchurl stdenv; };
 
         })
+        (self: super:
+          import ./packages/actualbudget/override.nix {
+            pkgs = self;
+            inherit system;
+          })
       ];
 
       pkgs = (import nixpkgs {
@@ -71,7 +76,7 @@
         boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
       });
 
-      base-modules = [ kernel ./system/base ];
+      base-modules = [ kernel ./modules ./system/base ];
 
     in {
       packages.${system} = pkgs;

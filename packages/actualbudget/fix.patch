@@ -1,0 +1,22 @@
+--- a/package.json
++++ b/package.json
+@@ -12,8 +12,8 @@
+     "verify": "yarn -s lint && yarn types"
+   },
+   "dependencies": {
+-    "@actual-app/api": "file:actual-app-api-4.1.0.tgz",
+-    "@actual-app/web": "file:actual-app-web-4.1.0.tgz",
++    "@actual-app/api": "katrovman/actual-fork",
++    "@actual-app/web": "katrovman/actual-fork",
+     "adm-zip": "^0.5.9",
+     "bcrypt": "^5.0.1",
+     "better-sqlite3": "^7.5.0",
+@@ -24,7 +24,7 @@
+     "express-response-size": "^0.0.3",
+     "node-fetch": "^2.2.0",
+     "plaid": "^7.0.0",
+-    "uuid": "^3.3.2"
++    "uuid": "^3.4.0"
+   },
+   "devDependencies": {
+     "@types/better-sqlite3": "^7.5.0",

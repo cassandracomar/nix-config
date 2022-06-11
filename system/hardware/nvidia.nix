@@ -9,6 +9,8 @@ let
     exec -a "$0" "$@"
   '';
 in {
+  boot.kernelParams =
+    [ "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1" ];
   environment.systemPackages = [ nvidia-offload ];
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
