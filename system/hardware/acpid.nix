@@ -47,7 +47,7 @@
     button-mute = {
       event = "button/mute";
       action = ''
-        ${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@
+        ${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 
         perc=$(${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pamixer}/bin/pamixer --get-volume)
         volume_id='audio-volume-muted-rtl-symbolic.symbolic'
