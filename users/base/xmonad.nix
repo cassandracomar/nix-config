@@ -9,7 +9,11 @@
     cbatticon
     gnome3.adwaita-icon-theme
     qogir-theme
-    scrot
+    maim
+    (writeScriptBin "screenshot" ''
+      #!${bash}/bin/bash
+      ${maim}/bin/maim -s ~/imgs/screenshots/$(date "+%F-%H-%M-%S")_maim.png
+    '')
     ispell
     gnome3.gnome-calculator
     lxappearance
