@@ -616,8 +616,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1655298270,
-        "narHash": "sha256-bvb0u0eAvs79yqSmZFgugZeXN3p0F2T1UqbM0BTfOAo=",
+        "lastModified": 1655568182,
+        "narHash": "sha256-74OerBLiYFALkKDRPR3n6EtnjQ/R21bc7KY3Z/6Y/xM=",
         "path": "/home/cassandra/.xmonad",
         "type": "path"
       },
