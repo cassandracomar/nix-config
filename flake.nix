@@ -1,8 +1,7 @@
 {
   # pkg registries
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.nixpkgs-master.url =
-    "path:/home/cassandra/src/github.com/nixos/nixpkgs";
+  inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "path:/home/cassandra/.xmonad";

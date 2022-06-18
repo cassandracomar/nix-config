@@ -420,14 +420,17 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1655568005,
-        "narHash": "sha256-lP9tLcS1P8hKjye++0vXV4yH0KRU3y5UR8cN3IiiEX8=",
-        "path": "/home/cassandra/src/github.com/nixos/nixpkgs",
-        "type": "path"
+        "lastModified": 1655567982,
+        "narHash": "sha256-GZ4dRwfWRo186Hwsv/vPMySfkI1LoVX4UlHImHxtIS4=",
+        "owner": "cassandracomar",
+        "repo": "nixpkgs",
+        "rev": "283e900054448f370921f090dce52da4dccdaa86",
+        "type": "github"
       },
       "original": {
-        "path": "/home/cassandra/src/github.com/nixos/nixpkgs",
-        "type": "path"
+        "owner": "cassandracomar",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-unstable": {
