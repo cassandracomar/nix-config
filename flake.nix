@@ -68,7 +68,7 @@
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs-master.linuxKernel.packagesFor
-          (pkgs-master.linuxKernel.kernels.linux_xanmod.override {
+          (pkgs-master.linuxKernel.kernels.linux_xanmod_tt.override {
             stdenv = pkgs.clang12Stdenv;
             ignoreConfigErrors = true;
           });
