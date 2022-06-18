@@ -49,8 +49,24 @@
       action = ''
         ${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-        perc=$(${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pamixer}/bin/pamixer --get-volume)
-        volume_id='audio-volume-muted-rtl-symbolic.symbolic'
+        mute=$(${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pamixer}/bin/pamixer --get-mute)
+        volume_id=
+        if [ "$mute" == "true" ]; then
+          volume_id='audio-volume-muted-rtl-symbolic.symbolic'
+        else
+          perc=$(${pkgs.sudo}/bin/sudo -u cassandra XDG_RUNTIME_DIR=/run/user/1000 ${pkgs.pamixer}/bin/pamixer --get-volume)
+          if [ "$perc" -gt 100 ]; then
+            volume_id='audio-volume-overamplified-rtl-symbolic.symbolic'
+          elif [ "$perc" -gt 66 ]; then
+            volume_id='audio-volume-high-rtl-symbolic.symbolic'
+          elif [ "$perc" -gt 33 ]; then
+            volume_id='audio-volume-medium-rtl-symbolic.symbolic'
+          elif [ "$perc" -gt 0 ]; then
+            volume_id='audio-volume-low-rtl-symbolic.symbolic'
+          else
+            volume_id='audio-volume-muted-rtl-symbolic.symbolic'
+          fi
+        fi
         ${pkgs.sudo}/bin/sudo -u cassandra DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus ${pkgs.libnotify}/bin/notify-send " " -i $volume_id -h int:value:$perc -h string:x-canonical-private-synchronous:volume &
       '';
     };
