@@ -2,6 +2,7 @@
   # pkg registries
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
+  inputs.nixpkgs-fork.url = "github:cassandracomar/nixpkgs/feature/xanmod-tt";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "path:/home/cassandra/.xmonad";
@@ -16,8 +17,8 @@
   inputs.nix-direnv.url = "github:nix-community/nix-direnv";
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, nixpkgs-master, home-manager, xmonad-personal
-    , mozilla, emacs, rust, nur, nix-direnv }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-master, nixpkgs-fork, home-manager
+    , xmonad-personal, mozilla, emacs, rust, nur, nix-direnv }@inputs:
     let
       hosts = [ "cherry" "walnut" ];
       homeUsers = [ "cassandra" ];
@@ -64,10 +65,14 @@
         inherit system;
         config.allowUnfree = true;
       });
+      pkgs-fork = (import nixpkgs-fork {
+        inherit system;
+        config.allowUnfree = true;
+      });
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs-master.linuxKernel.packagesFor
-          (pkgs-master.linuxKernel.kernels.linux_xanmod_tt.override {
+          (pkgs-fork.linuxKernel.kernels.linux_xanmod_dev.override {
             stdenv = pkgs.clang12Stdenv;
             ignoreConfigErrors = true;
           });

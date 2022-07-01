@@ -6,7 +6,7 @@
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.useDHCP = false;
+  # networking.useDHCP = false;
   # networking.interfaces.enp0s13f0u1u3.useDHCP = false;
   # networking.interfaces.enp0s13f0u1u3.ipv4.addresses = [{
   #   address = "192.168.1.10";
@@ -29,7 +29,9 @@
         "::1"
       ];
     };
+    useDHCP = false;
     dhcpcd.enable = false;
+    firewall.checkReversePath = "loose";
   };
   # services.headscale.enable = true;
 

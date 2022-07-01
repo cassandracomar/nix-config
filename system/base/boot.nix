@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-master, ... }:
 
 {
   boot.loader = {
@@ -29,4 +29,5 @@
   services.zfs.autoScrub.enable = true;
   services.zfs.autoSnapshot.enable = true;
   boot.zfs.enableUnstable = true;
+  # boot.zfs.package = lib.mkAfter pkgs-master.zfsUnstable;
 }

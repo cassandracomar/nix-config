@@ -418,6 +418,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-fork": {
+      "locked": {
+        "lastModified": 1655575772,
+        "narHash": "sha256-PTiyUQL5N+ytqyvfB5VgcJVWgP9Oe1eIufcqz2gGwbM=",
+        "owner": "cassandracomar",
+        "repo": "nixpkgs",
+        "rev": "86ddf6d85b503dcd49d33bb3935b8a63f549e631",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cassandracomar",
+        "ref": "feature/xanmod-tt",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1655567982,
@@ -552,6 +568,7 @@
         "mozilla": "mozilla",
         "nix-direnv": "nix-direnv",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-fork": "nixpkgs-fork",
         "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "rust": "rust",

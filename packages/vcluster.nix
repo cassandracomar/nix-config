@@ -1,12 +1,12 @@
 { fetchurl, stdenv, ... }:
-let version = "0.6.0";
+let version = "0.7.1";
 in stdenv.mkDerivation {
   inherit version;
   name = "vcluster-bin";
   src = fetchurl {
     url =
       "https://github.com/loft-sh/vcluster/releases/download/v${version}/vcluster-linux-amd64";
-    sha256 = "sha256-5L6Rrfe9sHPGWqRt224f30nS9xvV9y+KqCrXGNePYCw=";
+    sha256 = "sha256-TxIyBrAJkIKms776rGOcfITnpFjTFOezIJWT6V0cYZw=";
   };
   dontUnpack = true;
 
