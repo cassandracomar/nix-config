@@ -27,7 +27,7 @@
       overlays = [
         mozilla.overlay
         emacs.overlay
-        rust.overlay
+        rust.overlays.default
         nur.overlay
         (self: super: {
           calibre = super.calibre.overrideAttrs (oldAttrs: {
