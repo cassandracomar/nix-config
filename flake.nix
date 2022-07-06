@@ -40,6 +40,20 @@
           vcluster =
             import ./packages/vcluster.nix { inherit (self) fetchurl stdenv; };
 
+          binutils_mold = pkgs.wrapBintoolsWith {
+            bintools = pkgs.binutils-unwrapped.overrideAttrs (old: {
+              postInstall = ''
+                rm $out/bin/ld.gold
+                rm $out/bin/ld.bfd
+                ln -sf ${pkgs.mold}/bin/mold $out/bin/ld.bfd
+              '';
+            });
+          };
+
+          stdenv_mold = super.overrideCC super.stdenv (super.wrapCCWith rec {
+            cc = super.gcc-unwrapped;
+            bintools = pkgs.binutils_mold;
+          });
         })
         (self: super:
           import ./packages/actualbudget/override.nix {

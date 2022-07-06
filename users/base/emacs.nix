@@ -13,7 +13,8 @@
     nodePackages.bash-language-server
     yaml-language-server
     nodePackages.dockerfile-language-server-nodejs
-    gcc
+    # gcc
+    stdenv_mold
     gnumake
   ];
 
@@ -27,8 +28,8 @@
         lilypond
         timidity
         sqlite
-        binutils_nogold
-        gcc
+        stdenv_mold
+        # gcc
         gnumake
         epkgs.vterm
         epkgs.sqlite3

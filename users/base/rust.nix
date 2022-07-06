@@ -14,9 +14,12 @@ in {
     cargo-web
     rustfmt
     gdb
-    # llvmPackages_11.llvm
-    # llvmPackages_11.bintools
-    # llvmPackages_11.lld
-    # llvmPackages_11.clang
+    llvmPackages.clang
   ];
+
+  home.file.".cargo/config.toml".text = ''
+    [target.x86_64-unknown-linux-gnu]
+    linker = "clang"
+    rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
+  '';
 }
