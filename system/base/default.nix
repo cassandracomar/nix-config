@@ -21,7 +21,8 @@
 
   system.autoUpgrade = {
     enable = true;
-    flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+    flake = "path:/etc/nixos";
+    flags = [ "--update-input" "nixpkgs" "--update-input" "nix-config" ];
     dates = "daily";
   };
 
