@@ -22,7 +22,8 @@ in {
       };
       Service = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/drata-agent --disable-gpu";
+        ExecStart =
+          "${cfg.package}/bin/drata-agent --disable-gpu --disable-software-rasterizer";
         Restart = "always";
       };
       Install = { WantedBy = [ "graphical-session.target" ]; };
