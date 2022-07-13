@@ -12,6 +12,11 @@
       keep-derivations = true
     '';
     settings = { auto-optimise-store = true; };
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 30d";
+    };
   };
 
   # Set your time zone.

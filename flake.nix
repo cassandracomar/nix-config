@@ -54,11 +54,18 @@
             cc = super.gcc-unwrapped;
             bintools = pkgs.binutils_mold;
           });
+
         })
         (self: super:
           import ./packages/actualbudget/override.nix {
             pkgs = self;
             inherit system;
+          })
+
+        (self: super:
+          import ./packages/drata.nix {
+            inherit (self) lib;
+            pkgs = self;
           })
       ];
 
@@ -121,6 +128,7 @@
                 };
               }) homeUsers);
               home-manager.extraSpecialArgs = { inherit pkgs-master host; };
+              home-manager.sharedModules = [ ./modules/drata.nix ];
             }
           ];
           specialArgs = { inherit pkgs-master inputs; };

@@ -14,7 +14,7 @@ in {
     cargo-web
     rustfmt
     gdb
-    llvmPackages.clang
+    clang
   ];
 
   home.file.".cargo/config.toml".text = ''

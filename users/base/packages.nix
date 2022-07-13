@@ -37,4 +37,5 @@
 
   programs.obs-studio.enable = true;
   services.syncthing.enable = true;
+  services.drata-agent.enable = true;
 }
