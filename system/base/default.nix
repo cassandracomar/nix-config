@@ -19,6 +19,12 @@
     };
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+    dates = "daily";
+  };
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
