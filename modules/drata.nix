@@ -22,11 +22,18 @@ in {
       };
       Service = {
         Type = "simple";
-        ExecStart =
-          "${cfg.package}/bin/drata-agent --disable-gpu --disable-software-rasterizer";
+        ExecStart = "${cfg.package}/bin/drata-agent";
         Restart = "always";
       };
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+    };
+    systemd.user.timers.drata-agent = {
+      Unit = {
+        Description = "delay startup of drata agent";
+        # Requires = [ "tray.target" ];
+        # After = [ "graphical-session-pre.target" "tray.target" ];
+      };
+      Timer = { OnBootSec = "5min"; };
+      Install = { WantedBy = [ "timers.target" ]; };
     };
     home.packages = [ cfg.package ];
   };
