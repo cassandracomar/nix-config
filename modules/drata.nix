@@ -22,7 +22,7 @@ in {
       };
       Service = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/drata-agent";
+        ExecStart = "${cfg.package}/bin/drata-agent --no-gpu";
         Restart = "always";
       };
       Install = { WantedBy = [ "graphical-session.target" ]; };
