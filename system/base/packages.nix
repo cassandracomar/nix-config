@@ -50,6 +50,12 @@
   programs.steam.enable = true;
   hardware.steam-hardware.enable = true;
 
+  # enable antivirus for drata
+  services.clamav = {
+    daemon.enable = true;
+    updater.enable = true;
+  };
+
   # services.actualbudget.enable = true;
 
 }
