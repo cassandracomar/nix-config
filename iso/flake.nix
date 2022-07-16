@@ -1,8 +1,9 @@
 # flake.nix
 {
   description = "custom iso with zfs, etc.";
+  inputs.nix-config.url = "path:..";
   inputs.nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-  outputs = { self, nixos }: {
+  outputs = { self, nixos, nix-config }: {
 
     nixosConfigurations = let
       # Shared base configuration.
@@ -12,7 +13,8 @@
           # Common system modules...
         ];
       };
-    in {
+      hosts = nix-config.nixosConfigurations;
+    in hosts // {
       iso = nixos.lib.nixosSystem {
         inherit (myBase) system;
         modules = myBase.modules ++ [
@@ -20,10 +22,6 @@
           "${nixos}/nixos/modules/installer/cd-dvd/channel.nix"
           ./installer.nix
         ];
-      };
-      install = nixos.lib.nixosSystem {
-        inherit (myBase) system;
-        modules = myBase.modules ++ [{ imports = [ ../configuration.nix ]; }];
       };
     };
   };

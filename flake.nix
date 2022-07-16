@@ -5,7 +5,7 @@
   inputs.nixpkgs-fork.url = "github:cassandracomar/nixpkgs/feature/xanmod-tt";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.xmonad-personal.url = "path:/home/cassandra/.xmonad";
+  inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
 
   # overlays
   inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
