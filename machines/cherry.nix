@@ -10,12 +10,12 @@
   hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" = {
-    device = "ZROOT/root/nixos";
+    device = "ZROOT/encrypted/root/nixos";
     fsType = "zfs";
   };
 
   fileSystems."/home" = {
-    device = "ZROOT/home";
+    device = "ZROOT/encrypted/home";
     fsType = "zfs";
   };
 

@@ -29,6 +29,9 @@
     audacity
     pkgs-master.ocenaudio
     android-studio
+    ffmpeg-full
+    # svt-av1
+    # libopus
   ];
 
   home.file.".config/discord/settings.json".text = ''
