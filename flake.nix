@@ -133,6 +133,15 @@
           ];
           specialArgs = { inherit pkgs-master inputs; };
         };
-      }) hosts);
+      }) hosts) // {
+        iso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+            ./iso/installer.nix
+          ];
+        };
+      };
     };
 }

@@ -585,14 +585,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1657725456,
-        "narHash": "sha256-h/V71VsirM0NEARTbuAaewb3GUKdEkRFmOqnArCi/uM=",
-        "path": "/home/cassandra/.xmonad",
-        "type": "path"
+        "lastModified": 1655568155,
+        "narHash": "sha256-Tds1XQGAheCjWTHXAwFZUcRYXJMnXHXLz3+vMHqbrSg=",
+        "owner": "cassandracomar",
+        "repo": "dotxmonad",
+        "rev": "c29a23da020a823d691b4040299869984d88adf2",
+        "type": "github"
       },
       "original": {
-        "path": "/home/cassandra/.xmonad",
-        "type": "path"
+        "owner": "cassandracomar",
+        "repo": "dotxmonad",
+        "type": "github"
       }
     }
   },

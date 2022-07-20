@@ -29,7 +29,7 @@
     audacity
     pkgs-master.ocenaudio
     android-studio
-    ffmpeg-full
+    # ffmpeg-full
     # svt-av1
     # libopus
   ];
