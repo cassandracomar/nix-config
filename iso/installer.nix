@@ -7,11 +7,8 @@ with lib;
   boot.supportedFilesystems =
     [ "zfs" "f2fs" "ext4" "xfs" "cifs" "vfat" "ntfs" ];
   boot.zfs.enableUnstable = true;
-  boot.kernelModules = [ "rtw89pci" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    acpi_call
-    rtw89
-  ];
+  # boot.kernelModules = [ "rtw89pci" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   hardware.wirelessRegulatoryDatabase = true;
@@ -52,5 +49,5 @@ with lib;
     %wheel	ALL=(ALL:ALL)	NOPASSWD:	ALL
   '';
   users.users.root = { shell = pkgs.zsh; };
-  nix.trustedUsers = [ "root" ];
+  nix.settings.trusted-users = [ "root" ];
 }
