@@ -14,7 +14,7 @@
     yaml-language-server
     nodePackages.dockerfile-language-server-nodejs
     # gcc
-    stdenv_mold
+    # stdenv_mold
     gnumake
   ];
 
