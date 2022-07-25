@@ -75,5 +75,10 @@
     };
   };
 
+  # services.betterlockscreen = {
+  #   enable = true;
+  #   inactiveInterval = 15;
+  # };
+
   programs.zathura = { enable = true; };
 }
