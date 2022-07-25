@@ -2,7 +2,6 @@
   # pkg registries
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
-  inputs.nixpkgs-fork.url = "github:cassandracomar/nixpkgs/feature/xanmod-tt";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
@@ -93,7 +92,7 @@
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs-master.linuxKernel.packagesFor
-          (pkgs-fork.linuxKernel.kernels.linux_xanmod_tt.override {
+          (pkgs-master.linuxKernel.kernels.linux_xanmod_tt.override {
             stdenv = pkgs.clang12Stdenv;
             ignoreConfigErrors = true;
           });
