@@ -16,8 +16,8 @@
   inputs.nix-direnv.url = "github:nix-community/nix-direnv";
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, nixpkgs-master, nixpkgs-fork, home-manager
-    , xmonad-personal, mozilla, emacs, rust, nur, nix-direnv }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-master, home-manager, xmonad-personal
+    , mozilla, emacs, rust, nur, nix-direnv }@inputs:
     let
       hosts = [ "cherry" "walnut" ];
       homeUsers = [ "cassandra" ];
@@ -82,10 +82,6 @@
           };
       });
       pkgs-master = (import nixpkgs-master {
-        inherit system;
-        config.allowUnfree = true;
-      });
-      pkgs-fork = (import nixpkgs-fork {
         inherit system;
         config.allowUnfree = true;
       });
