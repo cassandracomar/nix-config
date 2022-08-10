@@ -401,11 +401,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1660147546,
-        "narHash": "sha256-ESp9Lwvjltmbp8mWkfIXmDrtDYEH0ExNIcPJtlwbYZk=",
+        "lastModified": 1660160701,
+        "narHash": "sha256-F3+kYGfukDAtLiu2SUgkD88LUbhbtesymXmWz+xKXlk=",
         "owner": "cassandracomar",
         "repo": "nixpkgs",
-        "rev": "a869e8b5ad89f35d46371edc4c23986cfe307e2a",
+        "rev": "4dc3dd0220cffb218c2925bcc1b79124b2521cb0",
         "type": "github"
       },
       "original": {
