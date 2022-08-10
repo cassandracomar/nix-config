@@ -1,7 +1,7 @@
 { config, lib, pkgs, pkgs-master, ... }:
 
 let
-  iosevkaCustom = pkgs-master.iosevka.override {
+  iosevkaCustom = pkgs.iosevka.override {
     privateBuildPlan = {
       family = "Iosevka Custom";
       design =
