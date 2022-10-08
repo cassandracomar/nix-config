@@ -1,11 +1,34 @@
-{ config, lib, pkgs, ... }:
-
+{ config, lib, pkgs, nixpkgs-optimized, ... }:
+let
+  pkgs-local = import nixpkgs-optimized {
+    config.allowUnfree = true;
+    system = "x86_64-linux";
+  };
+  # we really only want to use this for the kernel itself to minimize which packages that have to be built locally
+  pkgs-optimized = import nixpkgs-optimized {
+    config.allowUnfree = true;
+    localSystem = {
+      gcc.arch = "znver3";
+      gcc.tune = "znver3";
+      system = "x86_64-linux";
+    };
+  };
+in
 {
+  # ensure gccarch-znver3 is in the system features so we can use it to build the kernel
+  nix.extraOptions = ''
+    system-features = gccarch-znver3 kvm nixos-test big-parallel benchmark
+  '';
   boot.initrd.availableKernelModules =
     [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "amd_pstate" "kvm_amd" "cpuid" "i2c-dev" ];
   boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=video" ];
+  boot.kernelPackages = pkgs-local.linuxKernel.packagesFor
+    (pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest.override {
+      stdenv = pkgs-local.gcc12Stdenv;
+      ignoreConfigErrors = true;
+    });
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
 

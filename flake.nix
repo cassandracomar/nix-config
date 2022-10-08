@@ -3,6 +3,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
+  inputs.nixpkgs-optimized.url = "github:cassandracomar/nixpkgs/86904d44583af6e78790af84e698141187140776";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
@@ -23,6 +24,7 @@
     { self
     , nixpkgs
     , nixpkgs-master
+    , nixpkgs-optimized
     , home-manager
     , xmonad-personal
     , mozilla
@@ -100,12 +102,12 @@
       });
 
       kernel = ({ pkgs, config, ... }: {
-        boot.kernelPackages = pkgs-master.linuxKernel.packagesFor
+        boot.kernelPackages = pkgs.lib.mkDefault (pkgs-master.linuxKernel.packagesFor
           (pkgs-master.linuxKernel.kernels.linux_xanmod_latest.override {
             stdenv = pkgs.gcc12Stdenv;
             ignoreConfigErrors = true;
-          });
-        # bug fix for performance regression for zfs on 6.0
+          }));
+        # bug fix for performance regression for zfs since 5.3
         boot.kernelParams = [ "init_on_alloc=0" "init_on_free=0" ];
 
         boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
@@ -148,7 +150,7 @@
                   home-manager.sharedModules = [ ./modules/drata.nix ];
                 }
               ];
-              specialArgs = { inherit pkgs-master inputs; };
+              specialArgs = { inherit nixpkgs-optimized nixpkgs-master pkgs-master inputs; };
             };
           })
           hosts) // {
