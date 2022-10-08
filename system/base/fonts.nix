@@ -10,7 +10,8 @@ let
     };
     set = "custom";
   };
-in {
+in
+{
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -49,10 +50,7 @@ in {
       arphic-uming
       font-awesome
       noto-fonts-extra
-      source-han-sans-japanese
-      source-han-sans-korean
-      source-han-sans-simplified-chinese
-      source-han-sans-traditional-chinese
+      source-han-sans
       wqy_microhei
       wqy_zenhei
     ];

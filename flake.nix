@@ -1,6 +1,7 @@
 {
   # pkg registries
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -10,14 +11,26 @@
   inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
   inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.rust.url = "github:oxalica/rust-overlay";
+  inputs.rust.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.rust.inputs.flake-utils.follows = "emacs/flake-utils";
   inputs.nur.url = "github:nix-community/NUR";
 
   # overrides via overlay
-  inputs.nix-direnv.url = "github:nix-community/nix-direnv";
+  inputs.nix-direnv.url = "github:cassandracomar/nix-direnv";
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, nixpkgs-master, home-manager, xmonad-personal
-    , mozilla, emacs, rust, nur, nix-direnv }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nixpkgs-master
+    , home-manager
+    , xmonad-personal
+    , mozilla
+    , emacs
+    , rust
+    , nur
+    , nix-direnv
+    }@inputs:
     let
       hosts = [ "cherry" "walnut" ];
       homeUsers = [ "cassandra" ];
@@ -88,47 +101,57 @@
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs-master.linuxKernel.packagesFor
-          (pkgs-master.linuxKernel.kernels.linux_xanmod_tt.override {
-            stdenv = pkgs.clang12Stdenv;
+          (pkgs-master.linuxKernel.kernels.linux_xanmod_latest.override {
+            stdenv = pkgs.gcc12Stdenv;
             ignoreConfigErrors = true;
           });
+        # bug fix for performance regression for zfs on 6.0
+        boot.kernelParams = [ "init_on_alloc=0" "init_on_free=0" ];
 
         boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
       });
 
       base-modules = [ kernel ./modules ./system/base ];
 
-    in {
+    in
+    {
       packages.${system} = pkgs;
-      nixosConfigurations = pkgs.lib.listToAttrs (map (host: {
-        name = host;
-        value = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          modules = base-modules ++ [
-            (import ./host.nix { inherit host; })
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users = pkgs.lib.listToAttrs (map (username: {
-                name = username;
-                value = {
-                  imports = [
-                    (import ./user.nix { inherit username; })
-                    ({ pkgs, ... }: {
-                      home.packages =
-                        [ xmonad-personal.defaultPackage.${system} ];
+      nixosConfigurations = pkgs.lib.listToAttrs
+        (map
+          (host: {
+            name = host;
+            value = nixpkgs.lib.nixosSystem {
+              inherit system pkgs;
+              modules = base-modules ++ [
+                (import ./host.nix { inherit host; })
+                home-manager.nixosModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users = pkgs.lib.listToAttrs (map
+                    (username: {
+                      name = username;
+                      value = {
+                        imports = [
+                          (import ./user.nix { inherit username; })
+                          ({ pkgs, ... }: {
+                            home.packages =
+                              [
+                                xmonad-personal.defaultPackage.${system}
+                              ];
+                          })
+                        ];
+                      };
                     })
-                  ];
-                };
-              }) homeUsers);
-              home-manager.extraSpecialArgs = { inherit pkgs-master host; };
-              home-manager.sharedModules = [ ./modules/drata.nix ];
-            }
-          ];
-          specialArgs = { inherit pkgs-master inputs; };
-        };
-      }) hosts) // {
+                    homeUsers);
+                  home-manager.extraSpecialArgs = { inherit pkgs-master host; };
+                  home-manager.sharedModules = [ ./modules/drata.nix ];
+                }
+              ];
+              specialArgs = { inherit pkgs-master inputs; };
+            };
+          })
+          hosts) // {
         iso = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [

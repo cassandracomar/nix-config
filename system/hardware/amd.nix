@@ -7,7 +7,7 @@
   boot.kernelModules = [ "amd_pstate" "kvm_amd" "cpuid" "i2c-dev" ];
   boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=video" ];
 
-  powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "schedutil";
+  powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
 
   services.acpid.handlers = {
     brightness-down = {

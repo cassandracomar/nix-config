@@ -14,7 +14,8 @@
   # }];
   #networking.interfaces.vethc1c7b69.useDHCP = true;
   networking = {
-    nameservers = [ # "172.20.0.1"
+    nameservers = [
+      # "172.20.0.1"
       "127.0.0.1"
       "::1"
     ];
@@ -24,7 +25,8 @@
     networkmanager = {
       enable = true;
       dns = "none";
-      insertNameservers = [ # "172.20.0.1"
+      insertNameservers = [
+        # "172.20.0.1"
         "127.0.0.1"
         "::1"
       ];
@@ -41,6 +43,7 @@
     settings = {
       ipv6_servers = true;
       require_dnssec = true;
+      listen_addresses = [ "127.0.0.1:53" "[::1]:53" "127.0.0.11:53" ];
 
       sources = {
         public-resolvers = {

@@ -7,7 +7,7 @@
     conky
     trayer
     cbatticon
-    gnome3.adwaita-icon-theme
+    gnome.adwaita-icon-theme
     qogir-theme
     maim
     (writeScriptBin "screenshot" ''
@@ -15,7 +15,7 @@
       ${maim}/bin/maim -s ~/imgs/screenshots/$(date "+%F-%H-%M-%S")_maim.png
     '')
     ispell
-    gnome3.gnome-calculator
+    gnome.gnome-calculator
     lxappearance
     usbutils
     xorg.xev
@@ -66,7 +66,7 @@
   services.dunst = {
     enable = true;
     iconTheme.name = "Adwaita";
-    iconTheme.package = pkgs.gnome3.adwaita-icon-theme;
+    iconTheme.package = pkgs.gnome.adwaita-icon-theme;
     settings = {
       global = {
         geometry = "600x3-0+40";
