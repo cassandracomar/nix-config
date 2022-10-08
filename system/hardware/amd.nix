@@ -23,7 +23,7 @@ in
     [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "amd_pstate" "kvm_amd" "cpuid" "i2c-dev" ];
-  boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=video" ];
+  boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=video" "mitigations=off" ];
   boot.kernelPackages = pkgs-local.linuxKernel.packagesFor
     (pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest.override {
       stdenv = pkgs-local.gcc12Stdenv;
