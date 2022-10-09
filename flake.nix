@@ -3,7 +3,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
-  inputs.nixpkgs-optimized.url = "github:cassandracomar/nixpkgs/86904d44583af6e78790af84e698141187140776";
+  inputs.nixpkgs-optimized.url = "github:cassandracomar/nixpkgs/kernel-pin";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
@@ -105,7 +105,6 @@
         boot.kernelPackages = pkgs.lib.mkDefault (pkgs-master.linuxKernel.packagesFor
           (pkgs-master.linuxKernel.kernels.linux_xanmod_latest.override {
             stdenv = pkgs.gcc12Stdenv;
-            ignoreConfigErrors = true;
           }));
         # bug fix for performance regression for zfs since 5.3
         boot.kernelParams = [ "init_on_alloc=0" "init_on_free=0" ];
@@ -114,6 +113,20 @@
       });
 
       base-modules = [ kernel ./modules ./system/base ];
+      user-module = (username: {
+        name = username;
+        value = {
+          imports = [
+            (import ./user.nix { inherit username; })
+            ({ pkgs, ... }: {
+              home.packages =
+                [
+                  xmonad-personal.defaultPackage.${system}
+                ];
+            })
+          ];
+        };
+      });
 
     in
     {
@@ -131,20 +144,7 @@
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.users = pkgs.lib.listToAttrs (map
-                    (username: {
-                      name = username;
-                      value = {
-                        imports = [
-                          (import ./user.nix { inherit username; })
-                          ({ pkgs, ... }: {
-                            home.packages =
-                              [
-                                xmonad-personal.defaultPackage.${system}
-                              ];
-                          })
-                        ];
-                      };
-                    })
+                    user-module
                     homeUsers);
                   home-manager.extraSpecialArgs = { inherit pkgs-master host; };
                   home-manager.sharedModules = [ ./modules/drata.nix ];
@@ -161,6 +161,16 @@
             "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
             ./iso/installer.nix
           ];
+        };
+        home-configurations = { host, user }: {
+          ${user} = home-manager.lib.homeConfigurations {
+            inherit pkgs;
+            modules = [ (user-module user) ];
+            extraSpecialArgs = {
+              inherit pkgs-master host;
+            };
+            sharedModules = [ ./modules/drata.nix ];
+          };
         };
       };
     };

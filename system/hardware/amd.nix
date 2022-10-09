@@ -27,7 +27,6 @@ in
   boot.kernelPackages = pkgs-local.linuxKernel.packagesFor
     (pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest.override {
       stdenv = pkgs-local.gcc12Stdenv;
-      ignoreConfigErrors = true;
     });
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";

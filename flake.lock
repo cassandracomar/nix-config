@@ -465,11 +465,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1665216145,
-        "narHash": "sha256-ICEduZuqe+5FlXN+mLzd1Dd3ipviTIaraKIQ8QX2QyU=",
+        "lastModified": 1665261466,
+        "narHash": "sha256-xaL6tD/jXlttovbz9Qc0d56b81Z3cFaSQhIkRZesEds=",
         "owner": "cassandracomar",
         "repo": "nixpkgs",
-        "rev": "0355baa0d59e63046f52ca99277b3a2f63713247",
+        "rev": "b6447a85c48757a558596421a5a79c494786ad83",
         "type": "github"
       },
       "original": {
@@ -480,17 +480,17 @@
     },
     "nixpkgs-optimized": {
       "locked": {
-        "lastModified": 1665191558,
-        "narHash": "sha256-KVorxfML2bqIONre+TXGXLS3nIFSwA6MsiGK6cxNvpw=",
+        "lastModified": 1665261466,
+        "narHash": "sha256-xaL6tD/jXlttovbz9Qc0d56b81Z3cFaSQhIkRZesEds=",
         "owner": "cassandracomar",
         "repo": "nixpkgs",
-        "rev": "86904d44583af6e78790af84e698141187140776",
+        "rev": "b6447a85c48757a558596421a5a79c494786ad83",
         "type": "github"
       },
       "original": {
         "owner": "cassandracomar",
+        "ref": "kernel-pin",
         "repo": "nixpkgs",
-        "rev": "86904d44583af6e78790af84e698141187140776",
         "type": "github"
       }
     },
@@ -668,11 +668,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1665186432,
-        "narHash": "sha256-71AeGW5uZKyxsV+ZNdTpATuy1L1LszFF7z4GQr+eyiM=",
+        "lastModified": 1665274926,
+        "narHash": "sha256-Eer3kXg86ip7TVnAtufBnjDjPzB5ms1FPPYwW0orm3I=",
         "owner": "cassandracomar",
         "repo": "dotxmonad",
-        "rev": "0c583da3c3305e41c75d7fb019a671c0135daef5",
+        "rev": "287285d709817f85fc375baf857a8f6691bb463c",
         "type": "github"
       },
       "original": {
