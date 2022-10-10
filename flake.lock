@@ -591,6 +591,10 @@
     "root": {
       "inputs": {
         "emacs": "emacs",
+        "haskellNix": [
+          "xmonad-personal",
+          "haskellNix"
+        ],
         "home-manager": "home-manager",
         "mozilla": "mozilla",
         "nix-direnv": "nix-direnv",
@@ -668,11 +672,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1665423393,
-        "narHash": "sha256-oo9xyvveDF2jTTqFn8dLaX1gK84/42OTHgs43A+U5RU=",
+        "lastModified": 1665425739,
+        "narHash": "sha256-HAM3gIHpKa3gqa+G6pLeTcIDoAk+vYfV8oPHN1XpKqM=",
         "owner": "cassandracomar",
         "repo": "dotxmonad",
-        "rev": "f0eb63085ac02458b720b0e93f654073c9336ec9",
+        "rev": "0e42bce8e840f44fe381549224e703818291dde2",
         "type": "github"
       },
       "original": {
