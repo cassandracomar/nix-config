@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    haskellPackages.yeganesh
+    # haskellPackages.yeganesh
     # (pkgs.hiPrio haskellPackages.stack)
     # haskell-language-server
     # haskellPackages.cabal-install
