@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixpkgs, haskellNix, system, ... }:
+let
+  haskellPackages = (haskellNix.internal.compat { inherit system; }).pkgs.haskellPackages;
 
+in
 {
   home.packages = with pkgs; [
     dmenu
@@ -32,6 +35,7 @@
     enable = true;
     windowManager = {
       xmonad = {
+        inherit haskellPackages;
         enable = true;
         enableContribAndExtras = true;
       };
