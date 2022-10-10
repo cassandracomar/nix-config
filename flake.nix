@@ -81,6 +81,10 @@
             inherit (self) lib;
             pkgs = self;
           })
+
+        (self: super: {
+          xmonad-personal = xmonad-personal.defaultPackage.${system};
+        })
       ];
 
       pkgs = (import nixpkgs {
