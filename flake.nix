@@ -122,12 +122,12 @@
         value = {
           imports = [
             (import ./user.nix { inherit username; })
-            ({ pkgs, ... }: {
+            {
               home.packages =
                 [
                   xmonad-personal.defaultPackage.${system}
                 ];
-            })
+            }
           ];
         };
       });
@@ -167,23 +167,22 @@
           ];
         };
       };
-      homeConfigurations = pkgs.lib.listToAttrs (map
-        (host: {
-          name = host;
-          value = {
-            homeConfigurations = pkgs.lib.listToAttrs (map
-              (user: {
-                name = user;
-                value = home-manager.lib.homeManagerConfiguration {
-                  inherit pkgs;
-                  modules = [ (user-module user) ];
-                  extraSpecialArgs = { inherit pkgs-master host; };
-                  # sharedModules = [ ./modules/drata.nix ];
-                };
-              })
-              homeUsers);
-          };
-        })
-        hosts);
-    };
+    } //
+    pkgs.lib.listToAttrs (map
+      (host: {
+        name = host;
+        value = {
+          homeConfigurations = pkgs.lib.listToAttrs (map
+            (user: {
+              name = user;
+              value = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = [ ./modules/drata.nix (user-module user).value ];
+                extraSpecialArgs = { inherit pkgs-master host; };
+              };
+            })
+            homeUsers);
+        };
+      })
+      hosts);
 }
