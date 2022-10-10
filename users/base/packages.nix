@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-master, ... }:
+{ config, lib, pkgs, pkgs-master, host, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -40,5 +40,5 @@
 
   programs.obs-studio.enable = true;
   services.syncthing.enable = true;
-  services.drata-agent.enable = true;
+  services.drata-agent.enable = host == "cherry";
 }
