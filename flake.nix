@@ -124,12 +124,12 @@
         value = {
           imports = [
             (import ./user.nix { inherit username; })
-            # {
-            #   home.packages =
-            #     [
-            #       xmonad-personal.defaultPackage.${system}
-            #     ];
-            # }
+            {
+              home.packages =
+                [
+                  xmonad-personal.defaultPackage.${system}
+                ];
+            }
           ];
         };
       });
