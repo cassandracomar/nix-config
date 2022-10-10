@@ -668,11 +668,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1665411907,
-        "narHash": "sha256-89icY38Zvblahl0ocqF/Prt0lFhJnHzyIF+nHESCiQw=",
+        "lastModified": 1665423393,
+        "narHash": "sha256-oo9xyvveDF2jTTqFn8dLaX1gK84/42OTHgs43A+U5RU=",
         "owner": "cassandracomar",
         "repo": "dotxmonad",
-        "rev": "bd8f0ed42973aff88ff6eb79eacb63718282f218",
+        "rev": "f0eb63085ac02458b720b0e93f654073c9336ec9",
         "type": "github"
       },
       "original": {
