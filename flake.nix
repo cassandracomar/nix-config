@@ -166,16 +166,20 @@
             ./iso/installer.nix
           ];
         };
-        home-configurations = { host, user }: {
-          ${user} = home-manager.lib.homeConfigurations {
-            inherit pkgs;
-            modules = [ (user-module user) ];
-            extraSpecialArgs = {
-              inherit pkgs-master host;
-            };
-            sharedModules = [ ./modules/drata.nix ];
+        home-configurations = pkgs.lib.listToAttrs (map (host: {
+          name = host;
+          value = {
+            homeConfigurations = pkgs.lib.listToAttrs (map (user: {
+              name = user;
+              value = home-manager.lib.homeConfigurations {
+                inherit pkgs;
+                modules = [ (user-module user) ];
+                extraSpecialArgs = { inherit pkgs-master host; };
+                sharedModules = [ ./modules/drata.nix ];
+              };
+            }));
           };
-        };
+        }));
       };
     };
 }
