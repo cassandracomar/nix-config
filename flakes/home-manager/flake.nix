@@ -15,6 +15,6 @@
       system = "x86_64-linux";
     in
     {
-      homeConfigurations = nix-config.home-configurations.${nixpkgs.builtins.getEnv "HOSTNAME"};
+      homeConfigurations = nix-config.homeConfigurations.${nixpkgs.builtins.getEnv "HOSTNAME"};
     };
 }

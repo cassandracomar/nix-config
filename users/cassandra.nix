@@ -11,6 +11,15 @@ let
       };
       github.user = "cassandracomar";
     };
+    magus = {
+      userName = "Cassandra Comar";
+      userEmail = "cassandra@ditto.live";
+      signing = {
+        key = "0xF431E5E70CAB3E2E";
+        signByDefault = true;
+      };
+      github.user = "cassandracomar";
+    };
   };
   git_config = lib.getAttr host git_config_by_host;
 
@@ -51,7 +60,8 @@ let
       complete -F _complete_alias particlestgctl
     '';
   };
-in {
+in
+{
   imports = [ ./base ];
 
   home.packages = with pkgs; [

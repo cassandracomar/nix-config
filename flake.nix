@@ -34,7 +34,7 @@
     , nix-direnv
     }@inputs:
     let
-      hosts = [ "cherry" "walnut" ];
+      hosts = [ "cherry" "walnut" "magus" ];
       homeUsers = [ "cassandra" ];
       system = "x86_64-linux";
 
@@ -166,20 +166,24 @@
             ./iso/installer.nix
           ];
         };
-        home-configurations = pkgs.lib.listToAttrs (map (host: {
+      };
+      homeConfigurations = pkgs.lib.listToAttrs (map
+        (host: {
           name = host;
           value = {
-            homeConfigurations = pkgs.lib.listToAttrs (map (user: {
-              name = user;
-              value = home-manager.lib.homeConfigurations {
-                inherit pkgs;
-                modules = [ (user-module user) ];
-                extraSpecialArgs = { inherit pkgs-master host; };
-                sharedModules = [ ./modules/drata.nix ];
-              };
-            }));
+            homeConfigurations = pkgs.lib.listToAttrs (map
+              (user: {
+                name = user;
+                value = home-manager.lib.homeManagerConfiguration {
+                  inherit pkgs;
+                  modules = [ (user-module user) ];
+                  extraSpecialArgs = { inherit pkgs-master host; };
+                  # sharedModules = [ ./modules/drata.nix ];
+                };
+              })
+              homeUsers);
           };
-        }));
-      };
+        })
+        hosts);
     };
 }
