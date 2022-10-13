@@ -11,7 +11,16 @@
       keep-outputs = true
       keep-derivations = true
     '';
-    settings = { auto-optimise-store = true; };
+    settings = {
+      auto-optimise-store = true;
+      trusted-public-keys = [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      ];
+      substituters = [
+        "https://cache.iog.io"
+      ];
+
+    };
     gc = {
       automatic = true;
       dates = "daily";
