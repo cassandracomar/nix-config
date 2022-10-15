@@ -44,6 +44,9 @@ let
     text = ''
       source ${complete_alias}/share/bash-completion/completions/complete_alias
 
+      alias cictl="kubectl --context=cassandracomar@ci.k8s.ditto.live"
+      complete -F _complete_alias cictl
+
       alias devctl="kubectl --context=cassandracomar@dev.k8s.ditto.live"
       complete -F _complete_alias devctl
 

@@ -10,11 +10,7 @@
     };
   };
 
-  outputs = { nix-config, nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-    in
-    {
-      homeConfigurations = nix-config.homeConfigurations.${nixpkgs.builtins.getEnv "HOSTNAME"};
-    };
+  outputs = { nix-config, nixpkgs, home-manager, ... }: {
+    homeConfigurations = nix-config.magus.homeConfigurations;
+  };
 }
