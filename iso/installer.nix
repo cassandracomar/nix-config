@@ -39,6 +39,7 @@ with lib;
     p7zip
     unrar
     unzip
+    fio
   ];
 
   hardware.video.hidpi.enable = lib.mkDefault true;
