@@ -89,7 +89,7 @@
         })
       ];
 
-      pkgs = (import nixpkgs {
+      pkgs = import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;
 
@@ -101,11 +101,11 @@
               extraPkgs = [ pipewire.lib ];
             };
           };
-      });
-      pkgs-master = (import nixpkgs-master {
+      };
+      pkgs-master = import nixpkgs-master {
         inherit system;
         config.allowUnfree = true;
-      });
+      };
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs.lib.mkDefault (pkgs-master.linuxKernel.packagesFor
@@ -134,9 +134,20 @@
         };
       });
 
-    in
-    {
-      packages.${system} = pkgs;
+      iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          config.allowBroken = true;
+        };
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+          ./iso/installer.nix
+        ];
+      };
+
       nixosConfigurations = pkgs.lib.listToAttrs
         (map
           (host: {
@@ -160,15 +171,18 @@
             };
           })
           hosts) // {
-        iso = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-            ./iso/installer.nix
-          ];
-        };
+        inherit iso;
       };
+
+    in
+    {
+      inherit nixosConfigurations;
+      packages.${system} = pkgs;
+      build = pkgs.lib.mapAttrs
+        (name: value:
+          value.config.system.build
+        )
+        nixosConfigurations;
     } //
     pkgs.lib.listToAttrs (map
       (host: {
