@@ -109,7 +109,7 @@
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs.lib.mkDefault (pkgs-master.linuxKernel.packagesFor
-          (pkgs-master.linuxKernel.kernels.linux_xanmod_latest.override {
+          (pkgs-master.linuxKernel.kernels.linux_xanmod_rt.override {
             stdenv = pkgs.gcc12Stdenv;
           }));
         # bug fix for performance regression for zfs since 5.3
@@ -125,6 +125,7 @@
           imports = [
             (import ./user.nix { inherit username; })
             {
+              manual.manpages.enable = false;
               home.packages =
                 [
                   xmonad-personal.defaultPackage.${system}
