@@ -24,10 +24,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/var/lib/docker" = {
-    device = "/dev/disk/by-uuid/d5776456-15a8-4338-b98a-cb5d7e435551";
-    fsType = "ext4";
-  };
   swapDevices = [ ];
 
   networking.hostName = "cherry"; # Define your hostname.
