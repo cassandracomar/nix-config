@@ -465,11 +465,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1665859852,
-        "narHash": "sha256-rFpygVPPPSJpqDUfjRJ4dTMuEkO0FUNUkokZbgpE610=",
+        "lastModified": 1666201501,
+        "narHash": "sha256-DfoCAekZG/S3Fi0Q32GDL+Sbps+2ugCbnRWyIucXwqE=",
         "owner": "cassandracomar",
         "repo": "nixpkgs",
-        "rev": "bca63ddbe2786e98c803ea81eaaf59636587c284",
+        "rev": "292481b8f749e91b307140e1b1e0b6a975154bbf",
         "type": "github"
       },
       "original": {
