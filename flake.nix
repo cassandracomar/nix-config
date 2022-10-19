@@ -109,7 +109,7 @@
 
       kernel = ({ pkgs, config, ... }: {
         boot.kernelPackages = pkgs.lib.mkDefault (pkgs-master.linuxKernel.packagesFor
-          (pkgs-master.linuxKernel.kernels.linux_xanmod_rt.override {
+          (pkgs-master.linuxKernel.kernels.linux_xanmod_tt.override {
             stdenv = pkgs.gcc12Stdenv;
           }));
         # bug fix for performance regression for zfs since 5.3
