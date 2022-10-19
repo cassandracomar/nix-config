@@ -25,11 +25,13 @@
     %wheel	ALL=(ALL:ALL)	NOPASSWD:	ALL
   '';
 
-  security.pam.loginLimits = [{
-    domain = "*";
-    type = "-";
-    item = "nofile";
-    value = "2147483648";
-  }];
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "-";
+      item = "nofile";
+      value = "2147483648";
+    }
+  ];
 
 }
