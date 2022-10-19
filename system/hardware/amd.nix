@@ -27,7 +27,19 @@ in
   boot.kernelPackages = pkgs-local.linuxKernel.packagesFor
     (pkgs-optimized.linuxKernel.kernels.linux_xanmod_tt.override {
       stdenv = pkgs-local.gcc12Stdenv;
+      ignoreConfigErrors = true;
     });
+  boot.kernelPatches = [
+    {
+      name = "add-cpu-config";
+      patch = null;
+      extraConfig = ''
+        CONFIG_GENERIC_CPU n
+        CONFIG_LOCALVERSION -znver3
+        CONFIG_MZEN3 y
+      '';
+    }
+  ];
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
 
