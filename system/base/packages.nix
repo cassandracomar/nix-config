@@ -27,6 +27,7 @@
     pciutils
     glxinfo
     grub2_full
+    nix-zsh-completions
   ];
 
   programs.zsh.enable = true;

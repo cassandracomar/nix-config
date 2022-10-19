@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     kitty
     nix-bash-completions
+    nix-zsh-completions
     bash-completion
     zenith
     lsof
@@ -48,4 +49,10 @@
     done
     . $HOME/.bash_completion
   '';
+
+  programs.nix-index = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
 }
