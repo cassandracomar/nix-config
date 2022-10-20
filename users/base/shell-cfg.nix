@@ -31,11 +31,19 @@
     history.share = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "sudo" ];
+      plugins = [ "git" "sudo" "kubectl" ];
       theme = "agnoster";
     };
     initExtra = ''
       alias ssh="kitty +kitten ssh"
+      alias vim="emacsclient"
+      alias s='emacsclient -n -e \(magit-status\)'
+      alias cictl="kubectl --context=cassandracomar@ci.k8s.ditto.live"
+      alias devctl="kubectl --context=cassandracomar@dev.k8s.ditto.live"
+      alias stgctl="kubectl --context=cassandracomar@stg.k8s.ditto.live"
+      alias prodctl="kubectl --context=cassandracomar@prod.k8s.ditto.live"
+      alias particleprodctl="kubectl --context=cassandracomar@particle-prod.k8s.ditto.live"
+      alias particlestgctl="kubectl --context=cassandracomar@particle-stg.k8s.ditto.live"
     '';
   };
 
