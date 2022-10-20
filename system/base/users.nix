@@ -28,9 +28,9 @@
   security.pam.loginLimits = [
     {
       domain = "*";
-      type = "soft";
+      type = "-";
       item = "nofile";
-      value = "2147483648";
+      value = "unlimited";
     }
   ];
 
