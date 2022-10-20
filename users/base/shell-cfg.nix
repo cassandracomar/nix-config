@@ -35,6 +35,7 @@
       theme = "agnoster";
     };
     initExtra = ''
+      alias ls="ls -l --color=always"
       alias ssh="kitty +kitten ssh"
       alias vim="emacsclient"
       alias s='emacsclient -n -e \(magit-status\)'

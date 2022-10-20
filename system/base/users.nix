@@ -25,6 +25,11 @@
     %wheel	ALL=(ALL:ALL)	NOPASSWD:	ALL
   '';
 
+  boot.kernel.sysctl = {
+    "kernel.pty.max" = 8192;
+    "kernel.pty.reserve" = 8192;
+  };
+  systemd.services."user@".serviceConfig.LimitNOFILE = "1073741816";
   security.pam.loginLimits = [
     {
       domain = "*";
