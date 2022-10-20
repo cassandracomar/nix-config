@@ -29,7 +29,7 @@
     "kernel.pty.max" = 8192;
     "kernel.pty.reserve" = 8192;
   };
-  systemd.services."user@1000".serviceConfig.LimitNOFILE = "1073741816";
+  #systemd.services."user@1000".serviceConfig.LimitNOFILE = "1073741816";
   security.pam.loginLimits = [
     {
       domain = "*";
