@@ -137,14 +137,14 @@
 
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        pkgs = import nixpkgs {
+        pkgs = import nixpkgs-master {
           inherit system;
           config.allowUnfree = true;
           config.allowBroken = true;
         };
         modules = [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+          "${nixpkgs-master}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
+          "${nixpkgs-master}/nixos/modules/installer/cd-dvd/channel.nix"
           ./iso/installer.nix
         ];
       };
