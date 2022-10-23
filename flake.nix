@@ -36,7 +36,7 @@
     , nix-direnv
     }@inputs:
     let
-      hosts = [ "cherry" "walnut" "magus" ];
+      hosts = [ "cherry" "walnut" "magus" "yew" ];
       homeUsers = [ "cassandra" ];
       system = "x86_64-linux";
 

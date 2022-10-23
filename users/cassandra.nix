@@ -20,6 +20,15 @@ let
       };
       github.user = "cassandracomar";
     };
+    yew = {
+      userName = "Cassandra Comar";
+      userEmail = "cassandra@ditto.live";
+      signing = {
+        key = "0xF431E5E70CAB3E2E";
+        signByDefault = true;
+      };
+      github.user = "cassandracomar";
+    };
   };
   git_config = lib.getAttr host git_config_by_host;
 
