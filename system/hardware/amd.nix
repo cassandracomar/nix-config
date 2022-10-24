@@ -44,6 +44,16 @@ in
     }
   ];
   environment.systemPackages = [ CoreFreq ];
+  systemd.services.corefreqd = {
+    description = "CoreFreq Daemon";
+    wantedBy = [ "multi-user.target" ];
+    restartIfChanged = true;
+
+    serviceConfig = {
+      ExecStart = "${CoreFreq}/bin/corefreqd";
+      Restart = "always";
+    };
+  };
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
 
