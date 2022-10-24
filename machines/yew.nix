@@ -51,4 +51,6 @@
 
 
   virtualisation.docker.storageDriver = "overlay2";
+
+  powerManagement.cpuFreqGovernor = pkgs.lib.mkForce "ondemand";
 }
