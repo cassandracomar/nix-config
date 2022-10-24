@@ -40,4 +40,7 @@
 
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
+
+
+  virtualisation.docker.storageDriver = "overlay2";
 }
