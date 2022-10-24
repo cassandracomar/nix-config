@@ -12,7 +12,6 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -53,4 +52,11 @@
   virtualisation.docker.storageDriver = "overlay2";
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkForce "ondemand";
+  environment.systemPackages = with pkgs; [
+    freeipmi
+    dmidecode
+    cpuid
+    cpu-x
+    lm_sensors
+  ];
 }
