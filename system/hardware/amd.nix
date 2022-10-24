@@ -43,6 +43,7 @@ in
       '';
     }
   ];
+  environment.systemPackages = [ CoreFreq ];
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
 
