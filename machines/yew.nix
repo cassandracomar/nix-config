@@ -34,6 +34,7 @@
         "atgc"
         "gc_merge"
         "lazytime"
+        "inline_xattr"
       ];
     };
 
