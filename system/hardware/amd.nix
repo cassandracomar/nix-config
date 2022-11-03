@@ -44,13 +44,15 @@ in
     }
   ];
   environment.systemPackages = [ CoreFreq ];
+  services.dbus.packages = [ CoreFreq ];
   systemd.services.corefreqd = {
     description = "CoreFreq Daemon";
     wantedBy = [ "multi-user.target" ];
     restartIfChanged = true;
 
     serviceConfig = {
-      ExecStart = "${CoreFreq}/bin/corefreqd";
+      ExecStart = "${CoreFreq}/bin/corefreqd -q";
+      ExecStop = "${pkgs.bash}/bin/bash -c kill $MAINPID";
       Restart = "always";
     };
   };
