@@ -60,4 +60,6 @@
     cpu-x
     lm_sensors
   ];
+
+  services.openssh.enable = true;
 }

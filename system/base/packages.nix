@@ -28,6 +28,11 @@
     glxinfo
     grub2_full
     nix-zsh-completions
+    (hwloc.override {
+      x11Support = true;
+      libX11 = pkgs.xorg.libX11;
+      cairo = pkgs.cairo;
+    })
   ];
 
   programs.zsh.enable = true;

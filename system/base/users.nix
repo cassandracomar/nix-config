@@ -30,19 +30,19 @@
     "kernel.pty.reserve" = 8192;
   };
   #systemd.services."user@1000".serviceConfig.LimitNOFILE = "1073741816";
-  security.pam.loginLimits = [
-    {
-      domain = "root";
-      type = "-";
-      item = "nofile";
-      value = "unlimited";
-    }
-    {
-      domain = "*";
-      type = "-";
-      item = "nofile";
-      value = "unlimited";
-    }
-  ];
+  # security.pam.loginLimits = [
+  #   {
+  #     domain = "root";
+  #     type = "-";
+  #     item = "nofile";
+  #     value = "unlimited";
+  #   }
+  #   {
+  #     domain = "*";
+  #     type = "-";
+  #     item = "nofile";
+  #     value = "unlimited";
+  #   }
+  # ];
 
 }
