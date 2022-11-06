@@ -14,6 +14,9 @@
   boot.kernelModules = [ "kvm-amd" "nct6775" "it87" ];
   boot.kernelParams = [ "nr_hugepages=4096"  ];
   boot.extraModulePackages = [ config.boot.kernelPackages.it87 ];
+  boot.extraModprobeConfig = ''
+    options zfs l2arc_headroom=0
+  '';
   boot.loader = {
     systemd-boot = {
       enable = true;
