@@ -11,8 +11,9 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" "nct6775" ];
+  boot.kernelModules = [ "kvm-amd" "nct6775" "it87" ];
   boot.kernelParams = [ "nr_hugepages=4096"  ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.it87 ];
   boot.loader = {
     systemd-boot = {
       enable = true;
