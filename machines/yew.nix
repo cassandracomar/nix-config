@@ -17,6 +17,7 @@
   boot.extraModprobeConfig = ''
     options zfs l2arc_headroom=0
   '';
+  boot.zfs.extraPools = [ "data" ];
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -54,7 +55,7 @@
   networking.hostId = "c667b97b";
 
 
-  virtualisation.docker.storageDriver = "overlay2";
+  #virtualisation.docker.storageDriver = "overlay2";
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkForce "ondemand";
   environment.systemPackages = with pkgs; [
@@ -66,4 +67,5 @@
   ];
 
   services.openssh.enable = true;
+  services.xrdp.enable = true;
 }
