@@ -71,6 +71,7 @@
       };
 
       forwarding_rules = pkgs.writeText "forwarding-rules.txt" ''
+        local 192.168.0.1:5353
         ditto.live 100.100.100.100
       '';
 
