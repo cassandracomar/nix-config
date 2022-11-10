@@ -13,7 +13,6 @@
       "transmission"
       "jackaudio"
       "adbusers"
-      "podman"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
