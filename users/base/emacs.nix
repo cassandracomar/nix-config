@@ -35,7 +35,13 @@
         epkgs.sqlite3
         epkgs.emacsql
         epkgs.emacsql-sqlite3
+        pkgs.rnix-lsp
       ];
   };
   services.emacs.enable = true;
+  home.file.".tree-sitter".source = (pkgs.runCommand "grammars" { } ''
+    mkdir -p $out/bin
+    ${lib.concatStringsSep "\n"
+      (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") pkgs.tree-sitter.builtGrammars)};
+  '');
 }

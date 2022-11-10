@@ -18,7 +18,7 @@
   inputs.nur.url = "github:nix-community/NUR";
 
   # overrides via overlay
-  inputs.nix-direnv.url = "github:cassandracomar/nix-direnv";
+  inputs.nix-direnv.url = "github:nix-community/nix-direnv";
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs =

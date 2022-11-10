@@ -1,14 +1,17 @@
 { config, lib, pkgs, ... }:
 
 {
+  environment.systemPackages = [ pkgs.podman ];
   virtualisation = {
-    docker = {
+    podman = {
       enable = true;
-      storageDriver = lib.mkDefault "zfs";
-      daemon.settings = {
-        bip = "172.16.0.100/24";
-        dns = [ "127.0.0.11" ];
-      };
+      extraPackages = [ pkgs.zfsUnstable ];
+      dockerSocket.enable = true;
+      # storageDriver = lib.mkDefault "zfs";
+      # daemon.settings = {
+      #   bip = "172.16.0.100/24";
+      #   dns = [ "127.0.0.11" ];
+      # };
     };
     libvirtd.enable = true;
   };
