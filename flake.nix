@@ -78,12 +78,6 @@
             inherit system;
           })
 
-        (self: super:
-          import ./packages/drata.nix {
-            inherit (self) lib;
-            pkgs = self;
-          })
-
         (self: super: {
           xmonad-personal = xmonad-personal.defaultPackage.${system};
         })
