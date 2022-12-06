@@ -64,7 +64,7 @@ in
       event = "video/brightnessdown";
       action = ''
         #!${pkgs.bash}/bin/bash
-        bl=$(brightnessctl -l | grep amd | cut -d' ' -f 3)
+        bl=$(brightnessctl -l | grep amdgpu | cut -d' ' -f 2 | cut -d"'" -f 2)
         ${pkgs.brightnessctl}/bin/brightnessctl -d $bl s 5%-
         raw=$(${pkgs.brightnessctl}/bin/brightnessctl -d $bl g)
         perc=$(${pkgs.bc}/bin/bc <<< "scale=4; 100*$raw/255")
@@ -75,7 +75,7 @@ in
       event = "video/brightnessup";
       action = ''
         #!${pkgs.bash}/bin/bash
-        bl=$(brightnessctl -l | grep amd | cut -d' ' -f 3)
+        bl=$(brightnessctl -l | grep amdgpu | cut -d' ' -f 2 | cut -d"'" -f 2)
         ${pkgs.brightnessctl}/bin/brightnessctl -d $bl s 5%+
         raw=$(${pkgs.brightnessctl}/bin/brightnessctl -d $bl g)
         perc=$(${pkgs.bc}/bin/bc <<< "scale=4; 100*$raw/255")

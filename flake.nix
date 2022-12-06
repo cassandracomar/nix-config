@@ -159,7 +159,6 @@
                     user-module
                     homeUsers);
                   home-manager.extraSpecialArgs = { inherit pkgs-master host haskellNix nixpkgs system; };
-                  home-manager.sharedModules = [ ./modules/drata.nix ];
                 }
               ];
               specialArgs = { inherit nixpkgs-optimized nixpkgs-master pkgs-master inputs; };
@@ -188,7 +187,7 @@
               name = user;
               value = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
-                modules = [ ./modules/drata.nix (user-module user).value ];
+                modules = [ (user-module user).value ];
                 extraSpecialArgs = { inherit pkgs-master host haskellNix nixpkgs system; };
               };
             })
