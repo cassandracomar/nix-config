@@ -70,11 +70,6 @@
         };
       };
 
-      forwarding_rules = pkgs.writeText "forwarding-rules.txt" ''
-        ditto.live 100.100.100.100
-        local 192.168.0.1:5353
-      '';
-
       # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
       server_names = [
         "bcn-dnscrypt"
