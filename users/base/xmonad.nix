@@ -18,7 +18,7 @@ in
       ${maim}/bin/maim -s ~/imgs/screenshots/$(date "+%F-%H-%M-%S")_maim.png
     '')
     ispell
-    gnome.gnome-calculator
+    # gnome.gnome-calculator
     lxappearance
     usbutils
     xorg.xev
