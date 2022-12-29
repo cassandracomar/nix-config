@@ -9,7 +9,6 @@
     virt-viewer
     chessx
     stockfish
-    # (retroarchFull.overrideAttrs
-    #   (old: { cores = with libretro; (lib.remove dosbox old.cores); }))
+    retroarchFull
   ];
 }
