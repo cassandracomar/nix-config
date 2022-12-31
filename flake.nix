@@ -7,7 +7,6 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
-  inputs.haskellNix.follows = "xmonad-personal/haskellNix";
 
   # overlays
   inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
@@ -28,7 +27,6 @@
     , nixpkgs-optimized
     , home-manager
     , xmonad-personal
-    , haskellNix
     , mozilla
     , emacs
     , rust
@@ -158,7 +156,7 @@
                   home-manager.users = pkgs.lib.listToAttrs (map
                     user-module
                     homeUsers);
-                  home-manager.extraSpecialArgs = { inherit pkgs-master host haskellNix nixpkgs system; };
+                  home-manager.extraSpecialArgs = { inherit pkgs-master host nixpkgs system; };
                 }
               ];
               specialArgs = { inherit nixpkgs-optimized nixpkgs-master pkgs-master inputs; };
@@ -188,7 +186,7 @@
               value = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [ (user-module user).value ];
-                extraSpecialArgs = { inherit pkgs-master host haskellNix nixpkgs system; };
+                extraSpecialArgs = { inherit pkgs-master host nixpkgs system; };
               };
             })
             homeUsers);

@@ -1,6 +1,6 @@
-{ config, lib, pkgs, nixpkgs, haskellNix, system, ... }:
+{ config, lib, pkgs, nixpkgs, system, ... }:
 let
-  haskellPackages = (haskellNix.internal.compat { inherit system; }).pkgs.haskellPackages;
+  haskellPackages = pkgs.haskellPackages;
 
 in
 {
