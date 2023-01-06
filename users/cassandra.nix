@@ -109,7 +109,7 @@ in
     };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       reddit-enhancement-suite
-      https-everywhere
+      # https-everywhere
       umatrix
       tridactyl
       multi-account-containers
