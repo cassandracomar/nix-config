@@ -32,6 +32,7 @@
     # ffmpeg-full
     # svt-av1
     # libopus
+    pkgs-master.nice-dcv-client
   ];
 
   home.file.".config/discord/settings.json".text = ''
