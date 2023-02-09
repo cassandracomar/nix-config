@@ -106,6 +106,40 @@
     };
   };
 
+  services.syncthing = {
+    enable = true;
+    user = "cassandra";
+    dataDir = "/home/cassandra/drive";
+    configDir = "/home/cassandra/.config/syncthing";
+    overrideDevices = true;
+    overrideFolders = true;
+    guiAddress = "0.0.0.0:8384";
+    devices = {
+      "cass-android" = { id = "SDA26VM-DP2AGO2-HHGIJ6G-UVX25M3-3UBSMFY-M4XZ6DM-42COXSX-K7H7CQK"; };
+    };
+    folders = {
+      "Games" = {
+        path = "/home/cassandra/Games/small";
+        devices = [ "cass-android" ];
+      };
+      "Camera" = {
+        path = "/home/cassandra/imgs/camera";
+        devices = [ "cass-android" ];
+      };
+      "imgs" = {
+        path = "/home/cassandra/imgs";
+        devices = [ "cass-android" ];
+      };
+      "drive" = {
+        path = "/home/cassandra/drive";
+        devices = [ "cass-android" ];
+      };
+    };
+  };
+  # Syncthing ports
+  networking.firewall.allowedTCPPorts = [ 8384 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";

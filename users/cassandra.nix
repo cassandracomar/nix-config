@@ -137,11 +137,5 @@ in
     };
   };
 
-  services.syncthing = {
-    # user = "therivercass";
-    # dataDir = "/home/cassandra/drive";
-    # configDir = "/home/cassandra/.config/";
-  };
-
   home.stateVersion = "21.11";
 }

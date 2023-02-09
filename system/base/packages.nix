@@ -56,6 +56,9 @@
   programs.steam.enable = true;
   programs.gamemode.enable = true;
   hardware.steam-hardware.enable = true;
+  services.udev.extraRules = ''
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="268b", MODE:="0666", GROUP="users"
+  '';
 
   # services.actualbudget.enable = true;
 
