@@ -122,10 +122,6 @@
         path = "/home/cassandra/Games/small";
         devices = [ "cass-android" ];
       };
-      "Camera" = {
-        path = "/home/cassandra/imgs/camera";
-        devices = [ "cass-android" ];
-      };
       "imgs" = {
         path = "/home/cassandra/imgs";
         devices = [ "cass-android" ];
