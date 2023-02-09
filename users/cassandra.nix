@@ -107,16 +107,16 @@ in
     package = pkgs-master.firefox-nightly-bin.override {
       extraPolicies = { DisableAppUpdate = true; };
     };
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      reddit-enhancement-suite
-      # https-everywhere
-      umatrix
-      tridactyl
-      multi-account-containers
-    ];
     profiles = {
       "yg8ij66s.default" = {
         isDefault = true;
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          reddit-enhancement-suite
+          # https-everywhere
+          umatrix
+          tridactyl
+          multi-account-containers
+        ];
         settings = {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = "true";
         };
