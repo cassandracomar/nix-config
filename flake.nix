@@ -11,6 +11,8 @@
   # overlays
   inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
   inputs.emacs.url = "github:nix-community/emacs-overlay";
+  inputs.emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
+  inputs.emacs-src.flake = false;
   inputs.rust.url = "github:oxalica/rust-overlay";
   inputs.rust.inputs.nixpkgs.follows = "nixpkgs";
   inputs.rust.inputs.flake-utils.follows = "emacs/flake-utils";
@@ -29,6 +31,7 @@
     , xmonad-personal
     , mozilla
     , emacs
+    , emacs-src
     , rust
     , nur
     , nix-direnv
@@ -41,6 +44,14 @@
       overlays = [
         mozilla.overlay
         emacs.overlay
+        (final: prev: {
+          emacsPgtk = prev.emacsGit.overrideAttrs
+            (old: {
+              name = "emacs-unstable";
+              version = inputs.emacs-src.shortRev;
+              src = inputs.emacs-src;
+            });
+        })
         rust.overlays.default
         nur.overlay
         (self: super: {

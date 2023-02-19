@@ -22,7 +22,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsPgtkNativeComp;
+    package = pkgs.emacsPgtk;
     extraPackages = epkgs:
       with pkgs; [
         lilypond

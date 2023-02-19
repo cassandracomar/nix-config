@@ -34,6 +34,24 @@
       plugins = [ "git" "sudo" "kubectl" ];
       theme = "agnoster";
     };
+    envExtra = ''
+      get_completions() {
+        typeset -U path cdpath fpath manpath
+
+        for profile in ''${(z)NIX_PROFILES}; do
+          fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
+        done
+        source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+        plugins=(git sudo kubectl)
+
+        HOME=/home/cassandra
+        PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.emacs.d/bin:$HOME/.krew/bin:$PATH";
+        ZSH_THEME="agnoster"
+        source $ZSH/oh-my-zsh.sh
+        compgen -A function -ac
+      }
+    '';
     initExtra = ''
       alias ls="ls -l --color=always"
       alias ssh="kitty +kitten ssh"
@@ -45,6 +63,22 @@
       alias prodctl="kubectl --context=cassandracomar@prod.k8s.ditto.live"
       alias particleprodctl="kubectl --context=cassandracomar@particle-prod.k8s.ditto.live"
       alias particlestgctl="kubectl --context=cassandracomar@particle-stg.k8s.ditto.live"
+      vterm_printf() {
+          if [ -n "$TMUX" ] && ([ "''${TERM%%-*}" = "tmux" ] || [ "''${TERM%%-*}" = "screen" ]); then
+              # Tell tmux to pass the escape sequences through
+              printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+          elif [ "''${TERM%%-*}" = "screen" ]; then
+              # GNU screen (screen, screen-256color, screen-256color-bce)
+              printf "\eP\e]%s\007\e\\" "$1"
+          else
+              printf "\e]%s\e\\" "$1"
+          fi
+      }
+      vterm_prompt_end() {
+          vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+      }
+      setopt PROMPT_SUBST
+      PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
     '';
   };
 

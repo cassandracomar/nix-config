@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export TERM=eterm
 before=$(realpath "$(which emacs)")
 NR_EXEC=/run/current-system/sw/bin/nixos-rebuild
 CONFIG_FLAKE_PATH=/home/cassandra/src/github.com/cassandracomar/nix-config
@@ -18,7 +19,7 @@ echo "invoking nixos-rebuild"
 
 case $1 in
     test)
-        sudo $NR_EXEC --override-input nix-config "path:$CONFIG_FLAKE_PATH" $*
+        emacs_checked_update sudo $NR_EXEC --override-input nix-config "path:$CONFIG_FLAKE_PATH" $*
         ;;
     upgrade)
         shift
