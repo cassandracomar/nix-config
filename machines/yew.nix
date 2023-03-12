@@ -70,4 +70,8 @@
 
   services.openssh.enable = true;
   # services.xrdp.enable = true;
+
+  services.xserver.deviceSection = ''
+    BusId "PCI:23:00:0"
+  '';
 }
