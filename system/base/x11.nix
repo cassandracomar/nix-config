@@ -75,7 +75,7 @@
     libva-utils
   ];
   services.picom.enable = true;
-  services.picom.backend = "glx";
+  services.picom.backend = "xrender";
   services.picom.vSync = true;
   services.picom.shadowOpacity = 1.0;
 
