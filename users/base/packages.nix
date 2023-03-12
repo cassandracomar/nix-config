@@ -27,12 +27,14 @@
     reaper
     evtest
     audacity
-    pkgs-master.ocenaudio
+    # pkgs.ocenaudio
     android-studio
     # ffmpeg-full
     # svt-av1
     # libopus
     pkgs-master.nice-dcv-client
+    numactl
+    arandr
   ];
 
   home.file.".config/discord/settings.json".text = ''

@@ -49,6 +49,11 @@
       device = "/dev/disk/by-uuid/D2EC-879D";
       fsType = "vfat";
     };
+
+  fileSystems."/nix" = {
+    device = "data/nix";
+    fsType = "zfs";
+  };
   hardware.enableRedistributableFirmware = true;
 
   swapDevices = [ ];

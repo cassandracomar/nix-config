@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
-    rev = "develop";
-    sha256 = "sha256-DZiBRg7QNbf+DKRzGPxzp9/irqyr0WW8n8LtOwQ7bHE=";
+    rev = "master";
+    sha256 = "sha256-f/2E9XTNJUeeckQOuJrr0oFoE9ajJLHSf8jDc+EhSAM=";
   };
 
   hardeningDisable = [ "pic" "format" ];
@@ -29,3 +29,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+
