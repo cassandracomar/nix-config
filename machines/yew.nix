@@ -72,6 +72,6 @@
   # services.xrdp.enable = true;
 
   services.xserver.deviceSection = ''
-    BusId "PCI:23:00:0"
+    BusID "PCI:23:00:0"
   '';
 }
