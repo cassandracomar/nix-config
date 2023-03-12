@@ -71,7 +71,25 @@
   services.openssh.enable = true;
   # services.xrdp.enable = true;
 
-  services.xserver.deviceSection = ''
-    BusID "PCI:23:00:0"
-  '';
+  services.xserver = {
+    # displayManager.setupCommands = ''
+    #   (
+    #     sleep 5
+    #     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 1 0"
+    #   ) &
+    # '';
+    # videoDrivers = [ "amdgpu" ];
+    # deviceSection = ''
+    #   BusID "PCI:23:00:0"
+    # '';
+    # extraConfig = ''
+    #   Section "OutputClass"
+    #     Identifier "Output-amdgpu[0]"
+    #     MatchDriver "amdgpu"
+    #     Driver "amdgpu"
+    #     Option "AllowEmptyInitialConfiguration"
+    #     Option "PrimaryGPU" "yes"
+    #   EndSection
+    # '';
+  };
 }
