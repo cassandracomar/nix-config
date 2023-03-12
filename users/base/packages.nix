@@ -35,6 +35,7 @@
     pkgs-master.nice-dcv-client
     numactl
     arandr
+    pinentry-gnome
   ];
 
   home.file.".config/discord/settings.json".text = ''
