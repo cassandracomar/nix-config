@@ -16,6 +16,7 @@
     # gcc
     # stdenv_mold
     gnumake
+    pinentry-emacs
   ];
 
   systemd.user.startServices = true;
@@ -35,7 +36,8 @@
         epkgs.sqlite3
         epkgs.emacsql
         epkgs.emacsql-sqlite3
-        pkgs.rnix-lsp
+        rnix-lsp
+        pinentry-emacs
       ];
   };
   services.emacs.enable = true;
