@@ -30,11 +30,11 @@
           };
           iconTheme = {
             package = pkgs.qogir-icon-theme;
-            name = "Qogir";
+            name = "Qogir-dark";
           };
           cursorTheme = {
-            package = pkgs.vanilla-dmz;
-            name = "DMZ (Black)";
+            package = pkgs.qogir-theme;
+            name = "Qogir-dark";
           };
         };
 
