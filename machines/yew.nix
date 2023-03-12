@@ -61,9 +61,6 @@
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
 
-
-  #virtualisation.docker.storageDriver = "overlay2";
-
   powerManagement.cpuFreqGovernor = pkgs.lib.mkForce "ondemand";
   environment.systemPackages = with pkgs; [
     freeipmi
@@ -74,27 +71,4 @@
   ];
 
   services.openssh.enable = true;
-  # services.xrdp.enable = true;
-
-  services.xserver = {
-    # displayManager.setupCommands = ''
-    #   (
-    #     sleep 5
-    #     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 1 0"
-    #   ) &
-    # '';
-    # videoDrivers = [ "amdgpu" ];
-    # deviceSection = ''
-    #   BusID "PCI:23:00:0"
-    # '';
-    # extraConfig = ''
-    #   Section "OutputClass"
-    #     Identifier "Output-amdgpu[0]"
-    #     MatchDriver "amdgpu"
-    #     Driver "amdgpu"
-    #     Option "AllowEmptyInitialConfiguration"
-    #     Option "PrimaryGPU" "yes"
-    #   EndSection
-    # '';
-  };
 }
