@@ -29,8 +29,8 @@ in
     pinta
   ];
 
-  home.pointerCursor.package = pkgs.vanilla-dmz;
-  home.pointerCursor.name = "Vanilla-DMZ";
+  # home.pointerCursor.package = pkgs.vanilla-dmz;
+  # home.pointerCursor.name = "Vanilla-DMZ";
   xsession = {
     enable = true;
     windowManager = {
@@ -41,8 +41,14 @@ in
       };
     };
     initExtra = ''
+      #! ${pkgs.bash}/bin/bash
       ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
       cbatticon &
+      if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
+        ${pkgs.xorg.xset}/bin/xset s on +dpms
+      else
+        ${pkgs.xorg.xset}/bin/xset s off -dpms
+      fi
     '';
   };
 
@@ -69,8 +75,8 @@ in
 
   services.dunst = {
     enable = true;
-    iconTheme.name = "Adwaita";
-    iconTheme.package = pkgs.gnome.adwaita-icon-theme;
+    iconTheme.name = "Qogir";
+    iconTheme.package = pkgs.qogir-icon-theme;
     settings = {
       global = {
         geometry = "600x3-0+40";

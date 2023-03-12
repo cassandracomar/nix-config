@@ -23,6 +23,20 @@
     displayManager = {
       lightdm = {
         enable = true;
+        greeters.gtk = {
+          theme = {
+            package = pkgs.qogir-theme;
+            name = "Qogir-Dark";
+          };
+          iconTheme = {
+            package = pkgs.qogir-icon-theme;
+            name = "Qogir";
+          };
+          cursorTheme = {
+            package = pkgs.vanilla-dmz;
+            name = "DMZ (Black)";
+          };
+        };
 
       };
       autoLogin = {
