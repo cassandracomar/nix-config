@@ -42,6 +42,7 @@ in
     };
     initExtra = ''
       #! ${pkgs.bash}/bin/bash
+      ${pkgs.autorandr}/bin/autorandr -c
       ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
       cbatticon &
       if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
