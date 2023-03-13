@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2fORGdtBvfDthlYFEtCJWCIFzsGWopHIeuuPllazWfY=";
   };
 
-  hardeningDisable = [ "pic" "format" ];
+  patches = [ ./corefreq-fix.patch ];
+
   nativeBuildInputs = kernel.moduleBuildDependencies; # 2
 
   makeFlags = [
@@ -22,10 +23,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "A kernel module to create V4L2 loopback devices";
-    homepage = "https://github.com/aramg/droidcam";
+    description = "CoreFreq, a CPU monitoring software with BIOS like functionalities";
+    homepage = "https://github.com/cyring/CoreFreq";
     license = licenses.gpl2;
-    maintainers = [ maintainers.makefu ];
     platforms = platforms.linux;
   };
 }

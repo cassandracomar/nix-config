@@ -85,6 +85,19 @@
           import ./packages/actualbudget/override.nix {
             pkgs = self;
             inherit system;
+          }
+        )
+
+        (self: super:
+          let
+            kpkgs = nixpkgs-optimized.legacyPackages.${system};
+          in
+          {
+            CoreFreq = pkgs.callPackage ./packages/corefreq.nix {
+              kernel = kpkgs.linux_xanmod_tt.override {
+                ignoreConfigErrors = true;
+              };
+            };
           })
 
         (self: super: {
