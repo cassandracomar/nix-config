@@ -139,4 +139,18 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+    reflector = true;
+    publish = {
+      enable = true;
+      domain = true;
+      addresses = true;
+    };
+    ipv6 = true;
+    ipv4 = true;
+  };
 }
