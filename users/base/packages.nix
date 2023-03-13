@@ -37,6 +37,7 @@
     arandr
     pinentry-gnome
     openconnect-sso
+    openconnect
   ];
 
   home.file.".config/discord/settings.json".text = ''
