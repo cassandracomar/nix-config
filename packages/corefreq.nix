@@ -7,12 +7,12 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
-    rev = "master";
-    sha256 = "sha256-f/2E9XTNJUeeckQOuJrr0oFoE9ajJLHSf8jDc+EhSAM=";
+    rev = "linux_6_3";
+    sha256 = "sha256-2fORGdtBvfDthlYFEtCJWCIFzsGWopHIeuuPllazWfY=";
   };
 
   hardeningDisable = [ "pic" "format" ];
-  nativeBuildInputs = kernel.moduleBuildDependencies;                       # 2
+  nativeBuildInputs = kernel.moduleBuildDependencies; # 2
 
   makeFlags = [
     "KERNELRELEASE=${kernel.modDirVersion}"
@@ -29,4 +29,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-
