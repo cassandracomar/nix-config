@@ -17,6 +17,10 @@
   inputs.rust.inputs.nixpkgs.follows = "nixpkgs";
   inputs.rust.inputs.flake-utils.follows = "emacs/flake-utils";
   inputs.nur.url = "github:nix-community/NUR";
+  inputs.openconnect = {
+    url = "github:vlaci/openconnect-sso";
+    flake = false;
+  };
 
   # overrides via overlay
   inputs.nix-direnv.url = "github:nix-community/nix-direnv";
@@ -35,6 +39,7 @@
     , rust
     , nur
     , nix-direnv
+    , openconnect
     }@inputs:
     let
       hosts = [ "cherry" "walnut" "magus" "yew" ];
@@ -103,6 +108,8 @@
         (self: super: {
           xmonad-personal = xmonad-personal.defaultPackage.${system};
         })
+
+        (import "${openconnect}/overlay.nix")
       ];
 
       pkgs = import nixpkgs {

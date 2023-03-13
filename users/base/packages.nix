@@ -36,6 +36,7 @@
     numactl
     arandr
     pinentry-gnome
+    openconnect-sso
   ];
 
   home.file.".config/discord/settings.json".text = ''
