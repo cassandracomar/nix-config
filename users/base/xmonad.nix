@@ -43,7 +43,7 @@ in
     initExtra = ''
       #! ${pkgs.bash}/bin/bash
       # ${pkgs.autorandr}/bin/autorandr -c
-      ${pkgs.xorg.xsetroot}/bin/xsetroot --cursor_name Qogir-dark
+      ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
       ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
       cbatticon &
       if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
