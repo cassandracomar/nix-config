@@ -114,19 +114,21 @@
 
       # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
       server_names = [
-        "bcn-dnscrypt"
+        "altername-ipv6"
+        "altername"
+        "doh.tiar.app-ipv6"
+        "meganerd-ipv6"
+        "meganerd-doh-ipv6"
+        "starrydns-ipv6"
         "ams-dnscrypt-nl"
+        "brahma-world-ipv6"
         "ams-dnscrypt-nl-ipv6"
-        "dct-del"
-        "dct-ru1"
-        "dct-ru2"
         "dns.watch"
         "dns.watch-ipv6"
         "dnscrypt-ch-blahdns-ipv4"
         "dnscrypt-ch-blahdns-ipv6"
         "dnscrypt.pl"
-        "bcn-doh"
-        "dns.digitale-gesellschaft.ch"
+        "sth-dnscrypt-se-ipv6"
       ];
 
       anonymized_dns = {
@@ -142,6 +144,10 @@
             "anon-pf"
             "anon-opennic-R4SAS"
             "anon-opennic-R4SAS-ipv6"
+            "anon-scaleway-ams-ipv6"
+            "anon-scaleway-ams"
+            "anon-tiarap-ipv6"
+            "anon-tiarap"
           ];
         }];
       };
@@ -174,9 +180,15 @@
       };
     };
   };
-  # Syncthing ports
-  networking.firewall.allowedTCPPorts = [ 8384 22000 5353 ];
-  networking.firewall.allowedUDPPorts = [ 22000 21027 5353 ];
+
+  ## firewall rules
+  networking.firewall = {
+    allowedTCPPorts = [ 8384 22000 5353 ];
+    allowedUDPPorts = [ 22000 21027 5353 ];
+    logRefusedConnections = true;
+    logRefusedPackets = true;
+    logRefusedUnicastsOnly = true;
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
