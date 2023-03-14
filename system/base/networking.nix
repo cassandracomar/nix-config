@@ -38,7 +38,7 @@
     useDHCP = false;
     dhcpcd.enable = false;
     firewall.checkReversePath = "loose";
-    resolvconf.dnsSingleRequest = true;
+    # resolvconf.dnsSingleRequest = true;
   };
 
   systemd.network = {
@@ -57,6 +57,10 @@
           RouteMetric = 10;
         };
       };
+      "20-wireless" = {
+        matchConfig.Type = [ "wlan" ];
+        enable = false;
+      };
     };
   };
 
@@ -69,13 +73,19 @@
     '';
   };
 
+  systemd.services.nscd = {
+    wantedBy = lib.mkForce [ ];
+    after = lib.mkForce [ ];
+    enable = lib.mkForce false;
+  };
+
   # set up anonymized and encrypted DNS
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
       ipv6_servers = true;
       require_dnssec = true;
-      listen_addresses = [ "127.0.0.55:53" "[::1]:1053" "127.0.0.11:53" ];
+      listen_addresses = [ "127.0.0.1:1053" "[::1]:1053" "127.0.0.11:53" ];
 
       sources = {
         public-resolvers = {
@@ -165,7 +175,7 @@
     };
   };
   # Syncthing ports
-  networking.firewall.allowedTCPPorts = [ 8384 22000 ];
+  networking.firewall.allowedTCPPorts = [ 8384 22000 5353 ];
   networking.firewall.allowedUDPPorts = [ 22000 21027 5353 ];
 
   # Configure network proxy if necessary
