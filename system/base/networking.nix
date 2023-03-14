@@ -15,11 +15,7 @@
   #networking.interfaces.vethc1c7b69.useDHCP = true;
 
   networking = {
-    nameservers = [
-      # "172.20.0.1"
-      "127.0.0.1"
-      "::1"
-    ];
+    nameservers = [ ];
     # resolvconf.enable = true;
     # resolvconf.useLocalResolver = true;
     enableIPv6 = true;
@@ -56,6 +52,8 @@
           ClientIdentifier = "mac";
           RouteMetric = 10;
         };
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
       };
       "20-wireless" = {
         matchConfig.Type = [ "wlan" ];
@@ -67,6 +65,7 @@
   # secerorvices.headscale.enable = true;
   services.resolved = {
     enable = true;
+    fallbackDns = [ "127.0.0.1:1053" "[::1]:1053" ];
     extraConfig = ''
       DNS=127.0.0.1:1053 [::1]:1053
       MulticastDNS=yes

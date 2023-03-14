@@ -61,12 +61,7 @@
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
   systemd.network.networks = {
-    "10-wired".matchConfig.Name = [ "!usb*" ];
-    "15-disable" = {
-      matchConfig.Name = [ "usb0" "enp211s0f1" ];
-      enable = false;
-      linkConfig.Unmanaged = true;
-    };
+    "10-wired".matchConfig.Name = [ "enp211s0f0" ];
   };
 
 
