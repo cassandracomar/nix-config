@@ -13,29 +13,61 @@
   #   prefixLength = 24;
   # }];
   #networking.interfaces.vethc1c7b69.useDHCP = true;
+
   networking = {
     nameservers = [
       # "172.20.0.1"
       "127.0.0.1"
       "::1"
     ];
-    resolvconf.enable = true;
-    resolvconf.useLocalResolver = true;
+    # resolvconf.enable = true;
+    # resolvconf.useLocalResolver = true;
     enableIPv6 = true;
+    useNetworkd = true;
+
+    # wireless configuration
     networkmanager = {
       enable = true;
-      dns = "none";
-      insertNameservers = [
-        # "172.20.0.1"
-        "127.0.0.1"
-        "::1"
-      ];
+      # dns = "none";
+      connectionConfig = {
+        "connection.mdns" = "2";
+      };
+      unmanaged = [ "en*" "usb*" ];
     };
+
     useDHCP = false;
     dhcpcd.enable = false;
     firewall.checkReversePath = "loose";
+    resolvconf.dnsSingleRequest = true;
   };
-  # services.headscale.enable = true;
+
+  systemd.network = {
+    wait-online.enable = false;
+    networks = {
+      "10-wired" = {
+        matchConfig.Type = [ "ether" ];
+        DHCP = "yes";
+        networkConfig = {
+          MulticastDNS = "yes";
+        };
+        dhcpConfig = {
+          UseHostname = false;
+          UseDNS = false;
+          ClientIdentifier = "mac";
+          RouteMetric = 10;
+        };
+      };
+    };
+  };
+
+  # secerorvices.headscale.enable = true;
+  services.resolved = {
+    enable = true;
+    extraConfig = ''
+      DNS=127.0.0.1:1053 [::1]:1053
+      MulticastDNS=yes
+    '';
+  };
 
   # set up anonymized and encrypted DNS
   services.dnscrypt-proxy2 = {
@@ -43,7 +75,7 @@
     settings = {
       ipv6_servers = true;
       require_dnssec = true;
-      listen_addresses = [ "127.0.0.1:53" "[::1]:53" "127.0.0.11:53" ];
+      listen_addresses = [ "127.0.0.55:53" "[::1]:1053" "127.0.0.11:53" ];
 
       sources = {
         public-resolvers = {
@@ -53,7 +85,7 @@
             "https://ipv6.download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
             "https://download.dnscrypt.net/resolvers-list/v3/public-resolvers.md"
           ];
-          cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
+          cache_file = "/var/lib/dnscrypt-proxy/public-resolvers.md";
           minisign_key =
             "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
         };
@@ -64,7 +96,7 @@
             "https://ipv6.download.dnscrypt.info/resolvers-list/v3/relays.md"
             "https://download.dnscrypt.net/resolvers-list/v3/relays.md"
           ];
-          cache_file = "/var/lib/dnscrypt-proxy2/relays.md";
+          cache_file = "/var/lib/dnscrypt-proxy/relays.md";
           minisign_key =
             "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
         };
@@ -134,23 +166,9 @@
   };
   # Syncthing ports
   networking.firewall.allowedTCPPorts = [ 8384 22000 ];
-  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+  networking.firewall.allowedUDPPorts = [ 22000 21027 5353 ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    openFirewall = true;
-    reflector = true;
-    publish = {
-      enable = true;
-      domain = true;
-      addresses = true;
-    };
-    ipv6 = true;
-    ipv4 = true;
-  };
 }
