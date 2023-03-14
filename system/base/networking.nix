@@ -83,17 +83,20 @@
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
+      ipv4_servers = true;
       ipv6_servers = true;
       require_dnssec = true;
+      require_nofilter = true;
+      dnscrypt_servers = true;
+      doh_servers = false;
+      odoh_servers = true;
       listen_addresses = [ "127.0.0.1:1053" "[::1]:1053" "127.0.0.11:53" ];
+      bootstrap_resolvers = [ "2620:fe::fe:11" "2620:fe::fe:10" ];
 
       sources = {
         public-resolvers = {
           urls = [
-            "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-            "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
             "https://ipv6.download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-            "https://download.dnscrypt.net/resolvers-list/v3/public-resolvers.md"
           ];
           cache_file = "/var/lib/dnscrypt-proxy/public-resolvers.md";
           minisign_key =
@@ -101,30 +104,37 @@
         };
         relays = {
           urls = [
-            "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/relays.md"
-            "https://download.dnscrypt.info/resolvers-list/v3/relays.md"
             "https://ipv6.download.dnscrypt.info/resolvers-list/v3/relays.md"
-            "https://download.dnscrypt.net/resolvers-list/v3/relays.md"
           ];
           cache_file = "/var/lib/dnscrypt-proxy/relays.md";
           minisign_key =
             "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
         };
+        odoh-relays = {
+          urls = [ "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh-relays.md" "https://download.dnscrypt.info/resolvers-list/v3/odoh-relays.md" ];
+          minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+          cache_file = "/var/lib/dnscrypt-proxy/odoh-relays.md";
+        };
+        odoh-servers = {
+          urls = [ "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh-servers.md" "https://download.dnscrypt.info/resolvers-list/v3/odoh-servers.md" ];
+          minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+          cache_file = "/var/lib/dnscrypt-proxy/odoh-servers.md";
+        };
       };
 
       # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
       server_names = [
-        "altername-ipv6"
-        "doh.tiar.app-ipv6"
-        "meganerd-ipv6"
-        "starrydns-ipv6"
-        "brahma-world-ipv6"
-        "ams-dnscrypt-nl-ipv6"
-        "dns.watch"
-        "dns.watch-ipv6"
-        "dnscrypt-ch-blahdns-ipv6"
+        "dct-ru1"
+        "scaleway-ams"
+        "quad9-dnscrypt-ip4-nofilter-pri"
+        "meganerd"
         "dnscrypt.pl"
-        "sth-dnscrypt-se-ipv6"
+        "altername"
+        "ibksturm"
+        "plan9dns-mx"
+        "odoh-ibksturm"
+        "odoh-koki-se"
+        "odoh-meganerd"
       ];
 
       anonymized_dns = {
@@ -132,16 +142,23 @@
         routes = [{
           server_name = "*";
           via = [
-            "anon-acsacsar-ams-ipv6"
-            "anon-scaleway-ams-ipv6"
-            "anon-scaleway-ams"
-            "anon-tiarap-ipv6"
             "anon-tiarap"
+            "anon-sth-se"
+            "anon-serbica"
+            "anon-cs-sk"
+            "anon-cs-serbia"
+            "odohrelay-crypto-sx"
+            "odohrelay-surf"
+            "odoh-ams"
           ];
         }];
       };
     };
   };
+  systemd.services.dnscrypt-proxy2.environment = {
+    DEBUG = "1";
+  };
+  systemd.services.dnscrypt-proxy2.serviceConfig.ExecStart = lib.mkForce "${pkgs.dnscrypt-proxy2}/bin/dnscrypt-proxy -config ${config.services.dnscrypt-proxy2.configFile} -loglevel 0";
 
   services.syncthing = {
     enable = true;
