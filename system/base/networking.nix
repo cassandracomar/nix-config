@@ -115,17 +115,13 @@
       # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
       server_names = [
         "altername-ipv6"
-        "altername"
         "doh.tiar.app-ipv6"
         "meganerd-ipv6"
-        "meganerd-doh-ipv6"
         "starrydns-ipv6"
-        "ams-dnscrypt-nl"
         "brahma-world-ipv6"
         "ams-dnscrypt-nl-ipv6"
         "dns.watch"
         "dns.watch-ipv6"
-        "dnscrypt-ch-blahdns-ipv4"
         "dnscrypt-ch-blahdns-ipv6"
         "dnscrypt.pl"
         "sth-dnscrypt-se-ipv6"
@@ -136,14 +132,7 @@
         routes = [{
           server_name = "*";
           via = [
-            "anon-bcn"
-            "anon-acsacsar-ams-ipv4"
             "anon-acsacsar-ams-ipv6"
-            "anon-cs-md"
-            "anon-cs-la"
-            "anon-pf"
-            "anon-opennic-R4SAS"
-            "anon-opennic-R4SAS-ipv6"
             "anon-scaleway-ams-ipv6"
             "anon-scaleway-ams"
             "anon-tiarap-ipv6"
