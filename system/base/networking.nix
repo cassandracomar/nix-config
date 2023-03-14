@@ -34,7 +34,7 @@
     useDHCP = false;
     dhcpcd.enable = false;
     firewall.checkReversePath = "loose";
-    # resolvconf.dnsSingleRequest = true;
+    resolvconf.dnsSingleRequest = true;
   };
 
   systemd.network = {
@@ -65,10 +65,11 @@
   # secerorvices.headscale.enable = true;
   services.resolved = {
     enable = true;
-    fallbackDns = [ "127.0.0.1:1053" "[::1]:1053" ];
+    fallbackDns = [ "[::1]:1053" "127.0.0.1:1053" ];
     extraConfig = ''
-      DNS=127.0.0.1:1053 [::1]:1053
+      DNS=[::1]:1053 127.0.0.1:1053
       MulticastDNS=yes
+      DNSStubListenerExtra=[::1]:53
     '';
   };
 
