@@ -1,18 +1,14 @@
 { config, lib, pkgs, ... }:
 
 {
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  boot.kernelModules = [ "jool" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ jool ];
+  environment.systemPackages = with pkgs; [ jool-cli ];
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  # networking.useDHCP = false;
-  # networking.interfaces.enp0s13f0u1u3.useDHCP = false;
-  # networking.interfaces.enp0s13f0u1u3.ipv4.addresses = [{
-  #   address = "192.168.1.10";
-  #   prefixLength = 24;
-  # }];
-  #networking.interfaces.vethc1c7b69.useDHCP = true;
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.forwarding" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 
   networking = {
     nameservers = [ ];
@@ -51,12 +47,15 @@
           ClientIdentifier = "mac";
           RouteMetric = 10;
         };
-        dhcpV4Config.UseDNS = false;
+        linkConfig = {
+          RequiredFamilyForOnline = "ipv6";
+        };
         dhcpV6Config.UseDNS = false;
       };
       "20-wireless" = {
         matchConfig.Type = [ "wlan" ];
         enable = false;
+        linkConfig.Unmanaged = true;
       };
     };
   };
