@@ -33,7 +33,6 @@
 
     useDHCP = false;
     dhcpcd.enable = false;
-    firewall.checkReversePath = "loose";
     resolvconf.dnsSingleRequest = true;
   };
 
@@ -91,7 +90,7 @@
       doh_servers = false;
       odoh_servers = true;
       listen_addresses = [ "127.0.0.1:1053" "[::1]:1053" "127.0.0.11:53" ];
-      bootstrap_resolvers = [ "2620:fe::fe:11" "2620:fe::fe:10" ];
+      bootstrap_resolvers = [ "[2620:fe::11]:53" "[2620:fe::fe:11]:53" ];
 
       sources = {
         public-resolvers = {
@@ -126,10 +125,14 @@
       server_names = [
         "dct-ru1"
         "scaleway-ams"
+        "scaleway-ams-ipv6"
+        "ams-dnscrypt-nl-ipv6"
         "quad9-dnscrypt-ip4-nofilter-pri"
         "meganerd"
+        "meganerd-ipv6"
         "dnscrypt.pl"
         "altername"
+        "altername-ipv6"
         "ibksturm"
         "plan9dns-mx"
         "odoh-ibksturm"
@@ -147,9 +150,14 @@
             "anon-serbica"
             "anon-cs-sk"
             "anon-cs-serbia"
+            "anon-dnscrypt.uk-ipv6"
             "odohrelay-crypto-sx"
             "odohrelay-surf"
             "odoh-ams"
+            "anon-meganerd-ipv6"
+            "anon-scaleway-ams-ipv6"
+            "anon-tiarap-ipv6"
+            "anon-v.dnscrypt.uk-ipv6"
           ];
         }];
       };
@@ -189,6 +197,7 @@
 
   ## firewall rules
   networking.firewall = {
+    checkReversePath = "loose";
     allowedTCPPorts = [ 8384 22000 5353 ];
     allowedUDPPorts = [ 22000 21027 5353 ];
     logRefusedConnections = true;
