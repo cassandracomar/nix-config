@@ -77,6 +77,7 @@
           RequiredForOnline = true;
         };
         dhcpV6Config = {
+          UseDNS = false;
           PrefixDelegationHint = "::/62";
         };
         ipv6AcceptRAConfig = {
@@ -100,6 +101,7 @@
         };
         dhcpV6Config = {
           PrefixDelegationHint = "::/63";
+          UseDNS = false;
         };
         dhcpConfig = {
           UseHostname = false;
@@ -111,7 +113,6 @@
           RequiredFamilyForOnline = "ipv6";
         };
         dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
       };
     };
   };
