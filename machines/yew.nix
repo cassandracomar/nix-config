@@ -79,7 +79,9 @@
         dhcpV6Config = {
           UseDNS = false;
           PrefixDelegationHint = "::/62";
-          UseDelegatedPrefix = true;
+        };
+        ipv6AcceptRAConfig = {
+          Token = "prefixstable";
         };
       };
       "10-wired-bridge" = {
@@ -100,7 +102,6 @@
         dhcpV6Config = {
           PrefixDelegationHint = "::/63";
           UseDNS = false;
-          UseDelegatedPrefix = true;
         };
         dhcpConfig = {
           UseHostname = false;
