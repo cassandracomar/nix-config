@@ -56,62 +56,15 @@
   };
   hardware.enableRedistributableFirmware = true;
 
-  boot.kernel.sysctl = {
-    "net.ipv6.conf.enp211s0f0.proxy_ndp" = 1;
-  };
-
   swapDevices = [ ];
 
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
-  systemd.network = {
-    networks = {
-      "10-wired" = {
-        matchConfig.Name = [ "enp211s0f0" ];
-        networkConfig = {
-          DHCPPrefixDelegation = true;
-          IPv6AcceptRA = true;
-          IPv6SendRA = true;
-        };
-        linkConfig = {
-          RequiredForOnline = true;
-        };
-        dhcpV6Config = {
-          PrefixDelegationHint = "::/62";
-        };
-        ipv6AcceptRAConfig = {
-          Token = "prefixstable";
-        };
-      };
-      "10-wired-bridge" = {
-        matchConfig.Name = [ "enp211s0f1" ];
-        linkConfig = {
-          RequiredForOnline = true;
-        };
-        DHCP = "yes";
-        networkConfig = {
-          DHCPPrefixDelegation = true;
-          DHCPServer = true;
-          IPv6AcceptRA = true;
-          IPv6SendRA = true;
-          IPForward = true;
-          MulticastDNS = true;
-          Address = [ "192.168.2.1/24" ];
-        };
-        dhcpV6Config = {
-          PrefixDelegationHint = "::/63";
-        };
-        dhcpConfig = {
-          UseHostname = false;
-          UseDNS = false;
-          ClientIdentifier = "mac";
-          RouteMetric = 10;
-        };
-        linkConfig = {
-          RequiredFamilyForOnline = "ipv6";
-        };
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
+  systemd.network.networks = {
+    "10-wired" = {
+      matchConfig.Name = [ "enp211s0f0" ];
+      linkConfig = {
+        RequiredForOnline = true;
       };
     };
   };

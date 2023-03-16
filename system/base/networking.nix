@@ -1,57 +1,7 @@
 { config, lib, pkgs, ... }:
-with pkgs; let
-  joolBin = "${jool-cli}/bin/jool_siit";
-  awk = "${gawk}/bin/gawk";
-  ip = "${iproute2}/bin/ip";
-  process-address = pkgs.writeScriptBin "process-address.rb" ''
-    #!${ruby}/bin/ruby
-    require 'ipaddr'
-    require 'socket'
 
-    increment = ARGV[0] == true.to_s
-    address_parts = ARGV[1].split('/')
-    address = IPAddr.new address_parts[0], Socket::AF_INET6
-    res = increment ? address.succ : "#{address.mask(address_parts[1].to_i)}/#{address_parts[1]}"
-    puts res.to_s
-  '';
-  jool-start = pkgs.writeShellScriptBin "jool-start" ''
-    set -eux
-
-    PRIMARY_INTERFACE=$(${ip} -o -6 addr list | grep -v ::1 | grep -v fe80 | ${awk} '{print $2}' | head -n 1)
-    PREFIX=$(${ip} -o -6 addr list | grep ''${PRIMARY_INTERFACE} | ${awk} '{print $4}' | head -n 1)
-    ADDRESS=$(PREFIX | cut -d/ -f 1)
-
-    ${ip} netns add nat64
-    ${ip} link add name to_nat64 type veth peer name to_world
-    ${ip} link set to_nat64 up
-
-    ${ip} link set dev to_world netns nat64
-    ${ip} netns exec nat64 ${ip} link set to_world up
-
-    TO_WORLD=$(${ip} netns exec nat64 ${ip} -o -6 addr show scope link dev to_world | ${awk} '{print $4}' | cut -d/ -f 1)
-    TO_NAT64=$(${ip} -o -6 addr show scope link dev to_nat64 | ${awk} '{print $4}' | cut -d/ -f 1)
-    ${ip} netns exec nat64 ${ip} -6 route add default via ''${TO_NAT64} dev to_world
-    ${ip} netns exec nat64 ${ip} -4 addr add 192.168.255.1/24 dev to_world
-
-    NAT64_IADDR=$(${process-address}/bin/process-address.rb true ''${PREFIX})
-    ${ip} -6 neigh add proxy ''${NAT64_IADDR} dev $PRIMARY_INTERFACE
-    ${ip} -6 route add ''${NAT64_IADDR} via $TO_WORLD dev to_nat64
-    ${ip} -4 addr add 192.168.255.2/24 dev to_nat64
-    ${ip} -4 route add default via 192.168.255.1 dev to_nat64
-
-    ${ip} netns exec nat64 ${joolBin} instance add default --netfilter --pool6 $(${process-address}/bin/process-address.rb false ''${PREFIX})
-    ${ip} netns exec nat64 ${joolBin} global update logging-debug true
-  '';
-  jool-stop = pkgs.writeShellScriptBin "jool-stop" ''
-    PRIMARY_INTERFACE=$(${ip} -o -6 addr list | grep -v ::1 | grep -v fe80 | ${awk} '{print $2}' | head -n 1)
-    ${ip} addr del 64:ff9b::2 dev $PRIMARY_INTERFACE || true
-    ${ip} netns exec nat64 ${joolBin} instance flush
-    ${ip} netns delete nat64
-  '';
-
-in
 {
-  boot.kernelModules = [ "jool_siit" ];
+  boot.kernelModules = [ "jool" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ jool ];
   environment.systemPackages = with pkgs; [ jool-cli ];
 
@@ -100,7 +50,6 @@ in
         linkConfig = {
           RequiredFamilyForOnline = "ipv6";
         };
-        dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
       };
       "20-wireless" = {
@@ -111,26 +60,10 @@ in
     };
   };
 
-  systemd.services.jool = {
-    enable = false;
-    wants = [ "network-pre.target" ];
-    wantedBy = [ "network-online.target" ];
-    before = [ "dnscrypt-proxy2.service" ];
-    partOf = [ "systemd-networkd.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${jool-start}/bin/jool-start";
-      ExecStop = "${jool-stop}/bin/jool-stop";
-      RemainAfterExit = "yes";
-      User = "root";
-    };
-  };
-
   # secerorvices.headscale.enable = true;
   services.resolved = {
     enable = true;
     fallbackDns = [ "[::1]:1053" "127.0.0.1:1053" ];
-    dnssec = "true";
     extraConfig = ''
       DNS=[::1]:1053 127.0.0.1:1053
       MulticastDNS=yes
@@ -226,11 +159,6 @@ in
             "anon-v.dnscrypt.uk-ipv6"
           ];
         }];
-      };
-
-      dns64 = {
-        prefix = [ "64:ff9b::/96" ];
-        resolver = [ "[2606:4700:4700::64]:53" "[2606:4700:4700::6400]:53" ];
       };
     };
   };
