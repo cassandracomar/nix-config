@@ -66,6 +66,32 @@
       linkConfig = {
         RequiredForOnline = true;
       };
+      networkConfig = {
+        DHCPPrefixDelegation = true;
+        IPv6AcceptRA = true;
+        IPv6SendRA = true;
+      };
+      dhcpV4Config.UseDNS = false;
+      dhcpV6Config.UseDNS = false;
+    };
+    "10-wired-bridge" = {
+      matchConfig.Name = [ "enp211s0f1" ];
+      DHCP = "yes";
+      linkConfig = {
+        RequiredForOnline = true;
+      };
+      networkConfig = {
+        LLMNR = false;
+        MulticastDNS = true;
+        DHCPServer = true;
+        IPv6AcceptRA = true;
+        IPv6SendRA = true;
+        IPMasquerade = "ipv4";
+        DHCPPrefixDelegation = true;
+      };
+      dhcpServerConfig = {
+        RelayTarget = "192.168.0.1";
+      };
     };
   };
 
