@@ -60,43 +60,75 @@
 
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
-  systemd.network.networks = {
-    "10-wired" = {
-      matchConfig.Name = [ "enp211s0f0" ];
+  systemd.network = {
+    links."enp211s0f0" = {
+      matchConfig.OriginalName = [ "enp211s0f0" ];
       linkConfig = {
-        RequiredForOnline = true;
+        BitsPerSecond = "10G";
+        Duplex = "full";
+        AutoNegotiation = false;
       };
-      networkConfig = {
-        DHCPPrefixDelegation = true;
-        IPv6AcceptRA = true;
-        IPv6SendRA = true;
-      };
-      dhcpV4Config.UseDNS = false;
-      dhcpV6Config.UseDNS = false;
     };
-    "10-wired-bridge" = {
-      matchConfig.Name = [ "enp211s0f1" ];
-      DHCP = "yes";
-      linkConfig = {
-        RequiredForOnline = true;
+    networks = {
+      "10-wired" = {
+        matchConfig.Name = [ "enp211s0f0" ];
+        linkConfig = {
+          RequiredForOnline = true;
+        };
+        networkConfig = {
+          DHCPPrefixDelegation = true;
+          IPv6AcceptRA = true;
+          IPv6SendRA = true;
+        };
+        dhcpV4Config = {
+          UseDNS = false;
+        };
+        dhcpV6Config = {
+          UseDNS = false;
+          PrefixDelegationHint = "::/62";
+        };
+        ipv6AcceptRAConfig = {
+          DHCPv6Client = "always";
+        };
       };
-      networkConfig = {
-        LLMNR = false;
-        MulticastDNS = true;
-        DHCPServer = true;
-        IPv6AcceptRA = true;
-        IPv6SendRA = true;
-        IPMasquerade = "ipv4";
-        DHCPPrefixDelegation = true;
-      };
-      dhcpServerConfig = {
-        RelayTarget = "192.168.0.1";
+      "10-wired-bridge" = {
+        matchConfig.Name = [ "enp211s0f1" ];
+        DHCP = "no";
+        linkConfig = {
+          RequiredForOnline = true;
+        };
+        networkConfig = {
+          LLMNR = false;
+          MulticastDNS = true;
+          DHCPServer = true;
+          IPForward = true;
+          IPMasquerade = "both";
+          Address = [ "192.168.2.1/24" ];
+          ConfigureWithoutCarrier = true;
+          IPv4LLRoute = true;
+          IPv6ProxyNDP = true;
+        };
+        dhcpServerConfig = {
+          DNS = [ "192.168.2.1" ];
+          EmitNTP = false;
+          EmitSIP = false;
+          EmitDNS = true;
+          BindToInterface = false;
+          PoolOffset = 100;
+          PoolSize = 20;
+        };
+        routes = [{
+          routeConfig = { Destination = "192.168.2.0/24"; };
+        }];
+        ipv6Prefixes = [{ ipv6PrefixConfig = { Prefix = "2601:145:427e:4bc0::/60"; }; }];
       };
     };
   };
+  networking.firewall.interfaces."enp211s0f0".allowedUDPPorts = [ 546 547 ];
+  networking.firewall.interfaces."enp211s0f1".allowedUDPPorts = [ 67 546 547 53 ];
 
-
-  powerManagement.cpuFreqGovernor = pkgs.lib.mkForce "ondemand";
+  powerManagement.cpuFreqGovernor = pkgs.lib.mkForce
+    "ondemand";
   environment.systemPackages = with pkgs; [
     freeipmi
     dmidecode

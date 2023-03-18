@@ -8,6 +8,9 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
 
+  # encryption
+  inputs.sops-nix.url = "github:Mic92/sops-nix";
+
   # overlays
   inputs.mozilla = { url = "github:mozilla/nixpkgs-mozilla"; };
   inputs.emacs.url = "github:nix-community/emacs-overlay";
@@ -33,6 +36,7 @@
     , nixpkgs-optimized
     , home-manager
     , xmonad-personal
+    , sops-nix
     , mozilla
     , emacs
     , emacs-src
@@ -141,7 +145,7 @@
         boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
       });
 
-      base-modules = [ kernel ./modules ./system/base ];
+      base-modules = [ kernel ./modules ./system/base sops-nix.nixosModules.sops ];
       user-module = (username: {
         name = username;
         value = {

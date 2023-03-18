@@ -3,6 +3,8 @@
 {
 
   environment.systemPackages = with pkgs; [
+    sops
+    ssh-to-pgp
     wget
     vim
     htop

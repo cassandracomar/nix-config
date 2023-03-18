@@ -8,6 +8,11 @@
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
+    "net.ipv4.conf.all.accept_ra" = 2;
+    "net.ipv6.conf.all.accept_ra" = 2;
+    "net.ipv6.conf.all.accept_ra_from_local" = 1;
+    "net.ipv4.conf.all.accept_local" = 1;
+    "net.ipv6.conf.all.accept_local" = 1;
   };
 
   networking = {
@@ -19,7 +24,7 @@
 
     # wireless configuration
     networkmanager = {
-      enable = true;
+      enable = false;
       # dns = "none";
       connectionConfig = {
         "connection.mdns" = "2";
@@ -65,7 +70,7 @@
     enable = true;
     fallbackDns = [ "[::1]:1053" "127.0.0.1:1053" ];
     extraConfig = ''
-      DNS=[::1]:1053 127.0.0.1:1053
+      DNS=[::1]:1053
       MulticastDNS=yes
       DNSStubListenerExtra=[::1]:53
     '';
@@ -89,7 +94,7 @@
       dnscrypt_servers = true;
       doh_servers = false;
       odoh_servers = true;
-      listen_addresses = [ "127.0.0.1:1053" "[::1]:1053" "127.0.0.11:53" ];
+      listen_addresses = [ "127.0.0.1:1053" "[::1]:1053" "127.0.0.11:53" "192.168.2.1:53" ];
       bootstrap_resolvers = [ "[2620:fe::11]:53" "[2620:fe::fe:11]:53" ];
 
       sources = {
