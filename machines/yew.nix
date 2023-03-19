@@ -62,11 +62,11 @@
   networking.hostId = "c667b97b";
   systemd.network = {
     links."enp211s0f0" = {
-      matchConfig.OriginalName = [ "enp211s0f0" ];
+      matchConfig.PermanentMacAddress = "a8:a1:59:e3:66:6d";
       linkConfig = {
+        AutoNegotiation = false;
         BitsPerSecond = "10G";
         Duplex = "full";
-        AutoNegotiation = false;
       };
     };
     networks = {
