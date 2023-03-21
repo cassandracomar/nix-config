@@ -243,8 +243,8 @@
                   extraSpecialArgs = { inherit pkgs-master host nixpkgs system user; };
                 };
               })
-              homeUsers)
-            { }
-            hosts) // nonNixosHomeConfigs;
+              homeUsers))
+        { }
+        hosts // nonNixosHomeConfigs;
     };
 }
