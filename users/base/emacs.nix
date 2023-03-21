@@ -28,7 +28,6 @@
         lilypond
         timidity
         sqlite
-        stdenv_mold
         # gcc
         gnumake
         epkgs.vterm
