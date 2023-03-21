@@ -186,7 +186,7 @@
           (host: {
             name = host;
             value = nixpkgs.lib.nixosSystem {
-              inherit system pkgs;
+              inherit pkgs;
               modules = base-modules ++ [
                 (import ./host.nix { inherit host; })
                 home-manager.nixosModules.home-manager
@@ -210,7 +210,7 @@
         (userDef: {
           name = "${userDef.user}@${userDef.host}";
           value = home-manager.lib.homeManagerConfiguration {
-            inherit system pkgs;
+            inherit pkgs;
 
             modules = [ ./users/${userDef.user} ];
             extraSpecialArgs = {
