@@ -72,20 +72,25 @@
     networks = {
       "10-wired" = {
         matchConfig.Name = [ "enp211s0f0" ];
+        DHCP = "yes";
         linkConfig = {
           RequiredForOnline = true;
+          Multicast = true;
+          AllMulticast = true;
+          Promiscuous = true;
         };
         networkConfig = {
           DHCPPrefixDelegation = true;
           IPv6AcceptRA = true;
-          IPv6SendRA = true;
+          IPv6SendRA = false;
         };
         dhcpV4Config = {
           UseDNS = false;
+          ClientIdentifier = "mac";
         };
         dhcpV6Config = {
           UseDNS = false;
-          PrefixDelegationHint = "::/62";
+          PrefixDelegationHint = "::/63";
         };
         ipv6AcceptRAConfig = {
           DHCPv6Client = "always";
@@ -102,11 +107,9 @@
           MulticastDNS = true;
           DHCPServer = true;
           IPForward = true;
-          IPMasquerade = "both";
+          IPMasquerade = "ipv4";
           Address = [ "192.168.2.1/24" ];
-          ConfigureWithoutCarrier = true;
-          IPv4LLRoute = true;
-          IPv6ProxyNDP = true;
+          DHCPPrefixDelegation = true;
         };
         dhcpServerConfig = {
           DNS = [ "192.168.2.1" ];
@@ -120,7 +123,6 @@
         routes = [{
           routeConfig = { Destination = "192.168.2.0/24"; };
         }];
-        ipv6Prefixes = [{ ipv6PrefixConfig = { Prefix = "2601:145:427e:4bc0::/60"; }; }];
       };
     };
   };
