@@ -212,7 +212,7 @@
           value = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
 
-            modules = [ (user-module { username = userDef.user; }).value ];
+            modules = [ (user-module userDef.user).value ];
             extraSpecialArgs = {
               inherit nixpkgs-master pkgs-master inputs;
               inherit (userDef) user os host;
