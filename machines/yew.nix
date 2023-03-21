@@ -84,6 +84,9 @@
           IPv6AcceptRA = true;
           IPv6SendRA = false;
         };
+        dhcpPrefixDelegationConfig = {
+          Assign = false;
+        };
         dhcpV4Config = {
           UseDNS = false;
           ClientIdentifier = "mac";
@@ -106,10 +109,12 @@
           LLMNR = false;
           MulticastDNS = true;
           DHCPServer = true;
-          IPForward = true;
+          # IPForward = true;
           IPMasquerade = "ipv4";
           Address = [ "192.168.2.1/24" ];
           DHCPPrefixDelegation = true;
+          ConfigureWithoutCarrier = true;
+          IPv6SendRA = true;
         };
         dhcpServerConfig = {
           DNS = [ "192.168.2.1" ];

@@ -48,6 +48,11 @@
     let
       hosts = [ "cherry" "walnut" "magus" "yew" ];
       homeUsers = [ "cassandra" ];
+      nonNixosUsers = [{
+        host = "rnlwd-ccomar1";
+        os = "ubuntu";
+        user = "ccomar";
+      }];
       system = "x86_64-linux";
 
       overlays = [
@@ -201,6 +206,21 @@
         inherit iso;
       };
 
+      nonNixosHomeConfigs = pkgs.lib.listToAttrs (map
+        (userDef: {
+          name = "${userDef.user}@${userDef.host}";
+          value = home-manager.lib.homeManagerConfiguration {
+            inherit system pkgs;
+
+            modules = [ ./users/${userDef.user} ];
+            extraSpecialArgs = {
+              inherit nixpkgs-master pkgs-master inputs;
+              inherit (userDef) user os host;
+            };
+          };
+        })
+        nonNixosUsers);
+
     in
     {
       inherit nixosConfigurations;
@@ -210,22 +230,21 @@
           value.config.system.build
         )
         nixosConfigurations;
-    } //
-    pkgs.lib.listToAttrs (map
-      (host: {
-        name = host;
-        value = {
-          homeConfigurations = pkgs.lib.listToAttrs (map
-            (user: {
-              name = user;
-              value = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = [ (user-module user).value ];
-                extraSpecialArgs = { inherit pkgs-master host nixpkgs system; };
-              };
-            })
-            homeUsers);
-        };
-      })
-      hosts);
+
+      homeConfigurations = pkgs.lib.foldl
+        (homeConfig: host:
+          homeConfig // pkgs.lib.listToAttrs
+            (map
+              (user: {
+                name = "${user}@${host}";
+                value = home-manager.lib.homeManagerConfiguration {
+                  inherit pkgs;
+                  modules = [ (user-module user).value ];
+                  extraSpecialArgs = { inherit pkgs-master host nixpkgs system; };
+                };
+              })
+              homeUsers)
+            { }
+            hosts) // nonNixosHomeConfigs;
+    };
 }
