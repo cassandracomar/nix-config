@@ -240,7 +240,7 @@
                 value = home-manager.lib.homeManagerConfiguration {
                   inherit pkgs;
                   modules = [ (user-module user).value ];
-                  extraSpecialArgs = { inherit pkgs-master host nixpkgs system; };
+                  extraSpecialArgs = { inherit pkgs-master host nixpkgs system user; };
                 };
               })
               homeUsers)

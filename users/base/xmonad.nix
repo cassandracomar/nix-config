@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs, system, ... }:
+{ config, lib, pkgs, nixpkgs, system, user, ... }:
 let
   haskellPackages = pkgs.haskellPackages;
 
@@ -44,7 +44,7 @@ in
       #! ${pkgs.bash}/bin/bash
       ${pkgs.autorandr}/bin/autorandr -c
       ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
-      ${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png
+      ${pkgs.feh}/bin/feh --bg-fill /home/${user}/wallpapers/haskell-wallpaper.png
       cbatticon &
       if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
         ${pkgs.xorg.xset}/bin/xset s on +dpms
