@@ -1,16 +1,5 @@
 { config, lib, pkgs, pkgs-master, ... }:
 
-let
-  iosevkaCustom = pkgs.iosevka.override {
-    privateBuildPlan = {
-      family = "Iosevka Custom";
-      design =
-        [ "ligset-haskell" "ligset-clike" "ligset-javascript" "ligset-swift" ];
-
-    };
-    set = "custom";
-  };
-in
 {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";

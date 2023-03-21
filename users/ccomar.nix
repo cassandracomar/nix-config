@@ -47,11 +47,77 @@ in
     git-crypt
     complete_alias
     kubernetes_aliases
+    iosevkaCustom
+    inconsolata
+    inconsolata-lgc
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    dejavu_fonts
+    powerline-fonts
+    corefonts
+    symbola
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    # mplus-outline-fonts
+    dina-font
+    proggyfonts
+    arphic-ukai
+    arphic-uming
+    font-awesome
+    noto-fonts-extra
+    source-han-sans
+    wqy_microhei
+    wqy_zenhei
+
+    # packages normally installed to system
+    sops
+    ssh-to-pgp
+    wget
+    vim
+    htop
+    ripgrep
+    zsh
+    git
+    tmux
+    xorg.xbacklight
+    pamixer
+    pavucontrol
+    brightnessctl
+    bc
+    gnupg
+    pinentry-curses
+    pinentry-gnome
+    paperkey
+    virt-manager
+    pulseeffects-legacy
+    p7zip
+    unrar
+    unzip
+    thunderbolt
+    pciutils
+    glxinfo
+    grub2_full
+    nix-zsh-completions
+    yubikey-personalization
+    (hwloc.override {
+      x11Support = true;
+      libX11 = pkgs.xorg.libX11;
+      cairo = pkgs.cairo;
+    })
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
 
+  programs.gpg.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    enableExtraSocket = true;
+    pinentryFlavor = "gnome3";
+  };
   programs.git = {
-    inherit (git_config) userName userEmail signing;
+    inherit (git_config) userName userEmail;
     enable = true;
     delta.enable = true;
     extraConfig = {
@@ -94,6 +160,8 @@ in
       };
     };
   };
+
+  services.autorandr.enable = true;
 
   home.stateVersion = "23.05";
 }
