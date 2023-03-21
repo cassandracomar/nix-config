@@ -49,7 +49,7 @@
       hosts = [ "cherry" "walnut" "magus" "yew" ];
       homeUsers = [ "cassandra" ];
       nonNixosUsers = [{
-        host = "rnlwd-ccomar1";
+        host = "rnwld-ccomar1";
         os = "ubuntu";
         user = "ccomar";
       }];
