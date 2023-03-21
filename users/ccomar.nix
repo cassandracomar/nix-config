@@ -10,6 +10,9 @@ let
       #   signByDefault = true;
       # };
       github.user = "cassandracomar";
+      "git.drwholdings.com" = {
+        user = "ccomar";
+      };
     };
   };
   git_config = lib.getAttr host git_config_by_host;
