@@ -76,6 +76,8 @@ in
 {
   imports = [ ./base ];
 
+  home.username = "cassandra";
+  home.homeDirectory = "/home/cassandra";
   home.packages = with pkgs; [
     gitAndTools.delta
     git-crypt

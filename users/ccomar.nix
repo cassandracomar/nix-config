@@ -40,6 +40,8 @@ in
 {
   imports = [ ./base ];
 
+  home.username = "ccomar";
+  home.homeDirectory = "/home/ccomar";
   home.packages = with pkgs; [
     gitAndTools.delta
     git-crypt
