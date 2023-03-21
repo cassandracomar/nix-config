@@ -43,6 +43,7 @@ in
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
   home.packages = with pkgs; [
+    cachix
     gitAndTools.delta
     git-crypt
     complete_alias
