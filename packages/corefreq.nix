@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
-    rev = "linux_6_3";
-    sha256 = "sha256-2fORGdtBvfDthlYFEtCJWCIFzsGWopHIeuuPllazWfY=";
+    rev = "master";
+    sha256 = "sha256-PsFoZiJ69ZxCzh8eAR+ma1xn4/UqswH4kyGbIolRfaM=";
   };
 
   patches = [ ./corefreq-fix.patch ];
