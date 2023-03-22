@@ -2,8 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, pkgs-master, ... }: {
+{ pkgs, pkgs-master, system, ... }: {
 
+  nixpkgs.hardwarePlatform = system;
   nix = {
     package = pkgs-master.nixUnstable;
     extraOptions = ''

@@ -30,18 +30,13 @@
     };
   };
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/56bf7cf3-5c55-47bf-8aed-47be50a1f0b1";
-      fsType = "f2fs";
-      options = [
-        "compress_algorithm=zstd"
-        "compress_chksum"
-        "atgc"
-        "gc_merge"
-        "lazytime"
-        "inline_xattr"
-      ];
+  fileSystems."/" = {
+      device = "root/nixos/root";
+      fsType = "zfs";
+    };
+  fileSystems."/home" = {
+      device = "root/nixos/home";
+      fsType = "zfs";
     };
 
   fileSystems."/boot" =
@@ -51,7 +46,7 @@
     };
 
   fileSystems."/nix" = {
-    device = "data/nix";
+    device = "root/nixos/nix";
     fsType = "zfs";
   };
   hardware.enableRedistributableFirmware = true;

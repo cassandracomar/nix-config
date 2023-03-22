@@ -183,16 +183,17 @@
               inherit pkgs;
               modules = base-modules ++ [
                 (import ./host.nix { inherit host; })
-                home-manager.nixosModules.home-manager
+              ] ++ (pkgs.lib.foldl (m: user:
+                m ++ [home-manager.nixosModules.home-manager
                 {
+                  inherit pkgs;
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.users = pkgs.lib.listToAttrs (map
                     user-module
-                    homeUsers);
+                    [user]);
                   home-manager.extraSpecialArgs = { inherit pkgs-master host nixpkgs system; };
-                }
-              ];
+                }]) [] homeUsers);
               specialArgs = { inherit nixpkgs-optimized nixpkgs-master pkgs-master inputs; };
             };
           })
