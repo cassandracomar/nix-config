@@ -56,6 +56,7 @@ in
       Restart = "always";
     };
   };
+  services.xserver.deviceSection = ''Option "TearFree" "true"'';
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
 
