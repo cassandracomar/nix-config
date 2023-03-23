@@ -91,7 +91,7 @@ in
     brightnessctl
     bc
     gnupg
-    pinentry-curses
+    # pinentry-curses
     pinentry-gnome
     paperkey
     virt-manager
