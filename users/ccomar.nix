@@ -65,7 +65,7 @@ in
     fira-code
     fira-code-symbols
     # mplus-outline-fonts
-    dina-font
+    # dina-font
     proggyfonts
     arphic-ukai
     arphic-uming
