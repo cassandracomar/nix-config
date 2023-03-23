@@ -4,7 +4,7 @@
 
 { pkgs, pkgs-master, system, ... }: {
 
-  nixpkgs.hardwarePlatform = system;
+  nixpkgs.hostPlatform = system;
   nix = {
     package = pkgs-master.nixUnstable;
     extraOptions = ''

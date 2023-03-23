@@ -4,7 +4,6 @@
   boot.kernelModules = [ "jool" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ jool ];
   environment.systemPackages = with pkgs; [ jool-cli ];
-  # systemd.package = pkgs-master.systemd;
 
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = 1;

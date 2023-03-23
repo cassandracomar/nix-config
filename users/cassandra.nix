@@ -95,7 +95,7 @@ in
   programs.git = {
     inherit (git_config) userName userEmail signing;
     enable = true;
-    delta.enable = true;
+    # delta.enable = true;
     extraConfig = {
       pull.rebase = false;
       inherit (git_config) github;
