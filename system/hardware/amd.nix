@@ -15,6 +15,11 @@ let
   };
 
   CoreFreq = pkgs-local.callPackage ../../packages/corefreq.nix { kernel = config.boot.kernelPackages.kernel; };
+  zfsPatch = pkgs-local.fetchpatch {
+    sha256 = "sha256-ZI0tLP0oe7E7sx5MXc69FgRZhzVZRXuG58wbmpZhSqM=";
+    name = "6.3-compat.patch";
+    url = "https://github.com/openzfs/zfs/compare/9fa007d3..2e9c9b7.patch";
+  };
 in
 {
   # ensure gccarch-znver3 is in the system features so we can use it to build the kernel
@@ -27,10 +32,14 @@ in
   boot.kernelModules = [ "amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk" ];
   boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower CoreFreq ];
-  boot.kernelPackages = pkgs-local.linuxKernel.packagesFor
+  boot.kernelPackages = (pkgs-local.linuxKernel.packagesFor
     (pkgs-optimized.linuxKernel.kernels.linux_xanmod_tt.override {
       stdenv = pkgs-local.gcc12Stdenv;
       ignoreConfigErrors = true;
+    })).extend (final: prev: {
+      zfsUnstable = prev.zfsUnstable.overrideAttrs (old: {
+        patches = old.patches ++ [ "${zfsPatch}" ];
+      });
     });
   boot.kernelPatches = [
     {
