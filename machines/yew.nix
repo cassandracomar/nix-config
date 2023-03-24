@@ -31,13 +31,13 @@
   };
 
   fileSystems."/" = {
-      device = "root/nixos/root";
-      fsType = "zfs";
-    };
+    device = "root/nixos/root";
+    fsType = "zfs";
+  };
   fileSystems."/home" = {
-      device = "root/nixos/home";
-      fsType = "zfs";
-    };
+    device = "root/nixos/home";
+    fsType = "zfs";
+  };
 
   fileSystems."/boot" =
     {
@@ -68,6 +68,8 @@
       "10-wired" = {
         matchConfig.Name = [ "enp211s0f0" ];
         DHCP = "yes";
+        dns = [ "[::1]:1053" "127.0.0.1:1053" "192.168.2.1:53" ];
+        domains = [ "~." ];
         linkConfig = {
           RequiredForOnline = true;
           Multicast = true;

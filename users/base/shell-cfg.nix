@@ -21,6 +21,19 @@
     tokei
     htop
     rlwrap
+    (vpn-slice.overrideAttrs (old: {
+      version = "0.16.99-9ecb50d";
+      src = fetchFromGitHub {
+        owner = "dlenski";
+        repo = old.pname;
+        rev = "master";
+        sha256 = "sha256-SEeIfA4/pJNmG1rq7nEXiDU+Drqa5kHrWFWK1b+21Kk=";
+      };
+      propagatedBuildInputs = old.propagatedBuildInputs ++ [ pkgs.systemd pkgs.iproute2 ];
+      patchPhase = ''
+        substituteInPlace vpn_slice/linux.py --replace '/usr/bin/resolvectl' '${pkgs.systemd}/bin/resolvectl' --replace '/sbin/ip' '${pkgs.iproute2}/bin/ip';
+      '';
+    }))
   ];
 
   programs.zsh = {
@@ -35,10 +48,11 @@
       theme = "agnoster";
     };
     envExtra = ''
-      get_completions() {
-        typeset -U path cdpath fpath manpath
+        get_completions
+        () {
+          typeset -U path cdpath fpath manpath
 
-        for profile in ''${(z)NIX_PROFILES}; do
+          for profile in ''${(z)NIX_PROFILES}; do
           fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
         done
         source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
