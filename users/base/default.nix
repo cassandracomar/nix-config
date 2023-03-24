@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./elixir.nix
     ./emacs.nix
     ./environment.nix
     ./games.nix

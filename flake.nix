@@ -62,7 +62,7 @@
           emacsPgtk = prev.emacsGit.overrideAttrs
             (old: {
               name = "emacs-unstable";
-              version = inputs.emacs-src.shortRev;
+              version = "29.0.60-${inputs.emacs-src.shortRev}";
               src = inputs.emacs-src;
             });
         })
@@ -183,17 +183,20 @@
               inherit pkgs;
               modules = base-modules ++ [
                 (import ./host.nix { inherit host; })
-		home-manager.nixosModules.home-manager
-              ] ++ (pkgs.lib.foldl (m: user:
-                m ++ [
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.users = pkgs.lib.listToAttrs (map
-                    user-module
-                    [user]);
-                  home-manager.extraSpecialArgs = { inherit pkgs user pkgs-master host nixpkgs system; };
-                }]) [] homeUsers);
+                home-manager.nixosModules.home-manager
+              ] ++ (pkgs.lib.foldl
+                (m: user:
+                  m ++ [
+                    {
+                      home-manager.useGlobalPkgs = true;
+                      home-manager.useUserPackages = true;
+                      home-manager.users = pkgs.lib.listToAttrs (map
+                        user-module
+                        [ user ]);
+                      home-manager.extraSpecialArgs = { inherit pkgs user pkgs-master host nixpkgs nixpkgs-master system; };
+                    }
+                  ]) [ ]
+                homeUsers);
               specialArgs = { inherit system nixpkgs-optimized nixpkgs-master pkgs-master inputs; };
             };
           })
