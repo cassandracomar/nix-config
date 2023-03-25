@@ -11,7 +11,7 @@
     docker-buildx
     docker-credential-helpers
     pass
-    yq
+    yq-go
     eksctl
     skaffold
     tailscale

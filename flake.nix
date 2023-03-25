@@ -218,7 +218,6 @@
           };
         })
         nonNixosUsers);
-
     in
     {
       inherit nixosConfigurations;

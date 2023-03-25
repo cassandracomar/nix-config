@@ -38,6 +38,8 @@
     pinentry-gnome
     openconnect-sso
     openconnect
+    android-tools
+    rnix-lsp
   ];
 
   home.file.".config/discord/settings.json".text = ''
