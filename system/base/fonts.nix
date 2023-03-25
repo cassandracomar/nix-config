@@ -14,7 +14,6 @@
     enableDefaultFonts = true;
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    optimizeForVeryHighDPI = true;
 
     fontconfig = {
       enable = true;
