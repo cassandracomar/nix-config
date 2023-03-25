@@ -80,6 +80,6 @@
   services.picom.shadowOpacity = 1.0;
 
   # high-resolution display
-  hardware.video.hidpi.enable = pkgs.lib.mkDefault true;
+  # hardware.video.hidpi.enable = pkgs.lib.mkDefault true;
   services.xserver.dpi = 144;
 }
