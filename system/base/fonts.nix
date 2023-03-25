@@ -4,7 +4,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "ter-232n";
+    font = lib.mkDefault "ter-v32n";
     earlySetup = true;
     packages = with pkgs; [ terminus_font ];
   };
