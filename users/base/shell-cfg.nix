@@ -97,6 +97,7 @@
   };
 
   programs.bash.enable = true;
+  programs.bash.enableCompletion = true;
   programs.bash.initExtra = ''
     export XDG_DATA_DIRS=${config.home.profileDirectory}/share:$XDG_DATA_DIRS
     . ${pkgs.bash-completion}/share/bash-completion/bash_completion
@@ -104,7 +105,6 @@
     for c in ${config.home.profileDirectory}/share/bash-completion/completions/*; do
       . $c
     done
-    . $HOME/.bash_completion
   '';
 
   programs.nix-index = {

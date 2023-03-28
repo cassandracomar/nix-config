@@ -40,6 +40,7 @@
     openconnect
     android-tools
     rnix-lsp
+    fly
   ];
 
   home.file.".config/discord/settings.json".text = ''
