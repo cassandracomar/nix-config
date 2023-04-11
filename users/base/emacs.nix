@@ -33,7 +33,7 @@
         epkgs.vterm
         epkgs.sqlite3
         epkgs.emacsql
-        epkgs.emacsql-sqlite3
+        epkgs.emacsql-sqlite
         rnix-lsp
         pinentry-emacs
       ];
