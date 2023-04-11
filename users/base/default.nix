@@ -13,4 +13,15 @@
     ./shell-cfg.nix
     ./xmonad.nix
   ];
+
+  nix.settings = {
+    accept-flake-config = true;
+    extra-sandbox-paths = [ "/data/androidKeys" ];
+    trusted-substituters = [
+      "https://cache.iog.io"
+      "https://nix-community.cachix.org"
+      "https://cache.nixos.org/"
+      "https://cache.iog.io"
+    ];
+  };
 }

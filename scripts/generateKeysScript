@@ -1,0 +1,59 @@
+#!/nix/store/cdfwlj71yd6p5bmxsk2gk9xqc0friykg-bash-5.1-p16/bin/bash
+set -exuo pipefail
+
+if [[ "$#" -ne 1 ]]; then
+  echo "Usage: $0 <keysdir>"
+  echo "$#"
+  exit 1
+fi
+
+mkdir -p "$1"
+cd "$1"
+
+export PATH=/nix/store/hpcwwg6k6hfrp1fyf3vc1llkkl5gf3vv-openssl-3.0.8-bin/bin:/nix/store/09ja1w8jb5mzamy7k51f3wnx5n1zppgx-android-key-tools/bin:$PATH
+
+KEYS=( panther/releasekey panther/platform panther/shared panther/media panther/networkstack com.android.hotspot2.osulogin com.android.wifi.resources com.android.connectivity.resources panther/bluetooth panther/sdk_sandbox vanadium vanadiumwebview )
+APEX_KEYS=(  )
+
+mkdir -p "panther"
+
+for key in "${KEYS[@]}"; do
+  if [[ ! -e "$key".pk8 ]]; then
+    echo "Generating $key key"
+    # make_key exits with unsuccessful code 1 instead of 0
+    $(git rev-parse --show-toplevel)/scripts/make_key "$key" "/CN=Robotnix ${key/\// }/" ec && exit 1
+  else
+    echo "Skipping generating $key key since it is already exists"
+  fi
+done
+
+for key in "${APEX_KEYS[@]}"; do
+  if [[ ! -e "$key".pem ]]; then
+    echo "Generating $key APEX AVB key"
+    TMP=$(mktemp -d /dev/shm/android-keys.XXXXXXXXX)
+    trap 'rm -rf ${TMP}; echo; exit 1' EXIT INT QUIT
+    openssl genrsa -out $TMP/"$key".pem 4096
+    avbtool extract_public_key --key $TMP/"$key".pem --output $TMP/"$key".avbpubkey
+    sops -e $TMP/"$key".pem > "$key".pem
+    sops -e $TMP/"$key".avbpubkey > "$key".avbpubkey
+  else
+    echo "Skipping generating $key APEX key since it is already exists"
+  fi
+done
+
+
+
+if [[ ! -e "panther/avb.pem" ]]; then
+  # TODO: Maybe switch to 4096 bit avb key to match apex? Any device-specific problems with doing that?
+  echo "Generating Device AVB key"
+  TMP=$(mktemp -d /dev/shm/android-keys.XXXXXXXXX)
+  trap 'rm -rf ${TMP}; echo; exit 0' EXIT INT QUIT
+  openssl genrsa -out $TMP/avb.pem 2048
+  avbtool extract_public_key --key $TMP/avb.pem --output $TMP/avb_pkmd.bin
+  sops -e $TMP/avb.pem > panther/avb.pem
+  sops -e $TMP/avb_pkmd.bin > panther/avb_pkmd.bin
+else
+  echo "Skipping generating device AVB key since it is already exists"
+fi
+
+

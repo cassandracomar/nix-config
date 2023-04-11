@@ -92,6 +92,12 @@ in
     executable = true;
   };
 
+  home.file.build-android = {
+    source = ../scripts/build-android;
+    target = ".local/bin/build-android";
+    executable = true;
+  };
+
   programs.git = {
     inherit (git_config) userName userEmail signing;
     enable = true;

@@ -20,7 +20,8 @@
       substituters = [
         "https://cache.iog.io"
       ];
-
+      accept-flake-config = true;
+      extra-sandbox-paths = [ "/data/androidKeys" ];
     };
     gc = {
       automatic = true;

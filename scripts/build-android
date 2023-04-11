@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+devices=(  )
+targets=(  )
+for arg; do
+    echo $arg
+    case "$arg" in
+        test)
+            nix flake lock /home/cassandra/src/github.com/cassandracomar/nix-config --override-input robotnix path:/home/cassandra/src/github.com/danielfullmer/robotnix
+            ;;
+        bluejay | panther | cheetah)
+            devices+=( $arg )
+            ;;
+        *)
+            targets+=( $arg )
+    esac
+done
+
+sudo mkdir -p /data/androidKeys
+sudo mount -t tmpfs -o mode=750,uid=1000,gid=30000 tmpfs /data/androidKeys
+trap 'rv=$?; sudo umount /data/androidKeys; exit $?' EXIT INT TERM QUIT
+sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' ~/.config/sops/age/android-keystore-private-key.yaml > /data/androidKeys/keys.txt
+
+TMPDIR=$(mktemp -d)
+cd $TMPDIR
+for target in ${targets[@]}; do
+for device in ${devices[@]}; do
+    nix build ~/src/github.com/cassandracomar/nix-config#androidImages."${device}"."${target}" -o ${target}-${device} -L --show-trace
+    if [[ $target == "factoryImg" ]]; then
+        bsdtar xvf $(realpath ${target}-${device})
+    fi
+done
+done
+echo TMPDIR=$TMPDIR

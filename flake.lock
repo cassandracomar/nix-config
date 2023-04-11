@@ -1,5 +1,56 @@
 {
   "nodes": {
+    "androidPkgs": {
+      "inputs": {
+        "devshell": "devshell",
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "robotnix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1679862022,
+        "narHash": "sha256-9F1KnQhq2UQQ0vUa64WMfZrSlTJnpUtQNJlkF3m8uvQ=",
+        "owner": "tadfisher",
+        "repo": "android-nixpkgs",
+        "rev": "39538bf26d9064555c2a77b5bd6eb88049285905",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tadfisher",
+        "ref": "stable",
+        "repo": "android-nixpkgs",
+        "type": "github"
+      }
+    },
+    "devshell": {
+      "inputs": {
+        "flake-utils": [
+          "robotnix",
+          "androidPkgs",
+          "nixpkgs"
+        ],
+        "nixpkgs": [
+          "robotnix",
+          "androidPkgs",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1678957337,
+        "narHash": "sha256-Gw4nVbuKRdTwPngeOZQOzH/IFowmz4LryMPDiJN/ah4=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "3e0e60ab37cd0bf7ab59888f5c32499d851edb47",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
     "emacs": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -67,6 +118,21 @@
       }
     },
     "flake-utils_3": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
       "locked": {
         "lastModified": 1659877975,
         "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
@@ -201,6 +267,22 @@
         "type": "github"
       }
     },
+    "nixpkgsUnstable": {
+      "locked": {
+        "lastModified": 1680213900,
+        "narHash": "sha256-cIDr5WZIj3EkKyCgj/6j3HBH4Jj1W296z7HTcWj1aMA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e3652e0735fbec227f342712f180f4f21f0594f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1679734080,
@@ -219,6 +301,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1680498889,
+        "narHash": "sha256-4nGFBm+oILOO6DPoKTPxVlfkZSxCOY4W25zSRHESK48=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "799d153e4f316143a9db0eb869ecf44d8d4c0356",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1678987615,
         "narHash": "sha256-lF4agoB7ysQGNHRXvOqxtSKIZrUZwClA85aASahQlYM=",
         "owner": "NixOS",
@@ -233,7 +331,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1672249180,
         "narHash": "sha256-ipos/gTMHqxS39asqNWEJZ7nXdcTHa0TB0AIZXkGapg=",
@@ -280,6 +378,24 @@
         "type": "github"
       }
     },
+    "robotnix": {
+      "inputs": {
+        "androidPkgs": "androidPkgs",
+        "nixpkgs": "nixpkgs_3",
+        "nixpkgsUnstable": "nixpkgsUnstable"
+      },
+      "locked": {
+        "lastModified": 1681170557,
+        "narHash": "sha256-4OfyOBfGq1gdzbX0OvsxUDN571lh9oHZmt8ywqpZr+o=",
+        "path": "/home/cassandra/src/github.com/danielfullmer/robotnix",
+        "type": "path"
+      },
+      "original": {
+        "owner": "cassandracomar",
+        "repo": "robotnix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "emacs": "emacs",
@@ -292,6 +408,7 @@
         "nixpkgs-optimized": "nixpkgs-optimized",
         "nur": "nur",
         "openconnect": "openconnect",
+        "robotnix": "robotnix",
         "rust": "rust",
         "sops-nix": "sops-nix",
         "xmonad-personal": "xmonad-personal"
@@ -323,7 +440,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
@@ -357,8 +474,8 @@
     },
     "xmonad-personal": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_4"
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1678660287,

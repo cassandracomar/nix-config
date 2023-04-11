@@ -7,6 +7,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
+  inputs.robotnix.url = "github:cassandracomar/robotnix";
 
   # encryption
   inputs.sops-nix.url = "github:Mic92/sops-nix";
@@ -29,6 +30,10 @@
   inputs.nix-direnv.url = "github:nix-community/nix-direnv";
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
+  nixConfig = {
+    sandbox-paths = [ "/data/androidKeys" ];
+  };
+
   outputs =
     { self
     , nixpkgs
@@ -36,6 +41,7 @@
     , nixpkgs-optimized
     , home-manager
     , xmonad-personal
+    , robotnix
     , sops-nix
     , mozilla
     , emacs
@@ -243,5 +249,26 @@
               homeUsers))
         { }
         hosts // nonNixosHomeConfigs;
+
+      androidImages = (pkgs.lib.listToAttrs (map
+        (device: {
+          name = device;
+          value = robotnix.lib.robotnixSystem {
+            inherit device;
+            flavor = "grapheneos";
+            apv.enable = false;
+            adevtool.hash = "sha256-aA54o2FPfI+9iDLiUaGJAqMzUuNyWwCuWOoa1lADKuM=";
+            signing = {
+              enable = true;
+              keyStorePath = ./android-keys;
+              sopsDecrypt = {
+                enable = true;
+                sopsConfig = ./.sops.yaml;
+                key = "/data/androidKeys/keys.txt";
+                keyType = "age";
+              };
+            };
+          };
+        }) [ "panther" ]));
     };
 }
