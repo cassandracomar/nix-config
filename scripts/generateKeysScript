@@ -12,7 +12,7 @@ cd "$1"
 
 export PATH=/nix/store/hpcwwg6k6hfrp1fyf3vc1llkkl5gf3vv-openssl-3.0.8-bin/bin:/nix/store/09ja1w8jb5mzamy7k51f3wnx5n1zppgx-android-key-tools/bin:$PATH
 
-KEYS=( panther/releasekey panther/platform panther/shared panther/media panther/networkstack com.android.hotspot2.osulogin com.android.wifi.resources com.android.connectivity.resources panther/bluetooth panther/sdk_sandbox vanadium vanadiumwebview )
+KEYS=( panther/releasekey panther/platform panther/shared panther/media panther/networkstack com.android.hotspot2.osulogin com.android.wifi.resources com.android.connectivity.resources panther/bluetooth panther/sdk_sandbox vanadium vanadiumwebview auditor )
 APEX_KEYS=(  )
 
 mkdir -p "panther"
@@ -55,5 +55,3 @@ if [[ ! -e "panther/avb.pem" ]]; then
 else
   echo "Skipping generating device AVB key since it is already exists"
 fi
-
-

@@ -83,7 +83,7 @@
           IPv6SendRA = false;
         };
         dhcpPrefixDelegationConfig = {
-          Assign = false;
+          Assign = true;
         };
         dhcpV4Config = {
           UseDNS = false;

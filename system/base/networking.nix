@@ -180,25 +180,41 @@
     configDir = "/home/cassandra/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true;
-    guiAddress = "0.0.0.0:8384";
+    guiAddress = "192.168.2.1:8384";
     devices = {
-      "cass-android" = { id = "SDA26VM-DP2AGO2-HHGIJ6G-UVX25M3-3UBSMFY-M4XZ6DM-42COXSX-K7H7CQK"; };
+      "cass-opp-9p" = { id = "SDA26VM-DP2AGO2-HHGIJ6G-UVX25M3-3UBSMFY-M4XZ6DM-42COXSX-K7H7CQK"; };
+      "cass-pixel-7" = { id = "QZRZMPV-AZD45ZL-VIDEAF7-GWOLSXC-JWCGMXP-346OQCR-YZGEQG3-JZUUVQN"; };
+      "mel-magus" = { id = "HPRUBKI-XRVSHLO-RQ6G3KS-JKJZAEY-DXMLIJ6-SMLZBSA-32HVGIQ-XW55FAR"; };
+      "mel-gorre" = { id = "AHCJFCS-JBWYQVV-SQKHNNE-UFWZTEL-FARQS5G-KYRJCXD-RHMJ5K2-H7QDWA2"; };
     };
     folders = {
       "Games" = {
         path = "/home/cassandra/Games/small";
-        devices = [ "cass-android" ];
+        devices = [ "cass-opp-9p" "cass-pixel-7" "mel-magus" "mel-gorre" ];
       };
       "imgs" = {
         path = "/home/cassandra/imgs";
-        devices = [ "cass-android" ];
+        devices = [ "cass-opp-9p" "cass-pixel-7" "mel-magus" "mel-gorre" ];
       };
       "drive" = {
         path = "/home/cassandra/drive";
-        devices = [ "cass-android" ];
+        devices = [ "cass-opp-9p" "cass-pixel-7" "mel-magus" "mel-gorre" ];
+      };
+      "important" = {
+        path = "/home/cassandra/important";
+        devices = [ "mel-gorre" ];
+      };
+      ".SeedVaultAndroidBackup" = {
+        path = "/home/cassandra/.SeedVaultAndroidBackup";
+        devices = [ "cass-pixel-7" ];
       };
     };
   };
+
+  # services.attestation-server = {
+  #   enable = true;
+  #   domain = "attestation.ndra.io";
+  # };
 
   ## firewall rules
   networking.firewall = {

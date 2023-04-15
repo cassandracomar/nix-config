@@ -189,6 +189,7 @@
               inherit pkgs;
               modules = base-modules ++ [
                 (import ./host.nix { inherit host; })
+                robotnix.nixosModule
                 home-manager.nixosModules.home-manager
               ] ++ (pkgs.lib.foldl
                 (m: user:
@@ -257,7 +258,8 @@
             inherit device;
             flavor = "grapheneos";
             apv.enable = false;
-            adevtool.hash = "sha256-aA54o2FPfI+9iDLiUaGJAqMzUuNyWwCuWOoa1lADKuM=";
+            adevtool.hash = "sha256-0vSHJbpFoBxXdtBPHRSEzdndbu9vjN+imTVAP9eKkGU=";
+            cts-profile-fix.enable = true;
             signing = {
               enable = true;
               keyStorePath = ./android-keys;
@@ -268,6 +270,12 @@
                 keyType = "age";
               };
             };
+            # apps = {
+            #   auditor = {
+            #     enable = true;
+            #     domain = "attestation.ndra.io";
+            #   };
+            # };
           };
         }) [ "panther" ]));
     };

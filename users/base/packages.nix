@@ -41,6 +41,7 @@
     android-tools
     rnix-lsp
     fly
+    veracrypt
   ];
 
   home.file.".config/discord/settings.json".text = ''
