@@ -43,7 +43,7 @@
 
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];
-  services.fwupd.enable = false;
+  services.fwupd.enable = true;
   services.autorandr.enable = true;
 
   programs.bash.enableCompletion = true;

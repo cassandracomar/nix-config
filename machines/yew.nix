@@ -140,6 +140,7 @@
     cpuid
     cpu-x
     lm_sensors
+    (pkgs.writeScriptBin "firefox" (builtins.readFile ../scripts/firefox))
   ];
 
   services.openssh.enable = true;
