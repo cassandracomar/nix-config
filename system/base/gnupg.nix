@@ -15,12 +15,12 @@
 
   services.pcscd.enable = true;
 
-  environment.systemPackages = with pkgs; [ gnupg yubikey-personalization ];
+  environment.systemPackages = with pkgs; [ gnupg yubikey-personalization pynitrokey ];
 
   environment.shellInit = ''
     gpg-connect-agent /bye
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
 
-  services.udev.packages = with pkgs; [ yubikey-personalization ];
+  services.udev.packages = with pkgs; [ yubikey-personalization libnitrokey ];
 }

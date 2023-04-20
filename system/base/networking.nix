@@ -76,12 +76,6 @@
     '';
   };
 
-  systemd.services.nscd = {
-    wantedBy = lib.mkForce [ ];
-    after = lib.mkForce [ ];
-    enable = lib.mkForce false;
-  };
-
   systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
   # set up anonymized and encrypted DNS
   services.dnscrypt-proxy2 = {
@@ -91,9 +85,20 @@
       ipv6_servers = true;
       require_dnssec = true;
       require_nofilter = true;
+      require_nolog = true;
       dnscrypt_servers = true;
       doh_servers = false;
       odoh_servers = true;
+      lb_strategy = "ph";
+      blocked_names = {
+        blocked_names_file = (pkgs.fetchFromGitHub {
+          owner = "StevenBlack";
+          repo = "hosts";
+          rev = "master";
+          sha256 = "sha256-Yzr6PY/zqQE+AHH0J6ioHTsgkikM+dz4aelbGpQJa1s=";
+        }) + /hosts;
+      };
+      # skip_incompatible = true;
       listen_addresses = [ "127.0.0.1:1053" "[::1]:1053" "127.0.0.11:53" "192.168.2.1:53" ];
       bootstrap_resolvers = [ "[2620:fe::11]:53" "[2620:fe::fe:11]:53" ];
 
@@ -127,23 +132,23 @@
       };
 
       # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-      server_names = [
-        "dct-ru1"
-        "scaleway-ams"
-        "scaleway-ams-ipv6"
-        "ams-dnscrypt-nl-ipv6"
-        "quad9-dnscrypt-ip4-nofilter-pri"
-        "meganerd"
-        "meganerd-ipv6"
-        "dnscrypt.pl"
-        "altername"
-        "altername-ipv6"
-        "ibksturm"
-        "plan9dns-mx"
-        "odoh-ibksturm"
-        "odoh-koki-se"
-        "odoh-meganerd"
-      ];
+      # server_names = [
+      #   "dct-ru1"
+      #   "scaleway-ams"
+      #   "scaleway-ams-ipv6"
+      #   "ams-dnscrypt-nl-ipv6"
+      #   "quad9-dnscrypt-ip4-nofilter-pri"
+      #   "meganerd"
+      #   "meganerd-ipv6"
+      #   "dnscrypt.pl"
+      #   "altername"
+      #   "altername-ipv6"
+      #   "ibksturm"
+      #   "plan9dns-mx"
+      #   "odoh-ibksturm"
+      #   "odoh-koki-se"
+      #   "odoh-meganerd"
+      # ];
 
       anonymized_dns = {
         skip_incompatible = true;

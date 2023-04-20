@@ -270,12 +270,12 @@
                 keyType = "age";
               };
             };
-            # apps = {
-            #   auditor = {
-            #     enable = true;
-            #     domain = "attestation.ndra.io";
-            #   };
-            # };
+            apps = {
+              updater = {
+                enable = true;
+                url = "updater.ndra.io";
+              };
+            };
           };
         }) [ "panther" ]));
     };

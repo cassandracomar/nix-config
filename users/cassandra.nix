@@ -4,7 +4,7 @@ let
   git_config_by_host = {
     cherry = {
       userName = "Cassandra Comar";
-      userEmail = "cassandra@ditto.live";
+      userEmail = "cass@ndra.io";
       signing = {
         key = "0xF431E5E70CAB3E2E";
         signByDefault = true;
@@ -13,7 +13,7 @@ let
     };
     magus = {
       userName = "Cassandra Comar";
-      userEmail = "cassandra@ditto.live";
+      userEmail = "cass@ndra.io";
       signing = {
         key = "0xF431E5E70CAB3E2E";
         signByDefault = true;
@@ -22,7 +22,7 @@ let
     };
     yew = {
       userName = "Cassandra Comar";
-      userEmail = "cassandra@ditto.live";
+      userEmail = "cass@ndra.io";
       signing = {
         key = "0xF431E5E70CAB3E2E";
         signByDefault = true;
@@ -85,6 +85,30 @@ in
     kubernetes_aliases
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
+  home.file."personal.gitconfig" = {
+    target = ".personal.gitconfig";
+    source = pkgs.writeTextFile {
+      name = ".personal.gitconfig";
+      text = ''
+        [user]
+        	email = "${git_config.userEmail}"
+        	name = "${git_config.userName}"
+        	signingKey = "${git_config.signing.key}"
+      '';
+    };
+  };
+  home.file.".work.gitconfig" = {
+    target = ".work.gitconfig";
+    source = pkgs.writeTextFile {
+      name = ".work.gitconfig";
+      text = ''
+        [user]
+        	email = "ccomar@drwholdings.com"
+        	name = "Cassandra Comar"
+        	signingKey = "0x0DF1B6D8D3880CC2"
+      '';
+    };
+  };
 
   home.file.nixos-rebuild = {
     source = ../scripts/nixos-rebuild;
@@ -99,12 +123,19 @@ in
   };
 
   programs.git = {
-    inherit (git_config) userName userEmail signing;
     enable = true;
     # delta.enable = true;
     extraConfig = {
       pull.rebase = false;
       inherit (git_config) github;
+      tag = {
+        gpgsign = git_config.signing.signByDefault;
+      };
+      gpg = {
+        program = "${pkgs.gnupg}/bin/gpg2";
+      };
+      includeIf."gitdir:/home/cassandra/src/git.drwholdings.com/".path = "/home/cassandra/.work.gitconfig";
+      includeIf."gitdir:/home/cassandra/src/github.com/".path = "/home/cassandra/.personal.gitconfig";
     };
   };
 
@@ -128,15 +159,15 @@ in
         };
         userChrome = ''
           #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
-            opacity: 0;
-            pointer-events: none;
+          opacity: 0;
+          pointer-events: none;
           }
           #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
-            visibility: collapse !important;
+          visibility: collapse !important;
           }
 
           #sidebar-box #sidebar-header {
-            display: none;
+          display: none;
           }
         '';
       };
