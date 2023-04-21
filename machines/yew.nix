@@ -13,7 +13,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "nct6775" "it87" ];
-  boot.kernelParams = [ "nr_hugepages=4096" "cgroup_cpu=1" ];
+  boot.kernelParams = [ "nr_hugepages=4096" "cgroups_cpu=1" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.it87 ];
   boot.extraModprobeConfig = ''
     options zfs l2arc_headroom=0
