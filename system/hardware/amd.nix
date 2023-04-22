@@ -37,10 +37,10 @@ in
       stdenv = pkgs-local.gcc12Stdenv;
       ignoreConfigErrors = true;
     })).extend (final: prev: {
-      zfsUnstable = prev.zfsUnstable.overrideAttrs (old: {
-        patches = old.patches ++ [ "${zfsPatch}" ];
-      });
+    zfsUnstable = prev.zfsUnstable.overrideAttrs (old: {
+      patches = old.patches ++ [ "${zfsPatch}" ];
     });
+  });
   boot.kernelPatches = [
     {
       name = "add-cpu-config";

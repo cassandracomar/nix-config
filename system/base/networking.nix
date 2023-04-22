@@ -224,7 +224,7 @@
   ## firewall rules
   networking.firewall = {
     checkReversePath = "loose";
-    allowedTCPPorts = [ 8384 22000 5353 ];
+    allowedTCPPorts = [ 80 443 8384 22000 5353 ];
     allowedUDPPorts = [ 22000 21027 5353 ];
     logRefusedConnections = true;
     logRefusedPackets = true;

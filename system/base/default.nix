@@ -53,6 +53,7 @@
     ./users.nix
     ./vpn.nix
     ./x11.nix
+    ./android-updater.nix
   ];
 
   security.wrappers.hcitool = {

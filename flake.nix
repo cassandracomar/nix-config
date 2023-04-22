@@ -204,7 +204,7 @@
                     }
                   ]) [ ]
                 homeUsers);
-              specialArgs = { inherit system nixpkgs-optimized nixpkgs-master pkgs-master inputs; };
+              specialArgs = { inherit system nixpkgs-optimized nixpkgs-master pkgs-master androidImages inputs; };
             };
           })
           hosts) // {
@@ -225,31 +225,6 @@
           };
         })
         nonNixosUsers);
-    in
-    {
-      inherit nixosConfigurations;
-      packages.${system} = pkgs;
-      build = pkgs.lib.mapAttrs
-        (name: value:
-          value.config.system.build
-        )
-        nixosConfigurations;
-
-      homeConfigurations = pkgs.lib.foldl
-        (homeConfig: host:
-          homeConfig // pkgs.lib.listToAttrs
-            (map
-              (user: {
-                name = "${user}@${host}";
-                value = home-manager.lib.homeManagerConfiguration {
-                  inherit pkgs;
-                  modules = [ (user-module user).value ];
-                  extraSpecialArgs = { inherit pkgs-master host nixpkgs system user; };
-                };
-              })
-              homeUsers))
-        { }
-        hosts // nonNixosHomeConfigs;
 
       androidImages = (pkgs.lib.listToAttrs (map
         (device: {
@@ -278,5 +253,31 @@
             };
           };
         }) [ "panther" ]));
+    in
+    {
+      inherit nixosConfigurations androidImages;
+      packages.${system} = pkgs;
+      build = pkgs.lib.mapAttrs
+        (name: value:
+          value.config.system.build
+        )
+        nixosConfigurations;
+
+      homeConfigurations = pkgs.lib.foldl
+        (homeConfig: host:
+          homeConfig // pkgs.lib.listToAttrs
+            (map
+              (user: {
+                name = "${user}@${host}";
+                value = home-manager.lib.homeManagerConfiguration {
+                  inherit pkgs;
+                  modules = [ (user-module user).value ];
+                  extraSpecialArgs = { inherit pkgs-master host nixpkgs system user; };
+                };
+              })
+              homeUsers))
+        { }
+        hosts // nonNixosHomeConfigs;
+
     };
 }

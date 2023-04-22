@@ -387,11 +387,11 @@
         "nixpkgsUnstable": "nixpkgsUnstable"
       },
       "locked": {
-        "lastModified": 1681570087,
-        "narHash": "sha256-oZZYps8yY/qFMtqEo6TPw2F/EfeoL2qTZfgjceBE4ws=",
+        "lastModified": 1682195463,
+        "narHash": "sha256-sB2MmWCIEQ71TwvVSbHuQv2xFryyGjel6cD2o4/3rH8=",
         "owner": "cassandracomar",
         "repo": "robotnix",
-        "rev": "50ae64165e269ecba116277198767c7a596965fd",
+        "rev": "37449d3711b4844ac060548165b3ace51eef2d12",
         "type": "github"
       },
       "original": {
