@@ -387,10 +387,12 @@
         "nixpkgsUnstable": "nixpkgsUnstable"
       },
       "locked": {
-        "lastModified": 1682211722,
-        "narHash": "sha256-2yrgPGv37ObuUaLSGO6Z7c4jybyPJlRUvxIseZdb25Y=",
-        "path": "/home/cassandra/src/github.com/danielfullmer/robotnix",
-        "type": "path"
+        "lastModified": 1682211526,
+        "narHash": "sha256-M2CLoR1YjL1cqddcLZC7e0aqRPojrwlRy41PNdmiFrE=",
+        "owner": "cassandracomar",
+        "repo": "robotnix",
+        "rev": "6c169d4e1231f394649e411d60a4aa8b86c39c12",
+        "type": "github"
       },
       "original": {
         "owner": "cassandracomar",
