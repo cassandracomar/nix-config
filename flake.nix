@@ -251,6 +251,8 @@
                 url = "updater.ndra.io";
               };
             };
+            # prevBuildDir = "/var/www/updater.ndra.io";
+            # incremental = true;
           };
         }) [ "panther" ]));
     in

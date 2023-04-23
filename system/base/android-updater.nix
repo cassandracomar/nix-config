@@ -1,6 +1,9 @@
 { config, lib, pkgs, androidImages, ... }:
 let
-  androidFiles = pkgs.runCommand "updater.ndra.io" { } ''
+  androidFiles = pkgs.runCommand "updater.ndra.io"
+    {
+      nativeBuildInputs = with pkgs; [ sops age gnupg ];
+    } ''
     mkdir -p $out
     cd $out
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (device: cfg: ''
@@ -17,7 +20,7 @@ in
     enable = true;
     virtualHosts."updater.ndra.io" = {
       enableACME = true;
-      forceSSL = true;
+      addSSL = true;
       root = "/var/www/updater.ndra.io";
     };
   };

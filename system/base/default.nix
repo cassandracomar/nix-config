@@ -21,7 +21,7 @@
         "https://cache.iog.io"
       ];
       accept-flake-config = true;
-      extra-sandbox-paths = [ "/data/androidKeys" ];
+      extra-sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" ];
     };
     gc = {
       automatic = true;
@@ -53,7 +53,6 @@
     ./users.nix
     ./vpn.nix
     ./x11.nix
-    ./android-updater.nix
   ];
 
   security.wrappers.hcitool = {

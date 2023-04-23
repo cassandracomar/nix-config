@@ -39,7 +39,7 @@
   ];
 
   programs.zsh.enable = true;
-  programs.java.enable = true;
+  # programs.java.enable = true;
 
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];

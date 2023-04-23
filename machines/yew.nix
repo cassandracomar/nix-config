@@ -7,6 +7,7 @@
   imports = [
     ../system/hardware/amd.nix
     ../system/hardware/acpid.nix
+    ../system/base/android-updater.nix
   ];
 
   console.font = "ter-v24b";
