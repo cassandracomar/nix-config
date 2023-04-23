@@ -39,7 +39,8 @@
   ];
 
   programs.zsh.enable = true;
-  # programs.java.enable = true;
+  programs.java.enable = true;
+  programs.java.package = pkgs.openjdk17;
 
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];
