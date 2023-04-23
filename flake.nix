@@ -31,7 +31,7 @@
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
   nixConfig = {
-    sandbox-paths = [ "/data/androidKeys" ];
+    sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" ];
   };
 
   outputs =
@@ -251,8 +251,8 @@
                 url = "updater.ndra.io";
               };
             };
-            # prevBuildDir = "/var/www/updater.ndra.io";
-            # incremental = true;
+            prevBuildDir = "/var/www/updater.ndra.io";
+            incremental = true;
           };
         }) [ "panther" ]));
     in

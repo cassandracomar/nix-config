@@ -16,7 +16,7 @@
 
   nix.settings = {
     accept-flake-config = true;
-    extra-sandbox-paths = [ "/data/androidKeys" ];
+    extra-sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" ];
     trusted-substituters = [
       "https://cache.iog.io"
       "https://nix-community.cachix.org"
