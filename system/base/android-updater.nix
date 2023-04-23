@@ -7,6 +7,7 @@ let
     mkdir -p $out
     cd $out
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (device: cfg: ''
+      cp -rL --copy-contents ${cfg.config.prevBuildDir}/${device}-target_files-${cfg.config.prevBuildNumber}.zip .
       ${cfg.config.build.releaseScript} ${cfg.config.prevBuildNumber}
     '') androidImages)}
   '';
