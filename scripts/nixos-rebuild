@@ -25,7 +25,7 @@ sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' ~/.config/sops/age/andro
 case $1 in
     test)
         nix flake lock $CONFIG_FLAKE_PATH --override-input robotnix "path:/home/cassandra/src/github.com/danielfullmer/robotnix"
-        emacs_checked_update sudo $NR_EXEC --override-input nix-config "path:$CONFIG_FLAKE_PATH" --override-input nix-config/robotnix "path:/home/cassandra/src/github.com/danielfullmer/robotnix" $*
+        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" --override-input nix-config/robotnix "path:/home/cassandra/src/github.com/danielfullmer/robotnix" $*
         ;;
     upgrade)
         shift
@@ -44,10 +44,10 @@ case $1 in
         cd $CONFIG_FLAKE_PATH
         git push
         sudo nix flake update /etc/nixos
-        emacs_checked_update sudo $NR_EXEC switch $*
+        emacs_checked_update sudo $NR_EXEC switch --impure $*
         ;;
     *)
         sudo nix flake update /etc/nixos
-        emacs_checked_update sudo $NR_EXEC $*
+        emacs_checked_update sudo $NR_EXEC --impure $*
         ;;
 esac
