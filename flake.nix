@@ -234,7 +234,7 @@
             flavor = "grapheneos";
             apv.enable = false;
             adevtool.hash = "sha256-0vSHJbpFoBxXdtBPHRSEzdndbu9vjN+imTVAP9eKkGU=";
-            cts-profile-fix.enable = true;
+            # cts-profile-fix.enable = true;
             signing = {
               enable = true;
               keyStorePath = ./android-keys;

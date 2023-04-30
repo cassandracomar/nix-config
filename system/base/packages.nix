@@ -39,8 +39,9 @@
   ];
 
   programs.zsh.enable = true;
-  programs.java.enable = true;
-  programs.java.package = pkgs.openjdk17;
+  # programs.java.enable = true;
+  # programs.java.package = pkgs.openjdk17;
+  documentation.info.enable = false;
 
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];
@@ -57,9 +58,9 @@
   services.blueman.enable = true;
   programs.adb.enable = true;
 
-  programs.steam.enable = true;
-  programs.gamemode.enable = true;
-  hardware.steam-hardware.enable = true;
+  # programs.steam.enable = true;
+  # programs.gamemode.enable = true;
+  # hardware.steam-hardware.enable = true;
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="268b", MODE:="0666", GROUP="users"
   '';
