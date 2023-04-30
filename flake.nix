@@ -7,7 +7,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
-  inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
+  inputs.robotnix.url = "github:cassandracomar/robotnix";
 
   # encryption
   inputs.sops-nix.url = "github:Mic92/sops-nix";
