@@ -22,7 +22,6 @@
     terraform
     nyxt
     xclip
-    sbcl
     lilypond
     reaper
     evtest
