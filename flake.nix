@@ -233,7 +233,9 @@
             inherit device;
             flavor = "grapheneos";
             apv.enable = false;
-            adevtool.hash = "sha256-0vSHJbpFoBxXdtBPHRSEzdndbu9vjN+imTVAP9eKkGU=";
+            adevtool.hash = "sha256-FZ5MAr9xlhwwT6OIZKAgC82sLn/Mcn/RHwZmiU37jxc=";
+            # buildNumber = "2023042902";
+            # buildDateTime = 1682958869;
             cts-profile-fix.enable = true;
             signing = {
               enable = true;
@@ -248,7 +250,8 @@
             apps = {
               updater = {
                 enable = true;
-                url = "updater.ndra.io";
+                url = "https://updater.ndra.io";
+                includedInFlavor = true;
               };
             };
             prevBuildDir = "/var/www/updater.ndra.io";

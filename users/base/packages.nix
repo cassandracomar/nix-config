@@ -32,7 +32,6 @@
     # ffmpeg-full
     # svt-av1
     # libopus
-    pkgs-master.nice-dcv-client
     numactl
     arandr
     pinentry-gnome

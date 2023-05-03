@@ -20,7 +20,7 @@
         "https://cache.iog.io"
       ];
       accept-flake-config = true;
-      extra-sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" ];
+      extra-sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" "/bin/sh=${pkgs.bash}/bin/sh" ];
     };
     gc = {
       automatic = true;
