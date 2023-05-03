@@ -20,7 +20,6 @@
     syncthing
     dbus
     terraform
-    nyxt
     xclip
     lilypond
     reaper
