@@ -15,11 +15,6 @@ let
   };
 
   CoreFreq = pkgs-local.callPackage ../../packages/corefreq.nix { kernel = config.boot.kernelPackages.kernel; };
-  zfsPatch = pkgs-local.fetchpatch {
-    sha256 = "sha256-ZI0tLP0oe7E7sx5MXc69FgRZhzVZRXuG58wbmpZhSqM=";
-    name = "6.3-compat.patch";
-    url = "https://github.com/openzfs/zfs/compare/9fa007d3..2e9c9b7.patch";
-  };
 in
 {
   # ensure gccarch-znver3 is in the system features so we can use it to build the kernel
@@ -36,11 +31,7 @@ in
     (pkgs-optimized.linuxKernel.kernels.linux_xanmod_tt.override {
       stdenv = pkgs-local.gcc12Stdenv;
       ignoreConfigErrors = true;
-    })).extend (final: prev: {
-    zfsUnstable = prev.zfsUnstable.overrideAttrs (old: {
-      patches = old.patches ++ [ "${zfsPatch}" ];
-    });
-  });
+    }));
   boot.kernelPatches = [
     {
       name = "add-cpu-config";
