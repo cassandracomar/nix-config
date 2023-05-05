@@ -239,8 +239,8 @@
             flavor = "grapheneos";
             apv.enable = false;
             adevtool.hash = "sha256-FZ5MAr9xlhwwT6OIZKAgC82sLn/Mcn/RHwZmiU37jxc=";
-            buildNumber = "2023050101";
-            buildDateTime = 1683319618;
+            # buildNumber = "2023050101";
+            # buildDateTime = 1683319618;
             cts-profile-fix.enable = true;
             signing = {
               enable = true;
