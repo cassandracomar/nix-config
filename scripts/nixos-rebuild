@@ -20,7 +20,9 @@ echo "invoking nixos-rebuild"
 sudo mkdir -p /data/androidKeys
 sudo mount -t tmpfs -o mode=750,uid=1000,gid=30000 tmpfs /data/androidKeys
 trap 'rv=$?; sudo umount /data/androidKeys; exit $?' EXIT INT TERM QUIT
-sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' ~/.config/sops/age/android-keystore-private-key.yaml > /data/androidKeys/keys.txt
+sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' --config ~/.config/sops/.sops.yaml ~/.config/sops/age/android-keystore-private-key.yaml > /data/androidKeys/keys.txt
+sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' --config ~/.config/sops/.sops.yaml ~/.config/sops/age/route53-private-key.yaml >> /data/androidKeys/keys.txt
+cat /data/androidKeys/keys.txt
 
 case $1 in
     test)

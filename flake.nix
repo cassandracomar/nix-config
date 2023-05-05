@@ -150,7 +150,12 @@
         boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
       });
 
-      base-modules = [ kernel ./modules ./system/base sops-nix.nixosModules.sops ];
+      sops-config = {
+        sops.defaultSopsFile = ./.sops.yaml;
+        sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      };
+
+      base-modules = [ kernel ./modules ./system/base sops-nix.nixosModules.sops sops-config ];
       user-module = (username: {
         name = username;
         value = {
@@ -234,12 +239,12 @@
             flavor = "grapheneos";
             apv.enable = false;
             adevtool.hash = "sha256-FZ5MAr9xlhwwT6OIZKAgC82sLn/Mcn/RHwZmiU37jxc=";
-            # buildNumber = "2023042902";
-            # buildDateTime = 1682958869;
+            buildNumber = "2023050101";
+            buildDateTime = 1683319618;
             cts-profile-fix.enable = true;
             signing = {
               enable = true;
-              keyStorePath = ./android-keys;
+              keyStorePath = ./keys/android;
               sopsDecrypt = {
                 enable = true;
                 sopsConfig = ./.sops.yaml;

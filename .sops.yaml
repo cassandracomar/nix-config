@@ -1,3 +1,8 @@
 creation_rules:
-  - path_regex: .*
+  - path_regex: (keys/android/.*|/dev/stdin|/nix/store/.*)
     age: "age1nysjk8325eqda0qks6ml4x5ccfyhw640p42kkgsaekq7kk058p2s5lrxys"
+  - path_regex: .*/aws-credentials.env
+    key_groups:
+      - age:
+          - "age1hqtgu7332g6tf7u7lnu9ahxytmzcfyxepd7jpjmysll2tzgvh5kqajfj48"
+          - "age17tke8mrdv5xgcqyszc6uf5wr5yp790s5m93g3gl9n9yd9ef7t3yq7kplas"
