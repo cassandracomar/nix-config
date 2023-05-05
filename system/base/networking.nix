@@ -234,4 +234,42 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  security.pki.certificates = [
+    ''
+      local trust root
+      =========
+      -----BEGIN CERTIFICATE-----
+      MIIB3DCCAYKgAwIBAgIUeLNrkgHyp2GhO6Ee4fyvVbGaUg0wCgYIKoZIzj0EAwIw
+      OjEMMAoGA1UEChMDRFJXMRQwEgYDVQQLDAtJU1NAZHJ3LmNvbTEUMBIGA1UEAxML
+      SVNTIFJvb3QgQ0EwHhcNMTcwMzAxMjA0MzAwWhcNMjcwMjI3MjA0MzAwWjA6MQww
+      CgYDVQQKEwNEUlcxFDASBgNVBAsMC0lTU0BkcncuY29tMRQwEgYDVQQDEwtJU1Mg
+      Um9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABAjg18NvaBfwKP0BC/9U
+      Cppc1W2rfSqzsY4KCRIAubItoMyQ13zp25KjVg9IF7Uru7cWQcUMvwf4+2Gb/4m4
+      sFSjZjBkMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0GA1Ud
+      DgQWBBSA3cairIJP/ooZLqrq+L9hSNwxczAfBgNVHSMEGDAWgBSA3cairIJP/ooZ
+      Lqrq+L9hSNwxczAKBggqhkjOPQQDAgNIADBFAiAgvGnmTJgMosKFYuRJ7HZMuD/p
+      ZTNapVJltFiGzKAtewIhAJMVQ72U+m7kLNRw6ej7icBQ9d+T4MuhGyJEeYeX5wR4
+      -----END CERTIFICATE-----
+    ''
+    ''
+      local trust CA
+      =========
+      -----BEGIN CERTIFICATE-----
+      MIICYjCCAgigAwIBAgIUDZxs4OPknZA8SgUkWZ7EncHkYVIwCgYIKoZIzj0EAwIw
+      OjEMMAoGA1UEChMDRFJXMRQwEgYDVQQLDAtJU1NAZHJ3LmNvbTEUMBIGA1UEAxML
+      SVNTIFJvb3QgQ0EwHhcNMTcwMzAxMjA0NDAwWhcNMjcwMjI3MjA0NDAwWjA3MQww
+      CgYDVQQKEwNEUlcxFDASBgNVBAsMC0lTU0BkcncuY29tMREwDwYDVQQDEwhTU0RO
+      UyBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABNsaSU2QU1Z5ktRf19DaXZk6
+      TrPko0TPZFTSYFH9bPxVJ4guUfGnN5nZ7vQajX2NJJLZEL9TZGYSsE8RD/ftcsij
+      ge4wgeswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEF
+      BQcDAjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBSMYP14x7P9WQtzmeU2
+      SD9Tp0GCZTAfBgNVHSMEGDAWgBSA3cairIJP/ooZLqrq+L9hSNwxczA1BggrBgEF
+      BQcBAQQpMCcwJQYIKwYBBQUHMAGGGWh0dHA6Ly9vY3NwLmlzcy5kcncvc3NkbnMw
+      LwYDVR0fBCgwJjAkoCKgIIYeaHR0cDovL2NlcnRzLmlzcy5kcncvc3NkbnMvY3Js
+      MAoGCCqGSM49BAMCA0gAMEUCIBU5FNCu7ZmE7H1Oautblig4iA5JIgOO+4D/do2c
+      pQ8IAiEAkIdZb5Doptfk1C5uofcvww3E0ZrSG98ZJ2+TW9sz4VA=
+      -----END CERTIFICATE-----
+    ''
+  ];
 }
