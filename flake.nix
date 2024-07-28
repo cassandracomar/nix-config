@@ -4,6 +4,7 @@
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-master.url = "github:cassandracomar/nixpkgs";
   inputs.nixpkgs-optimized.url = "github:cassandracomar/nixpkgs/kernel-pin";
+  inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
@@ -30,6 +31,11 @@
   inputs.nix-direnv.url = "github:nix-community/nix-direnv";
   inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.nixos-generators.url = "github:nix-community/nixos-generators";
+  inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs-stable";
+  # inputs.nixos-hardware.url = "github:cassandracomar/nixos-hardware";
+  inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
+
   nixConfig = {
     sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" ];
   };
@@ -39,6 +45,7 @@
     , nixpkgs
     , nixpkgs-master
     , nixpkgs-optimized
+    , nixpkgs-stable
     , home-manager
     , xmonad-personal
     , robotnix
@@ -50,6 +57,8 @@
     , nur
     , nix-direnv
     , openconnect
+    , nixos-generators
+    , ...
     }@inputs:
     let
       hosts = [ "cherry" "walnut" "magus" "yew" ];
@@ -289,5 +298,21 @@
         { }
         hosts // nonNixosHomeConfigs;
 
+      packages.aarch64-linux.banyan-image = let
+        pkgs-aarch64 = (import self.inputs.nixpkgs-stable {
+          system = "aarch64-linux";
+          config.allowUnfree = true;
+          config.allowUnsupportedSystem = true;
+        });
+      in self.inputs.nixos-generators.nixosGenerate rec {
+        inherit (pkgs-aarch64) lib;
+        format = "sd-image-nanopi-r5c";
+        pkgs = pkgs-aarch64;
+        customFormats = {
+          sd-image-nanopi-r5c = (import machines/banyan.nix {
+            inherit self lib pkgs;
+          });
+        };
+      };
     };
 }
