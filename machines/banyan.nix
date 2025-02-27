@@ -117,6 +117,7 @@ in {
   formatAttr = "sdImage";
   sdImage = {
     firmwarePartitionOffset = 16;
+    firmwareSize = 30;
     populateFirmwareCommands = let
       configTxt = pkgs.writeText "config.txt" ''
         # Prevent the firmware from smashing the framebuffer setup done by the mainline kernel
@@ -136,6 +137,8 @@ in {
         ${config.boot.loader.generic-extlinux-compatible.populateCmd} -c ${config.system.build.toplevel} -d ./files/boot -n ${config.hardware.deviceTree.name}
       '';
     postBuildCommands = lib.mkForce ''
+      newImgSize=$((imageSize + 33*512))
+      truncate -s $newImgSize $img
       ${pkgs.gptfdisk}/bin/sgdisk -g $img
       ${pkgs.busybox}/bin/sync
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-master, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   boot.kernelModules = [ "jool" ];

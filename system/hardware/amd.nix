@@ -1,11 +1,12 @@
-{ config, lib, pkgs, nixpkgs-optimized, ... }:
-let
-  pkgs-local = import nixpkgs-optimized {
-    config.allowUnfree = true;
-    system = "x86_64-linux";
-  };
+{
+  config,
+  pkgs,
+  lib,
+  nixpkgs,
+  ...
+}: let
   # we really only want to use this for the kernel itself to minimize which packages that have to be built locally
-  pkgs-optimized = import nixpkgs-optimized {
+  pkgs-optimized = import nixpkgs {
     config.allowUnfree = true;
     localSystem = {
       gcc.arch = "znver3";
@@ -14,24 +15,18 @@ let
     };
   };
 
-  CoreFreq = pkgs-local.callPackage ../../packages/corefreq.nix { kernel = config.boot.kernelPackages.kernel; };
-in
-{
+  CoreFreq = pkgs.callPackage ../../packages/corefreq.nix {kernelPackage = config.boot.kernelPackages.kernel;};
+in {
   # ensure gccarch-znver3 is in the system features so we can use it to build the kernel
   nix.extraOptions = ''
     system-features = gccarch-znver3 kvm nixos-test big-parallel benchmark
   '';
-  boot.initrd.availableKernelModules =
-    [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk" ];
-  boot.kernelParams = [ "amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower CoreFreq ];
-  boot.kernelPackages = (pkgs-local.linuxKernel.packagesFor
-    (pkgs-optimized.linuxKernel.kernels.linux_xanmod_tt.override {
-      stdenv = pkgs-local.gcc12Stdenv;
-      ignoreConfigErrors = true;
-    }));
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
+  boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active"];
+  boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
+  boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest;
   boot.kernelPatches = [
     {
       name = "add-cpu-config";
@@ -42,18 +37,28 @@ in
         CONFIG_MZEN3 y
       '';
     }
+    {
+      name = "bore";
+      patch = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/firelzrd/bore-scheduler/main/patches/stable/linux-6.11-bore/0001-linux6.11.y-bore5.2.8.patch";
+        sha256 = "sha256-jXWKcMYVUvT1QSt85/9KaZ0m6Puh/mBA8tsQzv4F6ao=";
+      };
+    }
   ];
-  environment.systemPackages = [ CoreFreq ];
-  services.dbus.packages = [ CoreFreq ];
+  environment.systemPackages = [CoreFreq];
+  services.dbus.packages = [CoreFreq];
   systemd.services.corefreqd = {
     description = "CoreFreq Daemon";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     restartIfChanged = true;
 
     serviceConfig = {
       ExecStart = "${CoreFreq}/bin/corefreqd -q";
-      ExecStop = "${pkgs.bash}/bin/bash -c kill $MAINPID";
+      ExecStop = "${pkgs.coreutils}/bin/kill -QUIT $MAINPID";
+      SuccessExitStatus = "SIGQUIT SIGUSR1 SIGTERM";
+      RemainAfterExit = "no";
       Restart = "always";
+      Slice = "-.slice";
     };
   };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';

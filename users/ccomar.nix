@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgs-master, host, ... }:
+{ lib, pkgs, host, ... }:
 
 let
   git_config_by_host = {
@@ -132,7 +132,7 @@ in
 
   programs.firefox = {
     enable = true;
-    package = pkgs-master.firefox-nightly-bin.override {
+    package = pkgs.firefox-nightly-bin.override {
       extraPolicies = { DisableAppUpdate = true; };
     };
     profiles = {

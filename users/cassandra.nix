@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgs-master, host, ... }:
+{ lib, pkgs, host, ... }:
 
 let
   git_config_by_host = {
@@ -141,7 +141,7 @@ in
 
   programs.firefox = {
     enable = true;
-    package = pkgs-master.firefox-nightly-bin.override {
+    package = pkgs.firefox-nightly-bin.override {
       extraPolicies = { DisableAppUpdate = true; };
     };
     profiles = {
@@ -149,10 +149,15 @@ in
         isDefault = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           reddit-enhancement-suite
-          # https-everywhere
-          umatrix
-          tridactyl
           multi-account-containers
+          sidebery
+          bitwarden
+          ublock-origin
+          vimium
+          sponsorblock
+          darkreader
+          bypass-paywalls-clean
+          don-t-fuck-with-paste
         ];
         settings = {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = "true";

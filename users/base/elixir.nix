@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs, nixpkgs-master, ... }:
+{ config, lib, pkgs, nixpkgs, ... }:
 let
   lib' = pkgs.callPackage "${nixpkgs}/pkgs/development/beam-modules/lib.nix" { };
   elixir-local = lib'.callElixir "${nixpkgs}/pkgs/development/interpreters/elixir/1.12.nix" {
@@ -25,7 +25,7 @@ let
     erlang = pkgs.erlangR24;
     elixir = elixir-local;
   };
-  elixir-ls-local = pkgs.callPackage "${nixpkgs-master}/pkgs/development/beam-modules/elixir-ls/" {
+  elixir-ls-local = pkgs.callPackage "${nixpkgs}/pkgs/development/beam-modules/elixir-ls/" {
     inherit (pkgs) lib fetchFromGitHub;
     inherit mixRelease fetchMixDeps;
     elixir = elixir-local;

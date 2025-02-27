@@ -1,25 +1,31 @@
-{ zsh, stdenv, lib, fetchFromGitHub, kernel, kmod }:
-
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  kernelPackage,
+}:
 stdenv.mkDerivation rec {
-  name = "corefreq-${version}-${kernel.version}";
-  version = "0.0.1";
+  name = "corefreq-${version}-${kernelVersion}";
+  version = "1.98.0";
 
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
-    rev = "master";
-    sha256 = "sha256-PsFoZiJ69ZxCzh8eAR+ma1xn4/UqswH4kyGbIolRfaM=";
+    rev = version;
+    sha256 = "sha256-s3HSKrN90T6R7SF5VoybwzgF+mBcDVybTMIdtqo0AFY=";
   };
 
-  patches = [ ./corefreq-fix.patch ];
+  nativeBuildInputs = kernelPackage.moduleBuildDependencies;
+  kernel = kernelPackage.dev;
+  kernelVersion = kernelPackage.modDirVersion;
 
-  nativeBuildInputs = kernel.moduleBuildDependencies; # 2
+  patches = [./corefreq-fix.patch];
 
   makeFlags = [
-    "KERNELRELEASE=${kernel.modDirVersion}"
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "KERNELREL=${kernel}/lib/modules/${kernelVersion}"
     "INSTALL_MOD_PATH=$(out)"
     "PREFIX=$(out)"
+    "-j"
   ];
 
   meta = with lib; {

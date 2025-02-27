@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-master, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   rustChannel = pkgs.rust-bin.stable.latest;
@@ -9,7 +9,7 @@ let
 in {
   home.packages = with pkgs; [
     (pkgs.lowPrio rustpkgs)
-    pkgs-master.rust-analyzer
+    pkgs.rust-analyzer
     cargo-audit
     cargo-web
     rustfmt

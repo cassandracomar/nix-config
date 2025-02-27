@@ -1,19 +1,17 @@
-{ config, lib, pkgs, ... }:
-
 {
-
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
   home.sessionVariables.MOZ_ACCELERATED = "1";
   home.sessionVariables.MOZ_WEBRENDER = "1";
-  home.sessionVariables.EDITOR =
-    "${pkgs.emacsPgtk}/bin/emacsclient -t";
-  home.sessionVariables.VISUAL =
-    "${pkgs.emacsPgtk}/bin/emacsclient -c";
+  home.sessionVariables.EDITOR = "${pkgs.emacs29-pgtk}/bin/emacsclient -t";
+  home.sessionVariables.VISUAL = "${pkgs.emacs29-pgtk}/bin/emacsclient -c";
   home.sessionVariables.ALTERNATE = "vim";
-  home.sessionVariables.XDG_DATA_DIRS =
-    "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
-  home.sessionVariables.PATH =
-    "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.emacs.d/bin:$HOME/.krew/bin:$PATH";
+  home.sessionVariables.XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
+  home.sessionVariables.PATH = "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.emacs.d/bin:$HOME/.krew/bin:$PATH";
   home.sessionVariables.GDK_SCALE = "2";
   home.sessionVariables.GDK_DPI_SCALE = "0.5";
 
@@ -31,6 +29,6 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    nix-direnv = { enable = true; };
+    nix-direnv = {enable = true;};
   };
 }

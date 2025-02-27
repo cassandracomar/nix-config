@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     sqlite
     direnv
@@ -22,7 +25,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsPgtk;
+    package = pkgs.emacs29-pgtk;
     extraPackages = epkgs:
       with pkgs; [
         lilypond
@@ -39,9 +42,9 @@
       ];
   };
   services.emacs.enable = true;
-  home.file.".tree-sitter".source = (pkgs.runCommand "grammars" { } ''
+  home.file.".tree-sitter".source = pkgs.runCommand "grammars" {} ''
     mkdir -p $out/bin
     ${lib.concatStringsSep "\n"
       (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") pkgs.tree-sitter.builtGrammars)};
-  '');
+  '';
 }

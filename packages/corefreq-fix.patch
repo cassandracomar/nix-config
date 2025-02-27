@@ -1,14 +1,15 @@
---- a/corefreqk.c
-+++ b/corefreqk.c
-@@ -20623,11 +20623,7 @@ static int CoreFreqK_FreqDriver_UnInit(void)
- {
- 	int rc = -EINVAL;
- #ifdef CONFIG_CPU_FREQ
--#if (LINUX_VERSION_CODE < KERNEL_VERSION(6, 3, 0)) && (!defined(CONFIG_CACHY))
--	rc =
--#else
- 	rc = 0;
--#endif
- 	cpufreq_unregister_driver(&CoreFreqK.FreqDriver);
- #endif /* CONFIG_CPU_FREQ */
- 	return rc;
+ Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Makefile b/Makefile
+index c0b7946..e6aa227 100644
+--- a/Makefile
++++ b/Makefile
+@@ -127,6 +127,7 @@ prepare:
+ 	@if [ ! -e $(BUILD)/module/corefreqk.c ]; then \
+ 		cd $(BUILD)/module; \
+ 		$(SYMLINK) ../../$(HW)/corefreqk.c corefreqk.c; \
++		find ../../$(HW) -iname '*.h' -exec $(SYMLINK) {} . \; ;\
+ 		cd ../..; \
+ 	fi
+ 
