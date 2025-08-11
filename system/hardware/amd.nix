@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  lib,
+  # lib,
   nixpkgs,
   ...
 }: let
@@ -9,8 +9,8 @@
   pkgs-optimized = import nixpkgs {
     config.allowUnfree = true;
     localSystem = {
-      gcc.arch = "znver3";
-      gcc.tune = "znver3";
+      gcc.arch = "znver4";
+      gcc.tune = "znver4";
       system = "x86_64-linux";
     };
   };
@@ -19,7 +19,7 @@
 in {
   # ensure gccarch-znver3 is in the system features so we can use it to build the kernel
   nix.extraOptions = ''
-    system-features = gccarch-znver3 kvm nixos-test big-parallel benchmark
+    system-features = gccarch-znver4 kvm nixos-test big-parallel benchmark
   '';
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
@@ -33,16 +33,9 @@ in {
       patch = null;
       extraConfig = ''
         CONFIG_GENERIC_CPU n
-        CONFIG_LOCALVERSION -znver3
-        CONFIG_MZEN3 y
+        CONFIG_LOCALVERSION -znver4
+        CONFIG_MZEN4 y
       '';
-    }
-    {
-      name = "bore";
-      patch = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/firelzrd/bore-scheduler/main/patches/stable/linux-6.11-bore/0001-linux6.11.y-bore5.2.8.patch";
-        sha256 = "sha256-jXWKcMYVUvT1QSt85/9KaZ0m6Puh/mBA8tsQzv4F6ao=";
-      };
     }
   ];
   environment.systemPackages = [CoreFreq];

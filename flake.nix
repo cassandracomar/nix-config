@@ -2,14 +2,14 @@
   # pkg registries
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-  inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+  inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
-  inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
+  # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
 
   # encryption
-  inputs.sops-nix.url = "github:Mic92/sops-nix";
+  # inputs.sops-nix.url = "github:Mic92/sops-nix";
 
   # overlays
   inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
@@ -35,9 +35,9 @@
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
 
-  nixConfig = {
-    sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
-  };
+  # nixConfig = {
+  #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
+  # };
 
   outputs = {
     self,
@@ -45,8 +45,6 @@
     nixpkgs-stable,
     home-manager,
     xmonad-personal,
-    robotnix,
-    sops-nix,
     mozilla,
     emacs,
     emacs-src,
@@ -74,41 +72,44 @@
       emacs.overlay
       rust.overlays.default
       nur.overlay
-      (self: super: let
-        poetry2nixBuilder = poetry2nix.lib.mkPoetry2Nix {pkgs = super;};
-      in
-        self.callPackage ./packages/iosevka.nix {
+      (final: prev: let
+        poetry2nixBuilder = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
+        iosevka-fonts = prev.callPackage ./packages/iosevka.nix {
           poetry2nix = poetry2nixBuilder;
+        };
+      in
+        {
+          inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
         })
-      (self: super: {
-        calibre = super.calibre.overrideAttrs (oldAttrs: {
+      (final: prev: {
+        calibre = prev.calibre.overrideAttrs (oldAttrs: {
           # We want to have pycryptodome around in order to support DeDRM
           nativeBuildInputs =
             oldAttrs.nativeBuildInputs
-            ++ [self.python3Packages.pycryptodome];
+            ++ [prev.python3Packages.pycryptodome];
         });
 
         nix-direnv = nix-direnv.defaultPackage.${system};
         vcluster =
-          import ./packages/vcluster.nix {inherit (self) fetchurl stdenv;};
+          import ./packages/vcluster.nix {inherit (final) fetchurl stdenv;};
       })
       (
-        self: super:
+        final: prev:
           import ./packages/actualbudget/override.nix {
-            pkgs = self;
+            pkgs = prev;
             inherit system;
           }
       )
 
-      (self: super: let
+      (final: prev: let
         kpkgs = nixpkgs.legacyPackages.${system};
       in {
-        CoreFreq = pkgs.callPackage ./packages/corefreq.nix {
-          kernelPackage = kpkgs.linux_xanmod_latest;
+        CoreFreq = prev.callPackage ./packages/corefreq.nix {
+          kernelPackage = prev.linux_xanmod_latest;
         };
       })
 
-      (self: super: {
+      (final: prev: {
         xmonad-personal = xmonad-personal.defaultPackage.${system};
       })
 
@@ -144,12 +145,12 @@
       boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
     };
 
-    sops-config = {
-      sops.defaultSopsFile = ./.sops.yaml;
-      sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-    };
+    # sops-config = {
+    #   sops.defaultSopsFile = ./.sops.yaml;
+    #   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    # };
 
-    base-modules = [kernel ./modules ./system/base sops-nix.nixosModules.sops sops-config];
+    base-modules = [kernel ./modules ./system/base];
     user-module = username: {
       name = username;
       value = {
@@ -190,7 +191,7 @@
               base-modules
               ++ [
                 (import ./host.nix {inherit host;})
-                robotnix.nixosModule
+                # robotnix.nixosModule
                 home-manager.nixosModules.home-manager
               ]
               ++ (pkgs.lib.foldl
@@ -207,7 +208,7 @@
                     }
                   ]) []
                 homeUsers);
-            specialArgs = {inherit system androidImages nixpkgs inputs;};
+            specialArgs = {inherit system nixpkgs inputs;};
           };
         })
         hosts)
@@ -229,40 +230,40 @@
       })
       nonNixosUsers);
 
-    androidImages = pkgs.lib.listToAttrs (map
-      (device: {
-        name = device;
-        value = robotnix.lib.robotnixSystem {
-          inherit device;
-          flavor = "grapheneos";
-          apv.enable = false;
-          adevtool.hash = "sha256-FZ5MAr9xlhwwT6OIZKAgC82sLn/Mcn/RHwZmiU37jxc=";
-          # buildNumber = "2023050101";
-          # buildDateTime = 1683319618;
-          cts-profile-fix.enable = true;
-          signing = {
-            enable = true;
-            keyStorePath = ./keys/android;
-            sopsDecrypt = {
-              enable = true;
-              sopsConfig = ./.sops.yaml;
-              key = "/data/androidKeys/keys.txt";
-              keyType = "age";
-            };
-          };
-          apps = {
-            updater = {
-              enable = true;
-              url = "https://updater.ndra.io";
-              includedInFlavor = true;
-            };
-          };
-          prevBuildDir = "/var/www/updater.ndra.io";
-          incremental = true;
-        };
-      }) ["panther"]);
+    # androidImages = pkgs.lib.listToAttrs (map
+    #   (device: {
+    #     name = device;
+    #     value = robotnix.lib.robotnixSystem {
+    #       inherit device;
+    #       flavor = "grapheneos";
+    #       apv.enable = false;
+    #       adevtool.hash = "sha256-FZ5MAr9xlhwwT6OIZKAgC82sLn/Mcn/RHwZmiU37jxc=";
+    #       # buildNumber = "2023050101";
+    #       # buildDateTime = 1683319618;
+    #       cts-profile-fix.enable = true;
+    #       signing = {
+    #         enable = true;
+    #         keyStorePath = ./keys/android;
+    #         sopsDecrypt = {
+    #           enable = true;
+    #           sopsConfig = ./.sops.yaml;
+    #           key = "/data/androidKeys/keys.txt";
+    #           keyType = "age";
+    #         };
+    #       };
+    #       apps = {
+    #         updater = {
+    #           enable = true;
+    #           url = "https://updater.ndra.io";
+    #           includedInFlavor = true;
+    #         };
+    #       };
+    #       prevBuildDir = "/var/www/updater.ndra.io";
+    #       incremental = true;
+    #     };
+    #   }) ["panther"]);
   in {
-    inherit nixosConfigurations androidImages;
+    inherit nixosConfigurations;
     packages.${system} = pkgs;
     build =
       pkgs.lib.mapAttrs
@@ -291,23 +292,23 @@
       hosts
       // nonNixosHomeConfigs;
 
-    packages.aarch64-linux.banyan-image = let
-      pkgs-aarch64 = import self.inputs.nixpkgs-stable {
-        system = "aarch64-linux";
-        config.allowUnfree = true;
-        config.allowUnsupportedSystem = true;
-      };
-    in
-      self.inputs.nixos-generators.nixosGenerate rec {
-        inherit (pkgs-aarch64) lib;
-        format = "sd-image-nanopi-r5c";
-        pkgs = pkgs-aarch64;
-        customFormats = {
-          sd-image-nanopi-r5c = import machines/banyan.nix {
-            inherit self lib pkgs;
-          };
-        };
-      };
+    # packages.aarch64-linux.banyan-image = let
+    #   pkgs-aarch64 = import self.inputs.nixpkgs-stable {
+    #     system = "aarch64-linux";
+    #     config.allowUnfree = true;
+    #     config.allowUnsupportedSystem = true;
+    #   };
+    # in
+    #   self.inputs.nixos-generators.nixosGenerate rec {
+    #     inherit (pkgs-aarch64) lib;
+    #     format = "sd-image-nanopi-r5c";
+    #     pkgs = pkgs-aarch64;
+    #     customFormats = {
+    #       sd-image-nanopi-r5c = import machines/banyan.nix {
+    #         inherit self lib pkgs;
+    #       };
+    #     };
+    #   };
 
     formatter.${system} = pkgs.alejandra;
     formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;

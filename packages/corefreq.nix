@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation rec {
   name = "corefreq-${version}-${kernelVersion}";
-  version = "1.98.0";
+  version = "2.0.8";
 
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
     rev = version;
-    sha256 = "sha256-s3HSKrN90T6R7SF5VoybwzgF+mBcDVybTMIdtqo0AFY=";
+    sha256 = "sha256-8uCs/Jj208qUtmpiorxtii+0VOfK/EgrcylmJMkcqUQ=";
   };
 
   nativeBuildInputs = kernelPackage.moduleBuildDependencies;

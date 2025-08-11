@@ -1,9 +1,14 @@
 {
-  pkgs,
   poetry2nix,
+  iosevka,
+  nerd-font-patcher,
+  fetchFromGitHub,
+  stdenv,
+  applyPatches,
+  parallel,
   ...
 }: let
-  plainPackage = pkgs.iosevka.override {
+  plainPackage = iosevka.override {
     privateBuildPlan = {
       family = "Iosevka";
       ligations.inherits = "dlig";
@@ -12,50 +17,37 @@
     };
     set = "Custom";
   };
-  nerd-font-patcher = pkgs.nerd-font-patcher.overrideAttrs (old: rec {
-    version = "3.2.1";
-    src = pkgs.fetchzip {
-      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/FontPatcher.zip";
-      sha256 = "sha256-3s0vcRiNA/pQrViYMwU2nnkLUNUcqXja/jTWO49x3BU=";
-      stripRoot = false;
+  feature-freezer-src = applyPatches {
+      src = fetchFromGitHub {
+        owner = "twardoch";
+        repo = "fonttools-opentype-feature-freezer";
+        rev = "2ae16853bc724c3e377726f81d9fc661d3445827";
+        sha256 = "sha256-mIWQF9LTVKxIkwHLCTVK1cOuiaduJyX8pyBZ/0RKIVE=";
+      };
+      patches = [
+        ./feature-freezer-poetry-fixes.patch
+      ];
     };
-  });
-  feature-freezer-orig-src = pkgs.fetchFromGitHub {
-    owner = "twardoch";
-    repo = "fonttools-opentype-feature-freezer";
-    rev = "2ae16853bc724c3e377726f81d9fc661d3445827";
-    sha256 = "sha256-mIWQF9LTVKxIkwHLCTVK1cOuiaduJyX8pyBZ/0RKIVE=";
-  };
-  feature-freezer-src = pkgs.stdenv.mkDerivation {
-    name = "fonttools-opentype-feature-freezer-src";
-    src = feature-freezer-orig-src;
-    nativeBuildInputs = [pkgs.rsync];
-    patches = [./feature-freezer-poetry-fixes.patch];
-    phases = ["unpackPhase" "patchPhase" "installPhase" "fixupPhase"];
-    installPhase = ''
-      rsync -r ./ $out/
-    '';
-  };
-  feature-freezer = poetry2nix.mkPoetryApplication rec {
+  feature-freezer = poetry2nix.mkPoetryApplication {
     projectDir = feature-freezer-src;
-    src = projectDir;
+    src = feature-freezer-src;
     checkGroups = [];
     doCheck = false;
   };
 in {
   iosevka-custom = plainPackage;
-  iosevka-nerd-font = pkgs.stdenv.mkDerivation {
+  iosevka-nerd-font = stdenv.mkDerivation {
     pname = "iosevka-nerd-font";
     version = plainPackage.version;
 
     src = plainPackage;
 
-    nativeBuildInputs = [nerd-font-patcher];
+    nativeBuildInputs = [nerd-font-patcher parallel];
 
     buildPhase = ''
-      find \( -name \*.ttf -o -name \*.otf \) -execdir nerd-font-patcher --complete --careful {} \;
-      find \( -name \*.ttf -o -name \*.otf \) -execdir chmod +x {} \;
-      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) | xargs -n1 ${feature-freezer}/bin/pyftfeatfreeze -rnv -f dlig
+      find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' nerd-font-patcher --complete --careful {/}
+      find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' chmod +x {/}
+      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} -m ${feature-freezer}/bin/pyftfeatfreeze -rnv -f dlig
     '';
     installPhase = "cp -a . $out";
   };
