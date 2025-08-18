@@ -37,8 +37,8 @@
     numactl
     arandr
     pinentry-gnome3
-    openconnect-sso
-    openconnect
+    # openconnect-sso
+    # openconnect
     android-tools
     fly
     veracrypt
