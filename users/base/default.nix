@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
-    ./elixir.nix
     ./emacs.nix
     ./environment.nix
     ./games.nix
@@ -16,7 +18,7 @@
 
   nix.settings = {
     accept-flake-config = true;
-    extra-sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" "/bin/sh=${pkgs.bash}/bin/sh" ];
+    extra-sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io" "/bin/sh=${pkgs.bash}/bin/sh"];
     trusted-substituters = [
       "https://cache.iog.io"
       "https://nix-community.cachix.org"
