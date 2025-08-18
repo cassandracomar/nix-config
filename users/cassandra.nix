@@ -26,10 +26,10 @@
     yew = {
       userName = "Cassandra Comar";
       userEmail = "cass@ndra.io";
-      signing = {
-        key = "0xF431E5E70CAB3E2E";
-        signByDefault = true;
-      };
+      # signing = {
+      #   key = "0xF431E5E70CAB3E2E";
+      #   signByDefault = true;
+      # };
       github.user = "cassandracomar";
     };
   };
