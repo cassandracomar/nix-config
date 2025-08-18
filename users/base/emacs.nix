@@ -36,7 +36,6 @@
         epkgs.vterm
         epkgs.sqlite3
         epkgs.emacsql
-        epkgs.emacsql-sqlite
         pinentry-emacs
         nixd
       ];
