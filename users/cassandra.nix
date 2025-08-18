@@ -158,7 +158,6 @@ in {
           vimium
           sponsorblock
           darkreader
-          bypass-paywalls-clean
           don-t-fuck-with-paste
         ];
         settings = {
