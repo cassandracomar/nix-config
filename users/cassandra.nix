@@ -56,23 +56,6 @@
     text = ''
       source ${complete_alias}/share/bash-completion/completions/complete_alias
 
-      alias cictl="kubectl --context=cassandracomar@ci.k8s.ditto.live"
-      complete -F _complete_alias cictl
-
-      alias devctl="kubectl --context=cassandracomar@dev.k8s.ditto.live"
-      complete -F _complete_alias devctl
-
-      alias stgctl="kubectl --context=cassandracomar@stg.k8s.ditto.live"
-      complete -F _complete_alias stgctl
-
-      alias prodctl="kubectl --context=cassandra@prod.k8s.ditto.live"
-      complete -F _complete_alias prodctl
-
-      alias particleprodctl="kubectl --context=cassandracomar@particle-prod.k8s.ditto.live"
-      complete -F _complete_alias particleprodctl
-
-      alias particlestgctl="kubectl --context=cassandracomar@particle-stg.k8s.ditto.live"
-      complete -F _complete_alias particlestgctl
     '';
   };
 in {
@@ -87,30 +70,30 @@ in {
     kubernetes_aliases
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
-  home.file."personal.gitconfig" = {
-    target = ".personal.gitconfig";
-    source = pkgs.writeTextFile {
-      name = ".personal.gitconfig";
-      text = ''
-        [user]
-        	email = "${git_config.userEmail}"
-        	name = "${git_config.userName}"
-        	signingKey = "${git_config.signing.key}"
-      '';
-    };
-  };
-  home.file.".work.gitconfig" = {
-    target = ".work.gitconfig";
-    source = pkgs.writeTextFile {
-      name = ".work.gitconfig";
-      text = ''
-        [user]
-        	email = "ccomar@drwholdings.com"
-        	name = "Cassandra Comar"
-        	signingKey = "0x0DF1B6D8D3880CC2"
-      '';
-    };
-  };
+  # home.file."personal.gitconfig" = {
+  #   target = ".personal.gitconfig";
+  #   source = pkgs.writeTextFile {
+  #     name = ".personal.gitconfig";
+  #     text = ''
+  #       [user]
+  #       	email = "${git_config.userEmail}"
+  #       	name = "${git_config.userName}"
+  #       	signingKey = "${git_config.signing.key}"
+  #     '';
+  #   };
+  # };
+  # home.file.".work.gitconfig" = {
+  #   target = ".work.gitconfig";
+  #   source = pkgs.writeTextFile {
+  #     name = ".work.gitconfig";
+  #     text = ''
+  #       [user]
+  #       	email = "ccomar@drwholdings.com"
+  #       	name = "Cassandra Comar"
+  #       	signingKey = "0x0DF1B6D8D3880CC2"
+  #     '';
+  #   };
+  # };
 
   home.file.nixos-rebuild = {
     source = ../scripts/nixos-rebuild;
@@ -130,14 +113,14 @@ in {
     extraConfig = {
       pull.rebase = false;
       inherit (git_config) github;
-      tag = {
-        gpgsign = git_config.signing.signByDefault;
-      };
+      # tag = {
+      #   gpgsign = git_config.signing.signByDefault;
+      # };
       gpg = {
         program = "${pkgs.gnupg}/bin/gpg2";
       };
-      includeIf."gitdir:/home/cassandra/src/git.drwholdings.com/".path = "/home/cassandra/.work.gitconfig";
-      includeIf."gitdir:/home/cassandra/src/github.com/".path = "/home/cassandra/.personal.gitconfig";
+      # includeIf."gitdir:/home/cassandra/src/git.drwholdings.com/".path = "/home/cassandra/.work.gitconfig";
+      # includeIf."gitdir:/home/cassandra/src/github.com/".path = "/home/cassandra/.personal.gitconfig";
     };
   };
 
