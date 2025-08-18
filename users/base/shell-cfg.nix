@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
-
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     kitty
     nix-bash-completions
@@ -14,7 +16,6 @@
     pwgen
     cachix
     gnupg
-    exa
     bat
     fd
     procs
@@ -29,7 +30,7 @@
         rev = "master";
         sha256 = "sha256-SEeIfA4/pJNmG1rq7nEXiDU+Drqa5kHrWFWK1b+21Kk=";
       };
-      propagatedBuildInputs = old.propagatedBuildInputs ++ [ pkgs.systemd pkgs.iproute2 ];
+      propagatedBuildInputs = old.propagatedBuildInputs ++ [pkgs.systemd pkgs.iproute2];
       patchPhase = ''
         substituteInPlace vpn_slice/linux.py --replace '/usr/bin/resolvectl' '${pkgs.systemd}/bin/resolvectl' --replace '/sbin/ip' '${pkgs.iproute2}/bin/ip';
       '';
@@ -44,7 +45,7 @@
     history.share = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "sudo" "kubectl" ];
+      plugins = ["git" "sudo" "kubectl"];
       theme = "agnoster";
     };
     envExtra = ''
