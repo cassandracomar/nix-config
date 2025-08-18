@@ -1,6 +1,10 @@
-{ config, lib, pkgs, host, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  host,
+  ...
+}: {
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
 
@@ -8,7 +12,7 @@
     slack
     zoom-us
     signal-desktop
-    monero
+    monero-cli
     monero-gui
     keepassxc
     google-chrome
