@@ -45,17 +45,7 @@ in {
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active"];
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
   boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest;
-  boot.kernelPatches = [
-    {
-      name = "add-cpu-config";
-      patch = null;
-      extraConfig = ''
-        CONFIG_GENERIC_CPU n
-        CONFIG_LOCALVERSION -znver4
-        CONFIG_MZEN4 y
-      '';
-    }
-  ];
+
   environment.systemPackages = [CoreFreq];
   services.dbus.packages = [CoreFreq];
   systemd.services.corefreqd = {
