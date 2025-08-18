@@ -40,9 +40,9 @@
     openconnect-sso
     openconnect
     android-tools
-    rnix-lsp
     fly
     veracrypt
+    nixd
   ];
 
   home.file.".config/discord/settings.json".text = ''

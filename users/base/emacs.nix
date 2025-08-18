@@ -37,8 +37,8 @@
         epkgs.sqlite3
         epkgs.emacsql
         epkgs.emacsql-sqlite
-        rnix-lsp
         pinentry-emacs
+        nixd
       ];
   };
   services.emacs.enable = true;
