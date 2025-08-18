@@ -93,7 +93,7 @@
             ++ [prev.python3Packages.pycryptodome];
         });
 
-        nix-direnv = nix-direnv.defaultPackage.${system};
+        nix-direnv = nix-direnv.packages.${system}.default;
         vcluster =
           import ./packages/vcluster.nix {inherit (final) fetchurl stdenv;};
       })
