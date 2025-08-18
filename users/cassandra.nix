@@ -149,7 +149,7 @@ in {
     profiles = {
       "yg8ij66s.default" = {
         isDefault = true;
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           reddit-enhancement-suite
           multi-account-containers
           sidebery

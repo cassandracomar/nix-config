@@ -77,11 +77,11 @@
       rust.overlays.default
       nur.overlays.default
       pinnacle.overlays.default
+      (final: prev: {
+        poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
+      })
       (final: prev: let
-        poetry2nixBuilder = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
-        iosevka-fonts = prev.callPackage ./packages/iosevka.nix {
-          poetry2nix = poetry2nixBuilder;
-        };
+        iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
       in {
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
       })
