@@ -28,7 +28,7 @@
         owner = "dlenski";
         repo = old.pname;
         rev = "master";
-        sha256 = "sha256-SEeIfA4/pJNmG1rq7nEXiDU+Drqa5kHrWFWK1b+21Kk=";
+        sha256 = "sha256-h33wlQBBn93DHb9C+pv3N3XGEXZt0HWexhvL0KCKiWc=";
       };
       propagatedBuildInputs = old.propagatedBuildInputs ++ [pkgs.systemd pkgs.iproute2];
       patchPhase = ''
