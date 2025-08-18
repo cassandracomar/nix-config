@@ -155,7 +155,7 @@
         imports = [
           (import ./user.nix {inherit username;})
           {
-            manual.manpages.enable = false;
+            # manual.manpages.enable = false;
           }
         ];
       };

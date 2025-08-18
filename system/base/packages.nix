@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
-
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     sops
     ssh-to-pgp
@@ -41,18 +43,18 @@
   programs.zsh.enable = true;
   # programs.java.enable = true;
   # programs.java.package = pkgs.openjdk17;
-  documentation.info.enable = false;
+  # documentation.info.enable = false;
 
   services.pcscd.enable = true;
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.udev.packages = [pkgs.yubikey-personalization];
   services.fwupd.enable = true;
   services.autorandr.enable = true;
 
-  programs.bash.enableCompletion = true;
+  programs.bash.completion.enable = true;
 
   programs.dconf.enable = true;
 
-  services.transmission = { enable = true; };
+  services.transmission = {enable = true;};
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -66,5 +68,4 @@
   '';
 
   # services.actualbudget.enable = true;
-
 }
