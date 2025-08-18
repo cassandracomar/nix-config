@@ -43,7 +43,7 @@
       inconsolata
       inconsolata-lgc
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       dejavu_fonts
       powerline-fonts

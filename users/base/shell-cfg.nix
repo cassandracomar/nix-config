@@ -67,7 +67,7 @@
         compgen -A function -ac
       }
     '';
-    initExtra = ''
+    initContent = ''
       alias ls="ls -l --color=always"
       alias ssh="kitty +kitten ssh"
       alias vim="emacsclient"
@@ -98,7 +98,7 @@
   };
 
   programs.bash.enable = true;
-  programs.bash.enableCompletion = true;
+  programs.bash.completion.enable = true;
   programs.bash.initExtra = ''
     export XDG_DATA_DIRS=${config.home.profileDirectory}/share:$XDG_DATA_DIRS
     . ${pkgs.bash-completion}/share/bash-completion/bash_completion
