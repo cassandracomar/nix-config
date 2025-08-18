@@ -36,7 +36,7 @@
     # libopus
     numactl
     arandr
-    pinentry-gnome
+    pinentry-gnome3
     openconnect-sso
     openconnect
     android-tools

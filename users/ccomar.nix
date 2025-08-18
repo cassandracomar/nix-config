@@ -94,7 +94,7 @@ in {
     bc
     gnupg
     # pinentry-curses
-    pinentry-gnome
+    pinentry-gnome3
     paperkey
     virt-manager
     pulseeffects-legacy
