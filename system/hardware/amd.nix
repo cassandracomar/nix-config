@@ -65,7 +65,7 @@ in {
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
     enable = true;
-    scheduler = "rustland";
+    scheduler = "scx_rustland";
   };
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "performance";
