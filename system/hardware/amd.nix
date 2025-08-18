@@ -73,8 +73,12 @@ in {
     };
   };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
+  services.scx = {
+    enable = true;
+    scheduler = "rustland";
+  };
 
-  powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "ondemand";
+  powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "performance";
 
   services.acpid.handlers = {
     brightness-down = {
