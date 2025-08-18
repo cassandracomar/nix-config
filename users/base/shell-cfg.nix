@@ -39,7 +39,7 @@
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestions.enable = true;
     enableCompletion = true;
     enableVteIntegration = true;
     history.share = true;

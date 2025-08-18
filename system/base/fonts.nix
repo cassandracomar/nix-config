@@ -1,17 +1,20 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = lib.mkDefault "ter-v32n";
     earlySetup = true;
-    packages = with pkgs; [ terminus_font ];
+    packages = with pkgs; [terminus_font];
   };
 
   # set up other fonts
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontDir.enable = true;
     enableGhostscriptFonts = true;
 
@@ -34,7 +37,7 @@
       };
     };
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       ubuntu_font_family
       iosevka-nerd-font
       inconsolata

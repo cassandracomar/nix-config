@@ -7,18 +7,16 @@
 
   # Enable the X11 windowing system
   services.xserver.enable = true;
-  services.xserver.layout = "us";
 
-  services.xserver = {
-    # Enable touchpad support.
-    libinput = {
-      enable = true;
-      touchpad = {
-        clickMethod = "clickfinger";
-        naturalScrolling = true;
-        additionalOptions = ''MatchIsTouchpad "on"'';
-      };
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      clickMethod = "clickfinger";
+      naturalScrolling = true;
+      additionalOptions = ''MatchIsTouchpad "on"'';
     };
+  };
+  services.xserver = {
     xkb = {
       layout = "us";
       variant = "";
