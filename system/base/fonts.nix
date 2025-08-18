@@ -26,7 +26,7 @@
       # Fixes antialiasing blur
       hinting = {
         enable = true;
-        style = "hintfull"; # no difference
+        style = "full"; # no difference
         autohint = true; # no difference
       };
 
