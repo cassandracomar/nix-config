@@ -1,6 +1,9 @@
-{ lib, pkgs, host, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  host,
+  ...
+}: let
   git_config_by_host = {
     cherry = {
       userName = "Cassandra Comar";
@@ -41,7 +44,7 @@ let
       rev = "4fcd018faa9413e60ee4ec9f48ebeac933c8c372";
       sha256 = "sha256-fZisrhdu049rCQ5Q90sFWFo8GS/PRgS29B1eG8dqlaI=";
     };
-    buildInputs = [ pkgs.bash-completion ];
+    buildInputs = [pkgs.bash-completion];
     installPhase = ''
       install -Dm444 -t $out/share/bash-completion/completions complete_alias
     '';
@@ -72,9 +75,8 @@ let
       complete -F _complete_alias particlestgctl
     '';
   };
-in
-{
-  imports = [ ./base ];
+in {
+  imports = [./base];
 
   home.username = "cassandra";
   home.homeDirectory = "/home/cassandra";
@@ -141,8 +143,8 @@ in
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-nightly-bin.override {
-      extraPolicies = { DisableAppUpdate = true; };
+    package = pkgs.firefox.override {
+      extraPolicies = {DisableAppUpdate = true;};
     };
     profiles = {
       "yg8ij66s.default" = {
