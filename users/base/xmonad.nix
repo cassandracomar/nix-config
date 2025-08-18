@@ -64,7 +64,7 @@ in
         "change-background" =
           "${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png";
         "reset-dpms" = ''
-          #! ${pkgs.bash}/bin/bash
+          #!${pkgs.bash}/bin/bash
           if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
             ${pkgs.xorg.xset}/bin/xset s on +dpms
           else

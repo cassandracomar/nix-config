@@ -5,11 +5,10 @@
   inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.xmonad-personal.url = "github:cassandracomar/dotxmonad";
   # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
 
   # encryption
-  # inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.sops-nix.url = "github:Mic92/sops-nix";
 
   # overlays
   inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
@@ -31,10 +30,12 @@
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs-stable";
   # inputs.nixos-hardware.url = "github:cassandracomar/nixos-hardware";
-  inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
+  # inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
-
+  inputs.plasma-manager.url = "github:nix-community/plasma-manager";
+  inputs.pinnacle.url = "github:cassandracomar/pinnacle";
+  inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -44,16 +45,19 @@
     nixpkgs,
     nixpkgs-stable,
     home-manager,
-    xmonad-personal,
     mozilla,
     emacs,
     emacs-src,
     rust,
     nur,
     nix-direnv,
+    # sops-nix,
     openconnect,
     nixos-generators,
     poetry2nix,
+    plasma-manager,
+    pinnacle,
+    pinnacle-config,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -71,7 +75,8 @@
       mozilla.overlay
       emacs.overlay
       rust.overlays.default
-      nur.overlay
+      nur.overlays.default
+      pinnacle.overlays.default
       (final: prev: let
         poetry2nixBuilder = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {
@@ -109,10 +114,6 @@
         };
       })
 
-      (final: prev: {
-        xmonad-personal = xmonad-personal.defaultPackage.${system};
-      })
-
       (import "${openconnect}/overlay.nix")
     ];
 
@@ -141,8 +142,6 @@
       # bug fix for performance regression for zfs since 5.3
       boot.kernelParams = ["init_on_alloc=0" "init_on_free=0"];
       boot.zfs.package = pkgs.zfs_unstable;
-
-      boot.kernel.sysctl."fs.inotify.max_user_instances" = 8192;
     };
 
     # sops-config = {
@@ -150,17 +149,15 @@
     #   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     # };
 
-    base-modules = [kernel ./modules ./system/base];
+    base-modules = [kernel ./modules ./system/base pinnacle.nixosModules.default];
     user-module = username: {
       name = username;
       value = {
         imports = [
+          pinnacle.hmModules.default
           (import ./user.nix {inherit username;})
           {
             manual.manpages.enable = false;
-            home.packages = [
-              xmonad-personal.defaultPackage.${system}
-            ];
           }
         ];
       };
@@ -191,7 +188,6 @@
               base-modules
               ++ [
                 (import ./host.nix {inherit host;})
-                # robotnix.nixosModule
                 home-manager.nixosModules.home-manager
               ]
               ++ (pkgs.lib.foldl

@@ -11,7 +11,7 @@
     ./packages.nix
     ./rust.nix
     ./shell-cfg.nix
-    ./xmonad.nix
+    # ./xmonad.nix
   ];
 
   nix.settings = {

@@ -36,7 +36,7 @@
 
     fonts = with pkgs; [
       ubuntu_font_family
-      iosevkaCustom
+      iosevka-nerd-font
       inconsolata
       inconsolata-lgc
       noto-fonts

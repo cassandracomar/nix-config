@@ -1,8 +1,6 @@
-{ config, lib, options, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
-
 {
-
   nixpkgs.config.allowUnfree = true;
   boot.supportedFilesystems =
     [ "zfs" "f2fs" "ext4" "xfs" "cifs" "vfat" "ntfs" ];

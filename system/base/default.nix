@@ -51,7 +51,8 @@
     ./sound.nix
     ./users.nix
     ./vpn.nix
-    ./x11.nix
+    # ./x11.nix
+    ./wayland.nix
   ];
 
   security.wrappers.hcitool = {

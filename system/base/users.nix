@@ -28,21 +28,19 @@
   boot.kernel.sysctl = {
     "kernel.pty.max" = 8192;
     "kernel.pty.reserve" = 8192;
+    "fs.file-max" = 1048576;
+    "fs.inotify.max_user_instances" = 65535;
+    "fs.inotify.max_user_watches" = 16777215;
+    "fs.nr_open" = 16777216;
   };
   #systemd.services."user@1000".serviceConfig.LimitNOFILE = "1073741816";
-  # security.pam.loginLimits = [
-  #   {
-  #     domain = "root";
-  #     type = "-";
-  #     item = "nofile";
-  #     value = "unlimited";
-  #   }
-  #   {
-  #     domain = "*";
-  #     type = "-";
-  #     item = "nofile";
-  #     value = "unlimited";
-  #   }
-  # ];
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "524288";
+    }
+  ];
 
 }

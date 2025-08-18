@@ -146,18 +146,18 @@
 
   services.openssh.enable = true;
 
-  sops.secrets."aws-credentials.env" = {
-    format = "dotenv";
-    sopsFile = ../keys/route53/aws-credentials.env;
-    reloadUnits = [ "r53-ddns" ];
-  };
+  # sops.secrets."aws-credentials.env" = {
+  #   format = "dotenv";
+  #   sopsFile = ../keys/route53/aws-credentials.env;
+  #   reloadUnits = [ "r53-ddns" ];
+  # };
 
-  services.r53-ddns = {
-    enable = true;
-    zoneID = "ZS9NHZRGTITZA";
-    domain = "ndra.io";
-    hostname = "yew";
-    environmentFile = config.sops.secrets."aws-credentials.env".path;
-  };
+  # services.r53-ddns = {
+  #   enable = true;
+  #   zoneID = "ZS9NHZRGTITZA";
+  #   domain = "ndra.io";
+  #   hostname = "yew";
+  #   environmentFile = config.sops.secrets."aws-credentials.env".path;
+  # };
 
 }
