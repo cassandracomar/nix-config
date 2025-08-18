@@ -25,7 +25,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk;
+    package = pkgs.emacs-pgtk;
     extraPackages = epkgs:
       with pkgs; [
         lilypond

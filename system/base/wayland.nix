@@ -27,13 +27,13 @@
 
   # set up the display manager
   services.displayManager = {
-    defaultSession = "Pinnacle (UWSM)";
+    defaultSession = "pinnacle-uwsm";
     autoLogin = {
       enable = true;
       user = "cassandra";
     };
 
-    gdm = {
+    sddm = {
       enable = true;
       wayland = true;
     };
@@ -42,21 +42,15 @@
   programs.dconf.enable = true;
   security.polkit.enable = true;
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages = with pkgs; [
-    pipewire
-    pulseaudioFull
-    libva-utils
-  ];
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
-    pipewire
-    pulseaudioFull
-    libva-utils
-  ];
+  hardware.graphics.enable = true;
 
   security.pam.loginLimits = [
-    { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
+    {
+      domain = "@users";
+      item = "rtprio";
+      type = "-";
+      value = 1;
+    }
   ];
 
   services.gvfs = {

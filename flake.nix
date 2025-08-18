@@ -82,10 +82,9 @@
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {
           poetry2nix = poetry2nixBuilder;
         };
-      in
-        {
-          inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
-        })
+      in {
+        inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
+      })
       (final: prev: {
         calibre = prev.calibre.overrideAttrs (oldAttrs: {
           # We want to have pycryptodome around in order to support DeDRM
@@ -154,7 +153,6 @@
       name = username;
       value = {
         imports = [
-          pinnacle.hmModules.default
           (import ./user.nix {inherit username;})
           {
             manual.manpages.enable = false;
@@ -197,6 +195,7 @@
                     {
                       home-manager.useGlobalPkgs = true;
                       home-manager.useUserPackages = true;
+                      home-manager.sharedModules = [pinnacle.hmModules.default];
                       home-manager.users = pkgs.lib.listToAttrs (map
                         user-module
                         [user]);
@@ -225,7 +224,6 @@
         };
       })
       nonNixosUsers);
-
     # androidImages = pkgs.lib.listToAttrs (map
     #   (device: {
     #     name = device;
