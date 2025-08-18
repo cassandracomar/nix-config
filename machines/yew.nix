@@ -3,15 +3,16 @@
 # to /etc/nixos/configuration.nix instead.
 {
   config,
-  lib,
   pkgs,
-  modulesPath,
   ...
 }: {
   imports = [
     ../system/hardware/amd.nix
     ../system/hardware/acpid.nix
   ];
+  nix.extraOptions = ''
+    system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test big-parallel benchmark
+  '';
 
   console.font = "ter-v24b";
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "ahci" "usb_storage" "usbhid" "sd_mod"];

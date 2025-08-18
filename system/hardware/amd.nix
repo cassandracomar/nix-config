@@ -35,10 +35,6 @@
 
   CoreFreq = pkgs.callPackage ../../packages/corefreq.nix {kernelPackage = config.boot.kernelPackages.kernel;};
 in {
-  # ensure gccarch-znver3 is in the system features so we can use it to build the kernel
-  nix.extraOptions = ''
-    system-features = gccarch-znver4 kvm nixos-test big-parallel benchmark
-  '';
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
