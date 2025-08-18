@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     owner = "cyring";
     repo = "CoreFreq";
     rev = version;
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    sha256 = "sha256-8uCs/Jj208qUtmpiorxtii+0VOfK/EgrcylmJMkcqUQ=";
   };
 
   patches = [./corefreq-fix.patch];
