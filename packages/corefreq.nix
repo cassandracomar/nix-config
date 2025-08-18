@@ -12,21 +12,26 @@ stdenv.mkDerivation rec {
     owner = "cyring";
     repo = "CoreFreq";
     rev = version;
-    sha256 = "sha256-8uCs/Jj208qUtmpiorxtii+0VOfK/EgrcylmJMkcqUQ=";
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   };
+
+  patches = [./corefreq-fix.patch];
 
   nativeBuildInputs = kernelPackage.moduleBuildDependencies;
   kernel = kernelPackage.dev;
   kernelVersion = kernelPackage.modDirVersion;
 
-  patches = [./corefreq-fix.patch];
-
   makeFlags = [
     "KERNELREL=${kernel}/lib/modules/${kernelVersion}"
     "INSTALL_MOD_PATH=$(out)"
     "PREFIX=$(out)"
+    "CORE_COUNT=1024"
     "-j"
   ];
+
+  preInstall = ''
+    mkdir -p $out/bin
+  '';
 
   meta = with lib; {
     description = "CoreFreq, a CPU monitoring software with BIOS like functionalities";

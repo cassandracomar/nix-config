@@ -12,4 +12,3 @@ index c0b7946..e6aa227 100644
 +		find ../../$(HW) -iname '*.h' -exec $(SYMLINK) {} . \; ;\
  		cd ../..; \
  	fi
- 
