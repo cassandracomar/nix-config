@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   users.users.cassandra = {
     isNormalUser = true;
     extraGroups = [
@@ -16,9 +19,10 @@
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
-  nix.settings.trusted-users = [ "root" "cassandra" ];
+  nix.settings.trusted-users = ["root" "cassandra"];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  users.users.root = { shell = pkgs.zsh; };
+  users.users.root = {shell = pkgs.zsh;};
 
   security.sudo.enable = true;
   security.sudo.extraConfig = ''
@@ -42,5 +46,4 @@
       value = "524288";
     }
   ];
-
 }
