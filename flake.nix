@@ -78,7 +78,6 @@
       nur.overlays.default
       pinnacle.overlays.default
       (final: prev: rec {
-        poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
         python3 = prev.python3.override {
           packageOverrides = pyfinal: pyprev: {
             pycparser = pyprev.pycparser.overrideAttrs (old: {
@@ -93,6 +92,9 @@
         };
         python3Packages = python3.pkgs;
         sphinx = python3Packages.sphinx;
+      })
+      (final: prev: {
+        poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
