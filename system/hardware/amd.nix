@@ -13,6 +13,24 @@
       gcc.tune = "znver4";
       system = "x86_64-linux";
     };
+    overlays = [
+      (final: prev: rec {
+        python3 = prev.python3.override {
+          packageOverrides = pyfinal: pyprev: {
+            pycparser = pyprev.pycparser.overrideAttrs (old: {
+              unittestCheckPhase = "true";
+            });
+            sphinx = pyprev.sphinx.overrideAttrs (old: {
+              pytestCheckPhase = "true";
+              unittestCheckPhase = "true";
+              pythonImportsCheckPhase = "true";
+            });
+          };
+        };
+        python3Packages = python3.pkgs;
+        sphinx = python3Packages.sphinx;
+      })
+    ];
   };
 
   CoreFreq = pkgs.callPackage ../../packages/corefreq.nix {kernelPackage = config.boot.kernelPackages.kernel;};

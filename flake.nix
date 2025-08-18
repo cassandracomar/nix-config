@@ -77,22 +77,6 @@
       rust.overlays.default
       nur.overlays.default
       pinnacle.overlays.default
-      (final: prev: rec {
-        python3 = prev.python3.override {
-          packageOverrides = pyfinal: pyprev: {
-            pycparser = pyprev.pycparser.overrideAttrs (old: {
-              unittestCheckPhase = "true";
-            });
-            sphinx = pyprev.sphinx.overrideAttrs (old: {
-              pytestCheckPhase = "true";
-              unittestCheckPhase = "true";
-              pythonImportsCheckPhase = "true";
-            });
-          };
-        };
-        python3Packages = python3.pkgs;
-        sphinx = python3Packages.sphinx;
-      })
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
