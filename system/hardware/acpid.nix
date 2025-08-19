@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services.acpid.handlers = {
     volume-down = {
       event = "button/volumedown";

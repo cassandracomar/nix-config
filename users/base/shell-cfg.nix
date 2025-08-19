@@ -37,6 +37,57 @@
     }))
   ];
 
+  home.shell.enableShellIntegration = true;
+
+  programs.nushell = {
+    enable = true;
+    extraEnv = ''
+      def --env get-env [name] { $env | get $name }
+      def --env set-env [name, value] { load-env { $name: $value } }
+      def --env unset-env [name] { hide-env $name }
+
+      # set up fallback completions for commands carapace lacks
+      $env.CARAPACE_BRIDGES = 'fish,bash,zsh,inshellisense'
+      # I'm not entirely clear on why but other attempts to disable this fail -- it seems to need to be set here.
+      $env.config.render_right_prompt_on_last_line = false
+    '';
+  };
+
+  # interop configuration that ensures nushell is providing the right OSC codes for eat
+  home.xdg.configFile."nushell/eat-config.nu".source = ./nushell/eat-config.nu;
+  # the main config file to use within emacs' eat terminal emulator
+  home.xdg.configFile."nushell/emacs-config.nu".source = ./nushell/emacs-config.nu;
+  # the main config file to use from an interactive terminal
+  home.xdg.configFile."nushell/wezterm-config.nu".source = ./nushell/weztem-config.nu;
+
+  programs.oh-my-posh = {
+    enable = true;
+    enableNushellIntegration = true;
+    useTheme = "devious-diamonds";
+  };
+
+  programs.fish = {
+    enable = true;
+    generateCompletions = true;
+  };
+
+  programs.carapace = {
+    enable = true;
+    # we want nix completions from fish so disable this and add it manually
+    enableNushellIntegration = false;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableNushellIntegration = true;
+    enableSshSupport = true;
+    enableExtraSocket = true;
+    pinentryFlavor = "gnome3";
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;

@@ -37,6 +37,7 @@ module eat {
     # wrap continuation lines in their osc codes
     let old_ml_prompt = $env.PROMPT_MULTILINE_INDICATOR
     $env.PROMPT_MULTILINE_INDICATOR = $"(notify '51;e' 'D')($old_ml_prompt)(notify '51;e' 'E')"
+    $env.PROMPT_COMMAND_RIGHT = null
 
     # see the NOTE on the function on why this is commented out
     # history_file
@@ -147,4 +148,5 @@ alias find-file = eat open
 #
 # multiline prompts continue to show the right prompt on the first line but this turns it
 # off completely for single-line prompts.
-$env.config.render_right_prompt_on_last_line = false
+{ config.render_right_prompt_on_last_line: false } | load-env
+{ PROMPT_COMMAND_RIGHT: null } | load-env

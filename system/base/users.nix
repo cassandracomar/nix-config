@@ -4,22 +4,7 @@
   pkgs,
   ...
 }: {
-  users.users.cassandra = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "audio"
-      "sound"
-      "docker"
-      "libvirtd"
-      "transmission"
-      "jackaudio"
-      "adbusers"
-    ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
-  };
-  nix.settings.trusted-users = ["root" "cassandra"];
+  nix.settings.trusted-users = ["root"];
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   users.users.root = {shell = pkgs.zsh;};

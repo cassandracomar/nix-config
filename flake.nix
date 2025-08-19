@@ -155,7 +155,22 @@
         imports = [
           (import ./user.nix {inherit username;})
           {
-            # manual.manpages.enable = false;
+            users.users.${username} = {
+              isNormalUser = true;
+              extraGroups = [
+                "wheel"
+                "networkmanager"
+                "audio"
+                "sound"
+                "docker"
+                "libvirtd"
+                "transmission"
+                "jackaudio"
+                "adbusers"
+              ];
+              shell = pkgs.nushellFull;
+            };
+            nix.settings.trusted-users = [username];
           }
         ];
       };

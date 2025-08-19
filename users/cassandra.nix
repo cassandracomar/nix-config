@@ -147,16 +147,63 @@ in {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = "true";
         };
         userChrome = ''
-          #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
-          opacity: 0;
-          pointer-events: none;
+          :root {
+            --uc-toolbar-height: 16px;
           }
-          #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
-          visibility: collapse !important;
+          :root:not([uidensity="compact"]) {
+            --uc-toolbar-height: 17px;
           }
 
-          #sidebar-box #sidebar-header {
-          display: none;
+          #TabsToolbar > * {
+            visibility: collapse !important;
+          }
+
+          #nav-bar {
+            margin-top: calc(0px - var(--uc-toolbar-height));
+            /* margin-left: 60px; */
+          }
+          :root[inFullscreen] #navigator-toolbox {
+            margin-top: 11px;
+          }
+
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+            > #sidebar-header {
+            display: none;
+          }
+
+          #navigator-toolbox {
+            --uc-menubar-height: 17px;
+          }
+          :root[uidensity="compact"] #navigator-toolbox {
+            --uc-menubar-height: 15px;
+          }
+
+          #titlebar {
+            flex-direction: column-reverse;
+            -moz-appearance: none !important;
+          }
+
+          #toolbar-menubar {
+            margin-bottom: calc(0px - var(--uc-menubar-height));
+            height: var(--uc-menubar-height);
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+          }
+
+          #menubar-items {
+            justify-content: left;
+            pointer-events: initial;
+            margin-top: 3px;
+            color: var(--toolbar-color);
+          }
+
+          #toolbar-menubar > .titlebar-buttonbox-container {
+            display: none;
+          }
+          :root[tabsintitlebar][sizemode="normal"] .titlebar-spacer,
+          :root[tabsintitlebar] #TabsToolbar > .titlebar-buttonbox-container {
+            display: flex !important;
           }
         '';
       };
