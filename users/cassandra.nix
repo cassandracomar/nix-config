@@ -159,6 +159,56 @@ in {
           # this makes firefox a little annoying to set up initially.
           "extensions.autoDisableScopes" = 0;
         };
+        search = {
+          force = true;
+          default = "paulgo.io";
+          privateDefault = "paulgo.io";
+
+          engines = {
+            nix-packages = {
+              name = "Nix Packages";
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@np" ];
+            };
+
+            nix-options = {
+              name = "Nix Options";
+              urls = [{
+                template = "https://search.nixos.org/options";
+                params = [
+                  { name = "type"; value = "options"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@no" ];
+            };
+
+            nixos-wiki = {
+              name = "NixOS Wiki";
+              urls = [{ template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; }];
+              iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+              definedAliases = [ "@nw" ];
+            };
+
+            paulgo = {
+              name = "paulgo.io";
+              urls = [{ template = "https://paulgo.io/?q={searchTerms}"; }];
+            };
+
+            bing.metaData.hidden = true;
+            google.metaData.alias = "@g";
+          };
+        };
         userChrome = ''
           :root {
             --uc-toolbar-height: 16px;
