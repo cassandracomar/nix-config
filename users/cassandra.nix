@@ -107,6 +107,14 @@ in {
     executable = true;
   };
 
+  programs.rbw = {
+    enable = true;
+    settings = {
+      email = "cass@ndra.io";
+      pinentry = pkgs.pinentry-rofi;
+    };
+  };
+
   programs.git = {
     enable = true;
     # delta.enable = true;

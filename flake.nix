@@ -36,6 +36,7 @@
   inputs.plasma-manager.url = "github:nix-community/plasma-manager";
   inputs.pinnacle.url = "github:cassandracomar/pinnacle/feat/nix-packages-and-modules";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
+  inputs.ironbar.url = "github:jakestanger/ironbar";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -58,6 +59,7 @@
     plasma-manager,
     pinnacle,
     pinnacle-config,
+    ironbar,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -148,30 +150,29 @@
     #   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     # };
 
-    base-modules = [kernel ./modules ./system/base pinnacle.nixosModules.default];
+    base-modules = [kernel ./modules ./system/base pinnacle.nixosModules.default] ++ map (username: {
+      users.users.${username} = {
+        isNormalUser = true;
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+          "audio"
+          "sound"
+          "docker"
+          "libvirtd"
+          "transmission"
+          "jackaudio"
+          "adbusers"
+        ];
+        shell = pkgs.nushell;
+      };
+      nix.settings.trusted-users = [username];
+    }) homeUsers;
     user-module = username: {
       name = username;
       value = {
         imports = [
           (import ./user.nix {inherit username;})
-          {
-            users.users.${username} = {
-              isNormalUser = true;
-              extraGroups = [
-                "wheel"
-                "networkmanager"
-                "audio"
-                "sound"
-                "docker"
-                "libvirtd"
-                "transmission"
-                "jackaudio"
-                "adbusers"
-              ];
-              shell = pkgs.nushellFull;
-            };
-            nix.settings.trusted-users = [username];
-          }
         ];
       };
     };
@@ -210,11 +211,11 @@
                     {
                       home-manager.useGlobalPkgs = true;
                       home-manager.useUserPackages = true;
-                      home-manager.sharedModules = [pinnacle.hmModules.default];
+                      home-manager.sharedModules = [pinnacle.hmModules.default ironbar.homeManagerModules.default];
                       home-manager.users = pkgs.lib.listToAttrs (map
                         user-module
                         [user]);
-                      home-manager.extraSpecialArgs = {inherit pkgs user host nixpkgs system;};
+                      home-manager.extraSpecialArgs = {inherit pkgs user host nixpkgs system pinnacle-config;};
                     }
                   ]) []
                 homeUsers);

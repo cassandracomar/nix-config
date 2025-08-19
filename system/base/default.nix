@@ -5,12 +5,24 @@
 { pkgs, system, ... }: {
 
   nixpkgs.hostPlatform = system;
+
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
     '';
+    distributedBuilds = true;
+    buildMachines = [
+      {
+        hostName = "banyan-nix.local";
+        system = "x86_64-linux";
+        supportedFeatures = ["kvm" "benchmark" "big-parallel" "gccarch-znver4"];
+        speedFactor = 800;
+        maxJobs = 384;
+        protocol = "ssh-ng";
+      }
+    ];
     settings = {
       auto-optimise-store = true;
       trusted-public-keys = [
@@ -20,7 +32,8 @@
         "https://cache.iog.io"
       ];
       accept-flake-config = true;
-      extra-sandbox-paths = [ "/data/androidKeys" "/var/www/updater.ndra.io" "/bin/sh=${pkgs.bash}/bin/sh" ];
+      builders = "@/etc/nix/machines";
+      builders-use-substitutes = true;
     };
     gc = {
       automatic = true;
@@ -62,6 +75,20 @@
     capabilities = "cap_net_raw,cap_net_admin+eip";
   };
   services.irqbalance.enable = true;
+
+  programs = {
+    ssh = {
+      knownHosts."banyan.local".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhNVqgfTLr9MpYoenTBBTCoyR1xHto0bJu7SiSzWM6U";
+      extraConfig = ''
+        Host banyan-nix.local
+          User nix-client
+          HostKeyAlias banyan.local
+          Hostname 192.168.2.61
+          Port 22
+          IdentityFile /etc/nix/banyan_client.key
+      '';
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

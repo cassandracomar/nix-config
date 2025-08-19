@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }: {
@@ -54,11 +53,11 @@
   };
 
   # interop configuration that ensures nushell is providing the right OSC codes for eat
-  home.xdg.configFile."nushell/eat-config.nu".source = ./nushell/eat-config.nu;
+  xdg.configFile."nushell/eat-config.nu".source = ./nushell/eat-config.nu;
   # the main config file to use within emacs' eat terminal emulator
-  home.xdg.configFile."nushell/emacs-config.nu".source = ./nushell/emacs-config.nu;
+  xdg.configFile."nushell/emacs-config.nu".source = ./nushell/emacs-config.nu;
   # the main config file to use from an interactive terminal
-  home.xdg.configFile."nushell/wezterm-config.nu".source = ./nushell/weztem-config.nu;
+  xdg.configFile."nushell/wezterm-config.nu".source = ./nushell/wezterm-config.nu;
 
   programs.oh-my-posh = {
     enable = true;
@@ -83,10 +82,17 @@
   services.gpg-agent = {
     enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
     enableSshSupport = true;
     enableExtraSocket = true;
-    pinentryFlavor = "gnome3";
+    enableScDaemon = true;
+    pinentry.package = pkgs.pinentry-rofi;
   };
+
+  programs.password-store.enable = true;
+  services.pass-secret-service.enable = true;
+  services.yubikey-agent.enable = true;
 
   programs.zsh = {
     enable = true;

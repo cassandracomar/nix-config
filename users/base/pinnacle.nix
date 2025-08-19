@@ -1,7 +1,31 @@
-{pkgs, ...}: {
+{pkgs, pinnacle-config, ...}: let
+  rofi-themes-collection = pkgs.fetchFromGitHub {
+    owner = "newmanls";
+    repo = "rofi-themes-collection";
+    rev = "ec731cef79d39fc7ae12ef2a70a2a0dd384f9730";
+    sha256 = "sha256-96wSyOp++1nXomnl8rbX5vMzaqRhTi/N7FUq6y0ukS8=";
+  };
+  rofi-packages = with pkgs; [
+    rofi-bluetooth
+    rofi-calc
+    rofi-mpd
+    rofi-emoji-wayland
+    rofi-games
+    rofi-power-menu
+    rofi-rbw-wayland
+    rofi-pulse-select
+    rofi-screenshot
+    rofi-systemd
+    rofi-vpn
+  ];
+in {
   wayland.windowManager.pinnacle = {
     enable = true;
-    package = pkgs.pinnacle-config;
+    package = pkgs.pinnacle.buildRustConfig {
+      pname = "pinnacle-config";
+      version = "0.1.0";
+      src = pinnacle-config;
+    };
     systemd = {
       enable = true;
       # use UWSM instead
@@ -10,16 +34,54 @@
     };
   };
 
-  services.walker = {
+  programs.rofi = {
     enable = true;
-    systemd.enable = true;
-    settings = {
-      force_keyboard_focus = true;
+    package = pkgs.rofi-wayland;
+    plugins = rofi-packages;
+    cycle = true;
+    font = "Iosevka Nerd Font 16";
+    location = "top";
+    pass = {
+      enable = true;
+      package = pkgs.rofi-pass-wayland;
+    };
+    terminal = "${pkgs.wezterm}/bin/wezterm";
+    theme = "${rofi-themes-collection}/themes/rounded-pink-dark.rasi";
+    extraConfig = {
+      threads = 0;
+      scroll-method = 1;
+      case-smart = true;
+      cycle = true;
+      normalize-match = true;
+      no-lazy-grab = true;
+      show-icons = true;
+      markup = true;
+      transient-window = true;
+      matching = "fuzzy";
+      steal-focus = true;
+      sidebar-mode = true;
+      monitor = -4;
+      dpi = 0;
     };
   };
 
-  programs.eww = {
-    enable = true;
+  gtk = {
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    iconTheme = {
+      name = "Qogir-Dark";
+      package = pkgs.qogir-icon-theme;
+    };
+    theme = {
+      name = "Qogir-Dark";
+      package = pkgs.qogir-theme;
+    };
+  };
+  qt.style = {
+    name = "Qogir-Dark";
+    package = pkgs.qogir-kde;
   };
 
   programs.ironbar = {
@@ -362,18 +424,18 @@
     '';
   };
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; rofi-packages ++ [
     pinnacle
-    pinnacle-config
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     qogir-theme
-    gnome.gnome-calculator
+    gnome-calculator
     lxappearance
     vlc
     pinta
     usbutils
     gptfdisk
     bind
+    rofi-pass-wayland
   ];
 
   services.dunst = {
