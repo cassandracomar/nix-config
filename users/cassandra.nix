@@ -140,19 +140,24 @@ in {
     profiles = {
       "yg8ij66s.default" = {
         isDefault = true;
-        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-          reddit-enhancement-suite
-          multi-account-containers
-          sidebery
-          bitwarden
-          ublock-origin
-          vimium
-          sponsorblock
-          darkreader
-          don-t-fuck-with-paste
-        ];
+        extensions = {
+          packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            reddit-enhancement-suite
+            multi-account-containers
+            sidebery
+            bitwarden
+            ublock-origin
+            vimium
+            sponsorblock
+            darkreader
+            don-t-fuck-with-paste
+          ];
+        };
         settings = {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = "true";
+          # without this, sidebery starts disabled and the below stylesheet hides all tabs
+          # this makes firefox a little annoying to set up initially.
+          "extensions.autoDisableScopes" = 0;
         };
         userChrome = ''
           :root {
