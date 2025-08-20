@@ -55,7 +55,6 @@
     destination = "/share/bash-completion/completions/kubernetes_aliases";
     text = ''
       source ${complete_alias}/share/bash-completion/completions/complete_alias
-
     '';
   };
 in {
@@ -154,6 +153,7 @@ in {
           ];
         };
         settings = {
+          "widget.use-xdg-desktop-portal.file-picker" = "1";
           "toolkit.legacyUserProfileCustomizations.stylesheets" = "true";
           # without this, sidebery starts disabled and the below stylesheet hides all tabs
           # this makes firefox a little annoying to set up initially.

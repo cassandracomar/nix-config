@@ -42,11 +42,21 @@
     };
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "path:/etc/nixos";
-    flags = [ "--update-input" "nixpkgs" "--update-input" "nix-config" ];
-    dates = "daily";
+  system = {
+    activationScripts = {
+      populateSystemFlake = {
+        text = ''
+          mkdir -p /etc/nixos
+          cp -L --no-preserve ownership,mode ${../../flakes/system/flake.nix} /etc/nixos/flake.nix
+        '';
+      };
+    };
+    autoUpgrade = {
+      enable = true;
+      flake = "path:/etc/nixos";
+      flags = [ "--update-input" "nixpkgs" "--update-input" "nix-config" ];
+      dates = "daily";
+    };
   };
 
   # Set your time zone.

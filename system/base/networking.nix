@@ -10,7 +10,7 @@
 
     # wireless configuration
     networkmanager = {
-      enable = false;
+      enable = pkgs.lib.mkDefault false;
       # dns = "none";
       connectionConfig = {
         "connection.mdns" = "2";
