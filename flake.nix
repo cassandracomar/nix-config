@@ -201,7 +201,22 @@
           }
           home-manager.nixosModules.home-manager
         ]
-        ++ base-modules;
+        ++ base-modules
+        ++ (pkgs.lib.foldl
+          (m: user:
+            m
+            ++ [
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.sharedModules = [pinnacle.hmModules.default ironbar.homeManagerModules.default];
+                home-manager.users = pkgs.lib.listToAttrs (map
+                  user-module
+                  [user]);
+                home-manager.extraSpecialArgs = {inherit pkgs user host nixpkgs system pinnacle-config;};
+              }
+            ]) []
+          homeUsers);
     };
 
     nixosConfigurations =
