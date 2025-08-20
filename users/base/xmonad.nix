@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs, system, user, ... }:
+{ pkgs, user, ... }:
 let
   haskellPackages = pkgs.haskellPackages;
 

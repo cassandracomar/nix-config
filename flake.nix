@@ -42,21 +42,16 @@
   # };
 
   outputs = {
-    self,
     nixpkgs,
-    nixpkgs-stable,
     home-manager,
     mozilla,
     emacs,
-    emacs-src,
     rust,
     nur,
     nix-direnv,
     # sops-nix,
     openconnect,
-    nixos-generators,
     poetry2nix,
-    plasma-manager,
     pinnacle,
     pinnacle-config,
     ironbar,
@@ -107,9 +102,7 @@
           }
       )
 
-      (final: prev: let
-        kpkgs = nixpkgs.legacyPackages.${system};
-      in {
+      (final: prev: {
         CoreFreq = prev.callPackage ./packages/corefreq.nix {
           kernelPackage = prev.linux_xanmod_latest;
         };
@@ -134,7 +127,6 @@
 
     kernel = {
       pkgs,
-      config,
       ...
     }: {
       boot.kernelPackages =
@@ -165,7 +157,7 @@
           "adbusers"
         ];
         shell = pkgs.nushell;
-        hashedPasswordFile = pkgs.lib.mkDefault "/etc/nixos/${username}.passwd";
+        hashedPasswordFile = "/etc/nixos/${username}.passwd";
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzmQu/eY3tf06E6R3kVRv2XlA1GTmkYeIr9VlPRKRou ccomar@rclmp-ccomar1"];
       };
       nix.settings.trusted-users = [username];
@@ -182,7 +174,10 @@
     iso = nixpkgs.lib.nixosSystem {
       inherit system pkgs;
       modules = map (username: {
-        users.users.${username}.initialHashedPassword = pkgs.lib.mkForce "";
+        users.users.${username} = {
+          initialHashedPassword = pkgs.lib.mkForce "";
+          hashedPasswordFile = pkgs.lib.mkForce null;
+        };
       }) homeUsers ++ [
         ({modulesPath, ...}: {
           imports = [

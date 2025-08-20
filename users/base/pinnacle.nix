@@ -34,6 +34,15 @@ in {
     };
   };
 
+  services.wpaperd = {
+    enable = true;
+    settings = {
+      any = {
+        path = ../../wallpapers;
+      };
+    };
+  };
+
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
