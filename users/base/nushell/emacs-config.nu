@@ -1,6 +1,6 @@
-source $`($env.XDG_CONFIG_HOME)/nushell/config.nu`
-source $`($env.XDG_CONFIG_HOME)/nushell/default-config.nu`
-source $`($env.XDG_CONFIG_HOME)/nushell/eat-config.nu`
+source `~/.config/nushell/config.nu`
+source `~/.config/nushell/default-config.nu`
+source `~/.config/nushell/eat-config.nu`
 
 alias vim = eat open
 alias vi = eat open

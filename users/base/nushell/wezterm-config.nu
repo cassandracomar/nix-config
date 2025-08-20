@@ -1,5 +1,5 @@
-source $`($env.XDG_CONFIG_HOME)/nushell/config.nu`
-source $`($env.XDG_CONFIG_HOME)/nushell/default-config.nu`
+source `~/.config/nushell/config.nu`
+source `~/.config/nushell/default-config.nu`
 
 $env.config = {
   buffer_editor: ["emacsclient", "-t"]
