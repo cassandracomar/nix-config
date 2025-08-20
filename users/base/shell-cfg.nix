@@ -106,11 +106,10 @@
       theme = "agnoster";
     };
     envExtra = ''
-        get_completions
-        () {
-          typeset -U path cdpath fpath manpath
+      get_completions() {
+        typeset -U path cdpath fpath manpath
 
-          for profile in ''${(z)NIX_PROFILES}; do
+        for profile in ''${(z)NIX_PROFILES}; do
           fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
         done
         source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh

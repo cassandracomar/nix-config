@@ -125,10 +125,7 @@
         };
     };
 
-    kernel = {
-      pkgs,
-      ...
-    }: {
+    kernel = {pkgs, ...}: {
       boot.kernelPackages =
         pkgs.lib.mkDefault (pkgs.linuxKernel.packagesFor
           pkgs.linuxKernel.kernels.linux_xanmod_latest);
@@ -142,26 +139,29 @@
     #   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     # };
 
-    base-modules = [kernel ./modules ./system/base pinnacle.nixosModules.default] ++ map (username: {
-      users.users.${username} = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-          "audio"
-          "sound"
-          "docker"
-          "libvirtd"
-          "transmission"
-          "jackaudio"
-          "adbusers"
-        ];
-        shell = pkgs.nushell;
-        hashedPasswordFile = "/etc/nixos/${username}.passwd";
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzmQu/eY3tf06E6R3kVRv2XlA1GTmkYeIr9VlPRKRou ccomar@rclmp-ccomar1"];
-      };
-      nix.settings.trusted-users = [username];
-    }) homeUsers;
+    base-modules =
+      [kernel ./modules ./system/base pinnacle.nixosModules.default]
+      ++ map (username: {
+        users.users.${username} = {
+          isNormalUser = true;
+          extraGroups = [
+            "wheel"
+            "networkmanager"
+            "audio"
+            "sound"
+            "docker"
+            "libvirtd"
+            "transmission"
+            "jackaudio"
+            "adbusers"
+          ];
+          shell = pkgs.nushell;
+          hashedPasswordFile = "/etc/nixos/${username}.passwd";
+          openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzmQu/eY3tf06E6R3kVRv2XlA1GTmkYeIr9VlPRKRou ccomar@rclmp-ccomar1"];
+        };
+        nix.settings.trusted-users = [username];
+      })
+      homeUsers;
     user-module = username: {
       name = username;
       value = {
@@ -173,30 +173,35 @@
 
     iso = nixpkgs.lib.nixosSystem {
       inherit system pkgs;
-      modules = map (username: {
-        users.users.${username} = {
-          initialHashedPassword = pkgs.lib.mkForce "";
-          hashedPasswordFile = pkgs.lib.mkForce null;
-        };
-      }) homeUsers ++ [
-        ({modulesPath, ...}: {
-          imports = [
-            (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
-            (modulesPath + "/profiles/base.nix")
-            (modulesPath + "/profiles/all-hardware.nix")
-          ];
+      modules =
+        map (username: {
+          users.users.${username} = {
+            initialHashedPassword = pkgs.lib.mkForce "";
+            hashedPasswordFile = pkgs.lib.mkForce null;
+          };
         })
-        {
-          nix.extraOptions = ''
-            system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test big-parallel benchmark
-          '';
-          console.font = "ter-v32b";
-          networking.hostName = "balsa";
-          networking.hostId = "604df261";
-          services.openssh.enable = true;
-        }
-        home-manager.nixosModules.home-manager
-      ] ++ base-modules;
+        homeUsers
+        ++ [
+          ({modulesPath, ...}: {
+            imports = [
+              (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
+              (modulesPath + "/profiles/base.nix")
+              (modulesPath + "/profiles/all-hardware.nix")
+            ];
+          })
+          {
+            nix.extraOptions = ''
+              system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test big-parallel benchmark
+            '';
+            console.font = "ter-v32b";
+            networking.hostName = "balsa";
+            networking.hostId = "604df261";
+            services.openssh.enable = true;
+            services.getty.autologinUser = pkgs.lib.mkForce "cassandra";
+          }
+          home-manager.nixosModules.home-manager
+        ]
+        ++ base-modules;
     };
 
     nixosConfigurations =
