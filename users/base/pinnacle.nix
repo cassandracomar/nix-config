@@ -410,7 +410,7 @@ in {
       local wezterm = require 'wezterm'
       local config = {}
 
-      config.default_prog = ('nu', '-n', '--config', '~/.config/nushell/wezterm-config.nu')
+      config.default_prog = ( 'nu', '-n', '--config', '/home/cassandra/.config/nushell/wezterm-config.nu' )
       config.color_scheme = 'Monokai (dark) (terminal.sexy)'
       config.colors = {
         background = '#171717',
