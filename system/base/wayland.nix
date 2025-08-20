@@ -28,7 +28,7 @@
     defaultSession = "pinnacle-uwsm";
     autoLogin = {
       enable = true;
-      user = "cassandra";
+      user = pkgs.lib.mkForce "cassandra";
     };
 
     sddm = {
