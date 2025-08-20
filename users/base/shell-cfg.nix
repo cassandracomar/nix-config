@@ -58,6 +58,8 @@
   xdg.configFile."nushell/emacs-config.nu".source = ./nushell/emacs-config.nu;
   # the main config file to use from an interactive terminal
   xdg.configFile."nushell/wezterm-config.nu".source = ./nushell/wezterm-config.nu;
+  # the base config that should be applied to both profiles
+  xdg.configFile."nushell/default-config.nu".source = ./nushell/default-config.nu;
 
   programs.oh-my-posh = {
     enable = true;

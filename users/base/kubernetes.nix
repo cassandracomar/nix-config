@@ -22,7 +22,7 @@
     jsonnet-bundler
     tanka
     buildkit
-    #awscli2
+    awscli2
     vault
     istioctl
     vcluster

@@ -1,39 +1,12 @@
 {
-  lib,
   pkgs,
-  host,
   ...
 }: let
-  git_config_by_host = {
-    cherry = {
-      userName = "Cassandra Comar";
-      userEmail = "cass@ndra.io";
-      signing = {
-        key = "0xF431E5E70CAB3E2E";
-        signByDefault = true;
-      };
-      github.user = "cassandracomar";
-    };
-    magus = {
-      userName = "Cassandra Comar";
-      userEmail = "cass@ndra.io";
-      signing = {
-        key = "0xF431E5E70CAB3E2E";
-        signByDefault = true;
-      };
-      github.user = "cassandracomar";
-    };
-    yew = {
-      userName = "Cassandra Comar";
-      userEmail = "cass@ndra.io";
-      # signing = {
-      #   key = "0xF431E5E70CAB3E2E";
-      #   signByDefault = true;
-      # };
-      github.user = "cassandracomar";
-    };
+  git_config = {
+    userName = "Cassandra Comar";
+    userEmail = "cass@ndra.io";
+    github.user = "cassandracomar";
   };
-  git_config = lib.getAttr host git_config_by_host;
 
   complete_alias = pkgs.stdenv.mkDerivation {
     name = "complete_alias";

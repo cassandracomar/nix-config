@@ -48,7 +48,7 @@ in {
     package = pkgs.rofi-wayland;
     plugins = rofi-packages;
     cycle = true;
-    font = "Iosevka Nerd Font 16";
+    font = "Iosevka Nerd Font 32";
     location = "top";
     pass = {
       enable = true;
@@ -410,13 +410,14 @@ in {
       local wezterm = require 'wezterm'
       local config = {}
 
+      config.default_prog = ('nu', '-n', '--config', '~/.config/nushell/wezterm-config.nu')
       config.color_scheme = 'Monokai (dark) (terminal.sexy)'
       config.colors = {
         background = '#171717',
         foreground = '#d6d6d1'
       }
       config.font = wezterm.font('Iosevka Nerd Font')
-      config.font_size = 18
+      config.font_size = 16
       config.window_decorations  = "RESIZE | MACOS_FORCE_DISABLE_SHADOW"
       config.use_fancy_tab_bar = false
       config.show_new_tab_button_in_tab_bar = false

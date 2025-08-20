@@ -1,8 +1,5 @@
 {
-  config,
-  lib,
   pkgs,
-  host,
   ...
 }: {
   # Let Home Manager install and manage itself.
