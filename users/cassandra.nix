@@ -67,18 +67,6 @@ in {
   #   };
   # };
 
-  home.file.nixos-rebuild = {
-    source = ../scripts/nixos-rebuild;
-    target = ".local/bin/nixos-rebuild";
-    executable = true;
-  };
-
-  home.file.build-android = {
-    source = ../scripts/build-android;
-    target = ".local/bin/build-android";
-    executable = true;
-  };
-
   programs.rbw = {
     enable = true;
     settings = {

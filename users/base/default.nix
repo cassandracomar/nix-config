@@ -18,7 +18,6 @@
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     accept-flake-config = true;
-    extra-sandbox-paths = ["/data/androidKeys" "/bin/sh=${pkgs.bash}/bin/sh"];
     trusted-substituters = [
       "https://cache.iog.io"
       "https://nix-community.cachix.org"
