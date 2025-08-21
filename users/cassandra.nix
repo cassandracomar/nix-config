@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   git_config = {
     userName = "Cassandra Comar";
     userEmail = "cass@ndra.io";
@@ -77,6 +74,8 @@ in {
 
   programs.git = {
     enable = true;
+    userName = git_config.userName;
+    userEmail = git_config.userEmail;
     # delta.enable = true;
     extraConfig = {
       pull.rebase = false;
@@ -128,42 +127,58 @@ in {
           engines = {
             nix-packages = {
               name = "Nix Packages";
-              urls = [{
-                template = "https://search.nixos.org/packages";
-                params = [
-                  { name = "type"; value = "packages"; }
-                  { name = "query"; value = "{searchTerms}"; }
-                ];
-              }];
+              urls = [
+                {
+                  template = "https://search.nixos.org/packages";
+                  params = [
+                    {
+                      name = "type";
+                      value = "packages";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
 
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@np" ];
+              definedAliases = ["@np"];
             };
 
             nix-options = {
               name = "Nix Options";
-              urls = [{
-                template = "https://search.nixos.org/options";
-                params = [
-                  { name = "type"; value = "options"; }
-                  { name = "query"; value = "{searchTerms}"; }
-                ];
-              }];
+              urls = [
+                {
+                  template = "https://search.nixos.org/options";
+                  params = [
+                    {
+                      name = "type";
+                      value = "options";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
 
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@no" ];
+              definedAliases = ["@no"];
             };
 
             nixos-wiki = {
               name = "NixOS Wiki";
-              urls = [{ template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; }];
+              urls = [{template = "https://wiki.nixos.org/w/index.php?search={searchTerms}";}];
               iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
-              definedAliases = [ "@nw" ];
+              definedAliases = ["@nw"];
             };
 
             paulgo = {
               name = "paulgo.io";
-              urls = [{ template = "https://paulgo.io/?q={searchTerms}"; }];
+              urls = [{template = "https://paulgo.io/?q={searchTerms}";}];
             };
 
             bing.metaData.hidden = true;
@@ -200,34 +215,6 @@ in {
           }
           :root[uidensity="compact"] #navigator-toolbox {
             --uc-menubar-height: 15px;
-          }
-
-          #titlebar {
-            flex-direction: column-reverse;
-            -moz-appearance: none !important;
-          }
-
-          #toolbar-menubar {
-            margin-bottom: calc(0px - var(--uc-menubar-height));
-            height: var(--uc-menubar-height);
-            position: relative;
-            z-index: 2;
-            pointer-events: none;
-          }
-
-          #menubar-items {
-            justify-content: left;
-            pointer-events: initial;
-            margin-top: 3px;
-            color: var(--toolbar-color);
-          }
-
-          #toolbar-menubar > .titlebar-buttonbox-container {
-            display: none;
-          }
-          :root[tabsintitlebar][sizemode="normal"] .titlebar-spacer,
-          :root[tabsintitlebar] #TabsToolbar > .titlebar-buttonbox-container {
-            display: flex !important;
           }
         '';
       };
