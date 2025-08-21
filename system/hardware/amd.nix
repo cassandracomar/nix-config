@@ -64,5 +64,5 @@ in {
     scheduler = "scx_rustland";
   };
 
-  powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "performance";
+  powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
 }
