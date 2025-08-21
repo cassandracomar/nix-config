@@ -421,7 +421,7 @@ in {
       }
       config.font = wezterm.font('Iosevka Nerd Font')
       config.font_size = 16
-      config.window_decorations  = "NONE"
+      config.window_decorations  = "TITLE"
       config.use_fancy_tab_bar = false
       config.show_new_tab_button_in_tab_bar = false
       config.default_cursor_style = 'SteadyBar'
