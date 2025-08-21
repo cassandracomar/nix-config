@@ -186,23 +186,8 @@ in {
           };
         };
         userChrome = ''
-          :root {
-            --uc-toolbar-height: 16px;
-          }
-          :root:not([uidensity="compact"]) {
-            --uc-toolbar-height: 17px;
-          }
-
           #TabsToolbar > * {
             visibility: collapse !important;
-          }
-
-          #nav-bar {
-            margin-top: calc(0px - var(--uc-toolbar-height));
-            /* margin-left: 60px; */
-          }
-          :root[inFullscreen] #navigator-toolbox {
-            margin-top: 11px;
           }
 
           #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
