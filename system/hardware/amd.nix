@@ -65,4 +65,7 @@ in {
   };
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
+  services.auto-epp = {
+    enable = true;
+  };
 }
