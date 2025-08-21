@@ -6,7 +6,8 @@
   home.sessionVariables.VISUAL = "${pkgs.emacs-pgtk}/bin/emacsclient -c";
   home.sessionVariables.ALTERNATE = "vim";
   home.sessionVariables.XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
-  home.sessionVariables.PATH = "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.emacs.d/bin:$HOME/.krew/bin:$PATH";
+  home.sessionVariables.PATH = "$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.krew/bin:$PATH";
+  home.sessionVariables.DRI_PRIME = "1";
 
   programs.direnv = {
     enable = true;
