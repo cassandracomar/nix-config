@@ -75,6 +75,7 @@ in {
   };
 
   gtk = {
+    enable = true;
     cursorTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
@@ -88,9 +89,12 @@ in {
       package = pkgs.qogir-theme;
     };
   };
-  qt.style = {
-    name = "Qogir-Dark";
-    package = pkgs.qogir-kde;
+  qt = {
+    enable = true;
+    style = {
+      name = "Qogir-Dark";
+      package = pkgs.qogir-kde;
+    };
   };
 
   programs.ironbar = {
