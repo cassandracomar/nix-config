@@ -70,7 +70,7 @@ in {
       steal-focus = true;
       sidebar-mode = true;
       monitor = -4;
-      dpi = 0;
+      dpi = 96;
     };
   };
 
@@ -411,7 +411,6 @@ in {
     enableBashIntegration = true;
     enableZshIntegration = true;
     extraConfig = ''
-      local wezterm = require 'wezterm'
       local config = {}
 
       config.default_prog = { 'nu', '--config', '~/.config/nushell/wezterm-config.nu' }
