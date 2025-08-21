@@ -14,10 +14,10 @@
     system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test big-parallel benchmark
   '';
 
-  console.font = "ter-v24b";
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "ahci" "usb_storage" "usbhid" "sd_mod"];
+  console.font = "ter-v32b";
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "thunderbolt" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd" "nct6775" "it87"];
+  boot.kernelModules = ["kvm-amd"];
   boot.kernelParams = ["nr_hugepages=4096"];
   boot.extraModulePackages = [config.boot.kernelPackages.it87];
   boot.extraModprobeConfig = ''
@@ -42,24 +42,21 @@
     trim.enable = true;
   };
 
-  fileSystems."/" = {
-    device = "root/nixos/root";
-    fsType = "zfs";
-  };
-  fileSystems."/home" = {
-    device = "root/nixos/home";
-    fsType = "zfs";
-  };
+  fileSystems."/" =
+    { device = "balsa/root";
+      fsType = "zfs";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D2EC-879D";
-    fsType = "vfat";
-  };
+  fileSystems."/home" =
+    { device = "balsa/home";
+      fsType = "zfs";
+    };
 
-  fileSystems."/nix" = {
-    device = "root/nixos/nix";
-    fsType = "zfs";
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/2E47-CF0C";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
   hardware.enableRedistributableFirmware = true;
 
   swapDevices = [];
@@ -77,7 +74,7 @@
     # };
     networks = {
       "10-wired" = {
-        matchConfig.Name = ["enp211s0f0"];
+        matchConfig.Name = ["enp10s0"];
         DHCP = "yes";
         # dns = ["[::1]:1053" "127.0.0.1:1053" "192.168.2.1:53"];
         # domains = ["~."];
@@ -141,8 +138,7 @@
       # };
     };
   };
-  networking.firewall.interfaces."enp211s0f0".allowedUDPPorts = [546 547];
-  networking.firewall.interfaces."enp211s0f1".allowedUDPPorts = [67 546 547 53];
+  networking.firewall.interfaces."enp10s0".allowedUDPPorts = [546 547];
 
   powerManagement.cpuFreqGovernor =
     pkgs.lib.mkForce
