@@ -21,7 +21,7 @@
 in {
   wayland.windowManager.pinnacle = {
     enable = true;
-    package = pkgs.pinnacle.buildRustConfig {
+    clientPackage = pkgs.pinnacle.buildRustConfig {
       pname = "pinnacle-config";
       version = "0.1.0";
       src = pinnacle-config;
