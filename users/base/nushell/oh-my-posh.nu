@@ -9,7 +9,7 @@ $env.POSH_SHELL_VERSION = (version | get version)
 $env.VIRTUAL_ENV_DISABLE_PROMPT = 1
 $env.PYENV_VIRTUALENV_DISABLE_PROMPT = 1
 
-let _omp_executable: string = (echo "/nix/var/nix/profiles/system/sw/bin/oh-my-posh")
+let _omp_executable: string = (realpath (which oh-my-posh | get 0 | get path))
 
 # PROMPTS
 
