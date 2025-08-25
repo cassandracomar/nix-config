@@ -49,7 +49,7 @@
       # set up fallback completions for commands carapace lacks
       $env.CARAPACE_BRIDGES = 'fish,bash,zsh,inshellisense'
       # I'm not entirely clear on why but other attempts to disable this fail -- it seems to need to be set here.
-      $env.config.render_right_prompt_on_last_line = false
+      set-env config.render_right_prompt_on_last_line false
     '';
   };
 
