@@ -46,10 +46,12 @@
       def --env set-env [name, value] { load-env { $name: $value } }
       def --env unset-env [name] { hide-env $name }
 
-      # set up fallback completions for commands carapace lacks
-      $env.CARAPACE_BRIDGES = 'fish,bash,zsh,inshellisense'
-      # I'm not entirely clear on why but other attempts to disable this fail -- it seems to need to be set here.
-      { config: { render_right_prompt_on_last_line: false } } | load-env
+      do --env {
+        # set up fallback completions for commands carapace lacks
+        $env.CARAPACE_BRIDGES = 'fish,bash,zsh,inshellisense'
+        # I'm not entirely clear on why but other attempts to disable this fail -- it seems to need to be set here.
+        $env.config.render_right_prompt_on_last_line = false
+      }
     '';
   };
 
