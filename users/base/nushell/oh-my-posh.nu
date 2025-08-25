@@ -12,7 +12,7 @@ let _omp_executable: string = (realpath (which oh-my-posh | get 0 | get path))
 
 # PROMPTS
 
-def --wrapped _omp_get_prompt [
+def --env --wrapped _omp_get_prompt [
     type: string,
     ...args: string
 ] {
@@ -24,6 +24,7 @@ def --wrapped _omp_get_prompt [
         $execution_time = $env.CMD_DURATION_MS
         $no_status = false
     }
+    $env.config.render_right_prompt_on_last_line = false
 
     (
         ^$_omp_executable print $type
