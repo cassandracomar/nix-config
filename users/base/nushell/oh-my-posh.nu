@@ -56,6 +56,7 @@ $env.PROMPT_COMMAND = {||
 
     if ($env.SET_POSHCONTEXT? | is-not-empty) {
         do --env $env.SET_POSHCONTEXT
+        $env.config.render_right_prompt_on_last_line = false
     }
 
     _omp_get_prompt primary $"--cleared=($clear)"
