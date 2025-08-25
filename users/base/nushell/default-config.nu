@@ -43,7 +43,7 @@ let old_prompt_command = $env.PROMPT_COMMAND
       }
     }
     render_right_prompt_on_last_line: false
-    hooks: ($env.config.hooks | default {})
+    hooks: ($env.config | get -o hooks | default {})
   }
   PROMPT_COMMAND: {||
     let old_prompt = do $old_prompt_command
