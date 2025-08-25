@@ -13,3 +13,7 @@ $env.config = $env.config | merge deep {
 $env.TERM = "wezterm"
 
 $env.config.render_right_prompt_on_last_line = false
+
+if $env.config.render_right_prompt_on_last_line {
+   print "failed to set render_right_prompt_on_last_line"
+}
