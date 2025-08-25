@@ -31,17 +31,23 @@ let external_completer = {|spans|
   } | do $in $spans
 }
 
-$env.config.completions = {
-  external: {
-    enable: true
-    completer: $external_completer
+{
+  config: {
+    completions: {
+      external: {
+        enable: true
+        completer: $external_completer
+      }
+    }
   }
-}
+} | load-env
 
 # insert an extra line of prompt to keep PWD on it's own line
 let old_prompt_command = $env.PROMPT_COMMAND
-$env.PROMPT_COMMAND = {||
-  let old_prompt = do $old_prompt_command
-  $"($old_prompt)\n └─>> "
-}
+{
+  PROMPT_COMMAND: {||
+    let old_prompt = do $old_prompt_command
+    $"($old_prompt)\n └─>> "
+  }
+} | load-env
 { config: { render_right_prompt_on_last_line: false } } | load-env
