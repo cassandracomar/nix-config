@@ -1,4 +1,4 @@
-source "/home/cassandra/.config/nushell/oh-my-posh.nu"
+source `~/.config/nushell/oh-my-posh.nu`
 
 # manually configure carapace completions so we can replace nix completions with
 # those from fish
@@ -33,19 +33,14 @@ let external_completer = {|spans|
 
 # insert an extra line of prompt to keep PWD on it's own line
 let old_prompt_command = $env.PROMPT_COMMAND
-{
-  config: {
-    completions: {
-      external: {
-        enable: true
-        completer: $external_completer
-      }
+
+$env.config = {
+  completions: {
+    external: {
+      enable: true
+      completer: $external_completer
     }
-    render_right_prompt_on_last_line: false
-    hooks: $env.config.hooks
   }
-  PROMPT_COMMAND: {||
-    let old_prompt = do $old_prompt_command
-    $"($old_prompt)\n └─>> "
-  }
-} | load-env
+  render_right_prompt_on_last_line: false
+  hooks: $env.config.hooks
+}
