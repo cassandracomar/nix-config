@@ -8,5 +8,6 @@ $env.config = {
     vi_insert: "line"
     vi_normal: "block"
   }
+  render_right_prompt_on_last_line: false
 }
 $env.TERM = "wezterm"
