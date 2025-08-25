@@ -101,7 +101,6 @@ in {
         isDefault = true;
         extensions = {
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
-            reddit-enhancement-suite
             multi-account-containers
             sidebery
             bitwarden
@@ -121,8 +120,8 @@ in {
         };
         search = {
           force = true;
-          default = "paulgo.io";
-          privateDefault = "paulgo.io";
+          default = "paulgo";
+          privateDefault = "paulgo";
 
           engines = {
             nix-packages = {
