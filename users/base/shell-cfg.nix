@@ -60,10 +60,15 @@
   xdg.configFile."nushell/wezterm-config.nu".source = ./nushell/wezterm-config.nu;
   # the base config that should be applied to both profiles
   xdg.configFile."nushell/default-config.nu".source = ./nushell/default-config.nu;
+  # reworked prompt theme loading
+  xdg.configFile."nushell/oh-my-posh.nu".source = ./nushell/oh-my-posh.nu;
 
   programs.oh-my-posh = {
     enable = true;
-    enableNushellIntegration = true;
+    enableNushellIntegration = false;
+    enableFishIntegration = false;
+    enableZshIntegration = false;
+    enableBashIntegration = false;
     useTheme = "devious-diamonds";
   };
 
