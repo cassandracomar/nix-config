@@ -73,7 +73,7 @@
   programs.carapace = {
     enable = true;
     # we want nix completions from fish so disable this and add it manually
-    enableNushellIntegration = false;
+    enableNushellIntegration = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
     enableZshIntegration = true;

@@ -31,7 +31,7 @@ let external_completer = {|spans|
   } | do $in $spans
 }
 
-set-env config.completions {
+$env.config.completions = {
   external: {
     enable: true
     completer: $external_completer
@@ -40,7 +40,7 @@ set-env config.completions {
 
 # insert an extra line of prompt to keep PWD on it's own line
 let old_prompt_command = $env.PROMPT_COMMAND
-set-env PROMPT_COMMAND {||
+$env.PROMPT_COMMAND = {||
   let old_prompt = do $old_prompt_command
   $"($old_prompt)\n └─>> "
 }
