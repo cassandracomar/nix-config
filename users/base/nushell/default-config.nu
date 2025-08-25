@@ -44,4 +44,4 @@ $env.PROMPT_COMMAND = {||
   let old_prompt = do $old_prompt_command
   $"($old_prompt)\n └─>> "
 }
-$env.config.render_right_prompt_on_last_line = false
+{ config: { render_right_prompt_on_last_line: false } } | load-env
