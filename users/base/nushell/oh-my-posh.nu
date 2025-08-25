@@ -63,3 +63,4 @@ $env.PROMPT_COMMAND = {||
 $env.PROMPT_COMMAND_RIGHT = null
 $env.config.render_right_prompt_on_last_line = false
 set-env $env.config.render_right_prompt_on_last_line false
+{ config: { render_right_prompt_on_last_line: false } } | load-env
