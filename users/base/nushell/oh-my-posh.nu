@@ -11,6 +11,11 @@ $env.PYENV_VIRTUALENV_DISABLE_PROMPT = 1
 let _omp_executable: string = (realpath (which oh-my-posh | get 0 | get path))
 
 # PROMPTS
+def --env posh_context [] {
+    $env.config.render_right_prompt_on_last_line = false
+}
+
+$env.SET_POSHCONTEXT = posh_context
 
 def --env --wrapped _omp_get_prompt [
     type: string,
@@ -56,7 +61,6 @@ $env.PROMPT_COMMAND = {||
 
     if ($env.SET_POSHCONTEXT? | is-not-empty) {
         do --env $env.SET_POSHCONTEXT
-        $env.config.render_right_prompt_on_last_line = false
     }
 
     _omp_get_prompt primary $"--cleared=($clear)"
