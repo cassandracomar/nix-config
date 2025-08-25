@@ -654,11 +654,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1756146150,
-        "narHash": "sha256-LlEPR5QaLq4+QvnXFo+8d4Kg2jBewWE8I29GMMkF/Kc=",
+        "lastModified": 1756146657,
+        "narHash": "sha256-7EBrx36+eShnkrvtpmiNQx3eJ3rIVSBb49zoI6EDVrw=",
         "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "b7bbc38e68fbfcac7245372a40cb3650d579c8ad",
+        "rev": "0b1665b2f6e38a38ccf7f582eed895b1c89fdbc6",
         "type": "github"
       },
       "original": {
