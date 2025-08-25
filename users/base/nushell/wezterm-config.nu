@@ -1,7 +1,7 @@
 source `~/.config/nushell/config.nu`
 source `~/.config/nushell/default-config.nu`
 
-$env.config = {
+$env.config = $env.config | merge deep {
   buffer_editor: ["emacsclient", "-t"]
   edit_mode: "vi"
   cursor_shape: {

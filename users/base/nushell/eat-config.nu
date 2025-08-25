@@ -148,5 +148,5 @@ alias find-file = eat open
 #
 # multiline prompts continue to show the right prompt on the first line but this turns it
 # off completely for single-line prompts.
-{ config: { render_right_prompt_on_last_line: false } } | load-env
+$env.config | merge { render_right_prompt_on_last_line: false } | load-env
 { PROMPT_COMMAND_RIGHT: null } | load-env

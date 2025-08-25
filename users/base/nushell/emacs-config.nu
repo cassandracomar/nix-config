@@ -8,5 +8,5 @@ alias cat = bat -f -pp
 
 $env.PAGER = "bat -f -pp"
 $env.config.render_right_prompt_on_last_line = false
-{ config: { render_right_prompt_on_last_line: false } } | load-env
+$env.config | merge { render_right_prompt_on_last_line: false } | load-env
 $env.PROMPT_COMMAND_RIGHT = null
