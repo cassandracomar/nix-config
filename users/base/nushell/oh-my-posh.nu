@@ -1,6 +1,5 @@
 $env.POWERLINE_COMMAND = 'oh-my-posh'
-let posh_dir = (realpath (which oh-my-posh | get 0 | get path)) | path dirname | path dirname
-$env.POSH_THEME = $"($posh_dir)/share/oh-my-posh/themes//devious-diamonds.omp.yaml"
+$env.POSH_THEME = $"($env.XDG_CONFIG_HOME)/nushell/devious-diamonds.omp.yaml"
 $env.PROMPT_INDICATOR = ""
 $env.POSH_SHELL = "nu"
 $env.POSH_SHELL_VERSION = (version | get version)

@@ -62,6 +62,7 @@
   xdg.configFile."nushell/default-config.nu".source = ./nushell/default-config.nu;
   # reworked prompt theme loading
   xdg.configFile."nushell/oh-my-posh.nu".source = ./nushell/oh-my-posh.nu;
+  xdg.configFile."nushell/devious-diamonds.yaml".source = ./nushell/devious-diamonds.yaml;
 
   programs.oh-my-posh = {
     enable = true;
