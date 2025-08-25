@@ -1,5 +1,5 @@
 $env.POWERLINE_COMMAND = 'oh-my-posh'
-$env.POSH_THEME = $"($env.XDG_CONFIG_HOME)/nushell/devious-diamonds.omp.yaml"
+$env.POSH_THEME = "/home/cassandra/.config/nushell/devious-diamonds.omp.yaml"
 $env.PROMPT_INDICATOR = ""
 $env.POSH_SHELL = "nu"
 $env.POSH_SHELL_VERSION = (version | get version)
