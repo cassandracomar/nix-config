@@ -34,6 +34,7 @@
         substituteInPlace vpn_slice/linux.py --replace '/usr/bin/resolvectl' '${pkgs.systemd}/bin/resolvectl' --replace '/sbin/ip' '${pkgs.iproute2}/bin/ip';
       '';
     }))
+    oh-my-posh
   ];
 
   home.shell.enableShellIntegration = true;
@@ -63,15 +64,6 @@
   # reworked prompt theme loading
   xdg.configFile."nushell/oh-my-posh.nu".source = ./nushell/oh-my-posh.nu;
   xdg.configFile."nushell/devious-diamonds.yaml".source = ./nushell/devious-diamonds.yaml;
-
-  programs.oh-my-posh = {
-    enable = true;
-    enableNushellIntegration = false;
-    enableFishIntegration = false;
-    enableZshIntegration = false;
-    enableBashIntegration = false;
-    useTheme = "devious-diamonds";
-  };
 
   programs.fish = {
     enable = true;
