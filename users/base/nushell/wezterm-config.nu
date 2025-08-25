@@ -11,3 +11,5 @@ $env.config = {
   render_right_prompt_on_last_line: false
 }
 $env.TERM = "wezterm"
+
+$env.config.render_right_prompt_on_last_line = false
