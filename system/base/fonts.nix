@@ -18,6 +18,9 @@
   services.displayManager.environment = {
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
+  environment.variables = {
+    FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+  };
 
   # set up other fonts
   fonts = {
@@ -32,9 +35,9 @@
       cache32Bit = true;
 
       defaultFonts = {
-        serif = [ "Noto Serif Nerd Font" ];
-        sansSerif = [ "Noto Sans Nerd Font" ];
-        monospace = [ "Iosevka Nerd Font" ];
+        serif = ["Noto Serif Nerd Font"];
+        sansSerif = ["Noto Sans Nerd Font"];
+        monospace = ["Iosevka Nerd Font"];
       };
 
       # Fixes antialiasing blur
