@@ -156,6 +156,9 @@
             "adbusers"
           ];
           # shell = pkgs.nushell;
+          environment.systemPackages = [
+            pkgs.nushell
+          ];
           hashedPasswordFile = "/etc/nixos/${username}.passwd";
           openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzmQu/eY3tf06E6R3kVRv2XlA1GTmkYeIr9VlPRKRou ccomar@rclmp-ccomar1"];
         };
