@@ -32,7 +32,7 @@ let external_completer = {|spans|
 }
 
 # insert an extra line of prompt to keep PWD on it's own line
-let old_prompt_command = $env.PROMPT_COMMAND
+# let old_prompt_command = $env.PROMPT_COMMAND
 
 $env.config | merge deep {
   completions: {
@@ -44,7 +44,7 @@ $env.config | merge deep {
   render_right_prompt_on_last_line: false
 } | load-env
 
-$env.PROMPT_COMMAND = {||
-  let old_prompt = do $old_prompt_command
-  $"($old_prompt)\n └─>> "
-}
+# $env.PROMPT_COMMAND = {||
+#   let old_prompt = do $old_prompt_command
+#   $"($old_prompt)\n └─>> "
+# }
