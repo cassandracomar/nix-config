@@ -26,7 +26,7 @@
       hinting = {
         enable = true;
         style = "full"; # no difference
-        autohint = true; # no difference
+        autohint = false; # no difference
       };
 
       subpixel = {
