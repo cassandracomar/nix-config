@@ -3,7 +3,7 @@
 
   services.pcscd.enable = true;
 
-  environment.systemPackages = with pkgs; [gnupg yubikey-personalization pynitrokey];
+  environment.systemPackages = with pkgs; [gnupg yubikey-personalization];
 
   environment.shellInit = ''
     gpg-connect-agent /bye
