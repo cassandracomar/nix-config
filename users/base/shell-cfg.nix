@@ -39,6 +39,7 @@
   ];
 
   home.shell.enableShellIntegration = true;
+  home.sessionPath = [(config.xdg.configHome + "emacs/bin")];
 
   programs.nushell = {
     enable = true;
@@ -120,7 +121,7 @@
         plugins=(git sudo kubectl)
 
         HOME=/home/cassandra
-        PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.doom-emacs.d/bin:$HOME/.emacs.d/bin:$HOME/.krew/bin:$PATH";
+        PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.config/doom/bin:$HOME/.krew/bin:$PATH";
         ZSH_THEME="agnoster"
         source $ZSH/oh-my-zsh.sh
         compgen -A function -ac
