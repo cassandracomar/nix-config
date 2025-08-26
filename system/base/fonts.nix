@@ -20,8 +20,7 @@
 
     fontconfig = {
       enable = true;
-      # Fixes pixelation
-      antialias = true;
+      antialias = false;
 
       # Fixes antialiasing blur
       hinting = {
