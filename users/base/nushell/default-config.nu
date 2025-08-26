@@ -1,5 +1,7 @@
 # source `~/.config/nushell/oh-my-posh.nu`
 
+print "test"
+
 $env.config = ($env.config? | default {})
 $env.config.hooks = ($env.config.hooks? | default {})
 $env.config.hooks.pre_prompt = (
