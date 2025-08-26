@@ -25,9 +25,9 @@
       cache32Bit = true;
 
       defaultFonts = {
-        serif = "Noto Serif Nerd Font";
-        sansSerif = "Noto Sans Nerd Font";
-        monospace = "Iosevka Nerd Font";
+        serif = [ "Noto Serif Nerd Font" ];
+        sansSerif = [ "Noto Sans Nerd Font" ];
+        monospace = [ "Iosevka Nerd Font" ];
       };
 
       # Fixes antialiasing blur
