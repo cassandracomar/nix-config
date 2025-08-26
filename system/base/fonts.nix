@@ -32,7 +32,7 @@
       subpixel = {
         # Makes it bolder
         rgba = "bgr";
-        lcdfilter = "lcdlight"; # no difference
+        lcdfilter = "light"; # no difference
       };
     };
 
