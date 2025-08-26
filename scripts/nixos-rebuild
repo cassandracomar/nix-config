@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-export TERM=eterm
 before=$(realpath "$(which emacs)")
 NR_EXEC=/run/current-system/sw/bin/nixos-rebuild
-CONFIG_FLAKE_PATH=/home/cassandra/src/github.com/cassandracomar/nix-config
+CONFIG_FLAKE_PATH=~/src/github.com/cassandracomar/nix-config
 
 emacs_checked_update() {
     before=$(realpath "$(which emacs)")
@@ -11,7 +10,7 @@ emacs_checked_update() {
 
     if [ "$(realpath $(which emacs))" != "$before" ]; then
         echo "emacs changed. invoking native compilation rebuild."
-        ~/.emacs.d/bin/doom build
+        ~/.config/emacs/bin/doom build
     fi
 }
 
