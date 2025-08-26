@@ -10,7 +10,7 @@ emacs_checked_update() {
 
     if [ "$(realpath $(which emacs))" != "$before" ]; then
         echo "emacs changed. invoking native compilation rebuild."
-        ~/.config/emacs/bin/doom build
+        ~/.config/emacs/bin/doom sync --rebuild --aot --gc -j 32
     fi
 }
 
