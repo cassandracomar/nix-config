@@ -20,7 +20,7 @@
 
     fontconfig = {
       enable = true;
-      antialias = false;
+      antialias = true;
 
       # Fixes antialiasing blur
       hinting = {
@@ -32,7 +32,7 @@
       subpixel = {
         # Makes it bolder
         rgba = "bgr";
-        lcdfilter = "default"; # no difference
+        lcdfilter = "lcdlight"; # no difference
       };
     };
 
