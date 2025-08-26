@@ -413,7 +413,7 @@ in {
     extraConfig = ''
       local config = {}
 
-      config.default_prog = { 'nu', '--config', '~/.config/nushell/wezterm-config.nu' }
+      config.default_prog = { 'nu', '--config', '~/.config/nushell/wezterm-config.nu', '--env-config', '~/.config/nushell/env.nu' }
       config.color_scheme = 'Monokai (dark) (terminal.sexy)'
       config.colors = {
         background = '#171717',
