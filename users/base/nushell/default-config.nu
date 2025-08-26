@@ -1,6 +1,4 @@
-# source `~/.config/nushell/oh-my-posh.nu`
-
-print "test"
+source `~/.config/nushell/oh-my-posh.nu`
 
 $env.config = ($env.config? | default {})
 $env.config.hooks = ($env.config.hooks? | default {})
