@@ -72,7 +72,8 @@ $env.config | merge deep {
     }
   }
   render_right_prompt_on_last_line: false
-} | load-env
+} | { config: $in }
+  | load-env
 
 # $env.PROMPT_COMMAND = {||
 #   let old_prompt = do $old_prompt_command
