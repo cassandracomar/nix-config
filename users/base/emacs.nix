@@ -38,6 +38,7 @@
         epkgs.emacsql
         pinentry-emacs
         nixd
+        epkgs.treesit-grammars.with-all-grammars
       ];
   };
   services.emacs.enable = true;
