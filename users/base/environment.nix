@@ -7,7 +7,7 @@
   home.sessionVariables.ALTERNATE = "vim";
   home.sessionVariables.DRI_PRIME = "1";
   home.sessionPath = ["$HOME/.cargo/bin" "$HOME/.local/bin" "$HOME/krew/bin"];
-  xdg.systemDirs = ["$HOME/.nix-profile/share"];
+  xdg.systemDirs.data = ["$HOME/.nix-profile/share"];
 
   programs.direnv = {
     enable = true;
