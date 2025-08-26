@@ -18,7 +18,7 @@ echo "invoking nixos-rebuild"
 
 case $1 in
     test)
-        sudo nix flake lock /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH"
+        sudo nix flake update --flake /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH"
         emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" $*
         ;;
     upgrade)
@@ -27,11 +27,11 @@ case $1 in
             --all)
                 shift
                 echo "updating all flake inputs: $CONFIG_FLAKE_PATH"
-                nix flake update $CONFIG_FLAKE_PATH --commit-lock-file
+                nix flake update --flake $CONFIG_FLAKE_PATH --commit-lock-file
                 ;;
             *)
                 echo "updating flake inputs: $CONFIG_FLAKE_PATH/nixpkgs"
-                nix flake lock $CONFIG_FLAKE_PATH --update-input nixpkgs --commit-lock-file
+                nix flake update --flake $CONFIG_FLAKE_PATH nixpkgs --commit-lock-file
                 ;;
         esac
 
