@@ -17,17 +17,10 @@ emacs_checked_update() {
 
 echo "invoking nixos-rebuild"
 
-sudo mkdir -p /data/androidKeys
-sudo mount -t tmpfs -o mode=750,uid=1000,gid=30000 tmpfs /data/androidKeys
-trap 'rv=$?; sudo umount /data/androidKeys; exit $?' EXIT INT TERM QUIT
-sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' --config ~/.config/sops/.sops.yaml ~/.config/sops/age/android-keystore-private-key.yaml > /data/androidKeys/keys.txt
-sops --pgp "0xF431E5E70CAB3E2E" -d --extract '["data"]' --config ~/.config/sops/.sops.yaml ~/.config/sops/age/route53-private-key.yaml >> /data/androidKeys/keys.txt
-cat /data/androidKeys/keys.txt
-
 case $1 in
     test)
-        sudo nix flake lock /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH" --override-input nix-config/robotnix "path:/home/cassandra/src/github.com/danielfullmer/robotnix"
-        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" --override-input nix-config/robotnix "path:/home/cassandra/src/github.com/danielfullmer/robotnix" $*
+        sudo nix flake lock /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH"
+        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" $*
         ;;
     upgrade)
         shift
@@ -45,11 +38,11 @@ case $1 in
 
         cd $CONFIG_FLAKE_PATH
         git push
-        sudo nix flake update /etc/nixos
+        sudo nix flake update --flake /etc/nixos
         emacs_checked_update sudo $NR_EXEC switch --impure $*
         ;;
     *)
-        sudo nix flake update /etc/nixos
+        sudo nix flake update --flake /etc/nixos
         emacs_checked_update sudo $NR_EXEC --impure $*
         ;;
 esac

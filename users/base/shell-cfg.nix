@@ -35,6 +35,7 @@
       '';
     }))
     oh-my-posh
+    (writeScriptBin "nixos-rebuild" (builtins.readFile ../../scripts/nixos-rebuild))
   ];
 
   home.shell.enableShellIntegration = true;
