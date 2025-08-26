@@ -1,4 +1,4 @@
-source `~/.config/nushell/config.nu`
+# source `~/.config/nushell/config.nu`
 source `~/.config/nushell/default-config.nu`
 
 do --env {
