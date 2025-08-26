@@ -1,4 +1,4 @@
-source `~/.config/nushell/oh-my-posh.nu`
+# source `~/.config/nushell/oh-my-posh.nu`
 
 # manually configure carapace completions so we can replace nix completions with
 # those from fish
