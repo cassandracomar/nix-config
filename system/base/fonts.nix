@@ -49,7 +49,7 @@
 
       subpixel = {
         # Makes it bolder
-        rgba = "bgr";
+        rgba = "none";
         lcdfilter = "light"; # no difference
       };
     };
