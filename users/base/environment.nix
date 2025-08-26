@@ -5,8 +5,8 @@
   home.sessionVariables.EDITOR = "${pkgs.emacs-pgtk}/bin/emacsclient -t";
   home.sessionVariables.VISUAL = "${pkgs.emacs-pgtk}/bin/emacsclient -c";
   home.sessionVariables.ALTERNATE = "vim";
-  home.sessionVariables.XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
   home.sessionPath = ["$HOME/.cargo/bin" "$HOME/.local/bin" "$HOME/krew/bin"];
+  xdg.systemDirs = ["$HOME/.nix-profile/share"];
   home.sessionVariables.DRI_PRIME = "1";
 
   programs.direnv = {
