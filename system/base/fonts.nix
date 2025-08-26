@@ -15,6 +15,9 @@
   environment.sessionVariables = {
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
+  services.displayManager.environment = {
+    FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+  };
 
   # set up other fonts
   fonts = {
