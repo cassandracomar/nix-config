@@ -5,9 +5,9 @@
   home.sessionVariables.EDITOR = "${pkgs.emacs-pgtk}/bin/emacsclient -t";
   home.sessionVariables.VISUAL = "${pkgs.emacs-pgtk}/bin/emacsclient -c";
   home.sessionVariables.ALTERNATE = "vim";
+  home.sessionVariables.DRI_PRIME = "1";
   home.sessionPath = ["$HOME/.cargo/bin" "$HOME/.local/bin" "$HOME/krew/bin"];
   xdg.systemDirs = ["$HOME/.nix-profile/share"];
-  home.sessionVariables.DRI_PRIME = "1";
 
   programs.direnv = {
     enable = true;
