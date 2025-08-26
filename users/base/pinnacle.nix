@@ -79,6 +79,11 @@ in {
     };
   };
 
+  home.sessionVariables = {
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "24";
+  };
+
   gtk = {
     enable = true;
     cursorTheme = {
