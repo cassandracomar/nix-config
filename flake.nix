@@ -80,7 +80,7 @@
           };
         });
       })
-      (final: prev: {
+      (final: prev: rec {
         gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
           doCheck = false;
         });
@@ -93,6 +93,16 @@
         ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
           doCheck = false;
         });
+        python3 = prev.python3.override {
+          packageOverrides = pyfinal: pyprev: {
+            pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
+              pytestCheckPhase = "true";
+              unittestCheckPhase = "true";
+              pythonImportsCheckPhase = "true";
+            });
+          };
+        };
+        python3Packages = python3.pkgs;
       })
       mozilla.overlay
       emacs.overlay
