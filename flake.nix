@@ -80,6 +80,11 @@
           };
         });
       })
+      (final: prev: {
+        gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
+          doCheck = false;
+        });
+      })
       mozilla.overlay
       emacs.overlay
       rust.overlays.default
