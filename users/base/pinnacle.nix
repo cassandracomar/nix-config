@@ -9,20 +9,22 @@
     rev = "ec731cef79d39fc7ae12ef2a70a2a0dd384f9730";
     sha256 = "sha256-96wSyOp++1nXomnl8rbX5vMzaqRhTi/N7FUq6y0ukS8=";
   };
+  rofi-plugins = with pkgs; [
+    rofi-calc
+    rofi-games
+    rofi-emoji-wayland
+    rofi-file-browser
+    rofi-nerdy
+    rofi-power-menu
+  ];
   rofi-packages = with pkgs; [
     rofi-bluetooth
-    rofi-calc
-    rofi-mpd
-    rofi-emoji-wayland
-    rofi-games
-    rofi-power-menu
+    (clerk.override {rofi = rofi-wayland;})
     rofi-rbw-wayland
-    rofi-pulse-select
-    (rofi-screenshot.override {
-      rofi = pkgs.rofi-wayland;
-    })
-    rofi-systemd
-    rofi-vpn
+    (rofi-pulse-select.override {rofi-unwrapped = rofi-wayland-unwrapped;})
+    (rofi-screenshot.override {rofi = rofi-wayland;})
+    (rofi-systemd.override {rofi = rofi-wayland;})
+    (rofi-vpn.override {rofi-unwrapped = rofi-wayland-unwrapped;})
   ];
 in {
   wayland.windowManager.pinnacle = {
@@ -57,7 +59,7 @@ in {
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
-    plugins = rofi-packages;
+    plugins = rofi-plugins;
     cycle = true;
     font = "Iosevka Nerd Font 32";
     location = "top";
@@ -390,7 +392,7 @@ in {
             " {cpu_percent}% | {cpu_frequency} GHz | {temp_c@CPUTIN}°C"
             " {memory_used} / {memory_total} GB ({memory_available} | {memory_percent2}%) | {swap_used} / {swap_total} GB ({swap_free} | {swap_percent}%)"
             "󰋊 {disk_used#T@/=.1} / {disk_total#T@/:.1} TB ({disk_percent@/}%) | {disk_read} / {disk_write} MB/s"
-            "󰓢 {net_down@enp39s0} / {net_up@enp39s0} Mbps"
+            "󰓢 {net_down@en109s0} / {net_up@en109s0} Mbps"
             "󰖡 {load_average1} | {load_average5} | {load_average15}"
             "󰥔 {uptime}"
           ];
