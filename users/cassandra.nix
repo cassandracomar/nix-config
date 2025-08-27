@@ -70,7 +70,7 @@ in {
       email = "cass@ndra.io";
       pinentry = pkgs.writeShellScriptBin "pinentry-rofi" ''
         #!{pkgs.runtimeShell}
-        ${pkgs.pinentry-rofi} "$@" -- -config ~/.config/rofi/config.rasi
+        exec ${pkgs.pinentry-rofi}/bin/pinentry-rofi "$@" -- -config ~/.config/rofi/config.rasi
       '';
     };
   };
