@@ -476,7 +476,16 @@ in {
       rofi-pass-wayland
       go # oh-my-posh demands this, sigh
       xwayland
+      wl-clipboard-rs
+      wl-restart
+      wl-screenrec
+      wl-color-picker
     ];
+
+  services.cliphist = {
+    enable = true;
+    allowImages = true;
+  };
 
   services.dunst = {
     enable = true;
