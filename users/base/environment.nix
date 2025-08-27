@@ -9,7 +9,7 @@
     ALTERNATE = "vim";
     DRI_PRIME = "1";
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
-    ROFI_SCREENSHOT_DIR = config.xdg.userDirs.pictures + /screenshots;
+    ROFI_SCREENSHOT_DIR = "${config.xdg.userDirs.pictures}/screenshots";
   };
 
   home.sessionPath = ["${config.home.homeDirectory}/.cargo/bin" "${config.home.homeDirectory}/.local/bin" "${config.home.homeDirectory}/krew/bin"];
