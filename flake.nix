@@ -90,6 +90,9 @@
         django = prev.django.overrideAttrs (old: {
           doCheck = false;
         });
+        ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
       mozilla.overlay
       emacs.overlay
