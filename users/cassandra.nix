@@ -68,7 +68,10 @@ in {
     enable = true;
     settings = {
       email = "cass@ndra.io";
-      pinentry = pkgs.pinentry-rofi;
+      pinentry = pkgs.writeShellScriptBin "pinentry-rofi" ''
+        #!{pkgs.runtimeShell}
+        ${pkgs.pinentry-rofi} "$@" -- -config ~/.config/rofi/config.rasi
+      '';
     };
   };
 
