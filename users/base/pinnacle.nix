@@ -91,7 +91,7 @@ in {
       enable = true;
       defaultCursor = "left_ptr";
     };
-    # name = "Adwaita";
+    name = "Vanilla-DMZ";
     # package = pkgs.adwaita-icon-theme;
     # size = 24;
   };
