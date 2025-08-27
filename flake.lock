@@ -766,11 +766,11 @@
         "pinnacle": "pinnacle_2"
       },
       "locked": {
-        "lastModified": 1756316680,
-        "narHash": "sha256-8aL9HQbBbbWcyqZeJS6suI8exdoiKrRA5wFpIMZ4Hys=",
+        "lastModified": 1756317135,
+        "narHash": "sha256-dUF8ZY9yWtXmR+ZaCB1qolu94bilf+LPePKSo4lVBUA=",
         "owner": "cassandracomar",
         "repo": "pinnacle-config",
-        "rev": "180682ad1cfc83117e69cc242f71c79c95829034",
+        "rev": "347110ae1668e3b1d1cf39522d4c64d158518ad2",
         "type": "github"
       },
       "original": {
