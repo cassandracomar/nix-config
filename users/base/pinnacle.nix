@@ -490,8 +490,9 @@ in {
         owner = "xrelkd";
         repo = "clipcat";
         rev = "cc8dec91c61c1273b34fc00110e7fb76782e4449";
-        sha256 = pkgs.lib.fakeSha256;
+        sha256 = "sha256-OmSOtelh+tEbUIwvdYO/t+qpbaLnqCpj6i7WqmxSWmA=";
       };
+      cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
     });
     enableSystemdUnit = true;
     menuSettings = {
