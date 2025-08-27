@@ -91,7 +91,9 @@
     enableSshSupport = true;
     enableExtraSocket = true;
     enableScDaemon = true;
-    pinentry.package = pkgs.pinentry-rofi;
+    pinentry.package = pkgs.pinentry-rofi.override {
+      rofi = pkgs.rofi-wayland;
+    };
   };
 
   programs.password-store.enable = true;

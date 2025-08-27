@@ -18,7 +18,9 @@
     rofi-power-menu
     rofi-rbw-wayland
     rofi-pulse-select
-    rofi-screenshot
+    (rofi-screenshot.override {
+      rofi = pkgs.rofi-wayland;
+    })
     rofi-systemd
     rofi-vpn
   ];

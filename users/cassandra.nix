@@ -68,10 +68,9 @@ in {
     enable = true;
     settings = {
       email = "cass@ndra.io";
-      pinentry = pkgs.writeShellScriptBin "pinentry-rofi" ''
-        #!{pkgs.runtimeShell}
-        exec ${pkgs.pinentry-rofi}/bin/pinentry-rofi "$@" -- -location 2 -no-lazy-grab -steal-focus
-      '';
+      pinentry = pkgs.pinentry-rofi.override {
+        rofi = pkgs.rofi-wayland;
+      };
     };
   };
 
