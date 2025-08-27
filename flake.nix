@@ -84,6 +84,9 @@
         gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
           doCheck = false;
         });
+        gjs = prev.gjs.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
       mozilla.overlay
       emacs.overlay
