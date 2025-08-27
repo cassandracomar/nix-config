@@ -91,9 +91,9 @@ in {
       enable = true;
       defaultCursor = "left_ptr";
     };
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-    size = 24;
+    # name = "Adwaita";
+    # package = pkgs.adwaita-icon-theme;
+    # size = 24;
   };
   gtk = {
     enable = true;
