@@ -482,9 +482,12 @@ in {
       wl-color-picker
     ];
 
-  services.cliphist = {
+  services.clipcat = {
     enable = true;
-    allowImages = true;
+    enableSystemdUnit = true;
+    menuSettings = {
+      finder = "rofi";
+    };
   };
 
   services.dunst = {
