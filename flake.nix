@@ -33,7 +33,6 @@
   # inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
-  inputs.plasma-manager.url = "github:nix-community/plasma-manager";
   inputs.pinnacle.url = "github:cassandracomar/pinnacle/feat/nix-packages-and-modules";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.ironbar.url = "github:jakestanger/ironbar";
