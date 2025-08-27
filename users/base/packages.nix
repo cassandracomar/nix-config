@@ -33,7 +33,7 @@
     # libopus
     numactl
     arandr
-    pinentry-gnome3
+    (pinentry-rofi.override {rofi = rofi-wayland;})
     # openconnect-sso
     # openconnect
     android-tools

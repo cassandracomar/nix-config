@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   home.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
     MOZ_ACCELERATED = "1";
@@ -9,9 +9,21 @@
     ALTERNATE = "vim";
     DRI_PRIME = "1";
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+    ROFI_SCREENSHOT_DIR = config.xdg.userDirs.pictures + /screenshots;
   };
-  home.sessionPath = ["$HOME/.cargo/bin" "$HOME/.local/bin" "$HOME/krew/bin"];
+
+  home.sessionPath = ["${config.home.homeDirectory}/.cargo/bin" "${config.home.homeDirectory}/.local/bin" "${config.home.homeDirectory}/krew/bin"];
   xdg.systemDirs.data = ["$HOME/.nix-profile/share"];
+
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    pictures = "${config.home.homeDirectory}/images";
+    downloads = "${config.home.homeDirectory}/downloads";
+    videos = "${config.home.homeDirectory}/videos";
+    documents = "${config.home.homeDirectory}/docs";
+    desktop = "${config.home.homeDirectory}/desktop";
+  };
 
   programs.direnv = {
     enable = true;

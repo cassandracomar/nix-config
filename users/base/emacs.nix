@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -11,6 +10,8 @@
     unrar
     unzip
     nixfmt
+    alejandra
+    nixd
     ripgrep
     pandoc
     nodePackages.bash-language-server
