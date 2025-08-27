@@ -484,16 +484,6 @@ in {
 
   services.clipcat = {
     enable = true;
-    package = pkgs.clipcat.override (old: {
-      version = "0.21.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "xrelkd";
-        repo = "clipcat";
-        rev = "cc8dec91c61c1273b34fc00110e7fb76782e4449";
-        sha256 = "sha256-OmSOtelh+tEbUIwvdYO/t+qpbaLnqCpj6i7WqmxSWmA=";
-      };
-      cargoHash = "";
-    });
     enableSystemdUnit = true;
     menuSettings = {
       finder = "rofi";

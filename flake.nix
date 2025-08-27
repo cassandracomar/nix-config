@@ -37,6 +37,7 @@
   inputs.pinnacle.url = "github:cassandracomar/pinnacle/feat/nix-packages-and-modules";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.ironbar.url = "github:jakestanger/ironbar";
+  inputs.clipcat.url = "github:xrelkd/clipcat";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -55,6 +56,7 @@
     pinnacle,
     pinnacle-config,
     ironbar,
+    clipcat,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -93,6 +95,7 @@
         nix-direnv = nix-direnv.packages.${system}.default;
         vcluster =
           import ./packages/vcluster.nix {inherit (final) fetchurl stdenv;};
+        clipcat = clipcat.packages.${system}.clipcat;
       })
       (
         final: prev:
