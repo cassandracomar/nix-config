@@ -92,8 +92,8 @@ in {
       defaultCursor = "left_ptr";
     };
     name = "Vanilla-DMZ";
-    # package = pkgs.adwaita-icon-theme;
-    # size = 24;
+    package = pkgs.vanilla-dmz;
+    size = 32;
   };
   gtk = {
     enable = true;
