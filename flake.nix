@@ -72,11 +72,11 @@
     overlays = [
       (final: prev: {
         wayland = prev.wayland.overrideAttrs (old: rec {
-          version = "1.23.0";
+          version = "1.23.1";
           src = pkgs.fetchurl {
             url =
               "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
-            hash = "sha256-BbPhV00+Z2JrWXT4YvNrW0J8fO65Zcs2pObC00LkWrI=";
+            hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
           };
         });
       })
