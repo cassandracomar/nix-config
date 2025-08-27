@@ -471,6 +471,7 @@ in {
       bind
       rofi-pass-wayland
       go # oh-my-posh demands this, sigh
+      xwayland
     ];
 
   services.dunst = {
