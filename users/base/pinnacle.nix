@@ -480,6 +480,7 @@ in {
       wl-restart
       wl-screenrec
       wl-color-picker
+      wlprop
     ];
 
   services.clipcat = {
