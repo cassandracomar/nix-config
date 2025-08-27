@@ -1,4 +1,8 @@
-{pkgs, pinnacle-config, ...}: let
+{
+  pkgs,
+  pinnacle-config,
+  ...
+}: let
   rofi-themes-collection = pkgs.fetchFromGitHub {
     owner = "newmanls";
     repo = "rofi-themes-collection";
@@ -79,17 +83,20 @@ in {
     };
   };
 
-  home.sessionVariables = {
-    XCURSOR_THEME = "Adwaita";
-    XCURSOR_SIZE = "24";
+  home.pointerCursor = {
+    enable = true;
+    dotIcons.enable = true;
+    gtk.enable = true;
+    x11 = {
+      enable = true;
+      defaultCursor = "left_ptr";
+    };
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
   };
-
   gtk = {
     enable = true;
-    cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
     iconTheme = {
       name = "Qogir-Dark";
       package = pkgs.qogir-icon-theme;
@@ -358,13 +365,15 @@ in {
           };
         }
       ];
-      "center" = [{
-        "type" = "focused";
-        "show_icon" = true;
-        "show_title" = true;
-        "icon_size" = 24;
-        "truncate" = "end";
-      }];
+      "center" = [
+        {
+          "type" = "focused";
+          "show_icon" = true;
+          "show_title" = true;
+          "icon_size" = 24;
+          "truncate" = "end";
+        }
+      ];
       "end" = [
         {
           "type" = "sys_info";
@@ -447,20 +456,22 @@ in {
     '';
   };
 
-  home.packages = with pkgs; rofi-packages ++ [
-    pinnacle
-    adwaita-icon-theme
-    qogir-theme
-    gnome-calculator
-    lxappearance
-    vlc
-    pinta
-    usbutils
-    gptfdisk
-    bind
-    rofi-pass-wayland
-    go # oh-my-posh demands this, sigh
-  ];
+  home.packages = with pkgs;
+    rofi-packages
+    ++ [
+      pinnacle
+      adwaita-icon-theme
+      qogir-theme
+      gnome-calculator
+      lxappearance
+      vlc
+      pinta
+      usbutils
+      gptfdisk
+      bind
+      rofi-pass-wayland
+      go # oh-my-posh demands this, sigh
+    ];
 
   services.dunst = {
     enable = true;
