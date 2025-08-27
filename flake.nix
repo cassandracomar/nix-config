@@ -87,6 +87,9 @@
         gjs = prev.gjs.overrideAttrs (old: {
           doCheck = false;
         });
+        django = prev.django.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
       mozilla.overlay
       emacs.overlay
