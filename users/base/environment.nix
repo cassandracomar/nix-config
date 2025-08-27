@@ -19,7 +19,7 @@
     enable = true;
     createDirectories = true;
     pictures = "${config.home.homeDirectory}/images";
-    downloads = "${config.home.homeDirectory}/downloads";
+    download = "${config.home.homeDirectory}/downloads";
     videos = "${config.home.homeDirectory}/videos";
     documents = "${config.home.homeDirectory}/docs";
     desktop = "${config.home.homeDirectory}/desktop";
