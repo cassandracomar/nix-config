@@ -23,7 +23,7 @@
     };
   };
   environment.sessionVariables = {
-    DRI_PRIME = "1";
+    # DRI_PRIME = "1";
   };
 
   # set up the display manager

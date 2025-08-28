@@ -7,7 +7,7 @@
     EDITOR = "${pkgs.emacs-pgtk}/bin/emacsclient -t";
     VISUAL = "${pkgs.emacs-pgtk}/bin/emacsclient -c";
     ALTERNATE = "vim";
-    DRI_PRIME = "1";
+    # DRI_PRIME = "1";
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
     ROFI_SCREENSHOT_DIR = "${config.xdg.userDirs.pictures}/screenshots";
   };
