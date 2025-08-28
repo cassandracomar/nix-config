@@ -33,7 +33,7 @@
 (deflisten workspaces_listen "./modules/pinnacle-workspaces.lua")
 
 (defwidget workspaces [monitor]
-  (literal :content workspaces_listen[monitor]))
+  (literal :content "${workspaces_listen[monitor]}"))
 
 ; ━━━━ window-title ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (deflisten window-title :initial '{"HDMI-A-1": ""}' "./modules/pinnacle-window-title.lua")

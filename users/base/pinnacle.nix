@@ -1,6 +1,7 @@
 {
   pkgs,
   pinnacle-config,
+  config,
   ...
 }: let
   rofi-themes-collection = pkgs.fetchFromGitHub {
@@ -153,8 +154,21 @@ in {
 
   programs.eww = {
     enable = true;
-    package = pkgs.eww-wayland;
+    package = pkgs.eww;
     configDir = ./eww;
+  };
+
+  systemd.user.services.eww = {
+    Unit = {
+      Description = "Eww Bar Daemon";
+      PartOf = [config.wayland.systemd.target "tray.target"];
+      After = [config.wayland.systemd.target];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+      ExecReload = "${pkgs.eww}/bin/eww reload";
+    };
   };
 
   home.packages = with pkgs;
