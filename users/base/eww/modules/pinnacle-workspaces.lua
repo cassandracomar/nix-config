@@ -4,10 +4,16 @@ function get_workspaces(output)
   local tags = output:tags()
   local workspaces = {}
   for i, tag in ipairs(tags) do
+    local num_windows = 0
+    for _, _ in ipairs(tag:windows()) do
+      num_windows = num_windows + 1
+    end
+
     workspaces[i] = {
       name = tag:name(),
       is_active = tag:active(),
       is_focused = output:focused(),
+      is_empty = num_windows == 0,
     }
   end
 
@@ -23,18 +29,14 @@ function workspaces_by_output()
     for i, tag in ipairs(workspaces) do
       ws = tag.name
       class = ''
-      if(tag.is_focused)
+      if(tag.is_active)
       then
-        class = '"focused"'
-        if(tag.is_active)
-        then
-          class = '"urgent"'
-        end
-      elseif(tag.is_active)
+        class = '"urgent"'
+      elseif (tag.is_empty)
       then
-        class = '"occupied"'
-      else
         class = '"empty"'
+      else
+        class = '"occupied"'
       end
 
       switch_to = ' :onclick "./modules/switch-to.sh ' .. ws .. '"'
