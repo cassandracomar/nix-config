@@ -75,4 +75,5 @@ in {
     extraPackages = [pkgs.amdvlk];
     extraPackages32 = [pkgs.driversi686Linux.amdvlk];
   };
+  environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
 }
