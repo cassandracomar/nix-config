@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # returns 0: muted, 1: not running, 2: running
 
 get_mic_status() {

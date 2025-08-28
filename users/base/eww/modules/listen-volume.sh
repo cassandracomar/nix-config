@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 get_sink_volume_and_mute_status() {
     sink_id=$1
