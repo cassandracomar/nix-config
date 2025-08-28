@@ -1,5 +1,3 @@
-#!/usr/bin/env -S pinnacle client
-
 local cjson = require("cjson")
 
 function get_workspaces(output)

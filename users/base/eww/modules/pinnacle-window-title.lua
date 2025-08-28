@@ -1,5 +1,3 @@
-#!/usr/bin/env pinnacle client
-
 function get_active_window_title(win)
   print(win:title())
 end
