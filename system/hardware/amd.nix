@@ -43,7 +43,7 @@ in {
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
   boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest;
 
-  environment.systemPackages = [CoreFreq];
+  environment.systemPackages = [CoreFreq pkgs.lact];
   services.dbus.packages = [CoreFreq];
   systemd.services.corefreqd = {
     description = "CoreFreq Daemon";
@@ -76,4 +76,8 @@ in {
     extraPackages32 = [pkgs.driversi686Linux.amdvlk];
   };
   environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
+
+  services.lact = {
+    enable = true;
+  };
 }
