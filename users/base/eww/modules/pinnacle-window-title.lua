@@ -2,6 +2,8 @@ function get_active_window_title(win)
   if (win ~= nil)
   then
     print(win:title())
+  else
+    print("")
   end
 end
 
