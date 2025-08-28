@@ -169,7 +169,6 @@ in {
       ExecStart = "${pkgs.eww}/bin/eww daemon";
       ExecReload = "${pkgs.eww}/bin/eww reload";
       ExecRestart = "${pkgs.eww}/bin/eww daemon --restart";
-      ExecStop = "${pkgs.eww}/bin/eww kill";
     };
     Install.WantedBy = [
       config.wayland.systemd.target
