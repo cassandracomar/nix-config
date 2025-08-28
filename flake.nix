@@ -1,6 +1,6 @@
 {
   # pkg registries
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/7379d27cddb838c205119f9eede242810cd299a7";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
@@ -70,29 +70,29 @@
     system = "x86_64-linux";
 
     overlays = [
-      (final: prev: {
-        wayland = prev.wayland.overrideAttrs (old: rec {
-          version = "1.23.1";
-          src = pkgs.fetchurl {
-            url =
-              "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
-            hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
-          };
-        });
-      })
+      # (final: prev: {
+      #   wayland = prev.wayland.overrideAttrs (old: rec {
+      #     version = "1.23.1";
+      #     src = pkgs.fetchurl {
+      #       url =
+      #         "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
+      #       hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
+      #     };
+      #   });
+      # })
       (final: prev: rec {
-        gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
-          doCheck = false;
-        });
-        gjs = prev.gjs.overrideAttrs (old: {
-          doCheck = false;
-        });
-        django = prev.django.overrideAttrs (old: {
-          doCheck = false;
-        });
-        ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
-          doCheck = false;
-        });
+        # gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
+        #   doCheck = false;
+        # });
+        # gjs = prev.gjs.overrideAttrs (old: {
+        #   doCheck = false;
+        # });
+        # django = prev.django.overrideAttrs (old: {
+        #   doCheck = false;
+        # });
+        # ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
+        #   doCheck = false;
+        # });
         python3 = prev.python3.override {
           packageOverrides = pyfinal: pyprev: {
             pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
@@ -209,21 +209,22 @@
         ];
       };
     };
-    home-modules = pkgs.lib.foldl
-          (m: user:
-            m
-            ++ [
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.sharedModules = [pinnacle.hmModules.default ironbar.homeManagerModules.default];
-                home-manager.users = pkgs.lib.listToAttrs (map
-                  user-module
-                  [user]);
-                home-manager.extraSpecialArgs = {inherit pkgs user nixpkgs system pinnacle-config;};
-              }
-            ]) []
-          homeUsers;
+    home-modules =
+      pkgs.lib.foldl
+      (m: user:
+        m
+        ++ [
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [pinnacle.hmModules.default ironbar.homeManagerModules.default];
+            home-manager.users = pkgs.lib.listToAttrs (map
+              user-module
+              [user]);
+            home-manager.extraSpecialArgs = {inherit pkgs user system pinnacle-config;};
+          }
+        ]) []
+      homeUsers;
 
     iso = nixpkgs.lib.nixosSystem {
       inherit system pkgs;
@@ -273,7 +274,9 @@
                 home-manager.nixosModules.home-manager
               ]
               ++ home-modules;
-            specialArgs = {inherit system nixpkgs inputs;};
+            specialArgs = {
+              inherit system nixpkgs inputs;
+            };
           };
         })
         hosts)
@@ -348,7 +351,7 @@
             value = home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
               modules = [(user-module user).value];
-              extraSpecialArgs = {inherit host nixpkgs system user;};
+              extraSpecialArgs = {inherit host system user;};
             };
           })
           homeUsers))
