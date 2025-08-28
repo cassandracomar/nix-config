@@ -1,10 +1,6 @@
 function get_active_window_title(win)
-  if (win ~= nil)
-  then
-    print(win:title())
-  else
-    print("")
-  end
+  title = win ~= nil and win:title() or ""
+  print(title)
 end
 
 get_active_window_title(Window.get_focused())
