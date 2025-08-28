@@ -4,7 +4,7 @@ end
 
 get_active_window_title(Window.get_focused())
 
-pinnacle.setup(function()
+Pinnacle.setup(function()
   Window.connect_signal({
     focused = function(win)
       get_active_window_title(win)
