@@ -55,25 +55,25 @@ window {
   }
 }
 
-.workspace {
+.workspaces {
   .name {
     background-color: $base;
   }
 }
 
-.workspace.empty {
+.workspaces.empty {
   color: $rosewater;
 }
 
-.workspace.focused {
+.workspaces.focused {
   color: $peach;
 }
 
-.workspace.occupied {
+.workspaces.occupied {
   color: $maroon;
 }
 
-.workspace.urgent {
+.workspaces.urgent {
   color: $red;
 }
 
