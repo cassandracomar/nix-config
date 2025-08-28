@@ -38,7 +38,7 @@ function workspaces_by_output()
       end
 
       switch_to = ' :onclick "./modules/switch-to.sh ' .. ws .. '"'
-      button = '(button :class ' .. class .. switch_to  .. ' "' .. ws .. '"' .. ')'
+      button = '(button :class ' .. class .. switch_to  .. ' (label :justify "center" :xalign 0.5 :text "' .. ws .. '")' .. ')'
       tag_map[outp.name] = tag_map[outp.name] .. ' (box :orientation "h" :space-evenly true ' .. button .. ')'
     end
     tag_map[outp.name] = tag_map[outp.name] .. ")"
