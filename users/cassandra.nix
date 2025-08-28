@@ -95,7 +95,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin.override {
+    package = pkgs.firefox.override {
       extraPolicies = {DisableAppUpdate = true;};
     };
     profiles = {
