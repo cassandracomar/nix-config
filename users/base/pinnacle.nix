@@ -158,38 +158,6 @@ in {
     configDir = ./eww;
   };
 
-  systemd.user.services.eww = {
-    Unit = {
-      Description = "Eww Bar Daemon";
-      PartOf = [config.wayland.systemd.target "tray.target"];
-      After = [config.wayland.systemd.target];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.eww}/bin/eww daemon --logs";
-      ExecReload = "${pkgs.eww}/bin/eww reload";
-      ExecRestart = "${pkgs.eww}/bin/eww daemon --restart";
-    };
-    Install.WantedBy = [
-      config.wayland.systemd.target
-      "tray.target"
-      "pinnacle-session.target"
-    ];
-  };
-
-  systemd.user.services.eww-bar = {
-    Unit = {
-      Description = "Eww Bar";
-      PartOf = [config.wayland.systemd.target "tray.target"];
-      After = ["eww.service"];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.eww}/bin/eww open win1";
-    };
-    Install.WantedBy = ["eww.service"];
-  };
-
   home.packages = with pkgs;
     rofi-packages
     ++ [
