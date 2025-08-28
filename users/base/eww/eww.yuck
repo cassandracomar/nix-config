@@ -22,10 +22,10 @@
          :halign "end"
          :spacing 20
          :space-evenly false
-      (tray)
       (mic)
       (speakers)
       (date)
+      (tray)
       (time)
       (label :text ""))))
 
