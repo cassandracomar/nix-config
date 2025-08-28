@@ -25,7 +25,7 @@ function workspaces_by_output()
 
   for _, outp in ipairs(Output.get_all()) do
     local workspaces = get_workspaces(outp)
-    tag_map[outp.name] = ' (box :orientation "h" :class "workspaces"'
+    tag_map[outp.name] = ' (box :orientation "h" :class "workspaces" :space-evenly true'
     for i, tag in ipairs(workspaces) do
       ws = tag.name
       class = ''
@@ -41,7 +41,7 @@ function workspaces_by_output()
 
       switch_to = ' :onclick "./modules/switch-to.sh ' .. ws .. '"'
       button = '(button :class ' .. class .. switch_to  .. ' (label :justify "center" :xalign 0.5 :text " ' .. ws .. ' ")' .. ')'
-      tag_map[outp.name] = tag_map[outp.name] .. ' (box :orientation "h" :space-evenly true ' .. button .. ')'
+      tag_map[outp.name] = tag_map[outp.name] .. button
     end
     tag_map[outp.name] = tag_map[outp.name] .. ")"
   end
