@@ -14,7 +14,6 @@
     rofi-games
     rofi-emoji-wayland
     rofi-file-browser
-    rofi-nerdy
     rofi-power-menu
   ];
   rofi-packages = with pkgs; [
