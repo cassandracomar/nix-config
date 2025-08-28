@@ -1,5 +1,5 @@
 (defwindow win1 :monitor 0
-               :geometry (geometry :x 0 :y 0 :height "32px" :width "99.99%" :anchor "center top")
+               :geometry (geometry :x 0 :y 0 :height "32px" :width "99.90%" :anchor "center top")
                :stacking "fg"
                :exclusive true
                :focusable false
