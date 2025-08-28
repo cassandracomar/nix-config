@@ -61,20 +61,28 @@ window {
   }
 }
 
-.empty.workspaces {
-  color: $rosewater;
+.workspaces.empty {
+  .name {
+    color: $rosewater;
+  }
 }
 
 .workspaces.focused {
-  color: $peach;
+  .name {
+    color: $peach;
+  }
 }
 
 .workspaces.occupied {
-  color: $maroon;
+  .name {
+    color: $maroon;
+  }
 }
 
 .workspaces.urgent {
-  color: $red;
+  .name {
+    color: $red;
+  }
 }
 
 .battery, .time, .date .tray .speakers .mic .wifi .title {
