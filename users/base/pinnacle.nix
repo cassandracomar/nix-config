@@ -165,9 +165,11 @@ in {
       After = [config.wayland.systemd.target];
     };
     Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+      Type = "forking";
+      ExecStart = "${pkgs.eww}/bin/eww daemon";
       ExecReload = "${pkgs.eww}/bin/eww reload";
+      ExecRestart = "${pkgs.eww}/bin/eww daemon --restart";
+      ExecStop = "${pkgs.eww}/bin/eww kill";
     };
     Install.WantedBy = [
       config.wayland.systemd.target
