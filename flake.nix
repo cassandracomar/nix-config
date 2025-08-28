@@ -1,6 +1,6 @@
 {
   # pkg registries
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/7379d27cddb838c205119f9eede242810cd299a7";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
@@ -70,29 +70,39 @@
     system = "x86_64-linux";
 
     overlays = [
-      # (final: prev: {
-      #   wayland = prev.wayland.overrideAttrs (old: rec {
-      #     version = "1.23.1";
-      #     src = pkgs.fetchurl {
-      #       url =
-      #         "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
-      #       hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
-      #     };
-      #   });
-      # })
+      (final: prev: {
+        wayland = prev.wayland.overrideAttrs (old: rec {
+          version = "1.23.1";
+          src = pkgs.fetchurl {
+            url =
+              "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
+            hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
+          };
+        });
+        mesa = prev.mesa.overrideAttrs (old: rec {
+          version = "25.1.7";
+          src = prev.fetchFromGitLab {
+            domain = "gitlab.freedesktop.org";
+            owner = "mesa";
+            repo = "mesa";
+            rev = "mesa-${version}";
+            hash = "sha256-dseMHUifLsszSAGCaZwgOwhj0/yfbRlBVVHQz25NdjY=";
+          };
+        });
+      })
       (final: prev: rec {
-        # gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
-        #   doCheck = false;
-        # });
-        # gjs = prev.gjs.overrideAttrs (old: {
-        #   doCheck = false;
-        # });
-        # django = prev.django.overrideAttrs (old: {
-        #   doCheck = false;
-        # });
-        # ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
-        #   doCheck = false;
-        # });
+        gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
+          doCheck = false;
+        });
+        gjs = prev.gjs.overrideAttrs (old: {
+          doCheck = false;
+        });
+        django = prev.django.overrideAttrs (old: {
+          doCheck = false;
+        });
+        ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
+          doCheck = false;
+        });
         python3 = prev.python3.override {
           packageOverrides = pyfinal: pyprev: {
             pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
