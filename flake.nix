@@ -90,7 +90,7 @@
           patches = [
             (prev.fetchurl {
               url = "https://raw.githubusercontent.com/NixOS/nixpkgs/c80aab436cb1a614b485cac6e21741a33a24c2f3/pkgs/development/libraries/mesa/opencl.patch";
-              sha256 = prev.lib.fakeSha256;
+              sha256 = "sha256-tnoXM/uTfFY5G9pZo9/HJ9Vln4U8z2/uEnQCNQ5HKTM=";
             })
           ];
         });
