@@ -1,0 +1,104 @@
+(defwindow win1 :monitor 0
+               :geometry (geometry :x 0 :y 0 :height "32px" :width "100%" :anchor "center top")
+               :stacking "fg"
+               :exclusive true
+               :focusable false
+  (bar0 :monitor "HDMI-A-1"))
+
+; ━━━━ bars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget bar0 [monitor]
+  (centerbox :orientation "h"
+    (box :class "right"
+         :halign "start"
+         :spacing 20
+      (workspaces :monitor monitor))
+    (box :class "right"
+         :halign "center"
+         :spacing 20
+         :space-evenly false
+      (window-title :monitor monitor))
+    (box :class "right"
+         :halign "end"
+         :spacing 20
+         :space-evenly false
+      (tray)
+      (mic)
+      (speakers)
+      (time)
+      (date))))
+
+; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten workspaces_listen "./modules/pinnacle-workspaces.lua")
+
+(defwidget workspaces [monitor]
+  (literal :content workspaces_listen[monitor]))
+
+; ━━━━ window-title ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(deflisten window-title :initial '{"HDMI-A-1": ""}' "./modules/pinnacle-window-title.lua")
+(defwidget window-title [monitor]
+  (box
+    (label :class "title" :text "${window-title[monitor] ?: ''}")))
+
+; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget tray []
+  (box :class "tray"
+    (systray)))
+
+; ━━━━ mic ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten mic :initial 0  "./modules/listen-mic.sh")
+
+(defwidget mic []
+  (box :class "mic"
+    :space-evenly false
+    (button :class "mute-toggle"
+            :onclick "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+      ; 0: muted, 1: unmuted, 2: running
+      (label :class "icon single-icon ${mic == 2 ? 'running' : mic == 0 ? 'muted' : ''}"
+             :text "${mic == 0 ? '󰍭' :  '󰍬' }"))))
+
+; ━━━━ volume ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten speakers :initial '{ "volume": 0, "muted": "false" }' "./modules/listen-volume.sh")
+
+(defwidget speakers []
+  (tooltip
+    (label :class "tooltip" :text "${ speakers.volume }%")
+    (box :class "speakers"
+      :space-evenly false
+      (button :class "icon ${ speakers.volume > 100 ? 'over' : '' } ${ speakers.muted ? 'muted' : '' }"
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        (label :text "${ speakers.muted ? '󰖁' :
+                        speakers.volume > 70 ? '󰕾' :
+                        speakers.volume > 35 ? '󰖀' :
+                        '󰕿' }"))
+
+    (scale
+      :class "${ speakers.volume > 100 ? 'over' : '' }"
+      :min 0
+      :max 100
+      :value "${speakers.volume}"
+      :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"))))
+
+; ━━━━ date ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll date_poll :interval "1m" "date +%d/%m")
+
+(defwidget date []
+  (box :class "date"
+    :space-evenly false
+    (label :class "icon" :text "󰃶")
+    (label :text date_poll)))
+
+; ━━━━ time ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll time_poll :interval "1s" "date +%H:%M")
+
+(defwidget time []
+  (box :class "time"
+    :space-evenly false
+    (label :class "icon" :text "󰥔")
+    (label :text time_poll)))

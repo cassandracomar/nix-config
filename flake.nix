@@ -35,11 +35,11 @@
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
   inputs.pinnacle.url = "github:cassandracomar/pinnacle/feat/nix-packages-and-modules";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
-  inputs.ironbar.url = "github:jakestanger/ironbar";
   inputs.clipcat.url = "github:xrelkd/clipcat";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
+  inputs.eww.url = "github:elkowar/eww";
 
   outputs = {
     nixpkgs,
@@ -54,8 +54,8 @@
     poetry2nix,
     pinnacle,
     pinnacle-config,
-    ironbar,
     clipcat,
+    eww,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -116,6 +116,7 @@
       rust.overlays.default
       nur.overlays.default
       pinnacle.overlays.default
+      eww.overlays.default
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
@@ -224,7 +225,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [pinnacle.hmModules.default ironbar.homeManagerModules.default];
+            home-manager.sharedModules = [pinnacle.hmModules.default];
             home-manager.users = pkgs.lib.listToAttrs (map
               user-module
               [user]);
