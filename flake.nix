@@ -88,6 +88,10 @@
             rev = "mesa-${version}";
             hash = "sha256-dseMHUifLsszSAGCaZwgOwhj0/yfbRlBVVHQz25NdjY=";
           };
+          patches = [prev.fetchurl {
+            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/c80aab436cb1a614b485cac6e21741a33a24c2f3/pkgs/development/libraries/mesa/opencl.patch";
+            sha256 = prev.lib.fakeSha256;
+          }];
         });
       })
       (final: prev: rec {
