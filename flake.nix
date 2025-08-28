@@ -68,6 +68,14 @@
       }
     ];
     system = "x86_64-linux";
+    nixpkgs' = nixpkgs.legacyPackages.${system}.applyPatches {
+      name = "revert-mesa-upgrade";
+      src = nixpkgs;
+      patches = [(nixpkgs.legacyPackages.${system}.fetchpatch {
+        url = "https://github.com/cassandracomar/nixpkgs/commit/6456e83bf1348a862554c0aa3efba95c83fc50f4.patch";
+        sha256 = pkgs.lib.fakeSha256;
+      })];
+    };
 
     overlays = [
       (final: prev: {
@@ -77,22 +85,6 @@
             url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
             hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
           };
-        });
-        mesa = prev.mesa.overrideAttrs (old: rec {
-          version = "25.1.7";
-          src = prev.fetchFromGitLab {
-            domain = "gitlab.freedesktop.org";
-            owner = "mesa";
-            repo = "mesa";
-            rev = "mesa-${version}";
-            hash = "sha256-dseMHUifLsszSAGCaZwgOwhj0/yfbRlBVVHQz25NdjY=";
-          };
-          patches = [
-            (prev.fetchurl {
-              url = "https://raw.githubusercontent.com/NixOS/nixpkgs/c80aab436cb1a614b485cac6e21741a33a24c2f3/pkgs/development/libraries/mesa/opencl.patch";
-              sha256 = "sha256-tnoXM/uTfFY5G9pZo9/HJ9Vln4U8z2/uEnQCNQ5HKTM=";
-            })
-          ];
         });
       })
       (final: prev: rec {
@@ -162,7 +154,7 @@
       (import "${openconnect}/overlay.nix")
     ];
 
-    pkgs = import nixpkgs {
+    pkgs = import nixpkgs' {
       inherit system overlays;
       config.allowUnfree = true;
 
@@ -280,7 +272,7 @@
       (map
         (host: {
           name = host;
-          value = nixpkgs.lib.nixosSystem {
+          value = nixpkgs'.lib.nixosSystem {
             inherit pkgs;
             modules =
               base-modules
@@ -290,7 +282,8 @@
               ]
               ++ home-modules;
             specialArgs = {
-              inherit system nixpkgs inputs;
+              inherit system inputs;
+              nixpkgs = nixpkgs';
             };
           };
         })
