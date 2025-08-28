@@ -26,7 +26,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs-igc-pgtk;
+    package = pkgs.emacs-igc-pgtk.override { srcRepo = null; };
     extraPackages = epkgs:
       with pkgs; [
         lilypond
