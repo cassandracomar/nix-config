@@ -1,4 +1,4 @@
-#!/usr/bin/env pinnacle client
+#!/usr/bin/env -S pinnacle client
 
 local cjson = require("cjson")
 
