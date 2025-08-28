@@ -73,7 +73,7 @@
       src = nixpkgs;
       patches = [(nixpkgs.legacyPackages.${system}.fetchpatch {
         url = "https://github.com/cassandracomar/nixpkgs/commit/6456e83bf1348a862554c0aa3efba95c83fc50f4.patch";
-        sha256 = pkgs.lib.fakeSha256;
+        sha256 = nixpkgs.legacyPackages.${system}.lib.fakeSha256;
       })];
     };
 
