@@ -165,8 +165,8 @@ in {
       After = [config.wayland.systemd.target];
     };
     Service = {
-      Type = "forking";
-      ExecStart = "${pkgs.eww}/bin/eww daemon";
+      Type = "simple";
+      ExecStart = "${pkgs.eww}/bin/eww daemon --logs";
       ExecReload = "${pkgs.eww}/bin/eww reload";
       ExecRestart = "${pkgs.eww}/bin/eww daemon --restart";
     };
@@ -175,6 +175,19 @@ in {
       "tray.target"
       "pinnacle-session.target"
     ];
+  };
+
+  systemd.user.services.eww-bar = {
+    Unit = {
+      Description = "Eww Bar";
+      PartOf = [config.wayland.systemd.target "tray.target"];
+      After = ["eww.service"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.eww}/bin/eww open win1";
+    };
+    Install.WantedBy = ["eww.service"];
   };
 
   home.packages = with pkgs;
