@@ -70,4 +70,9 @@ in {
     enable = true;
     settings.Settings.epp_state_for_AC = "balance_power";
   };
+
+  hardware.graphics = {
+    extraPackages = [pkgs.amdvlk];
+    extraPackages32 = [pkgs.driversi686Linux.amdvlk];
+  };
 }
