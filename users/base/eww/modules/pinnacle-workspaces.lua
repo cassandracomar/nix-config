@@ -31,16 +31,16 @@ function workspaces_by_output()
       class = ''
       if(tag.is_active)
       then
-        class = '"urgent"'
+        class = '"workspaces urgent"'
       elseif (tag.is_empty)
       then
-        class = '"empty"'
+        class = '"workspaces empty"'
       else
-        class = '"occupied"'
+        class = '"workspaces occupied"'
       end
 
       switch_to = ' :onclick "./modules/switch-to.sh ' .. ws .. '"'
-      button = '(button :class ' .. class .. switch_to  .. ' (label :justify "center" :xalign 0.5 :text " ' .. ws .. ' ")' .. ')'
+      button = '(button :class ' .. class .. switch_to  .. ' (label :class "name" :justify "center" :xalign 0.5 :text " ' .. ws .. ' ")' .. ')'
       tag_map[outp.name] = tag_map[outp.name] .. button
     end
     tag_map[outp.name] = tag_map[outp.name] .. ")"
