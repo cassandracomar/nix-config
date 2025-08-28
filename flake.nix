@@ -74,8 +74,7 @@
         wayland = prev.wayland.overrideAttrs (old: rec {
           version = "1.23.1";
           src = pkgs.fetchurl {
-            url =
-              "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
+            url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
             hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
           };
         });
@@ -88,10 +87,12 @@
             rev = "mesa-${version}";
             hash = "sha256-dseMHUifLsszSAGCaZwgOwhj0/yfbRlBVVHQz25NdjY=";
           };
-          patches = [prev.fetchurl {
-            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/c80aab436cb1a614b485cac6e21741a33a24c2f3/pkgs/development/libraries/mesa/opencl.patch";
-            sha256 = prev.lib.fakeSha256;
-          }];
+          patches = [
+            (prev.fetchurl {
+              url = "https://raw.githubusercontent.com/NixOS/nixpkgs/c80aab436cb1a614b485cac6e21741a33a24c2f3/pkgs/development/libraries/mesa/opencl.patch";
+              sha256 = prev.lib.fakeSha256;
+            })
+          ];
         });
       })
       (final: prev: rec {
