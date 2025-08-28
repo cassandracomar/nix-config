@@ -55,6 +55,22 @@ Pinnacle.setup(function ()
   Window.connect_signal({
     focused = function(win)
       print(cjson.encode(workspaces_by_output()))
+    end,
+    pointer_enter = function(win)
+      print(cjson.encode(workspaces_by_output()))
+    end,
+    pointer_leave = function(win)
+      print(cjson.encode(workspaces_by_output()))
     end
+  })
+  Tag.connect_signal({
+      active = function(tag, active)
+        print(cjson.encode(workspaces_by_output()))
+      end
+  })
+  Output.connect_signal({
+      focused = function(outp)
+        print(cjson.encode(workspace_by_output()))
+      end
   })
 end)
