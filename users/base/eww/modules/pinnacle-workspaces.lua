@@ -7,7 +7,7 @@ function get_workspaces(output)
     workspaces[i] = {
       name = tag:name(),
       is_active = tag:active(),
-      is_focused = outp:focused(),
+      is_focused = output:focused(),
     }
   end
 
@@ -15,10 +15,9 @@ function get_workspaces(output)
 end
 
 function workspaces_by_output()
-  local outputs = Output.get_all()
   local tag_map = {}
 
-  for i, outp in ipairs(outputs) do
+  for _, outp in ipairs(Output.get_all()) do
     local workspaces = get_workspaces(outp)
     tag_map[outp.name] = ' (box :orientation "h" :class "workspaces"'
     for i, tag in ipairs(workspaces) do
@@ -50,7 +49,7 @@ end
 
 print(cjson.encode(workspaces_by_output()))
 
-pinnacle.setup(function ()
+Pinnacle.setup(function ()
   Window.connect_signal({
     focused = function(win)
       print(cjson.encode(workspaces_by_output()))
