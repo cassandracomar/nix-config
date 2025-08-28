@@ -62,27 +62,19 @@ window {
 }
 
 .workspace.empty {
-  .name {
-    color: $peach;
-  }
+  color: $peach;
 }
 
 .workspace.focused {
-  .name {
-    color: $peach;
-  }
+  color: $peach;
 }
 
 .workspace.occupied {
-  .name {
-    color: $maroon;
-  }
+  color: $maroon;
 }
 
 .workspace.urgent {
-  .name {
-    color: $red;
-  }
+  color: $red;
 }
 
 .battery, .time, .date .tray .speakers .mic .wifi .title {
