@@ -272,7 +272,7 @@
       (map
         (host: {
           name = host;
-          value = nixpkgs'.lib.nixosSystem {
+          value = nixpkgs.lib.nixosSystem {
             inherit pkgs;
             modules =
               base-modules
