@@ -709,11 +709,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1756255861,
-        "narHash": "sha256-yGqmg0K0N96nD73GMMa3IjV1vjE+h0FGlGKw+oBgJ2U=",
+        "lastModified": 1756388842,
+        "narHash": "sha256-tkIBGqPvRrbn6a07Fv7FI8Ai9ywk6DHczR8im4ZMDkI=",
         "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "63b2d187d0cf1d73baa2614fcb996e3fd74539e3",
+        "rev": "c0c1a1e40fb3be7b9b05dc816dfafea122b9dc8e",
         "type": "github"
       },
       "original": {
