@@ -169,6 +169,11 @@ in {
       ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
       ExecReload = "${pkgs.eww}/bin/eww reload";
     };
+    Install.WantedBy = [
+      config.wayland.systemd.target
+      "tray.target"
+      "pinnacle-session.target"
+    ];
   };
 
   home.packages = with pkgs;
