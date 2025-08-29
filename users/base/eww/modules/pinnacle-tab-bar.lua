@@ -34,7 +34,7 @@ function windows_for_all_outputs()
   local windows = {}
   for _, output in ipairs(outputs) do
     windows[output.name] = windows_for_output(output)
-    io.stderr:write(output.name .. ": " .. windows[output.name])
+    io.stderr:write(output.name .. ": " .. windows[output.name]:title())
   end
 
   return windows
