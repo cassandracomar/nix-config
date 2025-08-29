@@ -15,8 +15,6 @@
       (workspaces :monitor monitor))
     (centerbox :class "right"
          :halign "center"
-         :spacing 20
-         :space-evenly true
       (window-title)
       (tab-bar :monitor monitor)
       (label "test"))
