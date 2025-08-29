@@ -13,10 +13,11 @@
          :halign "start"
          :spacing 20
       (workspaces :monitor monitor))
-    (centerbox :class "right"
+    (box :class "right"
          :halign "center"
+         :spacing 20
+         :space-evenly true
       (window-title)
-      (tab-bar :monitor monitor)
       (label "test"))
     (box :class "right"
          :halign "end"
