@@ -6,12 +6,10 @@ local cjson = require("cjson")
 function flatten(t)
   local res = {}
   for _, v in pairs(t) do
-    table.insert(res, v)
-    io.stderr:write(cjson.encode(v) .. "\n")
+    for _, e in ipairs(v) do
+      res[#res + 1] = e
+    end
   end
-
-  io.stderr:write("type: " .. type(t) .. "\n")
-  io.stderr:write("res: " .. cjson.encode(res) .. "\n")
 
   return res
 end
