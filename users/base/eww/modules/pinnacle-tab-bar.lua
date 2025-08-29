@@ -6,8 +6,8 @@ local cjson = require("cjson")
 function flatten(table)
   local count = 0
   local res = {}
-  for k, v in ipairs(table) do
-    for i, e in ipairs(v) do
+  for _, v in ipairs(table) do
+    for _, e in ipairs(v) do
       res[count] = e
       count = count + 1
     end
@@ -23,6 +23,7 @@ function windows_for_output(output)
 
   for _, tag in ipairs(tags) do
     windows[tag:name()] = tag:windows()
+    io.stderr:write(tag:name() .. ": " .. cjson.encode(windows[tag:name()]) .. "\n")
   end
 
   return flatten(windows)
@@ -34,7 +35,6 @@ function windows_for_all_outputs()
   local windows = {}
   for _, output in ipairs(outputs) do
     windows[output.name] = windows_for_output(output)
-    io.stderr:write(output.name .. ": " .. cjson.encode(windows[output.name]) .. "\n")
   end
 
   return windows
