@@ -7,7 +7,7 @@ function flatten(t)
   local res = {}
   for _, v in pairs(t) do
     for _, e in pairs(v) do
-      res[#res + 1] = e
+      table.insert(res, e)
     end
   end
 
@@ -42,7 +42,7 @@ function make_tab(window)
   local class = ':class "tab"'
   local switch_to = ':onclick "./modules/focus-window.sh ' .. window.id .. '" '
   local label = '(label :class "title" :show-truncated true "' .. window:title() .. '")'
-  local button = '(button ' .. class .. switch_to .. label ')'
+  local button = '(button ' .. class .. switch_to .. label .. ')'
 
   return button
 end
@@ -63,7 +63,7 @@ end
 function get_tab_bars()
   local windows_by_output = windows_for_all_outputs()
   local tab_bars = {}
-  for outp, windows in ipairs(windows_by_output) do
+  for outp, windows in pairs(windows_by_output) do
     tab_bars[outp] = make_tab_bar(windows)
   end
 
