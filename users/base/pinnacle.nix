@@ -191,8 +191,8 @@ in {
 
   services.dunst = {
     enable = true;
-    iconTheme.name = "Qogir-Dark";
-    iconTheme.package = pkgs.qogir-icon-theme;
+    # iconTheme.name = "Qogir-Dark";
+    # iconTheme.package = pkgs.qogir-icon-theme;
     settings = {
       global = {
         follow = "keyboard";
