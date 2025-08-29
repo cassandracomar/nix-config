@@ -44,7 +44,7 @@
     (label :class "title" :text "${window_title_listen ?: ''}")))
 
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(deflisten tab_bar_listen :initial '{"HDMI-A-1": []}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
+(deflisten tab_bar_listen :initial `{"HDMI-A-1": []}` "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
   (box :orientation "h" :space-evenly true
     (for window in tab_bar_listen["${monitor}"]
