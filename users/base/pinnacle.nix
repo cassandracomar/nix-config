@@ -199,7 +199,7 @@ in {
 
         # geometry
         width = "(100, 300)";
-        height = 300;
+        height = "(0, 300)";
         origin = "top-right";
         offset = "(5, 15)";
         scale = 0;
@@ -232,7 +232,7 @@ in {
         font = "Iosevka Nerd Font 16";
         line_height = 0;
         markup = "full";
-        format = "<b>%s</b>\n%b";
+        format = "<b>%s</b>\\n%b";
         alignment = "left";
         vertical_alignment = "center";
         show_age_threshold = -1;
@@ -261,7 +261,6 @@ in {
         foreground = "#ffffff";
         highlight = "#722ae6, #e4b5cb";
         timeout = 20;
-        default_icon = "dialog-information";
       };
 
       urgency_normal = {
