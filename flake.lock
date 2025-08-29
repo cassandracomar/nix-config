@@ -44,13 +44,13 @@
       "locked": {
         "lastModified": 1756485131,
         "narHash": "sha256-jWIKZYrzry8QWR/eRh3I/DUC4kd1SNZqs2bWmz4M/yM=",
-        "owner": "nix-community",
+        "owner": "cassandracomar",
         "repo": "emacs-overlay",
         "rev": "70f78565e9055b2f39249b7630073d59f8663efb",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "cassandracomar",
         "repo": "emacs-overlay",
         "type": "github"
       }
