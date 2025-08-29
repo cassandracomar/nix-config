@@ -64,7 +64,13 @@ function get_tab_bars()
   local windows_by_output = windows_for_all_outputs()
   local tab_bars = {}
   for outp, windows in pairs(windows_by_output) do
-    tab_bars[outp] = make_tab_bar(windows)
+    tab_bars[outp] = {}
+    for _, window in ipairs(windows) do
+      local w = {}
+      w["title"] = window:title()
+      w["id"] = window:id()
+      table.insert(tab_bars[outp], w)
+    end
   end
 
   return cjson.encode(tab_bars)

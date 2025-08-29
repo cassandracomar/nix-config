@@ -44,9 +44,12 @@
     (label :class "title" :text "${window_title_listen ?: ''}")))
 
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(deflisten tab_bar_listen :initial '{"HDMI-A-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
+(deflisten tab_bar_listen :initial '{"HDMI-A-1": []}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
-  (literal :content "${tab_bar_listen[monitor]}"))
+  (box :orientation "h" :space-evenly true
+    (for window in tab_bar_listen[monitor]
+      (button :class "tab" :onclick "./modules/focus-window.sh ${window.id}"
+        (label :class "title" "${window.title}")))))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
