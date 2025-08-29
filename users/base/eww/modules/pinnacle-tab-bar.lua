@@ -9,6 +9,8 @@ function flatten(table)
     table.insert(res, v)
   end
 
+  io.stderr:write("res: " .. cjson.encode(res) .. "\n")
+
   return res
 end
 
