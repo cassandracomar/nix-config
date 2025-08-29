@@ -256,6 +256,14 @@ in {
         per_monitor_dpi = true;
       };
 
+      urgency_low = {
+        background = "#222222";
+        foreground = "#ffffff";
+        highlight = "#722ae6, #e4b5cb";
+        timeout = 20;
+        default_icon = "dialog-information";
+      };
+
       urgency_normal = {
         background = "#222222";
         foreground = "#ffffff";
