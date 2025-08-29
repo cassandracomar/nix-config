@@ -13,7 +13,7 @@
          :halign "start"
          :spacing 20
       (workspaces :monitor monitor))
-    (box :class "right"
+    (centerbox :class "right"
          :halign "center"
          :spacing 20
          :space-evenly true
