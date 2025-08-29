@@ -3,15 +3,19 @@ local cjson = require("cjson")
 -- turn a table whos entries are themselves tables/arrays into a flat array
 -- i.e. [[1,2,3], [4, 5, 6]] -> [1, 2, 3, 4, 5, 6]
 -- this only removes a single level of nesting
-function flatten(table)
-  local res = {}
-  for _, v in ipairs(table) do
-    for _, e in ipairs(v) do
-      table.insert(res, e)
+function flatten(v)
+    local res = {}
+    local function flatten(v)
+        if type(v) ~= "table" then
+            table.insert(res, v)
+            return
+        end
+        for _, v in ipairs(v) do
+            flatten(v)
+        end
     end
-  end
-
-  return res
+    flatten(v)
+    return res
 end
 
 -- get the windows on all active tags on the output
