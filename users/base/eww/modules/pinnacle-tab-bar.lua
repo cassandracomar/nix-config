@@ -5,12 +5,12 @@ local cjson = require("cjson")
 -- this only removes a single level of nesting
 function flatten(t)
   local res = {}
-  for _, v in ipairs(t) do
+  for _, v in pairs(t) do
     table.insert(res, v)
     io.stderr:write(cjson.encode(v) .. "\n")
   end
 
-  io.stderr:write("type: " .. type(t))
+  io.stderr:write("type: " .. type(t) .. "\n")
   io.stderr:write("res: " .. cjson.encode(res) .. "\n")
 
   return res
