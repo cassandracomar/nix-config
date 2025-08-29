@@ -15,6 +15,9 @@ Pinnacle.setup(function()
     end,
     pointer_leave = function(win)
       get_active_window_title(win)
+    end,
+    title_changed = function(win)
+      get_active_window_title(win)
     end
   })
   Tag.connect_signal({
