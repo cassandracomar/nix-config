@@ -46,7 +46,7 @@
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (deflisten tab-bar :initial '{"HDMI-A-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
-  (literal :content "${tab-bar[monitor] ?: ''}"))
+  (literal :content "${tab-bar[monitor]}"))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
