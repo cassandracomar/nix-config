@@ -44,9 +44,9 @@
     (label :class "title" :text "${window-title ?: ''}")))
 
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(deflisten tab-bar :initial '{"HDMI-A-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
+(deflisten tab_bar_listen :initial '{"HDMI-A-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
-  (literal :content "${tab-bar[monitor]}"))
+  (literal :content "${tab_bar_listen[monitor]}"))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
