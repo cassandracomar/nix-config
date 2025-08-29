@@ -7,6 +7,7 @@ function flatten(t)
   local res = {}
   for _, v in ipairs(t) do
     table.insert(res, v)
+    io.stderr:write(cjson.encode(v) .. "\n")
   end
 
   io.stderr:write("type: " .. type(t))
