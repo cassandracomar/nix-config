@@ -6,7 +6,7 @@ local cjson = require("cjson")
 function flatten(t)
   local res = {}
   for _, v in pairs(t) do
-    for _, e in ipairs(v) do
+    for _, e in pairs(v) do
       res[#res + 1] = e
     end
   end
