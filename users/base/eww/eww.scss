@@ -90,9 +90,11 @@ window {
   font-size: 16px;
 }
 
-.title {
-  color: $red;
-  font-size: 16px;
+.window-title {
+  .title {
+    color: $red;
+    font-size: 16px;
+  }
 }
 
 .tab-bar {
@@ -100,7 +102,7 @@ window {
     border-radius: 2px;
     border-color: $yellow;
 
-    .name {
+    .title {
       color: $peach;
       font-size: 16px;
     }
