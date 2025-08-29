@@ -24,8 +24,8 @@
          :space-evenly false
       (mic)
       (speakers)
-      (date)
       (tray)
+      (date)
       (time)
       (label :text ""))))
 
