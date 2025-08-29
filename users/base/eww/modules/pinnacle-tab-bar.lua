@@ -10,6 +10,7 @@ function flatten(table)
     for _, e in ipairs(v) do
       res[count] = e
       count = count + 1
+      io.stderr:write(count .. ": " .. cjson.encode(res[count]) .. "\n")
     end
   end
 
@@ -23,7 +24,6 @@ function windows_for_output(output)
 
   for _, tag in ipairs(tags) do
     windows[tag:name()] = tag:windows()
-    io.stderr:write(tag:name() .. ": " .. cjson.encode(windows[tag:name()]) .. "\n")
   end
 
   return flatten(windows)
