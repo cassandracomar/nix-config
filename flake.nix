@@ -36,6 +36,7 @@
   inputs.pinnacle.url = "github:cassandracomar/pinnacle/feat/nix-packages-and-modules";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.clipcat.url = "github:xrelkd/clipcat";
+  inputs.eww.url = "github:elkowar/eww";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -54,6 +55,7 @@
     pinnacle,
     pinnacle-config,
     clipcat,
+    eww,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -114,6 +116,7 @@
       rust.overlays.default
       nur.overlays.default
       pinnacle.overlays.default
+      eww.overlays.default
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
