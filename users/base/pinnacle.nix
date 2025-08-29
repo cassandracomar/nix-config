@@ -191,7 +191,7 @@ in {
 
   services.dunst = {
     enable = true;
-    iconTheme.name = "Qogir";
+    iconTheme.name = "Qogir-Dark";
     iconTheme.package = pkgs.qogir-icon-theme;
     settings = {
       global = {
