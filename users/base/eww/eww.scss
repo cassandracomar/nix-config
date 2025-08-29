@@ -37,7 +37,6 @@ window {
 
 .workspaces {
   margin: 3px;
-  padding: 5px;
 }
 
 .icon {
@@ -58,6 +57,7 @@ window {
 .workspaces {
   .name {
     background-color: $base;
+    padding: 5px;
   }
 }
 
