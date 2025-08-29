@@ -12,7 +12,7 @@
 
   # overlays
   inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
-  inputs.emacs.url = "github:cassandracomar/emacs-overlay";
+  inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
   inputs.emacs-src.flake = false;
   inputs.rust.url = "github:oxalica/rust-overlay";
