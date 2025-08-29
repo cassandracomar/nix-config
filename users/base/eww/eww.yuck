@@ -14,10 +14,9 @@
          :spacing 20
       (workspaces :monitor monitor))
     (box :class "right"
-         :halign "start"
+         :halign "center"
          :spacing 20
          :space-evenly true
-      (window-title)
       (tab-bar :monitor monitor))
     (box :class "right"
          :halign "end"
