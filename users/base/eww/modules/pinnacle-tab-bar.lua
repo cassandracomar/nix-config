@@ -68,7 +68,7 @@ function get_tab_bars()
     for _, window in ipairs(windows) do
       local w = {}
       w["title"] = window:title()
-      w["id"] = window:id()
+      w["id"] = window.id
       table.insert(tab_bars[outp], w)
     end
   end
