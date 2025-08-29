@@ -42,7 +42,10 @@
         epkgs.treesit-grammars.with-all-grammars
       ];
   };
-  services.emacs.enable = true;
+  services.emacs = {
+    enable = true;
+    startWithUserSession = "graphical";
+  };
   home.file.".tree-sitter".source = pkgs.runCommand "grammars" {} ''
     mkdir -p $out/bin
     ${lib.concatStringsSep "\n"
