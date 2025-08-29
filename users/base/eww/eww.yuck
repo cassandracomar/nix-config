@@ -18,7 +18,8 @@
          :spacing 20
          :space-evenly true
       (window-title)
-      (tab-bar :monitor monitor))
+      (tab-bar :monitor monitor)
+      "test")
     (box :class "right"
          :halign "end"
          :spacing 20
