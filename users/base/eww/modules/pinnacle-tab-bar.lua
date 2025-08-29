@@ -3,9 +3,9 @@ local cjson = require("cjson")
 -- turn a table whos entries are themselves tables/arrays into a flat array
 -- i.e. [[1,2,3], [4, 5, 6]] -> [1, 2, 3, 4, 5, 6]
 -- this only removes a single level of nesting
-function flatten(table)
+function flatten(t)
   local res = {}
-  for _, v in ipairs(table) do
+  for _, v in ipairs(t) do
     table.insert(res, v)
   end
 
