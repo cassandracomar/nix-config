@@ -18,7 +18,7 @@ end
 
 -- get the windows on all active tags on the output
 function windows_for_output(output)
-  local tags = output.active_tags()
+  local tags = output:active_tags()
   local windows = {}
 
   for _, tag in ipairs(tags) do
