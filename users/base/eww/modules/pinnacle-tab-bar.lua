@@ -39,7 +39,7 @@ end
 
 -- turn the window into a tab bar button
 function make_tab(window)
-  local class = ':class "tab"'
+  local class = ':class "tab" '
   local switch_to = ':onclick "./modules/focus-window.sh ' .. window.id .. '" '
   local label = '(label :class "title" :show-truncated true "' .. window:title() .. '")'
   local button = '(button ' .. class .. switch_to .. label .. ')'
