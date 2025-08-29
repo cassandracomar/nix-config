@@ -53,9 +53,7 @@ end
 function make_tab_bar(windows)
   local tab_bar = '(box :class "tab-bar" :orientation "h" :space-evenly true'
   for i, window in ipairs(windows) do
-    if (not window:focused()) then
-      tab_bar = tab_bar .. ' ' .. make_tab(window)
-    end
+    tab_bar = tab_bar .. ' ' .. make_tab(window)
   end
 
   return tab_bar .. ')'
