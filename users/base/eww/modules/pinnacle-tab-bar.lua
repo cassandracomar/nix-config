@@ -4,13 +4,10 @@ local cjson = require("cjson")
 -- i.e. [[1,2,3], [4, 5, 6]] -> [1, 2, 3, 4, 5, 6]
 -- this only removes a single level of nesting
 function flatten(table)
-  local count = 0
   local res = {}
   for _, v in ipairs(table) do
     for _, e in ipairs(v) do
-      res[count] = e
-      count = count + 1
-      io.stderr:write(count .. ": " .. cjson.encode(res[count]) .. "\n")
+      table.insert(res, e)
     end
   end
 
