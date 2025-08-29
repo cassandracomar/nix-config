@@ -101,11 +101,13 @@ window {
   .tab {
     border-radius: 2px;
     border-color: $yellow;
+  }
+}
 
-    .title {
-      color: $peach;
-      font-size: 16px;
-    }
+.tab-bar {
+  .title {
+    color: $peach;
+    font-size: 16px;
   }
 }
 
