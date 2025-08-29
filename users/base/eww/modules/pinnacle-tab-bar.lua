@@ -34,6 +34,7 @@ function windows_for_all_outputs()
   local windows = {}
   for _, output in ipairs(outputs) do
     windows[output.name] = windows_for_output(output)
+    io.stderr:write(output.name .. ": " .. windows[output.name])
   end
 
   return windows
@@ -53,7 +54,9 @@ end
 function make_tab_bar(windows)
   local tab_bar = '(box :class "tab-bar" :orientation "h" :space-evenly true'
   for i, window in ipairs(windows) do
-    tab_bar = tab_bar .. ' ' .. make_tab(window)
+    if (not window:focused()) then
+      tab_bar = tab_bar .. ' ' .. make_tab(window)
+    end
   end
 
   return tab_bar .. ')'
