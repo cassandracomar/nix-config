@@ -85,9 +85,26 @@ window {
   }
 }
 
-.battery, .time, .date .tray .speakers .mic .wifi .title {
+.battery, .time, .date .tray .speakers .mic .wifi {
   color: $text;
   font-size: 16px;
+}
+
+.title {
+  color: $red;
+  font-size: 16px;
+}
+
+.tab-bar {
+  .tab {
+    border-radius: 2px;
+    border-color: $yellow;
+
+    .name {
+      color: $peach;
+      font-size: 16px;
+    }
+  }
 }
 
 .battery {
@@ -119,8 +136,7 @@ window {
 
 .tray image {
    -gtk-icon-transform: scale(0.5);
-  }
-
+}
 
 scale trough {
   background-color: $crust;
