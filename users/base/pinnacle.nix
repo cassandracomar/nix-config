@@ -135,14 +135,13 @@ in {
       }
       config.font = wezterm.font('Iosevka Nerd Font')
       config.font_size = 16
-      config.window_decorations  = "INTEGRATED_BUTTONS|RESIZE"
+      config.window_decorations  = "RESIZE"
       config.use_fancy_tab_bar = false
       config.show_new_tab_button_in_tab_bar = false
       config.default_cursor_style = 'SteadyBar'
-      config.enable_tab_bar = true
-      config.hide_tab_bar_if_only_one_tab = true
+      config.enable_tab_bar = false
       config.integrated_title_buttons = {}
-      config.integrated_title_button_style = 'Gnome'
+      config.tiling_desktop_environments = {'Wayland'}
       config.window_padding = {
         left = 0,
         right = 0,
