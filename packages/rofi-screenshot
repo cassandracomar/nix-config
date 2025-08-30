@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/etc/profiles/per-user/cassandra/bin/bash
 
 # CONFIG
 SAVE_DIR=$(xdg-user-dir PICTURES)/screenshots
@@ -38,6 +38,7 @@ filepath="$SAVE_DIR/$filename.png"
 if [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_copy_clipboard" ]; then
     grim -s 1 -g "$(slurp)" | wl-copy
     notify-send -i camera-photo "$lang_copied"
+    env
 elif [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_save_png" ]; then
     grim -s 1 -g "$(slurp)" "$filepath"
     notify-send -i camera-photo "$lang_saved" "$filepath"
