@@ -147,6 +147,7 @@
         CoreFreq = prev.callPackage ./packages/corefreq.nix {
           kernelPackage = prev.linux_xanmod_latest;
         };
+        rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
       })
 
       (import "${openconnect}/overlay.nix")

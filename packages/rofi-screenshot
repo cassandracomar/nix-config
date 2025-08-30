@@ -1,0 +1,74 @@
+#!/usr/bin/env sh
+
+# CONFIG
+SAVE_DIR=$(xdg-user-dir PICTURES)/screenshots
+# END CONFIG
+
+# LANGUAGE STRINGS
+lang_scr_whole="📷 Screenshot of whole screen (all monitors)"
+lang_scr_fragment="📷 Screenshot of selected region"
+lang_scr_output="📷 Screenshot of current monitor"
+
+lang_save_png="🖼️ Save as png"
+lang_save_jpg="🖼️ Save as jpg"
+lang_copy_clipboard="🖼️ Copy to clipboard"
+
+rofi_save_method=$(
+    printf "%s\n%s\n%s\n" "$lang_save_png" "$lang_save_jpg" "$lang_copy_clipboard" |
+    rofi -dmenu -p "screenshot" -lines 3
+) || exit 3
+
+lang_copied="Screenshot copied to clipboard"
+lang_saved="Screenshot saved to file"
+# END OF LANGUAGE STRINGS
+
+rofi_scr_type=$(
+    printf "%s\n%s\n%s\n"  "$lang_scr_fragment" "$lang_scr_whole" "$lang_scr_output"|
+    rofi -dmenu -p "screenshot" -lines 2
+) || exit 4
+
+# check if the file should be saved as jpg or png, set "$filepath" accordingly
+filename="screenshot-$(date '+%Y-%m-%d-%H-%M-%S')"
+filepath="$SAVE_DIR/$filename.png"
+
+# handle each option, calling the relevant grimshot command
+# Area screenshot
+# save: grimshot save area "$filepath"
+# copy: grimshot copy area
+if [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_copy_clipboard" ]; then
+    realpath "$(which wl-copy)"
+    realpath "$(which grim)"
+    grim -s 1 -g "$(slurp)" | wl-copy -pr -v
+    notify-send -i camera-photo "$lang_copied"
+elif [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_save_png" ]; then
+    grim -s 1 -g "$(slurp)" "$filepath"
+    notify-send -i camera-photo "$lang_saved" "$filepath"
+elif [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_save_jpg" ]; then
+    grim -s 1 -g "$(slurp)" -t jpeg "$filepath"
+    notify-send -i camera-photo "$lang_saved" "$filepath"
+
+# Fullscreen screenshot
+# save: grimshot save screen "$filepath"
+# copy: grimshot copy screen
+elif [ "$rofi_scr_type" = "$lang_scr_whole" ] && [ "$rofi_save_method" = "$lang_copy_clipboard" ]; then
+    grim -s 1 - | wl-copy
+    notify-send -i camera-photo "$lang_copied"
+elif [ "$rofi_scr_type" = "$lang_scr_whole" ] && [ "$rofi_save_method" = "$lang_save_png" ]; then
+    grim -s 1 "$filepath"
+    notify-send -i camera-photo "$lang_saved" "$filepath"
+elif [ "$rofi_scr_type" = "$lang_scr_whole" ] && [ "$rofi_save_method" = "$lang_save_jpg" ]; then
+    grim -s 1 -t jpeg "$filepath"
+    notify-send -i camera-photo "$lang_saved" "$filepath"
+# Current output screenshot
+# save: grimshot save output "$filepath"
+# copy: grimshot copy output
+elif [ "$rofi_scr_type" = "$lang_scr_output" ] && [ "$rofi_save_method" = "$lang_copy_clipboard" ]; then
+    grim -s 1 -o "$(slurp -o)" - | wl-copy
+    notify-send -i camera-photo "$lang_copied"
+elif [ "$rofi_scr_type" = "$lang_scr_output" ] && [ "$rofi_save_method" = "$lang_save_png" ]; then
+    grim -s 1 -o "$(slurp -o)" "$filepath"
+    notify-send -i camera-photo "$lang_saved" "$filepath"
+elif [ "$rofi_scr_type" = "$lang_scr_output" ] && [ "$rofi_save_method" = "$lang_save_jpg" ]; then
+    grim -s 1 -o "$(slurp -o)" -t jpeg "$filepath"
+    notify-send -i camera-photo "$lang_saved" "$filepath"
+fi

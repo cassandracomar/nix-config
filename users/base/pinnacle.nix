@@ -21,7 +21,7 @@
     (clerk.override {rofi = rofi-wayland;})
     rofi-rbw-wayland
     (rofi-pulse-select.override {rofi-unwrapped = rofi-wayland-unwrapped;})
-    (rofi-screenshot.override {rofi = rofi-wayland;})
+    rofi-screenshot
     (rofi-systemd.override {rofi = rofi-wayland;})
     (rofi-vpn.override {rofi-unwrapped = rofi-wayland-unwrapped;})
   ];
