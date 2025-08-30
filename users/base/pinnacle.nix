@@ -1,7 +1,6 @@
 {
   pkgs,
   pinnacle-config,
-  inputs,
   ...
 }: let
   rofi-themes-collection = pkgs.fetchFromGitHub {
@@ -124,9 +123,6 @@ in {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    package = pkgs.wezterm.overrideAttrs (old: {
-      src = inputs.wezterm;
-    });
     extraConfig = ''
       local config = {}
 
@@ -138,7 +134,7 @@ in {
       }
       config.font = wezterm.font('Iosevka Nerd Font')
       config.font_size = 16
-      config.window_decorations  = "RESIZE"
+      config.window_decorations  = "NONE"
       config.use_fancy_tab_bar = false
       config.show_new_tab_button_in_tab_bar = false
       config.default_cursor_style = 'SteadyBar'

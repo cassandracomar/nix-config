@@ -677,8 +677,7 @@
         "pinnacle-config": "pinnacle-config",
         "poetry2nix": "poetry2nix",
         "rust": "rust",
-        "sops-nix": "sops-nix",
-        "wezterm": "wezterm"
+        "sops-nix": "sops-nix"
       }
     },
     "rust": {
@@ -884,22 +883,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "wezterm": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1753901871,
-        "narHash": "sha256-l/ZFg1KW506CvkQKstNkEHnfY7p9aX5q4L6rFmxiKbo=",
-        "owner": "wezterm",
-        "repo": "wezterm",
-        "rev": "6a493f88fab06a792308e0c704790390fd3c6232",
-        "type": "github"
-      },
-      "original": {
-        "owner": "wezterm",
-        "repo": "wezterm",
         "type": "github"
       }
     }

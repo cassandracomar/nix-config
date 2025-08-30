@@ -36,8 +36,6 @@
   inputs.pinnacle.url = "github:cassandracomar/pinnacle/feat/nix-packages-and-modules";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.clipcat.url = "github:xrelkd/clipcat";
-  inputs.wezterm.url = "github:wezterm/wezterm";
-  inputs.wezterm.flake = false;
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
