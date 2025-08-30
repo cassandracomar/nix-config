@@ -36,9 +36,7 @@ filepath="$SAVE_DIR/$filename.png"
 # save: grimshot save area "$filepath"
 # copy: grimshot copy area
 if [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_copy_clipboard" ]; then
-    realpath "$(which wl-copy)"
-    realpath "$(which grim)"
-    grim -s 1 -g "$(slurp)" | wl-copy -pr -v
+    grim -s 1 -g "$(slurp)" | wl-copy
     notify-send -i camera-photo "$lang_copied"
 elif [ "$rofi_scr_type" = "$lang_scr_fragment" ] && [ "$rofi_save_method" = "$lang_save_png" ]; then
     grim -s 1 -g "$(slurp)" "$filepath"
