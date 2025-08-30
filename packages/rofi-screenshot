@@ -1,4 +1,4 @@
-#!/etc/profiles/per-user/cassandra/bin/bash
+#!/etc/profiles/per-user/cassandra/bin/bash -l
 
 # CONFIG
 SAVE_DIR=$(xdg-user-dir PICTURES)/screenshots
