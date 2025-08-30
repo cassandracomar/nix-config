@@ -139,7 +139,8 @@ in {
       config.use_fancy_tab_bar = false
       config.show_new_tab_button_in_tab_bar = false
       config.default_cursor_style = 'SteadyBar'
-      config.enable_tab_bar = false
+      config.enable_tab_bar = true
+      config.hide_tab_bar_if_only_one_tab = true
       config.integrated_title_buttons = {}
       config.integrated_title_button_style = 'Gnome'
       config.window_padding = {
