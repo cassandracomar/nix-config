@@ -228,7 +228,7 @@
             home-manager.users = pkgs.lib.listToAttrs (map
               user-module
               [user]);
-            home-manager.extraSpecialArgs = {inherit pkgs user system pinnacle-config;};
+            home-manager.extraSpecialArgs = {inherit pkgs user system pinnacle-config inputs;};
           }
         ]) []
       homeUsers;
