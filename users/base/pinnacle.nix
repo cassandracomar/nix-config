@@ -1,7 +1,7 @@
 {
   pkgs,
   pinnacle-config,
-  config,
+  inputs,
   ...
 }: let
   rofi-themes-collection = pkgs.fetchFromGitHub {
@@ -124,6 +124,9 @@ in {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
+    package = pkgs.wezterm.overrideAttrs (old: {
+      src = inputs.wezterm;
+    });
     extraConfig = ''
       local config = {}
 
