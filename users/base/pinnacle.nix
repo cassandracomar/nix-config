@@ -141,6 +141,7 @@ in {
       config.default_cursor_style = 'SteadyBar'
       config.enable_tab_bar = false
       config.integrated_title_buttons = {}
+      config.integrated_title_button_style = 'Gnome'
       config.window_padding = {
         left = 0,
         right = 0,
