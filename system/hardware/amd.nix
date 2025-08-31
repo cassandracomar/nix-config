@@ -62,7 +62,7 @@ in {
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
     enable = true;
-    scheduler = "scx_bpfland";
+    scheduler = "scx_lavd";
   };
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
