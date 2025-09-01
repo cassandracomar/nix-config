@@ -43,7 +43,15 @@
   programs.dconf.enable = true;
   security.polkit.enable = true;
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+    ];
+  };
 
   security.pam.loginLimits = [
     {
