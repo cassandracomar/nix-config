@@ -4,8 +4,8 @@
     MOZ_ACCELERATED = "1";
     MOZ_WEBRENDER = "1";
     MOZ_ENABLE_WAYLAND = "1";
-    EDITOR = "${pkgs.emacs-igc-pgtk}/bin/emacsclient -t";
-    VISUAL = "${pkgs.emacs-igc-pgtk}/bin/emacsclient -c";
+    EDITOR = "${pkgs.emacs-pgtk}/bin/emacsclient -t";
+    VISUAL = "${pkgs.emacs-pgtk}/bin/emacsclient -c";
     ALTERNATE = "vim";
     DRI_PRIME = "1";
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
