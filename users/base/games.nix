@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    wineWowPackages.stable
+    wineWow64Packages.waylandFull
     winetricks
     lutris
     vulkan-tools
