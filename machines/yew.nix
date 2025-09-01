@@ -153,7 +153,12 @@
   ];
 
   services.openssh.enable = true;
-  services.transmission.enable = true;
+  services.transmission ={
+    enable = true;
+    openRPCPort = true;
+    openPeerPorts = true;
+    openFirewall = true;
+  };
 
   # sops.secrets."aws-credentials.env" = {
   #   format = "dotenv";
