@@ -70,10 +70,12 @@
     nixpkgs' = nixpkgs.legacyPackages.${system}.applyPatches {
       name = "revert-mesa-upgrade";
       src = nixpkgs;
-      patches = [(nixpkgs.legacyPackages.${system}.fetchpatch {
-        url = "https://github.com/cassandracomar/nixpkgs/commit/6456e83bf1348a862554c0aa3efba95c83fc50f4.patch";
-        sha256 = "sha256-xqhzn+czyHtk6D2cYoLAdvRNu6zzUyzIOzDIUdg/tPo=";
-      })];
+      patches = [
+        (nixpkgs.legacyPackages.${system}.fetchpatch {
+          url = "https://github.com/cassandracomar/nixpkgs/commit/6456e83bf1348a862554c0aa3efba95c83fc50f4.patch";
+          sha256 = "sha256-xqhzn+czyHtk6D2cYoLAdvRNu6zzUyzIOzDIUdg/tPo=";
+        })
+      ];
     };
 
     overlays = [
@@ -160,11 +162,11 @@
 
       config.packageOverides = pkgs:
         with pkgs; {
-          steam = steam.override {
-            nativeOnly = true;
-            extraLibraries = [pipewire.lib networkmanager];
-            extraPkgs = [pipewire.lib];
-          };
+          # steam = steam.override {
+          #   nativeOnly = true;
+          #   extraLibraries = [pipewire.lib networkmanager];
+          #   extraPkgs = [pipewire.lib];
+          # };
         };
     };
 
