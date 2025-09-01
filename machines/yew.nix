@@ -15,7 +15,7 @@
   '';
 
   console.font = "ter-v32b";
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "thunderbolt" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "thunderbolt" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.kernelParams = ["nr_hugepages=4096"];
@@ -42,21 +42,21 @@
     trim.enable = true;
   };
 
-  fileSystems."/" =
-    { device = "balsa/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "balsa/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "balsa/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "balsa/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/38A1-182D";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/38A1-182D";
+    fsType = "vfat";
+    options = ["fmask=0077" "dmask=0077"];
+  };
   hardware.enableRedistributableFirmware = true;
 
   swapDevices = [];
@@ -153,6 +153,7 @@
   ];
 
   services.openssh.enable = true;
+  services.transmission.enable = true;
 
   # sops.secrets."aws-credentials.env" = {
   #   format = "dotenv";
