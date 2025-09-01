@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
-    wineWow64Packages.waylandFull
+    wineWowPackages.waylandFull
     winetricks
     lutris
     vulkan-tools
