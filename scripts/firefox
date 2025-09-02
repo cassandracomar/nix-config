@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-DRI_PRIME=1 numactl -C 0-7,32-39 firefox-nightly
+numactl -C 0-7,32-39 firefox-nightly
