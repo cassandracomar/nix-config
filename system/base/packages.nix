@@ -70,6 +70,7 @@
 
     extraPackages = with pkgs; [
       gamescope
+      mangohud
     ];
 
     gamescopeSession = {
