@@ -50,6 +50,7 @@
       vulkan-loader
       vulkan-validation-layers
       vulkan-extension-layer
+      vulkan-hdr-layer-kwin6
     ];
   };
 
