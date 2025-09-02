@@ -79,10 +79,14 @@
         "-W 3840"
         "-h 2160"
         "-H 2160"
+        "-r 120"
+        "--adaptive-sync"
+        "--mangoapp"
         "--rt"
         "--prefer-vk-device 1002:73df"
         "--hdr-enabled"
         "--expose-wayland"
+        "-e"
       ];
       env = {
         "DXVK_HDR" = "1";
