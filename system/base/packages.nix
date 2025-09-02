@@ -95,6 +95,12 @@
     protontricks.enable = true;
   };
   programs.gamemode.enable = true;
+  programs.gamescope = {
+    enable = true;
+    package = pkgs.gamescope.overrideAttrs (_: {
+      NIX_CFLAGS_COMPILE = ["-fno-fast-math"];
+    });
+  };
 
   hardware.steam-hardware.enable = true;
   services.udev.extraRules = ''
