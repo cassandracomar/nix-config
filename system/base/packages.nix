@@ -86,6 +86,7 @@
         "--rt"
         "--prefer-vk-device 1002:73df"
         "--hdr-enabled"
+        "--hdr-itm-enable"
         "--expose-wayland"
         "-e"
       ];
