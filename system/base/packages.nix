@@ -60,8 +60,38 @@
   services.blueman.enable = true;
   programs.adb.enable = true;
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    package = pkgs.steam.override {
+      extraEnv = {
+        MANGOHUD = true;
+      };
+    };
+
+    extraPackages = with pkgs; [
+      gamescope
+    ];
+
+    gamescopeSession = {
+      enable = true;
+      args = [
+        "-w 3840"
+        "-W 3840"
+        "-h 2160"
+        "-H 2160"
+        "--rt"
+        "--prefer-vk-device 1002:73df"
+        "--hdr-enabled"
+        "--expose-wayland"
+      ];
+      env = {
+        "DXVK_HDR" = "1";
+      };
+    };
+    protontricks.enable = true;
+  };
   programs.gamemode.enable = true;
+
   hardware.steam-hardware.enable = true;
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="268b", MODE:="0666", GROUP="users"
