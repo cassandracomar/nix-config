@@ -67,51 +67,8 @@
       }
     ];
     system = "x86_64-linux";
-    nixpkgs' = nixpkgs.legacyPackages.${system}.applyPatches {
-      name = "revert-mesa-upgrade";
-      src = nixpkgs;
-      patches = [
-        (nixpkgs.legacyPackages.${system}.fetchpatch {
-          url = "https://github.com/cassandracomar/nixpkgs/commit/6456e83bf1348a862554c0aa3efba95c83fc50f4.patch";
-          sha256 = "sha256-xqhzn+czyHtk6D2cYoLAdvRNu6zzUyzIOzDIUdg/tPo=";
-        })
-      ];
-    };
 
     overlays = [
-      (final: prev: {
-        wayland = prev.wayland.overrideAttrs (old: rec {
-          version = "1.23.1";
-          src = pkgs.fetchurl {
-            url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
-            hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
-          };
-        });
-      })
-      (final: prev: rec {
-        gtkmm4 = prev.gtkmm4.overrideAttrs (old: {
-          doCheck = false;
-        });
-        gjs = prev.gjs.overrideAttrs (old: {
-          doCheck = false;
-        });
-        django = prev.django.overrideAttrs (old: {
-          doCheck = false;
-        });
-        ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (old: {
-          doCheck = false;
-        });
-        python3 = prev.python3.override {
-          packageOverrides = pyfinal: pyprev: {
-            pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
-              pytestCheckPhase = "true";
-              unittestCheckPhase = "true";
-              pythonImportsCheckPhase = "true";
-            });
-          };
-        };
-        python3Packages = python3.pkgs;
-      })
       mozilla.overlay
       emacs.overlay
       rust.overlays.default
@@ -156,7 +113,7 @@
       (import "${openconnect}/overlay.nix")
     ];
 
-    pkgs = import nixpkgs' {
+    pkgs = import nixpkgs {
       inherit system overlays;
       config.allowUnfree = true;
 
@@ -284,8 +241,7 @@
               ]
               ++ home-modules;
             specialArgs = {
-              inherit system inputs;
-              nixpkgs = nixpkgs';
+              inherit system inputs nixpkgs;
             };
           };
         })
