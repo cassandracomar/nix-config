@@ -96,7 +96,7 @@
     };
   };
 
-  programs.password-store.enable = true;
+  programs.password-store.enable = false;
   services.pass-secret-service.enable = false;
   services.yubikey-agent.enable = true;
 
