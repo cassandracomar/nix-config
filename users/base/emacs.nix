@@ -47,6 +47,7 @@ in {
       gnumake
       sqlite
       pinentry-emacs
+      emacs-lsp-booster
     ];
   };
   services.emacs = {
