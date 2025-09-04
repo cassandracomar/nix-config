@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  config,
   ...
 }: {
   home.packages = with pkgs; [
@@ -21,6 +22,8 @@
     # gcc
     # stdenv_mold
     gnumake
+    config.programs.doom-emacs.finalDoomPackage
+    config.programs.doom-emacs.finalEmacsPackage
   ];
 
   systemd.user.startServices = true;
@@ -29,7 +32,7 @@
     enable = true;
     doomDir = inputs.doom-config;
     emacs = pkgs.emacs-pgtk;
-    # experimentalFetchTree = true;
+    experimentalFetchTree = true;
     extraPackages = epkgs:
       with epkgs; [
         vterm
