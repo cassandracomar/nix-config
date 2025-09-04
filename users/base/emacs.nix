@@ -23,7 +23,6 @@
     # stdenv_mold
     gnumake
     config.programs.doom-emacs.finalDoomPackage
-    config.programs.doom-emacs.finalEmacsPackage
   ];
 
   systemd.user.startServices = true;
@@ -31,6 +30,7 @@
   programs.doom-emacs = {
     enable = true;
     doomDir = inputs.doom-config;
+    doomLocalDir = "${config.xdg.dataHome}/doom";
     emacs = pkgs.emacs-pgtk;
     experimentalFetchTree = true;
     extraPackages = epkgs:
@@ -41,13 +41,12 @@
         treesit-grammars.with-all-grammars
       ];
     extraBinPackages = with pkgs; [
-        nixd
-        gnumake
-        sqlite
-        pinentry-emacs
+      nixd
+      gnumake
+      sqlite
+      pinentry-emacs
     ];
     provideEmacs = true;
-    profileName = "";
   };
   # programs.emacs = {
   #   enable = true;

@@ -81,6 +81,7 @@
       rust.overlays.default
       nur.overlays.default
       pinnacle.overlays.default
+      nix-doom.overlays.default
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
@@ -115,6 +116,25 @@
           kernelPackage = prev.linux_xanmod_latest;
         };
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
+        doom-emacs-test = prev.emacsWithDoom {
+          doomDir = inputs.doom-config;
+          doomLocalDir = "/home/cassandra/.local/share/doom";
+          emacs = prev.emacs-pgtk;
+          experimentalFetchTree = true;
+          extraPackages = epkgs:
+            with epkgs; [
+              vterm
+              sqlite3
+              emacsql
+              treesit-grammars.with-all-grammars
+            ];
+          extraBinPackages = with prev; [
+            nixd
+            gnumake
+            sqlite
+            pinentry-emacs
+          ];
+        };
       })
 
       (import "${openconnect}/overlay.nix")
