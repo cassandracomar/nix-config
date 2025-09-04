@@ -42,9 +42,7 @@ in {
         emacsql
         treesit-grammars.with-all-grammars
         (lsp-mode.overrideAttrs (old: {
-          env = {
-            LSP_USE_PLISTS = "true";
-          };
+          LSP_USE_PLISTS = "true";
         }))
       ];
     extraBinPackages = with pkgs; [
