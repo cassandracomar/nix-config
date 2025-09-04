@@ -63,7 +63,7 @@ in {
     font = "Iosevka Nerd Font 32";
     location = "top";
     pass = {
-      enable = true;
+      enable = false;
       package = pkgs.rofi-pass-wayland;
     };
     terminal = "${pkgs.wezterm}/bin/wezterm";
