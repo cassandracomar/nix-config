@@ -39,7 +39,6 @@
   ];
 
   home.shell.enableShellIntegration = true;
-  home.sessionPath = [(config.xdg.configHome + "/emacs/bin")];
 
   programs.nushell = {
     enable = true;

@@ -22,6 +22,7 @@
     # gcc
     # stdenv_mold
     gnumake
+    config.programs.doom-emacs.finalDoomPackage
   ];
 
   systemd.user.startServices = true;
