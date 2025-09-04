@@ -48,6 +48,10 @@
     ];
     provideEmacs = true;
   };
+  programs.emacs = {
+    enable = true;
+    package = config.programs.doom-emacs.finalEmacsPackage;
+  };
   # programs.emacs = {
   #   enable = true;
   #   package = pkgs.emacs-pgtk;
