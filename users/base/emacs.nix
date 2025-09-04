@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -24,24 +25,44 @@
 
   systemd.user.startServices = true;
 
-  programs.emacs = {
+  programs.doom-emacs = {
     enable = true;
-    package = pkgs.emacs-pgtk;
+    doomDir = inputs.doom-config;
+    emacs = pkgs.emacs-pgtk;
+    # experimentalFetchTree = true;
     extraPackages = epkgs:
-      with pkgs; [
-        lilypond
-        timidity
-        sqlite
-        # gcc
-        gnumake
-        epkgs.vterm
-        epkgs.sqlite3
-        epkgs.emacsql
-        pinentry-emacs
-        nixd
-        epkgs.treesit-grammars.with-all-grammars
+      with epkgs; [
+        vterm
+        sqlite3
+        emacsql
+        treesit-grammars.with-all-grammars
       ];
+    extraBinPackages = with pkgs; [
+        nixd
+        gnumake
+        sqlite
+        pinentry-emacs
+    ];
+    provideEmacs = true;
   };
+  # programs.emacs = {
+  #   enable = true;
+  #   package = pkgs.emacs-pgtk;
+  #   extraPackages = epkgs:
+  #     with pkgs; [
+  #       lilypond
+  #       timidity
+  #       sqlite
+  #       # gcc
+  #       gnumake
+  #       epkgs.vterm
+  #       epkgs.sqlite3
+  #       epkgs.emacsql
+  #       pinentry-emacs
+  #       nixd
+  #       epkgs.treesit-grammars.with-all-grammars
+  #     ];
+  # };
   services.emacs = {
     enable = true;
     startWithUserSession = "graphical";

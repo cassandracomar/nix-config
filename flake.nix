@@ -37,6 +37,12 @@
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
   inputs.clipcat.url = "github:xrelkd/clipcat";
+
+  inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened";
+  inputs.nix-doom.inputs.nixpkgs.follows = "";
+  inputs.nix-doom.inputs.emacs-overlay.follows = "emacs";
+  inputs.doom-config.url = "github:cassandracomar/doom-config";
+  inputs.doom-config.flake = false;
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -55,6 +61,7 @@
     pinnacle,
     pinnacle-config,
     clipcat,
+    nix-doom,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -183,7 +190,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [pinnacle.hmModules.default];
+            home-manager.sharedModules = [pinnacle.hmModules.default nix-doom.homeModule];
             home-manager.users = pkgs.lib.listToAttrs (map
               user-module
               [user]);
