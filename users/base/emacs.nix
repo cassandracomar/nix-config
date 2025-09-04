@@ -4,10 +4,7 @@
   inputs,
   config,
   ...
-}: let
-  emacs' = pkgs.emacsWithDoom {
-  };
-in {
+}: {
   home.packages = with pkgs; [
     sqlite
     direnv
