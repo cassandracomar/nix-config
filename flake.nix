@@ -124,15 +124,6 @@
     pkgs = import nixpkgs {
       inherit system overlays;
       config.allowUnfree = true;
-
-      config.packageOverides = pkgs:
-        with pkgs; {
-          # steam = steam.override {
-          #   nativeOnly = true;
-          #   extraLibraries = [pipewire.lib networkmanager];
-          #   extraPkgs = [pipewire.lib];
-          # };
-        };
     };
 
     kernel = {pkgs, ...}: {
