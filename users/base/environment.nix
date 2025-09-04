@@ -4,8 +4,8 @@
     MOZ_ACCELERATED = "1";
     MOZ_WEBRENDER = "1";
     MOZ_ENABLE_WAYLAND = "1";
-    EDITOR = "${pkgs.emacs-pgtk}/bin/emacsclient -t";
-    VISUAL = "${pkgs.emacs-pgtk}/bin/emacsclient -c";
+    EDITOR = "${config.programs.doom-emacs.finalEmacsPackage}/bin/emacsclient -t";
+    VISUAL = "${config.programs.doom-emacs.finalEmacsPackage}/bin/emacsclient -c";
     ALTERNATE = "vim";
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
     ROFI_SCREENSHOT_DIR = "${config.xdg.userDirs.pictures}/screenshots";

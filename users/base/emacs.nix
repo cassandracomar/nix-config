@@ -6,23 +6,6 @@
   ...
 }: let
   emacs' = pkgs.emacsWithDoom {
-    doomDir = inputs.doom-config;
-    doomLocalDir = "${config.xdg.dataHome}/doom";
-    emacs = pkgs.emacs-pgtk;
-    experimentalFetchTree = true;
-    extraPackages = epkgs:
-      with epkgs; [
-        vterm
-        sqlite3
-        emacsql
-        treesit-grammars.with-all-grammars
-      ];
-    extraBinPackages = with pkgs; [
-      nixd
-      gnumake
-      sqlite
-      pinentry-emacs
-    ];
   };
 in {
   home.packages = with pkgs; [
@@ -46,13 +29,28 @@ in {
 
   systemd.user.startServices = true;
 
-  programs.emacs = {
+  programs.doom-emacs = {
     enable = true;
-    package = emacs';
+    emacs = pkgs.emacs-pgtk;
+    doomDir = inputs.doom-config;
+    doomLocalDir = "${config.xdg.dataHome}/doom";
+    experimentalFetchTree = true;
+    extraPackages = epkgs:
+      with epkgs; [
+        vterm
+        sqlite3
+        emacsql
+        treesit-grammars.with-all-grammars
+      ];
+    extraBinPackages = with pkgs; [
+      nixd
+      gnumake
+      sqlite
+      pinentry-emacs
+    ];
   };
   services.emacs = {
     enable = true;
-    package = emacs';
     startWithUserSession = "graphical";
   };
   home.file.".tree-sitter".source = pkgs.runCommand "grammars" {} ''
