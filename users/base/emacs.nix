@@ -44,6 +44,7 @@
         pinentry-emacs
     ];
     provideEmacs = true;
+    profileName = "";
   };
   # programs.emacs = {
   #   enable = true;
