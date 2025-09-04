@@ -41,6 +41,11 @@ in {
         sqlite3
         emacsql
         treesit-grammars.with-all-grammars
+        (lsp-mode.overrideAttrs (old: {
+          env = {
+            LSP_USE_PLISTS = "true";
+          };
+        }))
       ];
     extraBinPackages = with pkgs; [
       nixd

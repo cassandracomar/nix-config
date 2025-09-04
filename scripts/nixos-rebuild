@@ -8,10 +8,10 @@ emacs_checked_update() {
     before=$(realpath "$(which emacs)")
     $*
 
-    if [ "$(realpath $(which emacs))" != "$before" ]; then
-        echo "emacs changed. invoking native compilation rebuild."
-        ~/.config/emacs/bin/doom sync --rebuild --aot --gc -j 32
-    fi
+    # if [ "$(realpath $(which emacs))" != "$before" ]; then
+    #     echo "emacs changed. invoking native compilation rebuild."
+    #     ~/.config/emacs/bin/doom sync --rebuild --aot --gc -j 32
+    # fi
 }
 
 echo "invoking nixos-rebuild"
