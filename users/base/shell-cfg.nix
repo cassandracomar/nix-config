@@ -97,7 +97,7 @@
   };
 
   programs.password-store.enable = true;
-  services.pass-secret-service.enable = true;
+  services.pass-secret-service.enable = false;
   services.yubikey-agent.enable = true;
 
   programs.zsh = {
