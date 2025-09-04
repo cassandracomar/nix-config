@@ -42,7 +42,6 @@ in {
     # gcc
     # stdenv_mold
     gnumake
-    emacs'
   ];
 
   systemd.user.startServices = true;
