@@ -4,31 +4,8 @@
   inputs,
   config,
   ...
-}: {
-  home.packages = with pkgs; [
-    sqlite
-    direnv
-    p7zip
-    unrar
-    unzip
-    nixfmt
-    alejandra
-    nixd
-    ripgrep
-    pandoc
-    nodePackages.bash-language-server
-    yaml-language-server
-    nodePackages.dockerfile-language-server-nodejs
-    # gcc
-    # stdenv_mold
-    gnumake
-    config.programs.doom-emacs.finalDoomPackage
-  ];
-
-  systemd.user.startServices = true;
-
-  programs.doom-emacs = {
-    enable = true;
+}: let
+  emacs' = pkgs.emacsWithDoom {
     doomDir = inputs.doom-config;
     doomLocalDir = "${config.xdg.dataHome}/doom";
     emacs = pkgs.emacs-pgtk;
@@ -46,32 +23,37 @@
       sqlite
       pinentry-emacs
     ];
-    provideEmacs = true;
   };
+in {
+  home.packages = with pkgs; [
+    sqlite
+    direnv
+    p7zip
+    unrar
+    unzip
+    nixfmt
+    alejandra
+    nixd
+    ripgrep
+    pandoc
+    nodePackages.bash-language-server
+    yaml-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    # gcc
+    # stdenv_mold
+    gnumake
+    emacs'
+  ];
+
+  systemd.user.startServices = true;
+
   programs.emacs = {
     enable = true;
-    package = config.programs.doom-emacs.finalEmacsPackage;
+    package = emacs';
   };
-  # programs.emacs = {
-  #   enable = true;
-  #   package = pkgs.emacs-pgtk;
-  #   extraPackages = epkgs:
-  #     with pkgs; [
-  #       lilypond
-  #       timidity
-  #       sqlite
-  #       # gcc
-  #       gnumake
-  #       epkgs.vterm
-  #       epkgs.sqlite3
-  #       epkgs.emacsql
-  #       pinentry-emacs
-  #       nixd
-  #       epkgs.treesit-grammars.with-all-grammars
-  #     ];
-  # };
   services.emacs = {
     enable = true;
+    package = emacs';
     startWithUserSession = "graphical";
   };
   home.file.".tree-sitter".source = pkgs.runCommand "grammars" {} ''
