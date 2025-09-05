@@ -68,7 +68,7 @@ in {
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
   services.auto-epp = {
     enable = true;
-    settings.Settings.epp_state_for_AC = "balance_power";
+    settings.Settings.epp_state_for_AC = "performance";
   };
 
   services.lact = {
@@ -76,8 +76,8 @@ in {
   };
   hardware = {
     amdgpu.amdvlk = {
-        enable = true;
-        support32Bit.enable = true;
+      enable = true;
+      support32Bit.enable = true;
     };
   };
 }
