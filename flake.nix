@@ -127,12 +127,14 @@
     };
 
     kernel = {pkgs, ...}: {
-      boot.kernelPackages =
-        pkgs.lib.mkDefault (pkgs.linuxKernel.packagesFor
-          pkgs.linuxKernel.kernels.linux_xanmod_latest);
-      # bug fix for performance regression for zfs since 5.3
-      boot.kernelParams = ["init_on_alloc=0" "init_on_free=0"];
-      boot.zfs.package = pkgs.zfs_unstable;
+      boot = {
+        kernelPackages =
+          pkgs.lib.mkDefault (pkgs.linuxKernel.packagesFor
+            pkgs.linuxKernel.kernels.linux_xanmod_latest);
+        # bug fix for performance regression for zfs since 5.3
+        kernelParams = ["init_on_alloc=0" "init_on_free=0"];
+        zfs.package = pkgs.zfs_unstable;
+      };
     };
 
     # sops-config = {
