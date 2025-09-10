@@ -77,6 +77,7 @@ in {
   services.ollama = {
     acceleration = "rocm";
     rocmOverrideGfx = "10.3.0";
+    package = pkgs.ollama-rocm;
   };
   hardware.amdgpu.opencl.enable = true;
 }
