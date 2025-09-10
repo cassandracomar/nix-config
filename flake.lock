@@ -39,11 +39,11 @@
     "doom-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1757538600,
-        "narHash": "sha256-sJt5uFqdXrZ5xinVXg782zNCfJLEk3YuAwbzSrncDuA=",
+        "lastModified": 1757539931,
+        "narHash": "sha256-KuszG/e4pqxnzT9C9zj1sMzIJByrsG+am+MMhGq/DJU=",
         "owner": "cassandracomar",
         "repo": "doom-config",
-        "rev": "096ac5322471ea649c1d4a1ed28d388ddddc9417",
+        "rev": "9ef0c9f39c0b1707092524112f3055024fb6b4c8",
         "type": "github"
       },
       "original": {
@@ -447,16 +447,16 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1757034884,
-        "narHash": "sha256-PgLSZDBEWUHpfTRfFyklmiiLBE1i1aGCtz4eRA3POao=",
+        "lastModified": 1757347588,
+        "narHash": "sha256-tLdkkC6XnsY9EOZW9TlpesTclELy8W7lL2ClL+nma8o=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ca77296380960cd497a765102eeb1356eb80fed0",
+        "rev": "b599843bad24621dcaa5ab60dac98f9b0eb1cabe",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }

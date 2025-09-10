@@ -1,6 +1,6 @@
 {
   # pkg registries
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
