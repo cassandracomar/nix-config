@@ -111,6 +111,6 @@
 
   services.ollama = {
     enable = true;
-    loadModels = ["gpt-oss" "deepseek-r1" "qwen3" "gemma3" "mistral"];
+    loadModels = ["deepseek-coder-v2"];
   };
 }
