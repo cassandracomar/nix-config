@@ -111,6 +111,6 @@
 
   services.ollama = {
     enable = true;
-    loadModels = ["deepseek-coder-v2"];
+    loadModels = ["deepseek-coder-v2:236b"];
   };
 }
