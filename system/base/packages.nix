@@ -109,5 +109,8 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="268b", MODE:="0666", GROUP="users"
   '';
 
-  # services.actualbudget.enable = true;
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+  };
 }

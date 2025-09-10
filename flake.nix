@@ -123,7 +123,10 @@
 
     pkgs = import nixpkgs {
       inherit system overlays;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        rocmSupport = true;
+      };
     };
 
     kernel = {pkgs, ...}: {
