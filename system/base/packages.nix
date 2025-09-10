@@ -111,7 +111,6 @@
 
   services.ollama = {
     enable = true;
-    acceleration = "rocm";
     loadModels = ["gpt-oss" "deepseek-r1" "qwen3" "gemma3" "mistral"];
   };
 }

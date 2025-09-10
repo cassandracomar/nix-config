@@ -74,4 +74,9 @@ in {
   services.lact = {
     enable = true;
   };
+  services.ollama = {
+    acceleration = "rocm";
+    rocmOverrideGfx = "10.3.0";
+  };
+  hardware.amdgpu.opencl.enable = true;
 }
