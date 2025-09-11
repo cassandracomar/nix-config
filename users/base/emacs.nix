@@ -29,7 +29,7 @@
 
   programs.doom-emacs = {
     enable = true;
-    emacs = pkgs.emacs-pgtk;
+    emacs = pkgs.emacs-igc-pgtk;
     doomDir = inputs.doom-config;
     doomLocalDir = "${config.xdg.dataHome}/doom";
     experimentalFetchTree = true;
