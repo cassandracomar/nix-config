@@ -38,7 +38,6 @@
         vterm
         sqlite3
         emacsql
-        treesit-grammars.with-all-grammars
       ];
     extraBinPackages = with pkgs; [
       nixd
@@ -52,9 +51,4 @@
     enable = true;
     startWithUserSession = "graphical";
   };
-  home.file.".tree-sitter".source = pkgs.runCommand "grammars" {} ''
-    mkdir -p $out/bin
-    ${lib.concatStringsSep "\n"
-      (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") pkgs.tree-sitter.builtGrammars)};
-  '';
 }
