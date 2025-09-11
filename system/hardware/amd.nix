@@ -67,12 +67,7 @@ in {
   services.scx = {
     enable = true;
     scheduler = "scx_lavd";
-    package = pkgs-optimized.scx.full.overrideAttrs (old: {
-      postPatch = (old.postPatch or "") + ''
-        substituteInPlace meson.build \
-          --replace-fail '/bin/bash' '${lib.getExe pkgs.bash}'
-      '';
-    });
+    package = pkgs-optimized.scx.rustscheds;
   };
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
