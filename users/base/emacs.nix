@@ -4,7 +4,29 @@
   inputs,
   config,
   ...
-}: {
+}: let
+  profdata = ./merged.profdata;
+  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
+    stdenv = pkgs.llvmPackages.stdenv;
+    preConfigure = ''
+      export CC=${pkgs.llvmPackages.clang}/bin/clang
+      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
+      export AR=${pkgs.llvm}/bin/llvm-ar
+      export NM=${pkgs.llvm}/bin/llvm-nm
+      export LD=${pkgs.lld}/bin/ld.lld
+      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
+    '';
+
+    # Extra compiler flags (Clang-flavored)
+    NIX_CFLAGS_COMPILE = toString ([
+      "-O2"
+      "-march=znver4"
+      "-mtune=znver4"
+      "-flto=full"
+      "-fprofile-use=${profdata}"
+    ] ++ old.NIX_CFLAGS_COMPILE or []);
+  });
+in {
   home.packages = with pkgs; [
     sqlite
     direnv
@@ -29,7 +51,7 @@
 
   programs.doom-emacs = {
     enable = true;
-    emacs = pkgs.emacs-igc-pgtk;
+    emacs = emacs';
     doomDir = inputs.doom-config;
     doomLocalDir = "${config.xdg.dataHome}/doom";
     experimentalFetchTree = true;
