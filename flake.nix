@@ -7,14 +7,9 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
 
-  # encryption
-  inputs.sops-nix.url = "github:Mic92/sops-nix";
-
   # overlays
   inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
   inputs.emacs.url = "github:nix-community/emacs-overlay";
-  inputs.emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
-  inputs.emacs-src.flake = false;
   inputs.rust.url = "github:oxalica/rust-overlay";
   inputs.rust.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nur.url = "github:nix-community/NUR";
