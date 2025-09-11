@@ -19,12 +19,14 @@
 
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString ([
-      "-O2"
-      "-march=znver4"
-      "-mtune=znver4"
-      "-flto=full"
-      "-fprofile-use=${profdata}"
-    ] ++ old.NIX_CFLAGS_COMPILE or []);
+        "-O2"
+        "-march=znver4"
+        "-mtune=znver4"
+        "-flto=thin"
+        "-fprofile-generate"
+        # "-fprofile-use=${profdata}"
+      ]
+      ++ old.NIX_CFLAGS_COMPILE or []);
   });
 in {
   home.packages = with pkgs; [
