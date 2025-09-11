@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  # lib,
+  lib,
   nixpkgs,
   ...
 }: let
@@ -66,7 +66,7 @@ in {
     package = pkgs-optimized.scx.full.overrideAttrs (old: {
       postPatch = (old.postPatch or "") + ''
         substituteInPlace meson.build \
-          --replace-fail '/bin/bash' '${pkgs.lib.getExe pkgs.bash}'
+          --replace-fail '/bin/bash' '${lib.getExe pkgs.bash}'
       '';
     });
   };
