@@ -79,10 +79,6 @@
       nix-doom.overlays.default
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
-        # tests are broken when running on zfs
-        gitMinimal = prev.gitMinimal.overrideAttrs (old: {
-          doCheck = false;
-        });
       })
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};

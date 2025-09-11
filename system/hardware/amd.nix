@@ -15,6 +15,10 @@
     };
     overlays = [
       (final: prev: rec {
+        # tests are broken when running on zfs
+        gitMinimal = prev.gitMinimal.override {
+          doInstallCheck = false;
+        };
         python3 = prev.python3.override {
           packageOverrides = pyfinal: pyprev: {
             pycparser = pyprev.pycparser.overrideAttrs (old: {
