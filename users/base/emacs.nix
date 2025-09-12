@@ -22,8 +22,7 @@
         "-O2"
         "-march=znver4"
         "-mtune=znver4"
-        "-flto=thin"
-        # "-fprofile-generate"
+        "-flto=full"
         "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []);
