@@ -24,7 +24,7 @@
         "-mtune=znver4"
         "-flto=thin"
         "-fprofile-generate"
-        # "-fprofile-use=${profdata}"
+        "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []);
   });
