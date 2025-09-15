@@ -12,7 +12,7 @@
   rofi-plugins = with pkgs; [
     rofi-calc
     rofi-games
-    rofi-emoji-wayland
+    rofi-emoji
     rofi-file-browser
     rofi-power-menu
   ];
