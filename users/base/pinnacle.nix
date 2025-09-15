@@ -18,12 +18,12 @@
   ];
   rofi-packages = with pkgs; [
     rofi-bluetooth
-    (clerk.override {rofi = rofi-wayland;})
+    clerk
     rofi-rbw-wayland
-    (rofi-pulse-select.override {rofi-unwrapped = rofi-wayland-unwrapped;})
+    rofi-pulse-select
     rofi-screenshot
-    (rofi-systemd.override {rofi = rofi-wayland;})
-    (rofi-vpn.override {rofi-unwrapped = rofi-wayland-unwrapped;})
+    rofi-systemd
+    rofi-vpn
   ];
 in {
   wayland.windowManager.pinnacle = {
@@ -57,7 +57,6 @@ in {
 
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
     plugins = rofi-plugins;
     cycle = true;
     font = "Iosevka Nerd Font 32";

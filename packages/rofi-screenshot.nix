@@ -3,7 +3,7 @@
   runCommand,
   makeWrapper,
   libnotify,
-  rofi-wayland,
+  rofi,
   wl-clipboard-rs,
   grim,
   slurp,
@@ -29,7 +29,7 @@ in
       --set PATH ${
       lib.makeBinPath [
         libnotify
-        rofi-wayland
+        rofi
         wl-clipboard-rs
         grim
         slurp

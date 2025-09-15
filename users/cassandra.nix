@@ -68,9 +68,7 @@ in {
     enable = true;
     settings = {
       email = "cass@ndra.io";
-      pinentry = pkgs.pinentry-rofi.override {
-        rofi = pkgs.rofi-wayland;
-      };
+      pinentry = pkgs.pinentry-rofi;
     };
   };
 
