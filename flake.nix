@@ -80,15 +80,6 @@
       emacs.overlays.emacs
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
-        linux-firmware = prev.linux-firmware.overrideAttrs (old: {
-          version = "20250708";
-          src = prev.fetchFromGitLab {
-            owner = "kernel-firmware";
-            repo = "linux-firmware";
-            tag = "20250708";
-            hash = "sha256-TJ97A9I0ipsqgg7ex3pAQgdhDJcLbkNCvuLppt9a07o=";
-          };
-        });
       })
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
