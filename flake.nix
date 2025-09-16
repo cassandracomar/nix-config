@@ -33,7 +33,7 @@
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
   inputs.clipcat.url = "github:xrelkd/clipcat";
 
-  inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened";
+  inputs.nix-doom.url = "github:cassandracomar/nix-doom-emacs-unstraightened";
   inputs.nix-doom.inputs.nixpkgs.follows = "";
   inputs.nix-doom.inputs.emacs-overlay.follows = "emacs";
   inputs.doom-config.url = "github:cassandracomar/doom-config";
