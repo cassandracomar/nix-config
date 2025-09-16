@@ -294,11 +294,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1758053934,
-        "narHash": "sha256-5zdSarFYEj2cf9kNIygx0enmXbf0+baovxvKNRud2A4=",
+        "lastModified": 1758054810,
+        "narHash": "sha256-DEv7mKTfcPDwGM+cTmvWivUvv5T37EOn3nHvmA4bv0Y=",
         "owner": "cassandracomar",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "6fc8b6d0a7ac2c7fe315728a732e216c97ed43f4",
+        "rev": "46e0dc5b831ad59e6324523d0ce0b81fcd22ebb2",
         "type": "github"
       },
       "original": {
