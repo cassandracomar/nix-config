@@ -81,12 +81,12 @@
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
         linux-firmware = prev.linux-firmware.overrideAttrs (old: {
-          version = "09122025";
+          version = "20250708";
           src = prev.fetchFromGitLab {
             owner = "kernel-firmware";
             repo = "linux-firmware";
-            rev = "f0f4634972f48c3330896bde5c94557b568a3a68";
-            hash = "sha256-OB+wRlGQqtyDGzvS1d4W4Dfel/SgU3XM18r0299rZ20=";
+            tag = "20250708";
+            hash = "sha256-TJ97A9I0ipsqgg7ex3pAQgdhDJcLbkNCvuLppt9a07o=";
           };
         });
       })
