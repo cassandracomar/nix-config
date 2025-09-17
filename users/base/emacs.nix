@@ -29,6 +29,13 @@ let
       ]
       ++ old.NIX_CFLAGS_COMPILE or [ ]
     );
+
+    patches = (old.patches or []) ++ [
+      (pkgs.fetchpatch {
+        url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtjcn89tkBPf.txt";
+        sha256 = pkgs.lib.fakeSha256;
+      })
+    ];
   });
 in
 {
