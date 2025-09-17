@@ -4,7 +4,8 @@
   inputs,
   config,
   ...
-}: let
+}:
+let
   profdata = ./merged.profdata;
   emacs' = pkgs.emacs-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
@@ -18,16 +19,19 @@
     '';
 
     # Extra compiler flags (Clang-flavored)
-    NIX_CFLAGS_COMPILE = toString ([
+    NIX_CFLAGS_COMPILE = toString (
+      [
         "-O2"
         "-march=znver4"
         "-mtune=znver4"
         "-flto=full"
         "-fprofile-use=${profdata}"
       ]
-      ++ old.NIX_CFLAGS_COMPILE or []);
+      ++ old.NIX_CFLAGS_COMPILE or [ ]
+    );
   });
-in {
+in
+{
   home.packages = with pkgs; [
     sqlite
     direnv
@@ -46,6 +50,7 @@ in {
     # stdenv_mold
     gnumake
     config.programs.doom-emacs.finalDoomPackage
+    emacs-lsp-booster
   ];
 
   systemd.user.startServices = true;
@@ -56,8 +61,8 @@ in {
     doomDir = inputs.doom-config;
     doomLocalDir = "${config.xdg.dataHome}/doom";
     experimentalFetchTree = true;
-    extraPackages = epkgs:
-      with epkgs; [
+    extraPackages =
+      epkgs: with epkgs; [
         vterm
         sqlite3
         emacsql
