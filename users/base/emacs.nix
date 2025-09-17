@@ -73,6 +73,7 @@ in
         vterm
         sqlite3
         emacsql
+        treesit-grammars.with-all-grammars
       ];
     extraBinPackages = with pkgs; [
       nixd
