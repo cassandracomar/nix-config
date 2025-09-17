@@ -7,7 +7,7 @@
 }:
 let
   profdata = ./merged.profdata;
-  emacs' = pkgs.emacs-pgtk.overrideAttrs (old: {
+  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     preConfigure = ''
       export CC=${pkgs.llvmPackages.clang}/bin/clang
