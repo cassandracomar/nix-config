@@ -74,11 +74,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1758042545,
-        "narHash": "sha256-GQSI7r/0Ys4+PtzhPgxC3SrrM1GR5sfPNIRM+M5XBDQ=",
+        "lastModified": 1758100191,
+        "narHash": "sha256-oW2+S1Qg4kIOi2aHfvflyJpJdGPdlA5xqTZmPqrI1xc=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "f834197dfd4d117ff82d12bd786df02ae16184ec",
+        "rev": "043c6499bd66428e65792254000608da164348a6",
         "type": "github"
       },
       "original": {
@@ -294,15 +294,15 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1758020685,
-        "narHash": "sha256-p7uhSDmRnE59gGYosXlL2HZFtxSJRc/hq5I7IVK950g=",
-        "owner": "marienz",
+        "lastModified": 1758116897,
+        "narHash": "sha256-i7as6S9T2r+c2xEX2YokVstBOidd2BkgpVgMNFF9Z2g=",
+        "owner": "cassandracomar",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "abcbc318c6c00beb3545548409dd236453343a26",
+        "rev": "e0fe1adc343cc05523ec9038c35dd76bbac4d74c",
         "type": "github"
       },
       "original": {
-        "owner": "marienz",
+        "owner": "cassandracomar",
         "repo": "nix-doom-emacs-unstraightened",
         "type": "github"
       }
