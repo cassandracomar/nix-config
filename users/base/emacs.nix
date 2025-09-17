@@ -41,7 +41,7 @@ in {
     pandoc
     nodePackages.bash-language-server
     yaml-language-server
-    nodePackages.dockerfile-language-server-nodejs
+    dockerfile-language-server
     # gcc
     # stdenv_mold
     gnumake
