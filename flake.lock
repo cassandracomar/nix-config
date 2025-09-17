@@ -294,15 +294,15 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1758118013,
-        "narHash": "sha256-1HreiMH1Qeh5NrruqZnfGTBgtgayiJq/JBGdyIbkYJI=",
-        "owner": "cassandracomar",
+        "lastModified": 1758020685,
+        "narHash": "sha256-p7uhSDmRnE59gGYosXlL2HZFtxSJRc/hq5I7IVK950g=",
+        "owner": "marienz",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "60b55401418ca526ea7c493a34e62826f3ebc650",
+        "rev": "abcbc318c6c00beb3545548409dd236453343a26",
         "type": "github"
       },
       "original": {
-        "owner": "cassandracomar",
+        "owner": "marienz",
         "repo": "nix-doom-emacs-unstraightened",
         "type": "github"
       }
