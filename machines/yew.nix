@@ -47,6 +47,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/nix" = {
+    device = "balsa/nix";
+    fsType = "zfs";
+  };
+
   fileSystems."/home" = {
     device = "balsa/home";
     fsType = "zfs";
