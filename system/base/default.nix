@@ -1,9 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, system, ... }: {
-
+{
+  pkgs,
+  system,
+  ...
+}: {
   nixpkgs.hostPlatform = system;
 
   nix = {
@@ -41,6 +43,10 @@
       dates = "daily";
       options = "--delete-older-than 30d";
     };
+    optimise = {
+      automatic = true;
+      persistent = true;
+    };
   };
 
   system = {
@@ -55,7 +61,7 @@
     autoUpgrade = {
       enable = true;
       flake = "path:/etc/nixos";
-      flags = [ "--update-input" "nixpkgs" "--update-input" "nix-config" ];
+      flags = ["--update-input" "nixpkgs" "--update-input" "nix-config"];
       dates = "daily";
     };
   };
