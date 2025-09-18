@@ -71,6 +71,9 @@
     system = "x86_64-linux";
 
     overlays = [
+      (final: prev: {
+        inherit (prev.lixPackageSets.stable) nix-direnv nix-eval-jobs nix-fast-build colmena nixpkgs-review;
+      })
       mozilla.overlay
       emacs.overlay
       rust.overlays.default
