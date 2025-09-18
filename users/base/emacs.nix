@@ -4,8 +4,7 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   profdata = ./merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
@@ -21,24 +20,25 @@ let
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
       [
-        "-O2"
+        "-Os"
         "-march=znver4"
         "-mtune=znver4"
         "-flto=full"
         "-fprofile-use=${profdata}"
       ]
-      ++ old.NIX_CFLAGS_COMPILE or [ ]
+      ++ old.NIX_CFLAGS_COMPILE or []
     );
 
-    patches = (old.patches or []) ++ [
-      (pkgs.fetchpatch {
-        url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtjcn89tkBPf.txt";
-        sha256 = "sha256-cEZT9tq1BK/Ym80gmVF3g6LvJhy7fOkvL9cLPpI5FTg=";
-      })
-    ];
+    patches =
+      (old.patches or [])
+      ++ [
+        (pkgs.fetchpatch {
+          url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtjcn89tkBPf.txt";
+          sha256 = "sha256-cEZT9tq1BK/Ym80gmVF3g6LvJhy7fOkvL9cLPpI5FTg=";
+        })
+      ];
   });
-in
-{
+in {
   home.packages = with pkgs; [
     sqlite
     direnv
@@ -68,8 +68,8 @@ in
     doomDir = inputs.doom-config;
     doomLocalDir = "${config.xdg.dataHome}/doom";
     experimentalFetchTree = true;
-    extraPackages =
-      epkgs: with epkgs; [
+    extraPackages = epkgs:
+      with epkgs; [
         vterm
         sqlite3
         emacsql
