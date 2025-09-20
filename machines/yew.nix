@@ -43,22 +43,22 @@
   };
 
   fileSystems."/" = {
-    device = "balsa/root";
+    device = "yew/root";
     fsType = "zfs";
   };
 
   fileSystems."/nix" = {
-    device = "balsa/nix";
+    device = "yew/nix";
     fsType = "zfs";
   };
 
   fileSystems."/home" = {
-    device = "balsa/home";
+    device = "yew/home";
     fsType = "zfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/38A1-182D";
+    device = "/dev/disk/by-uuid/DB4E-4449";
     fsType = "vfat";
     options = ["fmask=0077" "dmask=0077"];
   };
@@ -158,7 +158,7 @@
   ];
 
   services.openssh.enable = true;
-  services.transmission ={
+  services.transmission = {
     enable = true;
     openRPCPort = true;
     openPeerPorts = true;
