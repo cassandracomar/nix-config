@@ -186,13 +186,15 @@
         m
         ++ [
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [pinnacle.hmModules.default nix-doom.homeModule];
-            home-manager.users = pkgs.lib.listToAttrs (map
-              user-module
-              [user]);
-            home-manager.extraSpecialArgs = {inherit pkgs user system pinnacle-config inputs;};
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [pinnacle.hmModules.default nix-doom.homeModule];
+              users = pkgs.lib.listToAttrs (map
+                user-module
+                [user]);
+              extraSpecialArgs = {inherit pkgs user system pinnacle-config inputs;};
+            };
           }
         ]) []
       homeUsers;
