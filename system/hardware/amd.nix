@@ -34,13 +34,6 @@
         python3Packages = python3.pkgs;
         sphinx = python3Packages.sphinx;
         jq = pkgs.jq;
-        # bash = pkgs.bash;
-        # runtimeShell = pkgs.runtimeShell;
-        # runtimeShellPackage = pkgs.runtimeShellPackage;
-        # perl = pkgs.perl;
-        # perlPackages = pkgs.perlPackages;
-        # perl540 = pkgs.perl540;
-        # perl540Packages = pkgs.perl540Packages;
       })
     ];
   };
