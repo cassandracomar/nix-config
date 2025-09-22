@@ -193,12 +193,21 @@
 
   ## firewall rules
   networking.firewall = {
+    enable = true;
     checkReversePath = "loose";
     allowedTCPPorts = [ 80 443 8384 22000 5353 ];
     allowedUDPPorts = [ 22000 21027 5353 ];
     logRefusedConnections = true;
     logRefusedPackets = true;
     logRefusedUnicastsOnly = true;
+  };
+  security = {
+    apparmor = {
+      enable = true;
+      killUnconfinedConfinables = true;
+    };
+    protectKernelImage = true;
+    sudo.keepTerminfo = true;
   };
 
   # Configure network proxy if necessary
