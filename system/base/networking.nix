@@ -201,6 +201,7 @@
     logRefusedPackets = true;
     logRefusedUnicastsOnly = true;
   };
+
   security = {
     apparmor = {
       enable = true;
@@ -209,6 +210,7 @@
     protectKernelImage = true;
     sudo.keepTerminfo = true;
   };
+  services.dbus.apparmor = "enabled";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
