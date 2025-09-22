@@ -34,8 +34,8 @@
       (old.patches or [])
       ++ [
         (pkgs.fetchpatch {
-          url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtjcn89tkBPf.txt";
-          sha256 = "sha256-cEZT9tq1BK/Ym80gmVF3g6LvJhy7fOkvL9cLPpI5FTg=";
+          url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtvy4M7RzD_C.txt";
+          sha256 = "sha256-S+9GUiEyfm0E2vOK+c4eheHROQ6r3bvVsBqoaqrB3mo=";
         })
       ];
   });
