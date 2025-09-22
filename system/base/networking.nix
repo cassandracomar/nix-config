@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   networking = {
     # nameservers = [ ];
     # resolvconf.enable = true;
@@ -15,7 +13,7 @@
       connectionConfig = {
         "connection.mdns" = "2";
       };
-      unmanaged = [ "en*" "usb*" ];
+      unmanaged = ["en*" "usb*"];
     };
 
     # useDHCP = false;
@@ -27,14 +25,14 @@
     wait-online.enable = false;
     networks = {
       "10-wired" = {
-        matchConfig.Type = [ "ether" ];
+        matchConfig.Type = ["ether"];
         DHCP = "yes";
         networkConfig = {
           MulticastDNS = "yes";
         };
       };
       "20-wireless" = {
-        matchConfig.Type = [ "wlan" ];
+        matchConfig.Type = ["wlan"];
         enable = false;
         linkConfig.Unmanaged = true;
       };
@@ -195,8 +193,8 @@
   networking.firewall = {
     enable = true;
     checkReversePath = "loose";
-    allowedTCPPorts = [ 80 443 8384 22000 5353 ];
-    allowedUDPPorts = [ 22000 21027 5353 ];
+    allowedTCPPorts = [80 443 8384 22000 5353];
+    allowedUDPPorts = [22000 21027 5353];
     logRefusedConnections = true;
     logRefusedPackets = true;
     logRefusedUnicastsOnly = true;
