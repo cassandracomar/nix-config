@@ -1,4 +1,8 @@
-{ pkgs, config, ... }: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
     MOZ_ACCELERATED = "1";

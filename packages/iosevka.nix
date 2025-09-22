@@ -18,16 +18,16 @@
     set = "Custom";
   };
   feature-freezer-src = applyPatches {
-      src = fetchFromGitHub {
-        owner = "twardoch";
-        repo = "fonttools-opentype-feature-freezer";
-        rev = "2ae16853bc724c3e377726f81d9fc661d3445827";
-        sha256 = "sha256-mIWQF9LTVKxIkwHLCTVK1cOuiaduJyX8pyBZ/0RKIVE=";
-      };
-      patches = [
-        ./feature-freezer-poetry-fixes.patch
-      ];
+    src = fetchFromGitHub {
+      owner = "twardoch";
+      repo = "fonttools-opentype-feature-freezer";
+      rev = "2ae16853bc724c3e377726f81d9fc661d3445827";
+      sha256 = "sha256-mIWQF9LTVKxIkwHLCTVK1cOuiaduJyX8pyBZ/0RKIVE=";
     };
+    patches = [
+      ./feature-freezer-poetry-fixes.patch
+    ];
+  };
   feature-freezer = poetry2nix.mkPoetryApplication {
     projectDir = feature-freezer-src;
     src = feature-freezer-src;

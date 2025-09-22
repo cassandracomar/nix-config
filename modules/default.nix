@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
-
 {
-  imports = [ ./actualbudget ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./actualbudget];
 }

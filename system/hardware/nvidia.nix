@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -9,10 +12,9 @@ let
     exec -a "$0" "$@"
   '';
 in {
-  boot.kernelParams =
-    [ "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1" ];
-  environment.systemPackages = [ nvidia-offload ];
-  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.kernelParams = ["nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"];
+  environment.systemPackages = [nvidia-offload];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     powerManagement.enable = true;
@@ -36,12 +38,12 @@ in {
   '';
 
   hardware.opengl = {
-    extraPackages = with pkgs; [ libglvnd ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [ libglvnd ];
+    extraPackages = with pkgs; [libglvnd];
+    extraPackages32 = with pkgs.pkgsi686Linux; [libglvnd];
   };
 
   specialisation.nvida-sync.configuration = {
-    system.nixos.tags = [ "nvidia-sync" ];
+    system.nixos.tags = ["nvidia-sync"];
 
     hardware.nvidia = {
       prime.offload.enable = lib.mkForce false;
@@ -51,8 +53,8 @@ in {
     };
 
     hardware.opengl = {
-      extraPackages = with pkgs; [ mesa.drivers ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [ mesa.drivers ];
+      extraPackages = with pkgs; [mesa.drivers];
+      extraPackages32 = with pkgs.pkgsi686Linux; [mesa.drivers];
     };
   };
 }

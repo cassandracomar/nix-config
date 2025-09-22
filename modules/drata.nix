@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let cfg = config.services.drata-agent;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.services.drata-agent;
 in {
   options.services.drata-agent = {
     enable = mkEnableOption "turn on drata agent";
@@ -16,9 +21,9 @@ in {
     systemd.user.services.drata-agent = {
       Unit = {
         Description = "drata system agent user service";
-        Requires = [ "tray.target" ];
-        After = [ "graphical-session-pre.target" "tray.target" ];
-        PartOf = [ "graphical-session.target" ];
+        Requires = ["tray.target"];
+        After = ["graphical-session-pre.target" "tray.target"];
+        PartOf = ["graphical-session.target"];
       };
       Service = {
         Type = "simple";
@@ -32,9 +37,9 @@ in {
         # Requires = [ "tray.target" ];
         # After = [ "graphical-session-pre.target" "tray.target" ];
       };
-      Timer = { OnBootSec = "5min"; };
-      Install = { WantedBy = [ "timers.target" ]; };
+      Timer = {OnBootSec = "5min";};
+      Install = {WantedBy = ["timers.target"];};
     };
-    home.packages = [ cfg.package ];
+    home.packages = [cfg.package];
   };
 }

@@ -1,23 +1,29 @@
-{ config, lib, pkgs, androidImages, ... }:
-let
-  androidFiles = pkgs.runCommand "updater.ndra.io"
+{
+  config,
+  lib,
+  pkgs,
+  androidImages,
+  ...
+}: let
+  androidFiles =
+    pkgs.runCommand "updater.ndra.io"
     {
-      nativeBuildInputs = with pkgs; [ sops age gnupg ];
+      nativeBuildInputs = with pkgs; [sops age gnupg];
     } ''
-    mkdir -p $out
-    cd $out
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (device: cfg: ''
-      cp -rL --copy-contents ${cfg.config.prevBuildDir}/${device}-target_files-${cfg.config.prevBuildNumber}.zip .
-      ${cfg.config.build.releaseScript} ${cfg.config.prevBuildNumber}
-    '') androidImages)}
-  '';
+      mkdir -p $out
+      cd $out
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (device: cfg: ''
+          cp -rL --copy-contents ${cfg.config.prevBuildDir}/${device}-target_files-${cfg.config.prevBuildNumber}.zip .
+          ${cfg.config.build.releaseScript} ${cfg.config.prevBuildNumber}
+        '')
+        androidImages)}
+    '';
   updaterScript = ''
     mkdir -p /var/www/updater.ndra.io
     cp --no-preserve owner,mode -r ${androidFiles}/* /var/www/updater.ndra.io
     chown nginx: -R /var/www/updater.ndra.io
   '';
-in
-{
+in {
   services.nginx = {
     enable = true;
     virtualHosts."updater.ndra.io" = {
@@ -31,5 +37,5 @@ in
     "updater.ndra.io".email = "cass@ndra.io";
   };
   security.acme.acceptTerms = true;
-  system.activationScripts.androidUpdater = lib.stringAfter [ "var" ] updaterScript;
+  system.activationScripts.androidUpdater = lib.stringAfter ["var"] updaterScript;
 }

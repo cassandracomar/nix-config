@@ -1,6 +1,7 @@
-{ lib, pkgs }:
-let
-
+{
+  lib,
+  pkgs,
+}: let
   # Please keep the version x.y.0.z and do not update to x.y.76.z because the
   # source of the latter disappears much faster.
   version = "3.2.0";
@@ -58,8 +59,8 @@ in {
       description = "drata system agent";
       homepage = "https://app.drata.com";
       license = licenses.mit;
-      maintainers = with stdenv.lib.maintainers; [ ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with stdenv.lib.maintainers; [];
+      platforms = ["x86_64-linux"];
     };
   };
 }

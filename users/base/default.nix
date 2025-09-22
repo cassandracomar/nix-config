@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   imports = [
     ./emacs.nix
     ./environment.nix

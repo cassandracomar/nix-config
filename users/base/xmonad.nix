@@ -1,9 +1,10 @@
-{ pkgs, user, ... }:
-let
-  haskellPackages = pkgs.haskellPackages;
-
-in
 {
+  pkgs,
+  user,
+  ...
+}: let
+  haskellPackages = pkgs.haskellPackages;
+in {
   home.packages = with pkgs; [
     dmenu
     dzen2
@@ -61,8 +62,7 @@ in
     hooks = {
       postswitch = {
         "notify-xmonad" = "xmonad --restart";
-        "change-background" =
-          "${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png";
+        "change-background" = "${pkgs.feh}/bin/feh --bg-fill /home/cassandra/wallpapers/haskell-wallpaper.png";
         "reset-dpms" = ''
           #!${pkgs.bash}/bin/bash
           if [[ $(${pkgs.autorandr}/bin/autorandr --detected | grep undocked) == "undocked" ]]; then
@@ -92,5 +92,5 @@ in
   #   inactiveInterval = 15;
   # };
 
-  programs.zathura = { enable = true; };
+  programs.zathura = {enable = true;};
 }

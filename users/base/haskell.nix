@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     # haskell.packages.ghc810.yeganesh
     # (pkgs.hiPrio haskellPackages.stack)

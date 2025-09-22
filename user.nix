@@ -1,1 +1,1 @@
-{ username }: ./users/${username}.nix
+{username}: ./users/${username}.nix

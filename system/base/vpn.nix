@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services.openvpn.servers = {
     perfect-privacy-los-angeles = {
       config = "config /var/lib/vpns/perfect-privacy/LosAngeles.conf";

@@ -1,12 +1,15 @@
-{ config, lib, pkgs, ... }:
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   nixpkgs.config.allowUnfree = true;
-  boot.supportedFilesystems =
-    [ "zfs" "f2fs" "ext4" "xfs" "cifs" "vfat" "ntfs" ];
+  boot.supportedFilesystems = ["zfs" "f2fs" "ext4" "xfs" "cifs" "vfat" "ntfs"];
   boot.zfs.enableUnstable = true;
   # boot.kernelModules = [ "rtw89pci" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [acpi_call];
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   hardware.wirelessRegulatoryDatabase = true;
@@ -19,7 +22,7 @@ with lib;
   console = {
     font = "ter-232n";
     earlySetup = true;
-    packages = with pkgs; [ terminus_font ];
+    packages = with pkgs; [terminus_font];
   };
 
   time.timeZone = "America/New_York";
@@ -47,6 +50,6 @@ with lib;
   security.sudo.extraConfig = ''
     %wheel	ALL=(ALL:ALL)	NOPASSWD:	ALL
   '';
-  users.users.root = { shell = pkgs.zsh; };
-  nix.settings.trusted-users = [ "root" ];
+  users.users.root = {shell = pkgs.zsh;};
+  nix.settings.trusted-users = ["root"];
 }
