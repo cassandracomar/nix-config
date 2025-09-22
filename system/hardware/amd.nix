@@ -38,6 +38,9 @@
         runtimeShell = pkgs.runtimeShell;
         runtimeShellPackage = pkgs.runtimeShellPackage;
         perl = pkgs.perl;
+        perlPackages = pkgs.perlPackages;
+        perl540 = pkgs.perl540;
+        perl540Packages = pkgs.perl540Packages;
       })
     ];
   };
