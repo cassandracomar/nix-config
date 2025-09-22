@@ -97,7 +97,9 @@
             ++ [prev.python3Packages.pycryptodome];
         });
 
-        nix-direnv = nix-direnv.packages.${system}.default;
+        nix-direnv = nix-direnv.packages.${system}.default.override {
+          nix = prev.lixPackageSets.stable.lix;
+        };
         vcluster =
           import ./packages/vcluster.nix {inherit (final) fetchurl stdenv;};
         clipcat = clipcat.packages.${system}.clipcat;
