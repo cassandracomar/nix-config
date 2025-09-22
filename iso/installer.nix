@@ -46,10 +46,12 @@ with lib; {
   hardware.video.hidpi.enable = lib.mkDefault true;
   services.fwupd.enable = true;
   programs.zsh.enable = true;
-  security.sudo.enable = true;
-  security.sudo.extraConfig = ''
-    %wheel	ALL=(ALL:ALL)	NOPASSWD:	ALL
-  '';
+  security.sudo-rs = {
+    enable = true;
+    wheelNeedsPassword = false;
+    execWheelOnly = true;
+  };
+
   users.users.root = {shell = pkgs.zsh;};
   nix.settings.trusted-users = ["root"];
 }

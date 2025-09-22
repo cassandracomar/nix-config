@@ -9,10 +9,11 @@
 
   users.users.root = {shell = pkgs.zsh;};
 
-  security.sudo.enable = true;
-  security.sudo.extraConfig = ''
-    %wheel	ALL=(ALL:ALL)	NOPASSWD:	ALL
-  '';
+  security.sudo-rs = {
+    enable = true;
+    wheelNeedsPassword = false;
+    execWheelOnly = true;
+  };
 
   boot.kernel.sysctl = {
     "kernel.pty.max" = 8192;
