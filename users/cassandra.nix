@@ -215,6 +215,8 @@ in {
   };
   programs.afew.enable = true;
 
+  services.mbsync.enable = true;
+
   accounts.email.accounts.cass = {
     address = "cass@nie.rs";
     passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
