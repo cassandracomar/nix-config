@@ -10,8 +10,6 @@
   # overlays
   inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
   inputs.emacs.url = "github:nix-community/emacs-overlay";
-  inputs.rust.url = "github:oxalica/rust-overlay";
-  inputs.rust.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nur.url = "github:nix-community/NUR";
   inputs.openconnect = {
     url = "github:vlaci/openconnect-sso";
@@ -19,11 +17,11 @@
   };
 
   # overrides via overlay
-  inputs.nix-direnv.url = "github:nix-community/nix-direnv";
-  inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
+  # inputs.nix-direnv.url = "github:nix-community/nix-direnv";
+  # inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.nixos-generators.url = "github:nix-community/nixos-generators";
-  inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs-stable";
+  # inputs.nixos-generators.url = "github:nix-community/nixos-generators";
+  # inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs-stable";
   # inputs.nixos-hardware.url = "github:cassandracomar/nixos-hardware";
   # inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
 
@@ -47,9 +45,8 @@
     home-manager,
     mozilla,
     emacs,
-    rust,
     nur,
-    nix-direnv,
+    # nix-direnv,
     # sops-nix,
     openconnect,
     poetry2nix,
@@ -72,11 +69,13 @@
 
     overlays = [
       (final: prev: {
-        inherit (prev.lixPackageSets.stable) nix-direnv nix-eval-jobs nix-fast-build colmena nixpkgs-review;
+        inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
+        nix-direnv = prev.nix-direnv.override {
+          nix = prev.lixPackageSets.stable.lix;
+        };
       })
       mozilla.overlay
       emacs.overlay
-      rust.overlays.default
       nur.overlays.default
       pinnacle.overlays.default
       nix-doom.overlays.default
@@ -97,9 +96,6 @@
             ++ [prev.python3Packages.pycryptodome];
         });
 
-        nix-direnv = nix-direnv.packages.${system}.default.override {
-          nix = prev.lixPackageSets.stable.lix;
-        };
         vcluster =
           import ./packages/vcluster.nix {inherit (final) fetchurl stdenv;};
         clipcat = clipcat.packages.${system}.clipcat;
