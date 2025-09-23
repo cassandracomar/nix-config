@@ -70,9 +70,6 @@
     overlays = [
       (final: prev: {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
-        nix-direnv = prev.nix-direnv.override {
-          nix = prev.lixPackageSets.stable.lix;
-        };
       })
       mozilla.overlay
       emacs.overlay
