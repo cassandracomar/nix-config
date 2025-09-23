@@ -56,6 +56,7 @@ in {
     git-crypt
     complete_alias
     kubernetes_aliases
+    mu
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   # home.file."personal.gitconfig" = {

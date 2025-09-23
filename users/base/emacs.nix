@@ -74,6 +74,7 @@ in {
         sqlite3
         emacsql
         treesit-grammars.with-all-grammars
+        mu4e
       ];
     extraBinPackages = with pkgs; [
       nixd
