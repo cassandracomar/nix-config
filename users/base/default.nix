@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./emacs.nix
     ./environment.nix
@@ -11,4 +11,6 @@
     ./pinnacle.nix
     # ./xmonad.nix
   ];
+
+  home.packages = with pkgs; [rustc cargo];
 }
