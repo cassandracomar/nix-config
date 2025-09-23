@@ -31,21 +31,6 @@
       source ${complete_alias}/share/bash-completion/completions/complete_alias
     '';
   };
-  py = pkgs.python3.withPackages (ps: [ps.notmuch]);
-  notifypy = pkgs.writeScriptBin "notmuch-notify.py" ''
-    #!${py}/bin/python3
-    import notmuch
-    import subprocess
-
-    def notify(title, message):
-        subprocess.Popen(['${pkgs.libnotify}/bin/notify-send', "--app-name=notmuch-notify", title, message])
-
-    for message in notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE).create_query('tag:notify').search_messages():
-        print(message)
-        message.remove_tag('notify')
-        notify("New mail from {}".format(message.get_header('From')), message.get_header('Subject'))
-        del message  # python's scoping is shit: message will survive the for loop and db will not be closed
-  '';
 in {
   imports = [./base];
 
@@ -227,31 +212,14 @@ in {
 
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;
-  programs.notmuch = {
-    enable = true;
-    hooks = {
-      postNew = "${pkgs.afew}/bin/afew -n -t -C ${config.xdg.configHome}/notmuch/default/config && ${notifypy}/bin/notmuch-notify.py";
-    };
-  };
-  programs.afew = {
-    enable = true;
-    extraConfig = ''
-      [Filter.0]
-      message = notify
-      query = tag:new AND NOT tag:killed AND NOT tag:spam
-      tags = +notify
-    '';
-  };
 
   services.mbsync = {
     enable = true;
-    postExec = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.afew}/bin/afew -n -t -C ${config.xdg.configHome}/notmuch/default/config && ${notifypy}/bin/notmuch-notify.py";
   };
 
   accounts.email.accounts.cass = {
     address = "cass@nie.rs";
     passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
-    notmuch.enable = true;
     mbsync = {
       enable = true;
       create = "both";
