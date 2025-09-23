@@ -213,6 +213,7 @@ in {
       preNew = "mbsync --all";
     };
   };
+  programs.afew.enable = true;
 
   accounts.email.accounts.cass = {
     address = "cass@nie.rs";
