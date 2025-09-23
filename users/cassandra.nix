@@ -205,5 +205,32 @@ in {
     };
   };
 
+  programs.mbsync.enable = true;
+  programs.msmtp.enable = true;
+  programs.notmuch = {
+    enable = true;
+    hooks = {
+      preNew = "mbsync --all";
+    };
+  };
+
+  accounts.email.accounts.cass = {
+    address = "cass@nie.rs";
+    passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
+    notmuch.enable = true;
+    mbsync = {
+      enable = true;
+      create = "both";
+    };
+    primary = true;
+    realName = "Cassandra Comar";
+    imap.host = "imap.purelymail.com";
+    smtp = {
+      host = "smtp.purelymail.com";
+    };
+    msmtp.enable = true;
+    userName = "cass@nie.rs";
+  };
+
   home.stateVersion = "21.11";
 }
