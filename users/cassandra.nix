@@ -38,7 +38,7 @@
     import subprocess
 
     def notify(title, message):
-        subprocess.Popen(['notify-send', "--app-name=notmuch-notify", title, message])
+        subprocess.Popen(['${pkgs.libnotify}/bin/notify-send', "--app-name=notmuch-notify", title, message])
 
     for message in notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE).create_query('tag:notify').search_messages():
         print(message)
