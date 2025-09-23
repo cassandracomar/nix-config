@@ -217,21 +217,24 @@ in {
     enable = true;
   };
 
-  accounts.email.accounts.cass = {
-    address = "cass@nie.rs";
-    passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
-    mbsync = {
-      enable = true;
-      create = "both";
+  accounts.email = {
+    maildirBasePath = "${config.xdg.dataHome}/maildir";
+    accounts.cass = {
+      address = "cass@nie.rs";
+      passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
+      mbsync = {
+        enable = true;
+        create = "both";
+      };
+      primary = true;
+      realName = "Cassandra Comar";
+      imap.host = "imap.purelymail.com";
+      smtp = {
+        host = "smtp.purelymail.com";
+      };
+      msmtp.enable = true;
+      userName = "cass@nie.rs";
     };
-    primary = true;
-    realName = "Cassandra Comar";
-    imap.host = "imap.purelymail.com";
-    smtp = {
-      host = "smtp.purelymail.com";
-    };
-    msmtp.enable = true;
-    userName = "cass@nie.rs";
   };
 
   home.stateVersion = "21.11";
