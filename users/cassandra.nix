@@ -229,7 +229,7 @@ in {
   programs.notmuch = {
     enable = true;
     hooks = {
-      postNew = "${pkgs.afew}/bin/afew -n -t -C ${config.xdg.configHome}/isyncrc && ${notifypy}/bin/notmuch-notify.py";
+      postNew = "afew -n -t && ${notifypy}/bin/notmuch-notify.py";
     };
   };
   programs.afew = {
@@ -244,7 +244,7 @@ in {
 
   services.mbsync = {
     enable = true;
-    postExec = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.afew}/bin/afew -n -t -C ${config.xdg.configHome}/isyncrc && ${notifypy}/bin/notmuch-notify.py";
+    postExec = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.afew} -n -t && ${notifypy}/bin/notmuch-notify.py";
   };
 
   accounts.email.accounts.cass = {
