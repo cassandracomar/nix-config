@@ -470,16 +470,16 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1757606001,
-        "narHash": "sha256-Ey+8oe98sx/eHLugLZiQ+8CLCoVEr/q2+v+DS/c/zVQ=",
+        "lastModified": 1758411025,
+        "narHash": "sha256-XU99/QZPutbXbgjSvt4fBGlcqgbxoD6Aw4YpVMCfHM4=",
         "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "69130c1abc380bd17deabec23924169facc5256c",
+        "rev": "d1d0ab1225d4440c6c89874c2dd1e715eedb13f1",
         "type": "github"
       },
       "original": {
         "owner": "cassandracomar",
-        "ref": "feat/nix-packages-and-modules",
+        "ref": "feat/ext-workspace-v1",
         "repo": "pinnacle",
         "type": "github"
       }
@@ -492,11 +492,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757613291,
-        "narHash": "sha256-IfWw+i/WBlNIbydC15jLqwrHxsbJt1/S7x5l3Z3DHFs=",
+        "lastModified": 1758731432,
+        "narHash": "sha256-ALKPlKDqdsvWkqkTOEo9KA83b07sYStm4+ImRNd8PkA=",
         "owner": "cassandracomar",
         "repo": "pinnacle-config",
-        "rev": "e9aba532eacfa29d17964be8ddc7c9b0d61bad16",
+        "rev": "30820825e848765c7b78c99209c980f805fa094a",
         "type": "github"
       },
       "original": {
