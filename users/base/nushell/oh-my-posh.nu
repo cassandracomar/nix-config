@@ -1,5 +1,6 @@
 $env.POWERLINE_COMMAND = 'oh-my-posh'
 $env.PROMPT_INDICATOR = ""
+$env.POSH_SESSION_ID = "fc4b54b0-2293-41d7-acf8-8fcc06fa6ea3"
 $env.POSH_SHELL = "nu"
 $env.POSH_SHELL_VERSION = (version | get version)
 let posh_dir = (realpath (which oh-my-posh | get 0 | get path)) | path dirname | path dirname
