@@ -1,8 +1,10 @@
 $env.POWERLINE_COMMAND = 'oh-my-posh'
-$env.POSH_THEME = "/home/cassandra/.config/nushell/devious-diamonds.omp.yaml"
 $env.PROMPT_INDICATOR = ""
 $env.POSH_SHELL = "nu"
 $env.POSH_SHELL_VERSION = (version | get version)
+let posh_dir = (realpath (which oh-my-posh | get 0 | get path)) | path dirname | path dirname
+let posh_theme = $'($posh_dir)/share/oh-my-posh/themes/devious-diamonds.omp.yaml'
+$env.POSH_THEME = $"($posh_theme)"
 
 # disable all known python virtual environment prompts
 $env.VIRTUAL_ENV_DISABLE_PROMPT = 1
