@@ -38,9 +38,9 @@ in {
   nixGL = {
     packages = nixgl.packages;
     defaultWrapper = "mesa";
-    offloadWrapper = "mesaPrime";
+    offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
-    installScripts = ["mesa" "mesaPrime"];
+    installScripts = ["mesa" "nvidiaPrime"];
   };
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = pkgs.emacs-igc-pgtk;
