@@ -39,6 +39,8 @@ in {
     defaultWrapper = "mesa";
     vulkan.enable = true;
   };
+  home.sessionVariables.GITHUB_USER = git_config.github.user;
+  programs.doom-emacs.emacs = pkgs.emacs-igc-pgtk;
 
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
