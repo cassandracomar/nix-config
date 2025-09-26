@@ -49,6 +49,16 @@ in {
     Service.ExecStart = lib.mkForce "${config.lib.nixGL.wrap pkgs.pinnacle}/bin/pinnacle --session";
   };
 
+  xdg.portal = {
+    enable = true;
+    configPackages = [pkgs.pinnacle];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.gnome-keyring
+    ];
+  };
+
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
   home.packages = with pkgs; [
