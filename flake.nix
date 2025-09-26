@@ -36,6 +36,8 @@
   inputs.nix-doom.inputs.emacs-overlay.follows = "emacs";
   inputs.doom-config.url = "github:cassandracomar/doom-config";
   inputs.doom-config.flake = false;
+
+  inputs.nixgl.url = "github:nix-community/nixGL";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -54,13 +56,14 @@
     pinnacle-config,
     clipcat,
     nix-doom,
+    nixgl,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
     homeUsers = ["cassandra"];
     nonNixosUsers = [
       {
-        host = "rnwld-ccomar1";
+        host = "nylld-ccomar1";
         os = "ubuntu";
         user = "ccomar";
       }
@@ -256,8 +259,9 @@
         value = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          modules = [(user-module userDef.user).value];
+          modules = [pinnacle.hmModules.default nix-doom.homeModule (user-module userDef.user).value];
           extraSpecialArgs = {
+            inherit pkgs system pinnacle-config inputs nixgl;
             inherit (userDef) user os host;
           };
         };
@@ -316,8 +320,8 @@
             name = "${user}@${host}";
             value = home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
-              modules = [(user-module user).value];
-              extraSpecialArgs = {inherit host system user;};
+              extraSpecialArgs = {inherit pkgs user system pinnacle-config nixgl inputs;};
+              modules = [pinnacle.hmModules.default nix-doom.homeModule (user-module user).value];
             };
           })
           homeUsers))
