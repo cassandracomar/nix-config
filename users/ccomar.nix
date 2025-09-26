@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   nixgl,
   ...
 }: let
@@ -37,10 +38,16 @@ in {
   nixGL = {
     packages = nixgl.packages;
     defaultWrapper = "mesa";
+    offloadWrapper = "mesaPrime";
     vulkan.enable = true;
+    installScripts = ["mesa" "mesaPrime"];
   };
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = pkgs.emacs-igc-pgtk;
+  wayland.windowManager.pinnacle.systemd.useService = lib.mkForce true;
+  systemd.user.services.pinnacle = {
+    Service.ExecStart = lib.mkForce "${config.lib.nixGL.wrap pkgs.pinnacle}/bin/pinnacle --session";
+  };
 
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   pinnacle-config,
   ...
 }: let
@@ -36,7 +37,7 @@ in {
     systemd = {
       enable = true;
       # use UWSM instead
-      useService = false;
+      useService = lib.mkDefault false;
       xdgAutostart = true;
     };
     extraSettings = {
