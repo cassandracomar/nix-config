@@ -50,7 +50,7 @@ in {
     git-crypt
     complete_alias
     kubernetes_aliases
-    iosevka-nerd-fonts
+    iosevka-nerd-font
     inconsolata
     inconsolata-lgc
     noto-fonts
