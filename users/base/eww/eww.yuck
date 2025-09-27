@@ -1,9 +1,10 @@
-(defwindow win1 :monitor 0
-               :geometry (geometry :x 0 :y 0 :height "32px" :width "100%" :anchor "center top")
-               :stacking "fg"
-               :exclusive true
-               :focusable false
-  (bar0 :monitor "HDMI-A-1"))
+(defwindow primary [monitor]
+           :monitor 0
+           :geometry (geometry :x 0 :y 0 :height "32px" :width "100%" :anchor "center top")
+           :stacking "fg"
+           :exclusive true
+           :focusable false
+  (bar0 :monitor monitor))
 
 ; ━━━━ bars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
@@ -31,19 +32,19 @@
 
 ; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
-(deflisten workspaces_listen :initial '{ "HDMI-A-1": "" }' "pinnacle client <./modules/pinnacle-workspaces.lua")
+(deflisten workspaces_listen :initial '{ "HDMI-A-1": "", "eDP-1": "" }' "pinnacle client <./modules/pinnacle-workspaces.lua")
 
 (defwidget workspaces [monitor]
   (literal :content "${workspaces_listen[monitor]}"))
 
 ; ━━━━ window-title ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(deflisten window_title_listen :initial '{"HDMI-A-1": ""}' "pinnacle client <./modules/pinnacle-window-title.lua")
+(deflisten window_title_listen :initial '{"HDMI-A-1": "", "eDP-1": ""}' "pinnacle client <./modules/pinnacle-window-title.lua")
 (defwidget window-title []
   (box :class "window-title"
     (label :class "title" :text "${window_title_listen ?: ''}")))
 
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(deflisten tab_bar_listen :initial '{"HDMI-A-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
+(deflisten tab_bar_listen :initial '{"HDMI-A-1": "", "eDP-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
   (literal :content "${tab_bar_listen[monitor]}"))
 
