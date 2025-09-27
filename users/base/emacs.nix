@@ -23,6 +23,7 @@
     gnumake
     config.programs.doom-emacs.finalDoomPackage
     emacs-lsp-booster
+    mu
   ];
 
   systemd.user.startServices = true;
