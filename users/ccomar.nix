@@ -52,7 +52,6 @@ in {
   xdg.portal = {
     enable = true;
     configPackages = [pkgs.pinnacle];
-    gtkUsePortal = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
