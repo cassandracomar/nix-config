@@ -43,7 +43,7 @@ in {
     installScripts = ["mesa" "nvidiaPrime"];
   };
   home.sessionVariables.GITHUB_USER = git_config.github.user;
-  programs.doom-emacs.emacs = pkgs.emacs-igc-pgtk;
+  programs.doom-emacs.emacs = config.lib.nixGL.wrap pkgs.emacs-igc-pgtk;
   wayland.windowManager.pinnacle.systemd.useService = lib.mkForce true;
   systemd.user.services.pinnacle = {
     Service.ExecStart = lib.mkForce "${config.lib.nixGL.wrap pkgs.pinnacle}/bin/pinnacle --session";
@@ -52,12 +52,18 @@ in {
   xdg.portal = {
     enable = true;
     configPackages = [pkgs.pinnacle];
+    gtkUsePortal = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
       pkgs.gnome-keyring
     ];
   };
+
+  services.wpaperd.package = config.lib.nixGL.wrap pkgs.wpaperd;
+  services.clipcat.package = config.lib.nixGL.wrap pkgs.clipcat;
+  programs.wezterm.package = config.lib.nixGL.wrap pkgs.wezterm;
+  programs.eww.package = config.lib.nixGL.wrap pkgs.eww;
 
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
@@ -157,9 +163,9 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override {
+    package = config.lib.nixGL.wrap (pkgs.firefox.override {
       extraPolicies = {DisableAppUpdate = true;};
-    };
+    });
     profiles = {
       "yg8ij66s.default" = {
         isDefault = true;
