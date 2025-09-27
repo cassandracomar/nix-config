@@ -30,6 +30,7 @@
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
   inputs.clipcat.url = "github:xrelkd/clipcat";
+  inputs.clipcat.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened";
   inputs.nix-doom.inputs.nixpkgs.follows = "";
