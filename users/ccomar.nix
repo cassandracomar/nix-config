@@ -68,6 +68,11 @@ in {
   programs.wezterm.package = config.lib.nixGL.wrap pkgs.wezterm;
   programs.eww.package = config.lib.nixGL.wrap pkgs.eww;
 
+  systemd.user.services.clipcat.Service.ExecStart = lib.mkForce "${pkgs.writeShellScript "clipcatd-exec-start" ''
+    PATH=${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:
+    ${config.services.clipcat.package}/bin/clipcatd --no-daemon --replace
+  ''}";
+
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
   home.packages = with pkgs; [
