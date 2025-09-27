@@ -42,7 +42,10 @@ in {
     vulkan.enable = true;
     installScripts = ["mesa" "nvidiaPrime"];
   };
-  home.sessionVariables.GITHUB_USER = git_config.github.user;
+  home.sessionVariables = {
+    GITHUB_USER = git_config.github.user;
+    GSETTINGS_SCHEMA_DIR = "/usr/share/glib-2.0/schemas";
+  };
   programs.doom-emacs.emacs = config.lib.nixGL.wrap pkgs.emacs-igc-pgtk;
   wayland.windowManager.pinnacle.systemd.useService = lib.mkForce true;
   systemd.user.services.pinnacle = {
