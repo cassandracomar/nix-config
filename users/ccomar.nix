@@ -48,6 +48,7 @@ in {
   systemd.user.services.pinnacle = {
     Service.ExecStart = lib.mkForce "${config.lib.nixGL.wrap pkgs.pinnacle}/bin/pinnacle --session";
   };
+  xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
 
   xdg.portal = {
     enable = true;
