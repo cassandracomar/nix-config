@@ -70,6 +70,7 @@ in {
 
   systemd.user.services.clipcat.Service.ExecStart = lib.mkForce "${pkgs.writeShellScript "clipcatd-exec-start" ''
     PATH=${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin
+    env
     ${config.services.clipcat.package}/bin/clipcatd --no-daemon --replace
   ''}";
 
