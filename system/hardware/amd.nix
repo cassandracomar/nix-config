@@ -77,11 +77,25 @@ in {
 
   services.lact = {
     enable = true;
+    settings = {
+      "fill-in" = {
+        voltage_offset = -50;
+        max_memory_clock = 1614;
+        pmfw_options = {
+          zero_rpm = false;
+        };
+        power_cap = 385.0;
+      };
+    };
   };
   services.ollama = {
     acceleration = "rocm";
     rocmOverrideGfx = "10.3.0";
     package = pkgs.ollama-rocm;
   };
-  hardware.amdgpu.opencl.enable = true;
+  hardware.amdgpu = {
+    opencl.enable = true;
+    overdrive.enable = true;
+    initrd.enable = true;
+  };
 }
