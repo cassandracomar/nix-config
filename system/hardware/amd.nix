@@ -78,7 +78,7 @@ in {
   services.lact = {
     enable = true;
     settings = {
-      "fill-in" = {
+      "1002:7550-1ED3:8900-0000:03:00.0" = {
         voltage_offset = -50;
         max_memory_clock = 1614;
         pmfw_options = {
