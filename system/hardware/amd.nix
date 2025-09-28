@@ -84,7 +84,7 @@ in {
         pmfw_options = {
           zero_rpm = false;
         };
-        power_cap = 385.0;
+        power_cap = 340.0;
       };
     };
   };
