@@ -23,6 +23,7 @@
          :halign "end"
          :spacing 20
          :space-evenly false
+      (bat)
       (mic)
       (speakers)
       (tray)
@@ -47,6 +48,17 @@
 (deflisten tab_bar_listen :initial '{"HDMI-A-1": "", "eDP-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
   (literal :content "${tab_bar_listen[monitor]}"))
+
+; ━━━━ battery ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwidget bat []
+	(box	:orientation "v"
+			:space-evenly "false"
+	(label	:class "bat"
+			:halign "end"
+			:text battery
+			:tooltip "Battery: ${battery-capacity}%")))
+(defpoll battery            :interval "1s" "modules/battery icon")
+(defpoll battery-capacity   :interval "1s" "modules/battery percent")
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
