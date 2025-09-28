@@ -78,13 +78,18 @@ in {
   services.lact = {
     enable = true;
     settings = {
-      "1002:7550-1ED3:8900-0000:03:00.0" = {
-        voltage_offset = -50;
-        max_memory_clock = 1614;
-        pmfw_options = {
-          zero_rpm = false;
+      daemon = {
+        admin_group = "wheel";
+      };
+      gpus = {
+        "1002:7550-1ED3:8900-0000:03:00.0" = {
+          voltage_offset = -50;
+          max_memory_clock = 1614;
+          pmfw_options = {
+            zero_rpm = false;
+          };
+          power_cap = 340.0;
         };
-        power_cap = 340.0;
       };
     };
   };
