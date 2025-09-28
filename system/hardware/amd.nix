@@ -79,6 +79,7 @@ in {
     enable = true;
     settings = {
       daemon = {
+        log_level = "info";
         admin_group = "wheel";
       };
       gpus = {
