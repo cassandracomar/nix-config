@@ -46,6 +46,16 @@ in {
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
   boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest;
 
+  boot.kernelPatches = [
+    {
+      name = "lact-max-clocks";
+      patch = pkgs.fetchpatch {
+        url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
+        sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
+      };
+    }
+  ];
+
   environment.systemPackages = [CoreFreq pkgs.lact];
   services.dbus.packages = [CoreFreq];
   systemd.services.corefreqd = {
