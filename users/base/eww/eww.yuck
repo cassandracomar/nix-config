@@ -33,7 +33,7 @@
 
 ; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
-(deflisten workspaces_listen :initial '{ "HDMI-A-1": "", "eDP-1": "" }' "pinnacle client <./modules/pinnacle-workspaces.lua")
+(deflisten workspaces_listen :initial '' "pinnacle client <./modules/pinnacle-workspaces.lua")
 
 (defwidget workspaces [monitor]
   (literal :content "${workspaces_listen[monitor]}"))
