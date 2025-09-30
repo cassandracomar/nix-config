@@ -53,7 +53,7 @@
 (defwidget battery []
   (box :class "battery"
     :space-evenly false
-    (label :class "icon ${ EWW_BATTERY?.["BAT0"]?.capacity <= 20 ? 'critical' : 'normal' }"
+    (label :class "icon ${ (EWW_BATTERY?.["BAT0"]?.capacity ?: 100) <= 20 ? 'critical' : 'normal' }"
            :text "${  EWW_BATTERY?.["BAT0"]?.capacity > 95 ? '󰁹'
                     : EWW_BATTERY?.["BAT0"]?.capacity > 90 ? '󰂂'
                     : EWW_BATTERY?.["BAT0"]?.capacity > 80 ? '󰂁'
