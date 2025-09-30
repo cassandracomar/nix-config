@@ -146,7 +146,6 @@ in {
       libX11 = pkgs.xorg.libX11;
       cairo = pkgs.cairo;
     })
-    bubblewrap
   ];
 
   programs.rbw = {

@@ -76,6 +76,7 @@ in {
     complete_alias
     kubernetes_aliases
     mu
+    zoom-us
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = emacs';

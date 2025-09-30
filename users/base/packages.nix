@@ -4,7 +4,6 @@
 
   home.packages = with pkgs; [
     slack
-    zoom-us
     signal-desktop
     monero-cli
     monero-gui
