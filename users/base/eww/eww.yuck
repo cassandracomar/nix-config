@@ -118,9 +118,8 @@
 (defpoll date_poll :interval "1m" "date +%d/%m")
 
 (defwidget date []
-  (box :class "date"
-    :space-evenly false
-    (label :text date_poll)))
+  (box :space-evenly false
+    (label :class "date" :text date_poll)))
 
 ; ━━━━ time ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
