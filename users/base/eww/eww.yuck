@@ -65,7 +65,7 @@
                     : EWW_BATTERY["BAT0"].capacity > 20 ? '󰁻'
                     : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
                     : '󰂃' }"
-            :tooltip "battery: ${EWW_BATTERY["BAT0"].capacity}%")
+            :tooltip "battery: ${EWW_BATTERY["BAT0"].capacity ?: 100}%")
     (label :text "${EWW_BATTERY["BAT0"].capacity}" :halign "center" :xalign 0.5 :justify "right")))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
