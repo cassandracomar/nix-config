@@ -115,7 +115,7 @@
         };
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         kitty = prev.kitty.overrideAttrs (old: {
-          doCheck = false;
+          doInstallCheck = false;
         });
       })
 

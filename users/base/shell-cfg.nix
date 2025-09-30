@@ -4,9 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    (kitty.overrideAttrs (old: {
-      doCheck = false;
-    }))
+    kitty
     nix-bash-completions
     nix-zsh-completions
     bash-completion
