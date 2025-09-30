@@ -54,18 +54,19 @@
   (box :class "battery"
     :space-evenly false
     (label :class "icon ${ (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) <= 20 ? 'critical' : 'normal' }"
-           :text "${  (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 95 ? '󰁹'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 90 ? '󰂂'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 80 ? '󰂁'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 70 ? '󰂀'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 60 ? '󰁿'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 50 ? '󰁾'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 40 ? '󰁽'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 30 ? '󰁼'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 20 ? '󰁻'
-                    : (EWW_BATTERY?.["BAT0"]?.capacity ?: 0) > 10 ? '󰁺'
+           :text "${  EWW_BATTERY == '' ? ''
+                    : EWW_BATTERY["BAT0"].capacity > 95 ? '󰁹'
+                    : EWW_BATTERY["BAT0"].capacity > 90 ? '󰂂'
+                    : EWW_BATTERY["BAT0"].capacity > 80 ? '󰂁'
+                    : EWW_BATTERY["BAT0"].capacity > 70 ? '󰂀'
+                    : EWW_BATTERY["BAT0"].capacity > 60 ? '󰁿'
+                    : EWW_BATTERY["BAT0"].capacity > 50 ? '󰁾'
+                    : EWW_BATTERY["BAT0"].capacity > 40 ? '󰁽'
+                    : EWW_BATTERY["BAT0"].capacity > 30 ? '󰁼'
+                    : EWW_BATTERY["BAT0"].capacity > 20 ? '󰁻'
+                    : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
                     : '󰂃' }"
-            :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: 0}%")))
+            :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%")))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
