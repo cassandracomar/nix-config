@@ -27,8 +27,8 @@
       (speakers)
       (date)
       (tray)
-      (time)
       (battery)
+      (time)
       (label :text ""))))
 
 ; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
