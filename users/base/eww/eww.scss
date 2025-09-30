@@ -112,6 +112,10 @@ window {
 }
 
 .battery {
+  .icon.normal {
+    color: $green;
+  }
+
   .icon.critical {
     color: $red;
   }
