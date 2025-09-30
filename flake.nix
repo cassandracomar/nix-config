@@ -114,6 +114,9 @@
           kernelPackage = prev.linux_xanmod_latest;
         };
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
+        kitty = prev.kitty.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
 
       (import "${openconnect}/overlay.nix")
