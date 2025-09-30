@@ -23,11 +23,11 @@
          :halign "end"
          :spacing 20
          :space-evenly false
+      (tray)
+      (battery)
       (mic)
       (speakers)
       (date)
-      (tray)
-      (battery)
       (time)
       (label :text ""))))
 
@@ -115,7 +115,7 @@
 
 ; ━━━━ date ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
-(defpoll date_poll :interval "1m" "date +%d/%m")
+(defpoll date_poll :interval "1m" "date +%Y-%m-%d")
 
 (defwidget date []
   (box :space-evenly false
