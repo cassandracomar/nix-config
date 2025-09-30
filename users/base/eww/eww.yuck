@@ -23,12 +23,12 @@
          :halign "end"
          :spacing 20
          :space-evenly false
-      (battery)
       (mic)
       (speakers)
-      (tray)
       (date)
+      (tray)
       (time)
+      (battery)
       (label :text ""))))
 
 ; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -120,7 +120,6 @@
 (defwidget date []
   (box :class "date"
     :space-evenly false
-    (label :class "icon" :text "󰃶")
     (label :text date_poll)))
 
 ; ━━━━ time ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -130,5 +129,4 @@
 (defwidget time []
   (box :class "time"
     :space-evenly false
-    (label :class "icon" :text "󰥔")
     (label :text time_poll)))
