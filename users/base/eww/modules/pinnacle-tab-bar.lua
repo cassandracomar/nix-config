@@ -19,7 +19,7 @@ function windows_for_output(output)
   local tags = output:active_tags()
   local windows = {}
 
-  for _, tag in ipairs(tags) do
+  for _, tag in pairs(tags) do
     windows[tag:name()] = tag:windows()
   end
 
@@ -30,7 +30,7 @@ end
 function windows_for_all_outputs()
   local outputs = Output.get_all()
   local windows = {}
-  for _, output in ipairs(outputs) do
+  for _, output in pairs(outputs) do
     windows[output.name] = windows_for_output(output)
   end
 
@@ -39,21 +39,26 @@ end
 
 -- turn the window into a tab bar button
 function make_tab(window)
-  local class = ':class "tab" '
+  local is_active = ""
+  if window:focused()
+  then is_active = "active"
+  else is_active = "inactive"
+  end
+  local class = ':class "tab ' .. is_active .. '" '
   local switch_to = ':onclick "./modules/focus-window.sh ' .. window.id .. '" '
-  local label = '(label :class "title" :show-truncated true "' .. window:title() .. '")'
-  local button = '(button ' .. class .. switch_to .. label .. ')'
+  local icon = '(image :valign "center" :class "tab icon" :icon "' .. window:app_id():lower() .. '" :icon-size "large-toolbar")'
+  local label = '(label :class "tab title" :show-truncated true :text "' .. window:title() .. '")'
+  local box = '(box :space-evenly false ' .. icon  .. ' ' .. label .. ')'
+  local button = '(button ' .. class .. switch_to .. box .. ')'
 
   return button
 end
 
 -- turn a list of windows into a tab bar, excluding the focused window
 function make_tab_bar(windows)
-  local tab_bar = '(box :class "tab-bar" :orientation "h" :space-evenly true'
+  local tab_bar = '(box :class "tab-bar" :orientation "h" :space-evenly false :spacing 20'
   for i, window in ipairs(windows) do
-    if (not window:focused()) then
-      tab_bar = tab_bar .. ' ' .. make_tab(window)
-    end
+    tab_bar = tab_bar .. ' ' .. make_tab(window)
   end
 
   return tab_bar .. ')'

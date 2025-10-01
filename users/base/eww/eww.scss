@@ -98,18 +98,34 @@ window {
 }
 
 .tab-bar {
-  .tab {
-    border-radius: 2px;
-    border-color: $yellow;
+  .tab.active {
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: $peach;
+    border-style: solid;
+    padding-left: 4px;
+    padding-right: 10px;
+    .tab.title {
+      color: $text;
+      font-size: 16px;
+    }
+  }
+
+  .tab.inactive {
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: $surface2;
+    border-style: solid;
+    padding-left: 3px;
+    padding-right: 10px;
+    .tab.title {
+      color: $text;
+      font-size: 16px;
+    }
   }
 }
 
-.tab {
-  .title {
-    color: $peach;
-    font-size: 16px;
-  }
-}
+
 
 .battery {
   .icon.normal {
