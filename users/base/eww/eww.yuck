@@ -21,7 +21,7 @@
       (window-title))
     (box :class "right"
          :halign "end"
-         :spacing 20
+         :spacing 10
          :space-evenly false
       (tray)
       (battery)
