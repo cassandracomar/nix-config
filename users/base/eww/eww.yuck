@@ -21,7 +21,7 @@
       (tab-bar :monitor monitor))
     (box :class "right"
          :halign "end"
-         :spacing 10
+         :spacing 15
          :space-evenly false
       (tray)
       (battery)
