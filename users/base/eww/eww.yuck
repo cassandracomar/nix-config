@@ -40,8 +40,11 @@
 
 ; ━━━━ window-title ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (deflisten window_title_listen :initial '' "pinnacle client <./modules/pinnacle-window-title.lua")
+(deflisten window_icon_listen :initial '' "./modules/window-icon.sh")
 (defwidget window-title []
   (box :class "window-title"
+       :space-evenly false
+    (literal :class "title icon" :valign "center" :content {window_icon_listen ?: ''})
     (label :class "title" :text "${window_title_listen ?: ''}")))
 
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
