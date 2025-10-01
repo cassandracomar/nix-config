@@ -79,6 +79,15 @@ print(get_tab_bars())
 
 Pinnacle.setup(function ()
   Window.connect_signal({
+    focused = function(win)
+      print(get_tab_bars())
+    end,
+    pointer_enter = function(win)
+      print(get_tab_bars())
+    end,
+    pointer_leave = function(win)
+      print(get_tab_bars())
+    end,
     title_changed = function(win)
       print(get_tab_bars())
     end
