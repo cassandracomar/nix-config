@@ -148,6 +148,7 @@ window {
 
 .tray image {
    -gtk-icon-palette: success $text, warning $yellow, error $red;
+   -gtk-icon-style: symbolic;
 }
 
 scale trough {
