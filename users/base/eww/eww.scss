@@ -85,7 +85,7 @@ window {
   }
 }
 
-.battery, .time, .date, .tray .speakers .mic .wifi {
+.battery, .time, .date, .tray, .speakers, .mic, .wifi {
   color: $text;
   font-size: 16px;
 }
@@ -146,9 +146,9 @@ window {
   }
 }
 
-// .tray image {
-//    -gtk-icon-transform: scale(0.5);
-// }
+.tray image {
+  color: $text
+}
 
 scale trough {
   background-color: $crust;
