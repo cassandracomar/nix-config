@@ -38,15 +38,6 @@
 (defwidget workspaces [monitor]
   (literal :content "${workspaces_listen[monitor]}"))
 
-; ━━━━ window-title ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(deflisten window_title_listen :initial '' "pinnacle client <./modules/pinnacle-window-title.lua")
-(deflisten window_icon_listen :initial '' "./modules/window-icon.sh")
-(defwidget window-title []
-  (box :class "window-title"
-       :space-evenly false
-    (literal :class "title icon" :valign "center" :content {window_icon_listen ?: ''})
-    (label :class "title" :text "${window_title_listen ?: ''}")))
-
 ; ━━━━ tab-bar ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (deflisten tab_bar_listen :initial '{"HDMI-A-1": "", "eDP-1": ""}' "pinnacle client <./modules/pinnacle-tab-bar.lua")
 (defwidget tab-bar [monitor]
