@@ -98,12 +98,14 @@ window {
 }
 
 .tab-bar {
+  max-width: 500;
   .tab.active, .tab.inactive {
     border-width: 1px;
     border-radius: 10px;
     border-style: solid;
     padding-left: 3px;
     padding-right: 10px;
+    max-width: 100;
     .tab.title {
       font-size: 16px;
     }
