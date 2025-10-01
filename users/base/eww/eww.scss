@@ -146,9 +146,9 @@ window {
   }
 }
 
-.tray image {
-   -gtk-icon-transform: scale(0.5);
-}
+// .tray image {
+//    -gtk-icon-transform: scale(0.5);
+// }
 
 scale trough {
   background-color: $crust;
