@@ -48,8 +48,11 @@ in {
   };
   programs.doom-emacs.emacs = config.lib.nixGL.wrap pkgs.emacs-igc-pgtk;
   wayland.windowManager.pinnacle.systemd.useService = lib.mkForce true;
-  systemd.user.services.pinnacle = {
-    Service.ExecStart = lib.mkForce "${config.lib.nixGL.wrap pkgs.pinnacle}/bin/pinnacle --session";
+  systemd.user.services.pinnacle = let
+    pinnacle = config.lib.nixGL.wrap pkgs.pinnacle;
+  in {
+    Service.ExecStart = lib.mkForce "${pinnacle}/bin/pinnacle --session";
+    reloadTriggers = [pinnacle];
   };
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
 
