@@ -163,5 +163,5 @@
 
 (defwidget power []
   (button :class "power"
-          :onclick "eww open power"
+          :onclick "eww open power --screen 0"
     "⏻"))
