@@ -21,7 +21,7 @@
       (tab-bar :monitor monitor))
     (box :class "right"
          :halign "end"
-         :spacing 15
+         :spacing 10
          :space-evenly false
       (tray)
       (battery)
@@ -71,7 +71,7 @@
 
 (defwidget tray []
   (box :class "tray"
-    (systray)))
+    (systray :spacing 10 :space-evenly true :icon-size 16)))
 
 ; ━━━━ mic ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
