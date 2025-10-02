@@ -46,26 +46,28 @@
 
 ; ━━━━ battery ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (defwidget battery []
-  (box :class "battery"
-    :space-evenly false
-    :visible {EWW_BATTERY != ''}
-    (label :class "icon ${  EWW_BATTERY == ''? ''
-                          : EWW_BATTERY["BAT0"].capacity <= 20 ? 'critical'
-                          : EWW_BATTERY["BAT0"].capacity <= 40 ? 'low'
-                          : 'normal' }"
-           :text "${  EWW_BATTERY == '' ? ''
-                    : EWW_BATTERY["BAT0"].capacity > 95 ? '󰁹'
-                    : EWW_BATTERY["BAT0"].capacity > 90 ? '󰂂'
-                    : EWW_BATTERY["BAT0"].capacity > 80 ? '󰂁'
-                    : EWW_BATTERY["BAT0"].capacity > 70 ? '󰂀'
-                    : EWW_BATTERY["BAT0"].capacity > 60 ? '󰁿'
-                    : EWW_BATTERY["BAT0"].capacity > 50 ? '󰁾'
-                    : EWW_BATTERY["BAT0"].capacity > 40 ? '󰁽'
-                    : EWW_BATTERY["BAT0"].capacity > 30 ? '󰁼'
-                    : EWW_BATTERY["BAT0"].capacity > 20 ? '󰁻'
-                    : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
-                    : '󰂃' }"
-            :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%")))
+  (overlay
+    (box :class "battery"
+      :space-evenly false
+      :visible {EWW_BATTERY != ''}
+      (label :class "icon ${  EWW_BATTERY == ''? ''
+                            : EWW_BATTERY["BAT0"].capacity <= 20 ? 'critical'
+                            : EWW_BATTERY["BAT0"].capacity <= 40 ? 'low'
+                            : 'normal' }"
+             :text "${  EWW_BATTERY == '' ? ''
+                      : EWW_BATTERY["BAT0"].capacity > 95 ? '󰁹'
+                      : EWW_BATTERY["BAT0"].capacity > 90 ? '󰂂'
+                      : EWW_BATTERY["BAT0"].capacity > 80 ? '󰂁'
+                      : EWW_BATTERY["BAT0"].capacity > 70 ? '󰂀'
+                      : EWW_BATTERY["BAT0"].capacity > 60 ? '󰁿'
+                      : EWW_BATTERY["BAT0"].capacity > 50 ? '󰁾'
+                      : EWW_BATTERY["BAT0"].capacity > 40 ? '󰁽'
+                      : EWW_BATTERY["BAT0"].capacity > 30 ? '󰁼'
+                      : EWW_BATTERY["BAT0"].capacity > 20 ? '󰁻'
+                      : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
+                      : '󰂃' }"
+              :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%"))
+    (label :class "bat-charging-symbol" :text "⚡")))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
@@ -158,7 +160,7 @@
                  :logout_icon "↪"
                  :lock "loginctl lock-session self"
                  :sleep "sudo -A systemctl suspend"
-                 :sleep_icon "☾"
+                 :sleep_icon "⏾"
                  :cancel_icon "✘"))))
 
 (defwidget power []
