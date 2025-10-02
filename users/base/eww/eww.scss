@@ -153,15 +153,16 @@ window {
   }
 
   .bat-charging-symbol {
-      font-size: 10px;
+    font-size: 10px;
   }
 }
 
 .tooltip {
   background-color: $surface0;
   color: $text;
-  font-size: 10px;
+  font-size: 16px;
 }
+
 .camera {
   .icon.connected {
     color: $green;

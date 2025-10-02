@@ -46,8 +46,8 @@
 
 ; ━━━━ battery ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (defwidget battery []
-  (tooltip
-    (label :text "Battery ${EWW_BATTERY?.["BAT0"]?.status ?: "Unknown"}: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%")
+  (tooltip 
+    (label :class "tooltip" :text "Battery ${EWW_BATTERY?.["BAT0"]?.status ?: "Unknown"}: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%")
     (overlay :visible {EWW_BATTERY != ''}
       (box :class "battery"
            :space-evenly false
