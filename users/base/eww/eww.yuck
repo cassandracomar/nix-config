@@ -46,29 +46,30 @@
 
 ; ━━━━ battery ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (defwidget battery []
-  (overlay :visible {EWW_BATTERY != ''}
-    (box :class "battery"
-      :space-evenly false
-      (label :class "icon ${  EWW_BATTERY == ''? ''
-                            : EWW_BATTERY["BAT0"].capacity <= 20 ? 'critical'
-                            : EWW_BATTERY["BAT0"].capacity <= 40 ? 'low'
-                            : 'normal' }"
-             :text "${  EWW_BATTERY == '' ? ''
-                      : EWW_BATTERY["BAT0"].capacity > 95 ? '󰁹'
-                      : EWW_BATTERY["BAT0"].capacity > 90 ? '󰂂'
-                      : EWW_BATTERY["BAT0"].capacity > 80 ? '󰂁'
-                      : EWW_BATTERY["BAT0"].capacity > 70 ? '󰂀'
-                      : EWW_BATTERY["BAT0"].capacity > 60 ? '󰁿'
-                      : EWW_BATTERY["BAT0"].capacity > 50 ? '󰁾'
-                      : EWW_BATTERY["BAT0"].capacity > 40 ? '󰁽'
-                      : EWW_BATTERY["BAT0"].capacity > 30 ? '󰁼'
-                      : EWW_BATTERY["BAT0"].capacity > 20 ? '󰁻'
-                      : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
-                      : '󰂃' }"
-              :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%"))
-    (label :class "bat-charging-symbol"
-           :text "⚡"
-           :visible {EWW_BATTERY["BAT0"].status != 'Discharging'})))
+  (tooltip
+    (label :text "Battery ${EWW_BATTERY?.["BAT0"]?.status ?: "Unknown"}: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%")
+    (overlay :visible {EWW_BATTERY != ''}
+      (box :class "battery"
+           :space-evenly false
+        (label :class "icon ${  EWW_BATTERY == ''? ''
+                              : EWW_BATTERY["BAT0"].capacity <= 20 ? 'critical'
+                              : EWW_BATTERY["BAT0"].capacity <= 40 ? 'low'
+                              : 'normal' }"
+               :text "${  EWW_BATTERY == '' ? ''
+                        : EWW_BATTERY["BAT0"].capacity > 95 ? '󰁹'
+                        : EWW_BATTERY["BAT0"].capacity > 90 ? '󰂂'
+                        : EWW_BATTERY["BAT0"].capacity > 80 ? '󰂁'
+                        : EWW_BATTERY["BAT0"].capacity > 70 ? '󰂀'
+                        : EWW_BATTERY["BAT0"].capacity > 60 ? '󰁿'
+                        : EWW_BATTERY["BAT0"].capacity > 50 ? '󰁾'
+                        : EWW_BATTERY["BAT0"].capacity > 40 ? '󰁽'
+                        : EWW_BATTERY["BAT0"].capacity > 30 ? '󰁼'
+                        : EWW_BATTERY["BAT0"].capacity > 20 ? '󰁻'
+                        : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
+                        : '󰂃' }"))
+      (label :class "bat-charging-symbol"
+             :text "⚡"
+             :visible {EWW_BATTERY["BAT0"].status != 'Discharging'}))))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
