@@ -160,7 +160,6 @@ in {
   home.packages = with pkgs;
     rofi-packages
     ++ [
-      pinnacle
       adwaita-icon-theme
       qogir-theme
       gnome-calculator
