@@ -47,29 +47,14 @@ in {
     GSETTINGS_SCHEMA_DIR = "/usr/share/glib-2.0/schemas";
   };
   programs.doom-emacs.emacs = config.lib.nixGL.wrap pkgs.emacs-igc-pgtk;
-  wayland.windowManager.pinnacle.systemd.useService = lib.mkForce true;
-  systemd.user.services.pinnacle = let
-    pinnacle = config.lib.nixGL.wrap pkgs.pinnacle;
-  in {
-    Service = {
-      ExecStart = lib.mkForce "${pinnacle}/bin/pinnacle --session";
-      ExecReload = "pinnacle client -e 'Pinnacle.reload_config()'";
-    };
-    Unit = {
-      X-SwitchMethod = "reload";
+  wayland.windowManager.pinnacle = {
+    systemd.useService = lib.mkForce true;
+    config = {
+      nixGL.enable = true;
+      xdg-portals.enable = true;
     };
   };
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
-
-  xdg.portal = {
-    enable = true;
-    configPackages = [pkgs.pinnacle];
-    extraPortals = [
-      pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.gnome-keyring
-    ];
-  };
 
   services.wpaperd.package = config.lib.nixGL.wrap pkgs.wpaperd;
   services.clipcat.package = config.lib.nixGL.wrap pkgs.clipcat;
