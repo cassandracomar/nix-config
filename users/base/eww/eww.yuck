@@ -135,7 +135,7 @@
   (powermenu_layout))
 
 (defwidget powermenu [shutdown shutdown_icon reboot reboot_icon logout 
-                       logout_icon lock sleep sleep_icon cancel_icon]
+                       logout_icon lock lock_icon sleep sleep_icon cancel_icon]
   (box :vexpand true 
        :hexpand true
        :space-evenly false 
@@ -147,7 +147,7 @@
     (button :class "power-shutdown-button" :onclick "${shutdown} && ${EWW_CMD} close power" shutdown_icon)
     (button :class "power-reboot-button" :onclick "${reboot} && ${EWW_CMD} close power" reboot_icon)
     (button :class "power-logout-button" :onclick "${logout} && ${EWW_CMD} close power" logout_icon)
-    (button :class "power-lock-button" :onclick "${lock} && ${EWW_CMD} close power" (image :path "./lock.svg" :image-width 48 :image-height 46))
+    (button :class "power-lock-button" :onclick "${lock} && ${EWW_CMD} close power" lock_icon)
     (button :class "power-sleep-button" :onclick "${sleep} && ${EWW_CMD} close power" sleep_icon)
     (button :class "power-close-button" :onclick "${EWW_CMD} close power" cancel_icon)))
 
@@ -161,6 +161,7 @@
                  :logout "loginctl kill-session self"
                  :logout_icon "↪"
                  :lock "loginctl lock-session self"
+                 :lock_icon "🔒︎"
                  :sleep "sudo -A systemctl suspend"
                  :sleep_icon "⏾"
                  :cancel_icon "✘"))))
