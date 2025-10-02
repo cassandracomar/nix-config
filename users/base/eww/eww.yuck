@@ -29,7 +29,7 @@
       (speakers)
       (date)
       (time)
-      (power)
+      (power :monitor monitor)
       (label :text ""))))
 
 ; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
@@ -46,10 +46,9 @@
 
 ; ━━━━ battery ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (defwidget battery []
-  (overlay
+  (overlay :visible {EWW_BATTERY != ''}
     (box :class "battery"
       :space-evenly false
-      :visible {EWW_BATTERY != ''}
       (label :class "icon ${  EWW_BATTERY == ''? ''
                             : EWW_BATTERY["BAT0"].capacity <= 20 ? 'critical'
                             : EWW_BATTERY["BAT0"].capacity <= 40 ? 'low'
@@ -67,7 +66,9 @@
                       : EWW_BATTERY["BAT0"].capacity > 10 ? '󰁺'
                       : '󰂃' }"
               :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%"))
-    (label :class "bat-charging-symbol" :text "⚡")))
+    (label :class "bat-charging-symbol"
+           :text "⚡"
+           :visible {EWW_BATTERY["BAT0"].status == 'Charging' || EWW_BATTERY["BAT0"].status == 'Full'})))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
@@ -142,12 +143,12 @@
        :halign "end"
        :spacing 5
        :orientation "v"
-    (button :class "power-shutdown-button" :onclick "${shutdown} && eww close power" shutdown_icon)
-    (button :class "power-reboot-button" :onclick "${reboot} && eww close power" reboot_icon)
-    (button :class "power-logout-button" :onclick "${logout} && eww close power" logout_icon)
-    (button :class "power-lock-button" :onclick "${lock} && eww close power" (image :path "./lock.svg" :image-width 48 :image-height 46))
-    (button :class "power-sleep-button" :onclick "${sleep} && eww close power" sleep_icon)
-    (button :class "power-close-button" :onclick "eww close power" cancel_icon)))
+    (button :class "power-shutdown-button" :onclick "${shutdown} && ${EWW_CMD} close power" shutdown_icon)
+    (button :class "power-reboot-button" :onclick "${reboot} && ${EWW_CMD} close power" reboot_icon)
+    (button :class "power-logout-button" :onclick "${logout} && ${EWW_CMD} close power" logout_icon)
+    (button :class "power-lock-button" :onclick "${lock} && ${EWW_CMD} close power" (image :path "./lock.svg" :image-width 48 :image-height 46))
+    (button :class "power-sleep-button" :onclick "${sleep} && ${EWW_CMD} close power" sleep_icon)
+    (button :class "power-close-button" :onclick "${EWW_CMD} close power" cancel_icon)))
 
 (defwidget powermenu_layout []
   (box :class "power-layout-box" :space-evenly false
@@ -163,7 +164,7 @@
                  :sleep_icon "⏾"
                  :cancel_icon "✘"))))
 
-(defwidget power []
+(defwidget power [monitor]
   (button :class "power"
-          :onclick "eww open power --screen 0"
+          :onclick "${EWW_CMD} open power --screen ${monitor}"
     "⏻"))
