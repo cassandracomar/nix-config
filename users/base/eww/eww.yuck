@@ -126,11 +126,12 @@
 
 (defwidget time []
   (box :class "time"
-    :space-evenly false
+       :space-evenly false
     (label :text time_poll)))
 
 ; ━━━━ powermenu ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(defwindow power
+(defwindow power []
+           :stacking "fg"
   (powermenu_layout))
 
 (defwidget powermenu [shutdown shutdown_icon reboot reboot_icon logout 
