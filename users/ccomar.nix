@@ -52,7 +52,7 @@ in {
     pinnacle = config.lib.nixGL.wrap pkgs.pinnacle;
   in {
     Service.ExecStart = lib.mkForce "${pinnacle}/bin/pinnacle --session";
-    reloadTriggers = ["${pinnacle}"];
+    Unit.X-SwitchMethod = "reload";
   };
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
 
