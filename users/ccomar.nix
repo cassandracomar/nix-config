@@ -52,6 +52,7 @@ in {
     pinnacle = config.lib.nixGL.wrap pkgs.pinnacle;
   in {
     Service.ExecStart = lib.mkForce "${pinnacle}/bin/pinnacle --session";
+    reload = "pinnacle client -e 'Pinnacle.reload_config()'";
     Unit = {
       X-SwitchMethod = "reload";
       X-ReloadTriggers = ["${pinnacle}"];
