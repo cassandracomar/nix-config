@@ -187,27 +187,6 @@ scale.over trough highlight {
   padding: 5em;
 }
 
-.power-label, .power-label-icon {
-  font-size: 25;
-  background-color: rgba(#000, 0.0);
-  color: rgba($red, 0.8);
-}
-
-.power-label-icon {
-  font-size: 30;
-  padding-bottom: 0.06em;
-  color: rgba($red, 0.8);
-}
-
-.power-close-button {
-  font-size: 30;
-  color: rgba($red, 0.8);
-}
-
-.power-close-button:hover {
-  color: $red;
-}
-
 .power-box {
   font-size: 35;
 }
@@ -222,9 +201,4 @@ scale.over trough highlight {
   padding: 0.4em;
   background-color: rgba($red, 0.3);
   color: $text;
-  // box-shadow: 1px 1px 4px 4px $shade01;
-}
-
-.power-shutdown-button label {
-  color: rgba($text, 0.8);
 }
