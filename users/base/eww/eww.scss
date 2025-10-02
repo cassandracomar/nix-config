@@ -61,6 +61,14 @@ window {
   }
 }
 
+.workspaces.empty:hover, .workspaces.focused:hover, .workspaces.occupied:hover, .workspaces.urgent:hover {
+  background-color: lighter($base);
+
+  .name {
+    color: darker($red);
+  }
+}
+
 .workspaces.empty {
   .name {
     color: $surface1;
@@ -116,6 +124,13 @@ window {
     }
   }
 
+  .tab.active:hover, .tab.inactive:hover {
+    background-color: lighter($base);
+    .tab.title {
+      color: darker($red);
+    }
+  }
+
   .tab.inactive {
     border-color: $surface2;
     .tab.title {
@@ -157,6 +172,20 @@ window {
   color: $red;
 }
 
+.mute-toggle:hover {
+  .icon.single-icon {
+    color: darker($red);
+    background-color: lighter($base);
+  }
+}
+
+.speakers {
+  .icon:hover {
+    color: darker($red);
+    background-color: lighter($base);
+  }
+}
+
 .wifi {
   .icon.connected {
     color: $green;
@@ -183,6 +212,10 @@ scale trough highlight {
 scale.over trough highlight {
   background-color: $peach;
   border-radius: 2px;
+}
+
+.power:hover {
+  color: darker($red);
 }
 
 .power-layout-box {
