@@ -85,7 +85,7 @@ window {
   }
 }
 
-.battery, .time, .date, .tray, .speakers, .mic, .wifi {
+.battery, .time, .date, .tray, .speakers, .mic, .wifi, .power {
   color: $text;
   font-size: 16px;
 }
@@ -179,4 +179,52 @@ scale trough highlight {
 scale.over trough highlight {
   background-color: $peach;
   border-radius: 2px;
+}
+
+.power-layout-box {
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 5em;
+}
+
+.power-label, .power-label-icon {
+  font-size: 25;
+  background-color: rgba(#000, 0.0);
+  color: rgba($red, 0.8);
+}
+
+.power-label-icon {
+  font-size: 30;
+  padding-bottom: 0.06em;
+  color: rgba($red, 0.8);
+}
+
+.power-close-button {
+  font-size: 30;
+  color: rgba($red, 0.8);
+}
+
+.power-close-button:hover {
+  color: $red;
+}
+
+.power-box {
+  font-size: 35;
+}
+
+.power-box button:hover {
+  border-radius: 0.1em; 
+  transition: 200ms linear background-color, border-radius;
+  background-color: rgba($red, 0.6);
+}
+
+.power-box button {
+  padding: 0.4em;
+  background-color: rgba($red, 0.3);
+  color: $text;
+  // box-shadow: 1px 1px 4px 4px $shade01;
+}
+
+.power-shutdown-button label {
+  color: rgba($text, 0.8);
 }
