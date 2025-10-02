@@ -51,11 +51,12 @@ in {
   systemd.user.services.pinnacle = let
     pinnacle = config.lib.nixGL.wrap pkgs.pinnacle;
   in {
-    Service.ExecStart = lib.mkForce "${pinnacle}/bin/pinnacle --session";
-    reload = "pinnacle client -e 'Pinnacle.reload_config()'";
+    Service = {
+      ExecStart = lib.mkForce "${pinnacle}/bin/pinnacle --session";
+      ExecReload = "pinnacle client -e 'Pinnacle.reload_config()'";
+    };
     Unit = {
       X-SwitchMethod = "reload";
-      X-ReloadTriggers = ["${pinnacle}"];
     };
   };
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
