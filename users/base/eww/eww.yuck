@@ -114,7 +114,7 @@
 
 ; ━━━━ date ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
-(defpoll date_poll :interval "1m" "date +%Y-%m-%d")
+(defpoll date_poll :interval "1m" "date +%m-%d")
 
 (defwidget date []
   (box :space-evenly false
