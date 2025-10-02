@@ -68,7 +68,7 @@
               :tooltip "battery: ${EWW_BATTERY?.["BAT0"]?.capacity ?: "none"}%"))
     (label :class "bat-charging-symbol"
            :text "⚡"
-           :visible {EWW_BATTERY["BAT0"].status == 'Charging' || EWW_BATTERY["BAT0"].status == 'Full'})))
+           :visible {EWW_BATTERY["BAT0"].status != 'Discharging'})))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
