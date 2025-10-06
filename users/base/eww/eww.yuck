@@ -14,16 +14,19 @@
     (box :class "right"
          :halign "start"
          :spacing 20
+         :hexpand true
       (workspaces :monitor monitor))
     (box :class "right"
          :halign "center"
          :spacing 20
          :space-evenly true
+         :hexpand false
       (tab-bar :monitor monitor))
     (box :class "right"
          :halign "end"
          :spacing 10
          :space-evenly false
+         :hexpand true
       (tray)
       (battery)
       (mic)
