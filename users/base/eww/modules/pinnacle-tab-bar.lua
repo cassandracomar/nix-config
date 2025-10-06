@@ -56,7 +56,7 @@ end
 
 -- turn a list of windows into a tab bar, excluding the focused window
 function make_tab_bar(windows)
-  local tab_bar = '(box :class "tab-bar" :orientation "h" :space-evenly false :spacing 20'
+  local tab_bar = '(box :class "tab-bar" :orientation "h" :space-evenly false :hexpand false :spacing 20'
   for i, window in ipairs(windows) do
     tab_bar = tab_bar .. ' ' .. make_tab(window)
   end
