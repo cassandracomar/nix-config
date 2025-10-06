@@ -10,6 +10,7 @@
 
 (defwidget bar0 [monitor]
   (centerbox :orientation "h"
+             :hexpand false
     (box :class "right"
          :halign "start"
          :spacing 20
