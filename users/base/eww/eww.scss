@@ -12,7 +12,7 @@ $sky: #89dceb;
 $sapphire: #74c7ec;
 $blue: #89b4fa;
 $lavender: #b4befe;
-$text: #D6C3B6;
+$text: #d6c3b6;
 $subtext1: #bac2de;
 $subtext0: #a6adc8;
 $overlay2: #9399b2;
@@ -24,7 +24,6 @@ $surface0: #313244;
 $base: #181512;
 $mantle: #181825;
 $crust: #11111b;
-
 
 * {
   all: unset;
@@ -61,7 +60,10 @@ window {
   }
 }
 
-.workspaces.empty:hover, .workspaces.focused:hover, .workspaces.occupied:hover, .workspaces.urgent:hover {
+.workspaces.empty:hover,
+.workspaces.focused:hover,
+.workspaces.occupied:hover,
+.workspaces.urgent:hover {
   background-color: lighter($base);
 
   .name {
@@ -93,7 +95,14 @@ window {
   }
 }
 
-.battery, .time, .date, .tray, .speakers, .mic, .wifi, .power {
+.battery,
+.time,
+.date,
+.tray,
+.speakers,
+.mic,
+.wifi,
+.power {
   color: $text;
   font-size: 16px;
 }
@@ -106,7 +115,11 @@ window {
 }
 
 .tab-bar {
-  .tab.active, .tab.inactive {
+  padding-left: 20;
+  padding-right: 20;
+
+  .tab.active,
+  .tab.inactive {
     border-width: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -124,7 +137,8 @@ window {
     }
   }
 
-  .tab.active:hover, .tab.inactive:hover {
+  .tab.active:hover,
+  .tab.inactive:hover {
     background-color: lighter($base);
     .tab.title {
       color: darker($red);
@@ -194,8 +208,11 @@ window {
 }
 
 .tray image {
-   -gtk-icon-palette: success $text, warning $yellow, error $red;
-   -gtk-icon-style: symbolic;
+  -gtk-icon-palette:
+    success $text,
+    warning $yellow,
+    error $red;
+  -gtk-icon-style: symbolic;
 }
 
 scale trough {
@@ -230,8 +247,10 @@ scale.over trough highlight {
 }
 
 .power-box button:hover {
-  border-radius: 0.4em; 
-  transition: 200ms linear background-color, border-radius;
+  border-radius: 0.4em;
+  transition:
+    200ms linear background-color,
+    border-radius;
   background-color: lighter($base);
   color: darker($red);
 }
