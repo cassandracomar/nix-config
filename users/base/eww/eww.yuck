@@ -73,7 +73,7 @@
                         : '󰂃' }"))
       (label :class "bat-charging-symbol"
              :text "⚡"
-             :visible {EWW_BATTERY["BAT0"].status != 'Discharging'}))))
+             :visible {EWW_BATTERY?.["BAT0"]?.status != 'Discharging'}))))
 
 ; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
