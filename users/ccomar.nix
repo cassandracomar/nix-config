@@ -143,6 +143,7 @@ in {
       cairo = pkgs.cairo;
     })
     (config.lib.nixGL.wrapOffload vulkan-tools)
+    (config.lib.nixGL.wrapOffload mesa-demos)
   ];
 
   programs.rbw = {
