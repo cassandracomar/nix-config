@@ -47,7 +47,8 @@ function make_tab(window)
   local class = ':class "tab ' .. is_active .. '" '
   local switch_to = ':onclick "./modules/focus-window.sh ' .. window.id .. '" '
   local icon = '(image :valign "center" :class "tab icon" :icon "' .. window:app_id():lower() .. '" :icon-size "large-toolbar")'
-  local label = '(label :class "tab title" :truncate true :show-truncated true :text "' .. window:title() .. '")'
+  local title = window:title():gsub("%b\"\"", "“%1”"):gsub("\"", "")
+  local label = '(label :class "tab title" :truncate true :show-truncated true :text "' .. title .. '")'
   local box = '(box :space-evenly false ' .. icon  .. ' ' .. label .. ')'
   local button = '(button ' .. class .. switch_to .. box .. ')'
 
