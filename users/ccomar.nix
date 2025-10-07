@@ -133,7 +133,6 @@ in {
     unzip
     thunderbolt
     pciutils
-    glxinfo
     grub2_full
     nix-zsh-completions
     yubikey-personalization
