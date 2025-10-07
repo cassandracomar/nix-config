@@ -41,6 +41,9 @@ in {
     offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
     installScripts = ["mesa" "nvidiaPrime"];
+    prime = {
+      installScript = "nvidia";
+    };
   };
   home.sessionVariables = {
     GITHUB_USER = git_config.github.user;
