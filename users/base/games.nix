@@ -8,7 +8,6 @@
     wineWowPackages.waylandFull
     winetricks
     lutris
-    vulkan-tools
     virt-viewer
     chessx
     stockfish

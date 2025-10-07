@@ -139,6 +139,7 @@ in {
       libX11 = pkgs.xorg.libX11;
       cairo = pkgs.cairo;
     })
+    (config.lib.nixGL.wrapOffload vulkan-tools)
   ];
 
   programs.rbw = {
@@ -170,7 +171,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = config.lib.nixGL.wrap (pkgs.firefox.override {
+    package = config.lib.nixGL.wrapOffload (pkgs.firefox.override {
       extraPolicies = {DisableAppUpdate = true;};
     });
     profiles = {

@@ -77,6 +77,7 @@ in {
     kubernetes_aliases
     mu
     zoom-us
+    vulkan-tools
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = emacs';
