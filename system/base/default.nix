@@ -28,12 +28,12 @@
     ];
     settings = {
       auto-optimise-store = true;
-      trusted-public-keys = [
-        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      ];
-      substituters = [
-        "https://cache.iog.io"
-      ];
+      # trusted-public-keys = [
+      #   "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      # ];
+      # substituters = [
+      #   "https://cache.iog.io"
+      # ];
       accept-flake-config = true;
       builders = "@/etc/nix/machines";
       builders-use-substitutes = true;
@@ -71,7 +71,7 @@
 
   imports = [
     ./boot.nix
-    ./cachix.nix
+    # ./cachix.nix
     ./docker.nix
     ./fonts.nix
     ./gnupg.nix
