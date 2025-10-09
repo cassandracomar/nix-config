@@ -44,7 +44,54 @@ in {
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active"];
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
-  boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest;
+  boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor (let
+    version = "6.17.1";
+    isLTS = false;
+    suffix = "xanmod1";
+    hash = "sha256-lu9ZXW33BIiniHy0YE2Wy29vItj21VMtUPinYIpbpow=";
+  in
+    with pkgs;
+      pkgs-optimized.linuxKernel.buildLinux rec {
+        inherit version;
+        pname = "linux-xanmod";
+        modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
+
+        src = fetchFromGitLab {
+          owner = "xanmod";
+          repo = "linux";
+          rev = modDirVersion;
+          inherit hash;
+        };
+
+        structuredExtraConfig = with lib.kernel; {
+          # CPUFreq governor Performance
+          CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 60 yes;
+          CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 60 no;
+
+          # Full preemption
+          PREEMPT = lib.mkOverride 60 yes;
+          PREEMPT_VOLUNTARY = lib.mkOverride 60 no;
+
+          # Google's BBRv3 TCP congestion Control
+          TCP_CONG_BBR = yes;
+          DEFAULT_BBR = yes;
+
+          # Preemptive Full Tickless Kernel at 250Hz
+          HZ = freeform "250";
+          HZ_250 = yes;
+          HZ_1000 = no;
+
+          # RCU_BOOST and RCU_EXP_KTHREAD
+          RCU_EXPERT = yes;
+          RCU_FANOUT = freeform "64";
+          RCU_FANOUT_LEAF = freeform "16";
+          RCU_BOOST = yes;
+          RCU_BOOST_DELAY = freeform "0";
+          RCU_EXP_KTHREAD = yes;
+        };
+
+        inherit isLTS;
+      });
 
   boot.kernelPatches = [
     {
@@ -54,6 +101,8 @@ in {
         sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
       };
     }
+    pkgs-optimized.linuxKernel.kernelPatches.bridge_stp_helper
+    pkgs-optimized.linuxKernel.kernelPatches.request_key_helper
   ];
 
   environment.systemPackages = [CoreFreq pkgs.lact];
