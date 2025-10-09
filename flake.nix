@@ -120,6 +120,9 @@
         libutp = prev.libutp.overrideAttrs (old: {
           cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
         });
+        libnitrokey = prev.libnitrokey.overrideAttrs (old: {
+          cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
+        });
       })
 
       (import "${openconnect}/overlay.nix")
