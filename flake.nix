@@ -117,7 +117,7 @@
         kitty = prev.kitty.overrideAttrs (old: {
           doInstallCheck = false;
         });
-        libutp-unstable = prev.libutp-unstable.overrideAttrs (old: {
+        libutp = prev.libutp.overrideAttrs (old: {
           cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
         });
       })
