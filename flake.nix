@@ -126,7 +126,7 @@
         rofi-file-browser = prev.rofi-file-browser.overrideAttrs (old: {
           cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
         });
-        transmission = prev.transmission.overrideAttrs (old: {
+        transmission_3 = prev.transmission_3.overrideAttrs (old: {
           cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
         });
       })
