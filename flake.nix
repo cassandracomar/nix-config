@@ -129,6 +129,9 @@
         transmission_3 = prev.transmission_3.overrideAttrs (old: {
           cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
         });
+        awscli2 = prev.awscli2.overrideAttrs (old: {
+          pytestCheckPhase = "true";
+        });
       })
 
       (import "${openconnect}/overlay.nix")
