@@ -141,7 +141,6 @@
       inherit system overlays;
       config = {
         allowUnfree = true;
-        rocmSupport = true;
       };
     };
 
