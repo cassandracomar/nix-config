@@ -11,6 +11,13 @@
     virt-viewer
     chessx
     stockfish
-    retroarchFull
+    (retroarch.withCores (cores:
+      with cores; [
+        desmume
+        mgba
+        pcsx2
+        ppsspp-sdl-wayland
+        pcsxr
+      ]))
   ];
 }
