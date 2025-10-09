@@ -17,7 +17,7 @@
         mgba
         pcsx2
         ppsspp-sdl-wayland
-        pcsxr
+        pcsx-rearmed
       ]))
   ];
 }
