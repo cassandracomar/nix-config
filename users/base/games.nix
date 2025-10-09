@@ -16,7 +16,7 @@
         desmume
         mgba
         pcsx2
-        ppsspp-sdl-wayland
+        ppsspp
         pcsx-rearmed
       ]))
   ];
