@@ -33,6 +33,7 @@
       source ${complete_alias}/share/bash-completion/completions/complete_alias
     '';
   };
+  profdata = ./base/merged-intel.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     preConfigure = ''
@@ -51,8 +52,8 @@
         "-march=meteorlake"
         "-mtune=meteorlake"
         "-flto=full"
-        "-fprofile-generate"
-        # "-fprofile-use=${profdata}"
+        # "-fprofile-generate"
+        "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
