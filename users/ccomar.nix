@@ -33,6 +33,39 @@
       source ${complete_alias}/share/bash-completion/completions/complete_alias
     '';
   };
+  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
+    stdenv = pkgs.llvmPackages.stdenv;
+    preConfigure = ''
+      export CC=${pkgs.llvmPackages.clang}/bin/clang
+      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
+      export AR=${pkgs.llvm}/bin/llvm-ar
+      export NM=${pkgs.llvm}/bin/llvm-nm
+      export LD=${pkgs.lld}/bin/ld.lld
+      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
+    '';
+
+    # Extra compiler flags (Clang-flavored)
+    NIX_CFLAGS_COMPILE = toString (
+      [
+        "-Os"
+        "-march=meteorlake"
+        "-mtune=meteorlake"
+        "-flto=full"
+        "-fprofile-generate"
+        # "-fprofile-use=${profdata}"
+      ]
+      ++ old.NIX_CFLAGS_COMPILE or []
+    );
+
+    patches =
+      (old.patches or [])
+      ++ [
+        (pkgs.fetchpatch {
+          url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtvy4M7RzD_C.txt";
+          sha256 = "sha256-S+9GUiEyfm0E2vOK+c4eheHROQ6r3bvVsBqoaqrB3mo=";
+        })
+      ];
+  });
 in {
   imports = [./base];
   nixGL = {
@@ -49,7 +82,7 @@ in {
     GITHUB_USER = git_config.github.user;
     GSETTINGS_SCHEMA_DIR = "/usr/share/glib-2.0/schemas";
   };
-  programs.doom-emacs.emacs = config.lib.nixGL.wrap pkgs.emacs-igc-pgtk;
+  programs.doom-emacs.emacs = config.lib.nixGL.wrap emacs';
   wayland.windowManager.pinnacle = {
     systemd.useService = lib.mkForce true;
     config = {
