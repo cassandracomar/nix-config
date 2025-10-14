@@ -45,10 +45,10 @@ in {
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active"];
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
   boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor (let
-    version = "6.17.1";
+    version = "6.17.2";
     isLTS = false;
     suffix = "xanmod1";
-    hash = "sha256-lu9ZXW33BIiniHy0YE2Wy29vItj21VMtUPinYIpbpow=";
+    hash = "sha256-PgncIfr4c9TpfeJVpq/iumiOz7SOA8czV21OBYQ2ZKc=";
   in
     with pkgs;
       pkgs-optimized.linuxKernel.buildLinux rec {
