@@ -44,11 +44,12 @@ in {
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active"];
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower CoreFreq];
+  # boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor pkgs-optimized.linuxKernel.kernels.linux_xanmod_latest;
   boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor (let
-    version = "6.17.2";
+    version = "6.17.3";
     isLTS = false;
     suffix = "xanmod1";
-    hash = "sha256-PgncIfr4c9TpfeJVpq/iumiOz7SOA8czV21OBYQ2ZKc=";
+    hash = "sha256-VL1SCMB89P0UcCbtPdkjxcCZqQZpnSTlzzf9e8uzkyA=";
   in
     with pkgs;
       pkgs-optimized.linuxKernel.buildLinux rec {
