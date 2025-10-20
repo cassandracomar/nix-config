@@ -28,6 +28,9 @@
               unittestCheckPhase = "true";
               pythonImportsCheckPhase = "true";
             });
+            pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
+              pytestCheckPhase = "true";
+            });
           };
         };
         python3Packages = python3.pkgs;
