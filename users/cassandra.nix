@@ -116,8 +116,10 @@ in {
 
   programs.git = {
     enable = true;
-    userName = git_config.userName;
-    userEmail = git_config.userEmail;
+    settings.user = {
+      name = git_config.userName;
+      email = git_config.userEmail;
+    };
     # delta.enable = true;
     extraConfig = {
       pull.rebase = false;
