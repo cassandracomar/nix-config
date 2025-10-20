@@ -109,7 +109,7 @@
           }
       )
 
-      (final: prev: {
+      (final: prev: rec {
         CoreFreq = prev.callPackage ./packages/corefreq.nix {
           kernelPackage = prev.linux_xanmod_latest;
         };
@@ -132,6 +132,14 @@
         awscli2 = prev.awscli2.overrideAttrs (old: {
           pytestCheckPhase = "true";
         });
+        python3 = prev.python3.override {
+          packageOverrides = pyfinal: pyprev: {
+            pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
+              pytestCheckPhase = "true";
+            });
+          };
+        };
+        python3Packages = python3.pkgs;
       })
 
       (import "${openconnect}/overlay.nix")
