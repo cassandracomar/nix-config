@@ -102,8 +102,8 @@ in {
         sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
       };
     }
-    pkgs-optimized.linuxKernel.kernelPatches.bridge_stp_helper
-    pkgs-optimized.linuxKernel.kernelPatches.request_key_helper
+    # pkgs-optimized.linuxKernel.kernelPatches.bridge_stp_helper
+    # pkgs-optimized.linuxKernel.kernelPatches.request_key_helper
   ];
 
   environment.systemPackages = [CoreFreq pkgs.lact];
