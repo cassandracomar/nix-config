@@ -72,6 +72,9 @@
       gamescope
       mangohud
     ];
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
 
     gamescopeSession = {
       enable = true;
