@@ -5,8 +5,6 @@
   home.packages = with pkgs; [
     slack
     signal-desktop
-    monero-cli
-    monero-gui
     keepassxc
     google-chrome
     discord
