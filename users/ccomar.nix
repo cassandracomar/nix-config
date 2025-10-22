@@ -52,8 +52,8 @@
         "-march=meteorlake"
         "-mtune=meteorlake"
         "-flto=full"
-        # "-fprofile-generate"
-        "-fprofile-use=${profdata}"
+        "-fprofile-generate"
+        # "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
@@ -189,12 +189,11 @@ in {
 
   programs.git = {
     enable = true;
-    settings.user = {
-      name = git_config.userName;
-      email = git_config.userEmail;
-    };
-    # delta.enable = true;
-    extraConfig = {
+    settings = {
+      user = {
+        name = git_config.userName;
+        email = git_config.userEmail;
+      };
       pull.rebase = false;
       inherit (git_config) github;
       # tag = {
