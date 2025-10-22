@@ -69,7 +69,7 @@
 in {
   imports = [./base];
   nixGL = {
-    packages = pkgs.nixgl.auto;
+    packages = pkgs.nixgl.auto // pkgs.nixgl;
     defaultWrapper = "mesa";
     offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
