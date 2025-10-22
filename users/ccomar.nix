@@ -68,8 +68,12 @@
   });
 in {
   imports = [./base];
-  nixGL = {
-    packages = pkgs.nixgl.auto // pkgs.nixgl;
+  nixGL = let
+    nixgl = pkgs.nixgl.override {
+      nvidiaVersion = "580.95.05";
+    };
+  in {
+    packages = nixgl.auto // nixgl;
     defaultWrapper = "mesa";
     offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
