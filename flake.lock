@@ -508,11 +508,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1761064095,
-        "narHash": "sha256-cx5dnoOJ3CTGvs8w+awNxOWo6Hr8s0YBWWh3+V9f/9s=",
+        "lastModified": 1761122000,
+        "narHash": "sha256-NH1cIJfH2H4IHHg4CDsbP9h1rlS5M1NMY0BEY0ingsk=",
         "owner": "pinnacle-comp",
         "repo": "pinnacle",
-        "rev": "674cc4e7bcbd3c7f9f798be9ce2ea90845e41573",
+        "rev": "f751e5dad86036f6b63f2906475fc4f1cf199488",
         "type": "github"
       },
       "original": {
@@ -529,11 +529,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761075962,
-        "narHash": "sha256-qITAx2g8z2+N1tydt3LJDs8SyjKqOMLnR5wvMXDSJTI=",
+        "lastModified": 1761147686,
+        "narHash": "sha256-XExrVS2iwQhZ7IBb9IEWdUfj3ee6TEUVH+bYivgqADU=",
         "owner": "cassandracomar",
         "repo": "pinnacle-config",
-        "rev": "fbcf81e26d0e79beae510cf280b6ab590bc4f0cb",
+        "rev": "d1bb16f872b34a9e1a9d4b1287f0f98693eaa701",
         "type": "github"
       },
       "original": {
