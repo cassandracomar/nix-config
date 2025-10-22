@@ -78,7 +78,7 @@ in {
     defaultWrapper = "mesa";
     offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
-    installScripts = ["mesa" "nvidiaPrime"];
+    installScripts = ["mesa" "nvidia" "nvidiaPrime"];
     prime = {
       installScript = "nvidia";
     };
