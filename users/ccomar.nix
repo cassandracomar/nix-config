@@ -69,7 +69,16 @@
 in {
   imports = [./base];
   nixGL = {
-    packages = pkgs;
+    packages = {
+      default = pkgs.auto.nixGLDefault;
+
+      nixGLDefault = pkgs.auto.nixGLDefault;
+      nixGLNvidia = pkgs.auto.nixGLNvidia;
+      nixGLNvidiaBumblebee = pkgs.auto.nixGLNvidiaBumblebee;
+      nixGLIntel = pkgs.nixGLIntel;
+      nixVulkanNvidia = pkgs.auto.nixVulkanNvidia;
+      nixVulkanIntel = pkgs.nixVulkanIntel;
+    };
     defaultWrapper = "mesa";
     offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
