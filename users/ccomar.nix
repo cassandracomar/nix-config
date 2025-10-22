@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  nixgl,
   ...
 }: let
   git_config = {
@@ -70,7 +69,7 @@
 in {
   imports = [./base];
   nixGL = {
-    packages = nixgl.packages;
+    packages = pkgs;
     defaultWrapper = "mesa";
     offloadWrapper = "nvidiaPrime";
     vulkan.enable = true;
