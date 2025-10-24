@@ -10,6 +10,7 @@
     ./shell-cfg.nix
     ./pinnacle.nix
     # ./xmonad.nix
+    ./vpn.nix
   ];
 
   home.packages = with pkgs; [rustc cargo];
