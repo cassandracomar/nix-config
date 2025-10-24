@@ -32,6 +32,8 @@ in {
     };
 
     Service = {
+      Type = "forking";
+      PIDFile = "openconnect.pid";
       ExecStart = "${launch-vpn}";
       ExecStop = "${kill-vpn}";
     };
