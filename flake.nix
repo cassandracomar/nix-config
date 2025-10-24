@@ -12,8 +12,10 @@
   inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.nur.url = "github:nix-community/NUR";
   inputs.openconnect = {
-    url = "github:vlaci/openconnect-sso";
+    url = "github:jcszymansk/openconnect-sso";
+    inputs.nixpkgs.follows = "nixpkgs-openconnect-sso";
   };
+  inputs.nixpkgs-openconnect-sso.url = "github:nixos/nixpkgs/46397778ef1f73414b03ed553a3368f0e7e33c2f";
 
   # overrides via overlay
   # inputs.nix-direnv.url = "github:nix-community/nix-direnv";
