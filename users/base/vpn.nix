@@ -53,7 +53,6 @@ in {
   systemd.user.services.vpn-dns = {
     Unit = {
       Description = "fixup vpn dns";
-      WantedBy = ["anyconnect.service"];
       After = ["anyconnect.service"];
       BindsTo = ["anyconnect.service"];
     };
