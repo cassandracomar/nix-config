@@ -47,4 +47,18 @@ in {
       ExecStop = "${kill-vpn}";
     };
   };
+  systemd.user.services.vpn-dns = {
+    Unit = {
+      Description = "fixup vpn dns";
+      WantedBy = ["anyconnect.service"];
+      After = ["anyconnect.service"];
+      BindsTo = ["anyconnect.service"];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw drw.slack.com";
+      RemainAfterExit = true;
+    };
+  };
 }
