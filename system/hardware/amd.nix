@@ -40,7 +40,7 @@
     ];
   };
 
-  CoreFreq = pkgs.callPackage ../../packages/corefreq.nix {kernelPackage = config.boot.kernelPackages.kernel;};
+  CoreFreq = pkgs-optimized.callPackage ../../packages/corefreq.nix {kernelPackage = config.boot.kernelPackages.kernel;};
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
