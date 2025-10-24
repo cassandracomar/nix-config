@@ -35,6 +35,9 @@
       sudo kill "$MAINPID" "$(cat "$XDG_RUNTIME_DIR"/openconnect.pid)"
     fi
   '';
+  fixup-dns = pkgs.writeShellScript "fixup-dns.sh" ''
+    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw drw.slack.com
+  '';
 in {
   systemd.user.services.anyconnect = {
     Unit = {
@@ -57,7 +60,7 @@ in {
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw drw.slack.com";
+      ExecStart = "${fixup-dns}";
       RemainAfterExit = true;
     };
   };
