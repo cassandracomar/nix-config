@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
 
@@ -28,7 +33,7 @@
     numactl
     arandr
     pinentry-rofi
-    # openconnect-sso
+    inputs.openconnect.packages.${system}.openconnect-sso
     # openconnect
     android-tools
     fly

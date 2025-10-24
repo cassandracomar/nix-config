@@ -21,19 +21,6 @@
     tokei
     htop
     rlwrap
-    (vpn-slice.overrideAttrs (old: {
-      version = "0.16.99-9ecb50d";
-      src = fetchFromGitHub {
-        owner = "dlenski";
-        repo = old.pname;
-        rev = "master";
-        sha256 = "sha256-h33wlQBBn93DHb9C+pv3N3XGEXZt0HWexhvL0KCKiWc=";
-      };
-      propagatedBuildInputs = old.propagatedBuildInputs ++ [pkgs.systemd pkgs.iproute2];
-      patchPhase = ''
-        substituteInPlace vpn_slice/linux.py --replace '/usr/bin/resolvectl' '${pkgs.systemd}/bin/resolvectl' --replace '/sbin/ip' '${pkgs.iproute2}/bin/ip';
-      '';
-    }))
     oh-my-posh
     (writeScriptBin "nixos-rebuild" (builtins.readFile ../../scripts/nixos-rebuild))
   ];
