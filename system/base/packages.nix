@@ -37,7 +37,6 @@
       libX11 = pkgs.xorg.libX11;
       cairo = pkgs.cairo;
     })
-    android-udev-rules
   ];
 
   programs.zsh.enable = true;
