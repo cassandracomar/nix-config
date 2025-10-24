@@ -62,5 +62,9 @@ in {
       ExecStart = "${fixup-dns}";
       RemainAfterExit = true;
     };
+
+    Install = {
+      WantedBy = ["anyconnect.service"];
+    };
   };
 }
