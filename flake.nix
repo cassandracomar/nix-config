@@ -13,7 +13,6 @@
   inputs.nur.url = "github:nix-community/NUR";
   inputs.openconnect = {
     url = "github:vlaci/openconnect-sso";
-    flake = false;
   };
 
   # overrides via overlay
