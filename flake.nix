@@ -11,11 +11,6 @@
   inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
   inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.nur.url = "github:nix-community/NUR";
-  inputs.openconnect = {
-    url = "github:jcszymansk/openconnect-sso";
-    inputs.nixpkgs.follows = "nixpkgs-openconnect-sso";
-  };
-  inputs.nixpkgs-openconnect-sso.url = "github:nixos/nixpkgs/46397778ef1f73414b03ed553a3368f0e7e33c2f";
 
   # overrides via overlay
   # inputs.nix-direnv.url = "github:nix-community/nix-direnv";
@@ -52,7 +47,6 @@
     nur,
     # nix-direnv,
     # sops-nix,
-    openconnect,
     poetry2nix,
     pinnacle,
     pinnacle-config,
@@ -83,7 +77,6 @@
       nix-doom.overlays.default
       emacs.overlays.emacs
       nixgl.overlays.default
-      openconnect.overlay
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
@@ -144,8 +137,6 @@
         };
         python3Packages = python3.pkgs;
       })
-
-      (import "${openconnect}/overlay.nix")
     ];
 
     pkgs = import nixpkgs {

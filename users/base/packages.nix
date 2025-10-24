@@ -34,7 +34,6 @@
     arandr
     pinentry-rofi
     openconnect
-    inputs.openconnect.packages.${system}.openconnect-sso
     android-tools
     fly
     veracrypt
