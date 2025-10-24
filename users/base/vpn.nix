@@ -11,7 +11,7 @@
     sudo sed -i 's/fake/bogus/' /etc/hosts
     PASSWD=$(${pkgs.rbw}/bin/rbw get drwholdings.com)
 
-    sudo openconnect --pid-file "$XDG_RUNTIME_DIR"/openconnect.pid \
+    sudo ${pkgs.openconnect}/bin/openconnect --pid-file "$XDG_RUNTIME_DIR"/openconnect.pid \
       --user=ccomar \
       -g linux \
       --csd-wrapper=${pkgs.openconnect}/libexec/openconnect/csd-post.sh \
