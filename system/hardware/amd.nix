@@ -36,6 +36,9 @@
         python3Packages = python3.pkgs;
         sphinx = python3Packages.sphinx;
         jq = pkgs.jq;
+        lzip = prev.lzip.override {
+          doCheck = false;
+        };
       })
     ];
   };
