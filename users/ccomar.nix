@@ -75,6 +75,30 @@ in {
     timestamp = "-7 days";
   };
 
+  systemd.user.services.nix-gc = {
+    Unit = {
+      Description = "Nix Garbage Collector";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "nix-gc" "exec ${pkgs.lix}/bin/nix store gc --verbose --debug";
+    };
+  };
+  systemd.user.timers.nix-gc = {
+    Unit = {
+      Description = "Nix Garbage Collector";
+    };
+    Timer = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = 3600;
+      Persistent = true;
+      Unit = "nix-gc.service";
+    };
+    Install = {
+      WantedBy = ["timers.target"];
+    };
+  };
+
   nixGL = let
     nixgl = pkgs.nixgl.override {
       nvidiaVersion = "580.95.05";
