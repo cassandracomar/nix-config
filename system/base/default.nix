@@ -37,6 +37,7 @@
       accept-flake-config = true;
       builders = "@/etc/nix/machines";
       builders-use-substitutes = true;
+      deprecated-features = "url-literals";
     };
     gc = {
       automatic = true;

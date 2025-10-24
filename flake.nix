@@ -81,6 +81,7 @@
       nix-doom.overlays.default
       emacs.overlays.emacs
       nixgl.overlays.default
+      openconnect.overlay
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
