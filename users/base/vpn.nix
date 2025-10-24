@@ -3,8 +3,18 @@
   config,
   ...
 }: let
+  vpn-slice = pkgs.vpn-slice.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        (pkgs.fetchpatch {
+          url = "https://github.com/dlenski/vpn-slice/pull/158.patch";
+          sha256 = "sha256-vPsG8An0CnZDMmdZ3d4eZucwafLzO3BE3RaRqqHM8KU=";
+        })
+      ];
+  });
   launch-split = pkgs.writeShellScript "launch-split.sh" ''
-    ${pkgs.vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw,drw.slack.com --verbose --dump 10.0.0.0/8 2>&1 \
+    ${vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw,drw.slack.com --verbose --dump 10.0.0.0/8 2>&1 \
     | sudo -u ${config.home.username} systemd-cat -t vpn-slice
   '';
   launch-vpn = pkgs.writeShellScript "launch-vpn.sh" ''
