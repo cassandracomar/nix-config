@@ -68,6 +68,13 @@
   });
 in {
   imports = [./base];
+
+  services.home-manager.autoExpire = {
+    enable = true;
+    frequency = "@daily";
+    timestamp = "-7 days";
+  };
+
   nixGL = let
     nixgl = pkgs.nixgl.override {
       nvidiaVersion = "580.95.05";
