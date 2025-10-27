@@ -27,5 +27,6 @@
     istioctl
     vcluster
     kustomize
+    kubelogin-oidc
   ];
 }
