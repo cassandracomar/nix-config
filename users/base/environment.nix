@@ -16,7 +16,7 @@
     GODEBUG = "netedns0=0";
   };
 
-  home.sessionPath = ["${config.home.homeDirectory}/.cargo/bin" "${config.home.homeDirectory}/.local/bin" "${config.home.homeDirectory}/krew/bin"];
+  home.sessionPath = ["${config.home.homeDirectory}/.cargo/bin" "${config.home.homeDirectory}/.local/bin" "${config.home.homeDirectory}/.krew/bin"];
   xdg.systemDirs.data = ["$HOME/.nix-profile/share"];
 
   xdg.userDirs = {
