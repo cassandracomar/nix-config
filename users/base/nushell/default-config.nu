@@ -78,7 +78,7 @@ $env.config | merge deep {
 # }
 
 def git_checkout [server_org_repo: string] {
-  let split = $server_org_repo | str split "/"
+  let split = $server_org_repo | split row "/"
 
   let server = $split | get 0
   let org = $split | get 1
