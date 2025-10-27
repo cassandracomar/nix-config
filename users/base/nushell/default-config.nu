@@ -78,11 +78,11 @@ $env.config | merge deep {
 # }
 
 def git_checkout [server_org_repo: string] {
-  let split = $server_org_repo | split row "/"
+  let split = $server_org_repo | split column "/" server org repo
 
-  let server = $split | get 0
-  let org = $split | get 1
-  let repo = $split | get 2
+  let server = $split | get server.0
+  let org = $split | get org.0
+  let repo = $split | get repo.0
   mkdir ~/src/$server/$org
   cd ~/src/$server/$org
 }
