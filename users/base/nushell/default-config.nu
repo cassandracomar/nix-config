@@ -84,6 +84,6 @@ export def --env git_checkout [server_org_repo: string] {
   let org = $split | get org.0
   let repo = $split | get repo.0
   mkdir ~/src/$server/$org
-  git clone $"git@($server):($org)/($repo)" $"~/src/($server)/($org)/($repo)"
+  git clone $"git@($server):($org)/($repo)" ~/src/$"($server)/($org)/($repo)"
   cd $"~/src/($server)/($org)/($repo)"
 }
