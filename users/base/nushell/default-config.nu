@@ -76,3 +76,13 @@ $env.config | merge deep {
 #   let old_prompt = do $old_prompt_command
 #   $"($old_prompt)\n └─>> "
 # }
+
+def git_checkout [server_org_repo: string] {
+  let split = $server_org_repo | str split "/"
+
+  let server = $split | get 0
+  let org = $split | get 1
+  let repo = $split | get 2
+  mkdir ~/src/$server/$org
+  cd ~/src/$server/$org
+}
