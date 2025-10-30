@@ -1,7 +1,7 @@
 (defwindow primary [monitor]
            :monitor monitor
            :geometry (geometry :x 0 :y 0 :height "32px" :width "100%" :anchor "center top")
-           :stacking "fg"
+           :stacking "bg"
            :exclusive true
            :focusable false
   (bar0 :monitor monitor))
