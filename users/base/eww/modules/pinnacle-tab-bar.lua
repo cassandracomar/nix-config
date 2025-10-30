@@ -91,6 +91,12 @@ Pinnacle.setup(function ()
     end,
     title_changed = function(win)
       print(get_tab_bars())
+    end,
+    created = function(win)
+      print(get_tab_bars())
+    end,
+    destroyed = function(win, title, appid)
+      print(get_tab_bars())
     end
   })
   Tag.connect_signal({
