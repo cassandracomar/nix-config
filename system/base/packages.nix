@@ -29,7 +29,7 @@
     unzip
     thunderbolt
     pciutils
-    glxinfo
+    mesa-demos
     grub2_full
     nix-zsh-completions
     (hwloc.override {
