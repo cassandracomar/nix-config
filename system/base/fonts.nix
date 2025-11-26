@@ -60,7 +60,6 @@
       noto-fonts-color-emoji
       noto-fonts-emoji-blob-bin
       noto-fonts-monochrome-emoji
-      noto-fonts-extra
       nerd-fonts.noto
       dejavu_fonts
       powerline-fonts
@@ -75,7 +74,6 @@
       arphic-ukai
       arphic-uming
       font-awesome
-      noto-fonts-extra
       source-han-sans
       wqy_microhei
       wqy_zenhei
