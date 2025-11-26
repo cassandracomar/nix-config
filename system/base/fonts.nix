@@ -57,7 +57,6 @@
       inconsolata-lgc
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
       noto-fonts-color-emoji
       noto-fonts-emoji-blob-bin
       noto-fonts-monochrome-emoji
