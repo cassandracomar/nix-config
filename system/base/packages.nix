@@ -53,7 +53,10 @@
 
   programs.dconf.enable = true;
 
-  services.transmission = {enable = true;};
+  services.transmission = {
+    enable = true;
+    package = pkgs.transmission_4;
+  };
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
