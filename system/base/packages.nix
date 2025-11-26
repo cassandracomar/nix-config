@@ -30,7 +30,6 @@
     thunderbolt
     pciutils
     mesa-demos
-    grub2_full
     nix-zsh-completions
     (hwloc.override {
       x11Support = true;
