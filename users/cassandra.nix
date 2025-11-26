@@ -71,7 +71,6 @@ in {
   home.username = "cassandra";
   home.homeDirectory = "/home/cassandra";
   home.packages = with pkgs; [
-    gitAndTools.delta
     git-crypt
     complete_alias
     kubernetes_aliases
