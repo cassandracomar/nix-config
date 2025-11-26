@@ -51,7 +51,7 @@
     };
 
     packages = with pkgs; [
-      ubuntu_font_family
+      ubuntu-classic
       iosevka-nerd-font
       inconsolata
       inconsolata-lgc
