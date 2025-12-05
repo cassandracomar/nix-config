@@ -201,6 +201,28 @@ in {
               definedAliases = ["@no"];
             };
 
+            home-manager-options = {
+              name = "home-manager options";
+              urls = [
+                {
+                  template = "https://home-manager-options.extranix.com";
+                  params = [
+                    {
+                      name = "release";
+                      value = "master";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = ["@hm"];
+            };
+
             nixos-wiki = {
               name = "NixOS Wiki";
               urls = [{template = "https://wiki.nixos.org/w/index.php?search={searchTerms}";}];
