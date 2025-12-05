@@ -7,8 +7,8 @@ local focused = Window.get_focused()
 if (focused ~= nil and focused:maximized()) then
   focused:lower()
   next:set_maximized(true)
-  next:raise()
 end
 
 next:set_focused(true)
+next:raise()
 EOT
