@@ -11,7 +11,6 @@ pinnacle.run(function()
     next:raise()
   end
   
-  focused:swap(next)
   next:set_focused(true)
 end)
 EOT
