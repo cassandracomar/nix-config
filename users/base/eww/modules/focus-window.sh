@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 pinnacle client <<-EOT
-pinnacle.run(function()
+Pinnacle.run(function()
   local next = Window.handle.new("$1")
   local focused = Window.get_focused()
   
@@ -11,6 +11,7 @@ pinnacle.run(function()
     next:raise()
   end
   
+  focused:set_focused(false)
   next:set_focused(true)
 end)
 EOT
