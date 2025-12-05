@@ -10,5 +10,6 @@ if (focused ~= nil and focused:maximized()) then
   next:raise()
 end
 
+focused:swap(next)
 next:set_focused(true)
 EOT
