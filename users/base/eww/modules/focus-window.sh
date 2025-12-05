@@ -11,7 +11,6 @@ Pinnacle.run(function()
     next:raise()
   end
   
-  focused:set_focused(false)
   next:set_focused(true)
 end)
 EOT
