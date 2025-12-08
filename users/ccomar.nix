@@ -99,7 +99,7 @@ in {
     };
   };
 
-  nixGL = let
+  targets.genericLinux.nixGL = let
     nixgl = pkgs.nixgl.override {
       nvidiaVersion = "580.95.05";
       nvidiaHash = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
@@ -201,7 +201,6 @@ in {
     unzip
     thunderbolt
     pciutils
-    grub2_full
     nix-zsh-completions
     yubikey-personalization
     (hwloc.override {
