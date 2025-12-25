@@ -68,6 +68,7 @@ in {
     mu
     zoom-us
     vulkan-tools
+    heroic
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = emacs';
