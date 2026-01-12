@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation rec {
   name = "corefreq-${version}-${kernelVersion}";
-  version = "2.0.8";
+  version = "2.0.9";
 
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
     rev = version;
-    sha256 = "sha256-8uCs/Jj208qUtmpiorxtii+0VOfK/EgrcylmJMkcqUQ=";
+    sha256 = "sha256-SD3/3j8kIpxRA3Z0zxnkKczkBqJUzn40cTbllwIFrgc=";
   };
 
   patches = [./corefreq-fix.patch];
