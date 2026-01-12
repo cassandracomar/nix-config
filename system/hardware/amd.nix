@@ -39,6 +39,9 @@
         lzip = prev.lzip.overrideAttrs (old: {
           doCheck = false;
         });
+        coreutils = prev.coreutils.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
     ];
   };
