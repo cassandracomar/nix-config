@@ -56,15 +56,6 @@
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
-
-    patches =
-      (old.patches or [])
-      ++ [
-        (pkgs.fetchpatch {
-          url = "https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-09/txtvy4M7RzD_C.txt";
-          sha256 = "sha256-dV6NBGm0ryz069Iv/eSdRC/K/ZDYF+jp3ZUoGNZaeA8";
-        })
-      ];
   });
 in {
   imports = [./base];
