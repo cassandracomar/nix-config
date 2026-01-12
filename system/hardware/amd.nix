@@ -132,7 +132,7 @@ in {
   services.scx = {
     enable = true;
     scheduler = "scx_lavd";
-    package = pkgs-optimized.scx.rustscheds;
+    package = pkgs.scx.rustscheds;
   };
 
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
