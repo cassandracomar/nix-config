@@ -371,7 +371,7 @@ in {
   programs.msmtp.enable = true;
 
   services.mbsync = {
-    enable = true;
+    enable = false;
   };
 
   accounts.email = {
