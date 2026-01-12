@@ -59,7 +59,6 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-  programs.adb.enable = true;
 
   programs.steam = {
     enable = true;
