@@ -22,7 +22,7 @@
   # inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
-  inputs.pinnacle.url = "github:cassandracomar/pinnacle/fix/rockspec-path";
+  inputs.pinnacle.url = "github:pinnacle-comp/pinnacle";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
   inputs.clipcat.url = "github:xrelkd/clipcat";
