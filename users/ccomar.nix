@@ -201,6 +201,7 @@ in {
     })
     (config.lib.nixGL.wrapOffload vulkan-tools)
     (config.lib.nixGL.wrapOffload mesa-demos)
+    mermaid-cli
   ];
 
   programs.rbw = {
