@@ -16,7 +16,7 @@ echo "invoking nixos-rebuild"
 case $1 in
     test)
         sudo nix flake update --flake /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH"
-        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" "${NR_ARGS[@]}" $* | $NOM_EXEC --json
+        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" "${NR_ARGS[@]}" $* |& $NOM_EXEC --json
         ;;
     upgrade)
         shift
@@ -35,10 +35,10 @@ case $1 in
         cd $CONFIG_FLAKE_PATH
         git push
         sudo nix flake update --flake /etc/nixos
-        emacs_checked_update sudo $NR_EXEC switch --impure "${NR_ARGS[@]}" $* | $NOM_EXEC --json
+        emacs_checked_update sudo $NR_EXEC switch --impure "${NR_ARGS[@]}" $* |& $NOM_EXEC --json
         ;;
     *)
         sudo nix flake update --flake /etc/nixos
-        emacs_checked_update sudo $NR_EXEC --impure "${NR_ARGS[@]}" $* | $NOM_EXEC --json
+        emacs_checked_update sudo $NR_EXEC --impure "${NR_ARGS[@]}" $* |& $NOM_EXEC --json
         ;;
 esac
