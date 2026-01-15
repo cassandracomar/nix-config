@@ -63,4 +63,8 @@
   services.gvfs = {
     enable = true;
   };
+
+  services.dbus = {
+    implementation = "broker";
+  };
 }
