@@ -2,16 +2,13 @@
 
 before=$(realpath "$(which emacs)")
 NR_EXEC=/run/current-system/sw/bin/nixos-rebuild
+NR_ARGS=("--log-format" "internal-json" "-v")
+NOM_EXEC=/run/current-system/sw/bin/nom
 CONFIG_FLAKE_PATH=~/src/github.com/cassandracomar/nix-config
 
 emacs_checked_update() {
     before=$(realpath "$(which emacs)")
     $*
-
-    # if [ "$(realpath $(which emacs))" != "$before" ]; then
-    #     echo "emacs changed. invoking native compilation rebuild."
-    #     ~/.config/emacs/bin/doom sync --rebuild --aot --gc -j 32
-    # fi
 }
 
 echo "invoking nixos-rebuild"
@@ -19,7 +16,7 @@ echo "invoking nixos-rebuild"
 case $1 in
     test)
         sudo nix flake update --flake /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH"
-        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" $*
+        emacs_checked_update sudo $NR_EXEC --impure --override-input nix-config "path:$CONFIG_FLAKE_PATH" "${NR_ARGS[@]}" $* | $NOM_EXEC --json
         ;;
     upgrade)
         shift
@@ -38,10 +35,10 @@ case $1 in
         cd $CONFIG_FLAKE_PATH
         git push
         sudo nix flake update --flake /etc/nixos
-        emacs_checked_update sudo $NR_EXEC switch --impure $*
+        emacs_checked_update sudo $NR_EXEC switch --impure "${NR_ARGS[@]}" $* | $NOM_EXEC --json
         ;;
     *)
         sudo nix flake update --flake /etc/nixos
-        emacs_checked_update sudo $NR_EXEC --impure $*
+        emacs_checked_update sudo $NR_EXEC --impure "${NR_ARGS[@]}" $* | $NOM_EXEC --json
         ;;
 esac

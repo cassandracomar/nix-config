@@ -36,6 +36,7 @@
       libX11 = pkgs.xorg.libX11;
       cairo = pkgs.cairo;
     })
+    nix-output-monitor
   ];
 
   programs.zsh.enable = true;
