@@ -42,6 +42,9 @@
         coreutils = prev.coreutils.overrideAttrs (old: {
           doCheck = false;
         });
+        go = prev.go.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
     ];
   };
