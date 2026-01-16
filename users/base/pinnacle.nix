@@ -28,8 +28,8 @@
   ];
   uwsm-run = pkgs.writeScriptBin "uwsm-run" ''
     #!${pkgs.runtimeShell}
-      app_name=$(echo "$1" | cut -d" " -f 1 | xargs basename)
-      exec ${pkgs.uwsm}/bin/uwsm app -a "''${APP_NAME}" -- bash -c "$1 |& logger -e"
+      app_name=$(echo "$@" | cut -d" " -f 1 | xargs basename)
+      exec ${pkgs.uwsm}/bin/uwsm app -a "''${APP_NAME}" -- systemd-cat "$@"
   '';
 in {
   wayland.windowManager.pinnacle = {
