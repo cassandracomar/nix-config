@@ -29,7 +29,7 @@
   app-run = pkgs.writeScriptBin "app-run" ''
     #!${pkgs.runtimeShell}
       app_name=$(echo "$@" | cut -d" " -f 1 | xargs basename)
-      exec systemd-run --slice=app-graphical.slice --scope -u app-$DESKTOP_SESSION-"''${APP_NAME}"-$RANDOM -- systemd-cat "$@"
+      exec systemd-run --user --slice=app-graphical.slice --scope -u app-$DESKTOP_SESSION-"''${app_name}"-$RANDOM -- systemd-cat "$@"
   '';
 in {
   wayland.windowManager.pinnacle = {
