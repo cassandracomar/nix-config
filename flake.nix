@@ -5,6 +5,8 @@
   inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+  inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
   # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
 
   # overlays
@@ -53,6 +55,7 @@
     clipcat,
     nix-doom,
     nixgl,
+    cachyos-kernel,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -70,6 +73,7 @@
       (final: prev: {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
       })
+      cachyos-kernel.overlays.default
       mozilla.overlay
       emacs.overlay
       nur.overlays.default
@@ -150,10 +154,10 @@
       boot = {
         kernelPackages =
           pkgs.lib.mkDefault (pkgs.linuxKernel.packagesFor
-            pkgs.linuxKernel.kernels.linux_xanmod_latest);
+            pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4);
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
-        zfs.package = pkgs.zfs_unstable;
+        zfs.package = pkgs.cachyosKernels.zfs-cachyos-lto;
       };
     };
 
