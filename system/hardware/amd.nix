@@ -55,7 +55,7 @@ in {
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
-  boot.extraModulePackages = with config.boot.kernelPackages; [CoreFreq];
+  # boot.extraModulePackages = with config.boot.kernelPackages; [CoreFreq];
   # boot.kernelPackages = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
   # boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor (let
   #   version = "6.17.3";
@@ -118,22 +118,22 @@ in {
     # pkgs-optimized.linuxKernel.kernelPatches.request_key_helper
   ];
 
-  environment.systemPackages = [CoreFreq pkgs.lact];
-  services.dbus.packages = [CoreFreq];
-  systemd.services.corefreqd = {
-    description = "CoreFreq Daemon";
-    wantedBy = ["multi-user.target"];
-    restartIfChanged = true;
+  environment.systemPackages = [pkgs.lact];
+  # services.dbus.packages = [CoreFreq];
+  # systemd.services.corefreqd = {
+  #   description = "CoreFreq Daemon";
+  #   wantedBy = ["multi-user.target"];
+  #   restartIfChanged = true;
 
-    serviceConfig = {
-      ExecStart = "${CoreFreq}/bin/corefreqd -q";
-      ExecStop = "${pkgs.coreutils}/bin/kill -QUIT $MAINPID";
-      SuccessExitStatus = "SIGQUIT SIGUSR1 SIGTERM";
-      RemainAfterExit = "no";
-      Restart = "always";
-      Slice = "-.slice";
-    };
-  };
+  #   serviceConfig = {
+  #     ExecStart = "${CoreFreq}/bin/corefreqd -q";
+  #     ExecStop = "${pkgs.coreutils}/bin/kill -QUIT $MAINPID";
+  #     SuccessExitStatus = "SIGQUIT SIGUSR1 SIGTERM";
+  #     RemainAfterExit = "no";
+  #     Restart = "always";
+  #     Slice = "-.slice";
+  #   };
+  # };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
     enable = true;
