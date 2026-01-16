@@ -26,6 +26,11 @@
     rofi-systemd
     rofi-vpn
   ];
+  uwsm-run = pkgs.writeScriptBin "uwsm-run" ''
+    #!${pkgs.runtimeShell}
+      app_name=$(echo "$1" | cut -d" " -f 1 | xargs basename)
+      exec ${pkgs.uwsm}/bin/uwsm app -a "''${APP_NAME}" -- bash -c "$1 |& logger -e"
+  '';
 in {
   wayland.windowManager.pinnacle = {
     enable = true;
@@ -180,6 +185,7 @@ in {
       wlprop
       pulseaudio
       uwsm
+      uwsm-run
     ];
 
   services.clipcat = {
