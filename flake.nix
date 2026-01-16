@@ -73,7 +73,7 @@
       (final: prev: {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
       })
-      cachyos-kernel.overlays.default
+      # cachyos-kernel.overlays.default
       mozilla.overlay
       emacs.overlay
       nur.overlays.default
