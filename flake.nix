@@ -73,7 +73,7 @@
       (final: prev: {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
       })
-      cachyos-kernel.overlays.pinned
+      cachyos-kernel.overlays.default
       mozilla.overlay
       emacs.overlay
       nur.overlays.default
@@ -155,9 +155,9 @@
       config,
       ...
     }: {
-      nixpkgs.overlays = [cachyos-kernel.overlays.pinned];
+      nixpkgs.overlays = [cachyos-kernel.overlays.default];
       boot = {
-        kernelPackages = pkgs.lib.mkDefault pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
+        kernelPackages = pkgs.linuxKernel.packagesFor pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
         zfs.package = pkgs.cachyosKernels.zfs-cachyos-lto;
