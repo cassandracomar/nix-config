@@ -26,10 +26,10 @@
     rofi-systemd
     rofi-vpn
   ];
-  app-run = pkgs.writeScriptBin "app-run" ''
+  uwsm-run = pkgs.writeScriptBin "uwsm-run" ''
     #!${pkgs.runtimeShell}
       app_name=$(echo "$@" | cut -d" " -f 1 | xargs basename)
-      exec systemd-run --user --slice=app-graphical.slice --scope -u app-$DESKTOP_SESSION-"''${app_name}"-$RANDOM -- systemd-cat "$@"
+      exec uwsm app -a "''${app_name}" -- systemd-cat "$@"
   '';
 in {
   wayland.windowManager.pinnacle = {
@@ -88,7 +88,7 @@ in {
       sidebar-mode = true;
       monitor = -4;
       dpi = 96;
-      run-command = ''bash -c '${pkgs.uwsm}/bin/uwsm app -a $(echo "{cmd}" | cut -d" " -f 1 | xargs basename) -- {cmd} |& logger -e' '';
+      run-command = "${uwsm-run}/bin/uwsm-run {cmd}";
     };
   };
 
@@ -185,7 +185,7 @@ in {
       wlprop
       pulseaudio
       uwsm
-      app-run
+      uwsm-run
     ];
 
   services.clipcat = {
