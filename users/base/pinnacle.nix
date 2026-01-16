@@ -83,6 +83,7 @@ in {
       sidebar-mode = true;
       monitor = -4;
       dpi = 96;
+      run-command = "bash -c '${pkgs.uwsm}/bin/uwsm -a \\$(systemd-escape {cmd}) {cmd}'";
     };
   };
 
