@@ -160,7 +160,7 @@
         kernelPackages = pkgs.lib.mkDefault pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
-        zfs.package = config.boot.kernelPackages.zfs_cachyos;
+        zfs.package = pkgs.cachyosKernels.zfs-cachyos-lto;
       };
     };
 
