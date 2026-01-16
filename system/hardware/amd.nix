@@ -119,21 +119,7 @@ in {
   ];
 
   environment.systemPackages = [pkgs.lact];
-  # services.dbus.packages = [CoreFreq];
-  # systemd.services.corefreqd = {
-  #   description = "CoreFreq Daemon";
-  #   wantedBy = ["multi-user.target"];
-  #   restartIfChanged = true;
-
-  #   serviceConfig = {
-  #     ExecStart = "${CoreFreq}/bin/corefreqd -q";
-  #     ExecStop = "${pkgs.coreutils}/bin/kill -QUIT $MAINPID";
-  #     SuccessExitStatus = "SIGQUIT SIGUSR1 SIGTERM";
-  #     RemainAfterExit = "no";
-  #     Restart = "always";
-  #     Slice = "-.slice";
-  #   };
-  # };
+  programs.corefreq.enable = true;
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
     enable = true;
