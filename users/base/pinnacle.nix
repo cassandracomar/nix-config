@@ -83,7 +83,7 @@ in {
       sidebar-mode = true;
       monitor = -4;
       dpi = 96;
-      run-command = ''bash -c '${pkgs.uwsm}/bin/uwsm app -u $(echo "{cmd}" | cut -d" " -f 1 | xargs basename) -- {cmd}' '';
+      run-command = ''bash -c '${pkgs.uwsm}/bin/uwsm app -a $(echo "{cmd}" | cut -d" " -f 1 | xargs basename) -- {cmd}' '';
     };
   };
 
