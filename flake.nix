@@ -155,6 +155,7 @@
       config,
       ...
     }: {
+      nixpkgs.overlays = [cachyos-kernel.overlays.pinned];
       boot = {
         kernelPackages =
           pkgs.lib.mkDefault (pkgs.linuxKernel.packagesFor
