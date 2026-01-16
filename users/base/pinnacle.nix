@@ -179,6 +179,7 @@ in {
       wl-color-picker
       wlprop
       pulseaudio
+      uwsm
     ];
 
   services.clipcat = {
