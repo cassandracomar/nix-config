@@ -163,6 +163,40 @@ in {
     configDir = ./eww;
   };
 
+  systemd.user.services = {
+    eww-daemon = {
+      Unit = {
+        Description = "eww daemon user service";
+        BindsTo = ["graphical-session.target"];
+        Wants = ["graphical-session-pre.target"];
+        After = ["graphical-session-pre.target"];
+        X-SwitchMethod = "reload";
+      };
+      Service = {
+        Slice = ["session.slice"];
+        Type = "exec";
+        ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+        ExecReload = "${pkgs.eww}/bin/eww reload --no-daemonize";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
+    };
+    "eww-open@" = {
+      Unit = {
+        Description = "launch eww windows for the output";
+        PartOf = ["graphical-session.target"];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --screen %i primary --arg %i";
+        ExecStop = "${pkgs.eww}/bin/eww close --no-daemonize primary";
+        RemainAfterExit = true;
+      };
+    };
+  };
+
   home.packages = with pkgs;
     rofi-packages
     ++ [
