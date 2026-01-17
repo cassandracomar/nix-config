@@ -190,7 +190,7 @@ in {
       };
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --screen %i primary --arg %i";
+        ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --screen %i primary --arg monitor=%i";
         ExecStop = "${pkgs.eww}/bin/eww close --no-daemonize primary";
         RemainAfterExit = true;
       };
