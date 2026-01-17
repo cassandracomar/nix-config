@@ -186,13 +186,15 @@ in {
     "eww-open@" = {
       Unit = {
         Description = "launch eww windows for the output";
-        PartOf = ["graphical-session.target"];
       };
       Service = {
         Type = "oneshot";
         ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --screen %i primary --arg monitor=%i";
         ExecStop = "${pkgs.eww}/bin/eww close --no-daemonize primary";
         RemainAfterExit = true;
+      };
+      Install = {
+        WantedBy = pkgs.lib.mkForce [];
       };
     };
   };
