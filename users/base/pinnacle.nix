@@ -176,7 +176,7 @@ in {
       Service = {
         Slice = ["session.slice"];
         Type = "exec";
-        ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize --debug";
+        ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
         ExecReload = "${pkgs.eww}/bin/eww reload --no-daemonize";
         Restart = "on-failure";
         RestartSec = "1s";
