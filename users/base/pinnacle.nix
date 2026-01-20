@@ -168,8 +168,8 @@ in {
       Unit = {
         Description = "eww daemon user service";
         BindsTo = ["graphical-session.target"];
-        Wants = ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
-        After = ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
+        Wants = ["graphical-session-pre.target" "wayland-wm@pinnacle.service" "pinnacle.service"];
+        After = ["graphical-session-pre.target" "wayland-wm@pinnacle.service" "pinnacle.service"];
         X-SwitchMethod = "reload";
         StartLimitIntervalSec = 0;
       };
