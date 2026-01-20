@@ -171,6 +171,7 @@ in {
         Wants = ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
         After = ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
         X-SwitchMethod = "reload";
+        StartLimitIntervalSec = 0;
       };
       Service = {
         Slice = ["session.slice"];
@@ -178,6 +179,7 @@ in {
         ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize --debug";
         ExecReload = "${pkgs.eww}/bin/eww reload --no-daemonize";
         Restart = "on-failure";
+        RestartSec = "1s";
       };
       Install = {
         WantedBy = ["graphical-session.target"];
@@ -186,12 +188,15 @@ in {
     "eww-open@" = {
       Unit = {
         Description = "launch eww windows for the output";
+        StartLimitIntervalSec = 0;
       };
       Service = {
         Type = "oneshot";
         ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --screen %i primary --arg monitor=%i";
         ExecStop = "${pkgs.eww}/bin/eww close --no-daemonize primary";
         RemainAfterExit = true;
+        Restart = "on-failure";
+        RestartSec = "1s";
       };
       Install = {
         WantedBy = pkgs.lib.mkForce [];
