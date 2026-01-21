@@ -112,6 +112,15 @@
             zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
               kernel = config.boot.kernelPackages.kernel;
             };
+            corefreq = prev.corefreq.overrideAttrs (old: rec {
+              version = "2.0.9";
+              src = pkgs.fetchFromGitHub {
+                owner = "cyring";
+                repo = "CoreFreq";
+                rev = version;
+                hash = "sha256-SD3/3j8kIpxRA3Z0zxnkKczkBqJUzn40cTbllwIFrgc=";
+              };
+            });
           });
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
