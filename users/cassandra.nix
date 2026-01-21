@@ -53,7 +53,7 @@
         # "-fprofile-generate"
         "-fprofile-use=${profdata}"
         "-gline-tables-only"
-        "-fdebug-info-for-profiling"
+        "-fpseudo-probe-for-profiling"
         "-funique-internal-linkage-names"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
