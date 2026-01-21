@@ -15,6 +15,7 @@
   autoPatchelfHook,
   stdenv,
   python3,
+  zlib,
 }:
 stdenv.mkDerivation {
   name = "autofdo";
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-HCT8LPu48Vd/CS+G53vPk7tDQAmd7zANtcItHaniYnA=";
     fetchSubmodules = true;
   };
-  buildInputs = [libunwind gflags openssl openssl.dev elfutils zstd.dev zstd protobufc protobufc.dev elfutils.dev];
+  buildInputs = [libunwind gflags openssl openssl.dev elfutils zstd.dev zstd protobufc protobufc.dev elfutils.dev zlib];
   nativeBuildInputs = [protobuf_29 cmake clang git pkg-config ninja autoPatchelfHook python3];
   cmakeFlags = [
     "-DENABLE_TOOL=LLVM"
