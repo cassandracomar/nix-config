@@ -108,6 +108,9 @@
         kernelPackages =
           (pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override {
             autofdo = true;
+            structuredExtraConfig = {
+              PERF_EVENTS_AMD_BRS = pkgs.lib.kernel.yes;
+            };
           })).extend (final: prev: {
             zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
               kernel = config.boot.kernelPackages.kernel;
