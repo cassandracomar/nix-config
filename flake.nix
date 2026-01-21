@@ -85,7 +85,6 @@
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
       in {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
-        inherit (final.lixPackageSets.stable) nix-direnv;
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
