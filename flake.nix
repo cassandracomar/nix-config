@@ -113,13 +113,7 @@
               kernel = config.boot.kernelPackages.kernel;
             };
             corefreq = prev.corefreq.overrideAttrs (old: rec {
-              version = "2.0.9";
-              src = pkgs.fetchFromGitHub {
-                owner = "cyring";
-                repo = "CoreFreq";
-                rev = version;
-                hash = "sha256-SD3/3j8kIpxRA3Z0zxnkKczkBqJUzn40cTbllwIFrgc=";
-              };
+              makeFlags = (old.makeFlags or []) ++ ["CC=clang"];
             });
           });
         # bug fix for performance regression for zfs since 5.3
