@@ -37,6 +37,7 @@
       cairo = pkgs.cairo;
     })
     nix-output-monitor
+    config.boot.kernelPackages.perf
   ];
 
   programs.zsh.enable = true;
