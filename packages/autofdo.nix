@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     "-DCMAKE_C_COMPILER=clang"
     "-DCMAKE_CXX_COMPILER=clang++"
     "-DCMAKE_BUILD_TYPE=Release"
-    "-DBUILD_SHARED=On"
+    # "-DBUILD_SHARED=On"
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.10"
   ];
 
@@ -47,7 +47,9 @@ stdenv.mkDerivation {
     install -m644 libperf_proto.a $out/lib/libperf_proto.a
     install -m644 libperf_proto.so $out/lib/libperf_proto.so
     install -m644 third_party/glog/libglog.so.1 $out/lib/libglog.so.1
-    install -m644 libllvm_propeller*.so $out/lib/
+    install -m644 *.so $out/lib/
+    install -m644 *.a $out/lib/
+    ldd create_llvm_prof
   '';
 
   fixupPhase = ''

@@ -89,6 +89,7 @@
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         autofdo = prev.callPackage ./packages/autofdo.nix {};
+        autofdo-prebuilt = prev.callPackage ./packages/autofdo-prebuilt.nix {};
       })
     ];
 
@@ -105,13 +106,15 @@
       ...
     }: {
       nixpkgs.overlays = [cachyos-kernel.overlays.default];
-      boot = {
+      boot = let
+        autofdo-profile = pkgs.callPackage ./packages/mk-afdo-profile.nix {
+          binary = "${config.boot.kernelPackages.kernel.dev}/vmlinux";
+          data = ./packages/kernel.data;
+        };
+      in {
         kernelPackages =
           (pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override {
-            autofdo = true;
-            structuredExtraConfig = {
-              PERF_EVENTS_AMD_BRS = pkgs.lib.kernel.yes;
-            };
+            autofdo = ./kernel.afdo;
           })).extend (final: prev: {
             zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
               kernel = config.boot.kernelPackages.kernel;
@@ -126,7 +129,6 @@
       };
 
       environment.systemPackages = [
-        pkgs.autofdo
         (pkgs.perf.overrideAttrs (old: {
           version = config.boot.kernelPackages.kernel.version;
           src = config.boot.kernelPackages.kernel.src;
