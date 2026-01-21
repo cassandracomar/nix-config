@@ -70,7 +70,7 @@
     system = "x86_64-linux";
 
     overlays = [
-      # cachyos-kernel.overlays.default
+      cachyos-kernel.overlays.default
       mozilla.overlay
       emacs.overlay
       nur.overlays.default
@@ -83,13 +83,19 @@
       })
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
+        perf = prev.perf.overrideAttrs (old: {
+          version = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.version;
+          src = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.src;
+        });
       in {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
+        inherit perf;
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
-        autofdo = prev.callPackage ./packages/autofdo.nix {};
-        autofdo-prebuilt = prev.callPackage ./packages/autofdo-prebuilt.nix {};
+        autofdo-kernel = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
+          autofdo = ./kernel.afdo;
+        });
       })
     ];
 
@@ -105,35 +111,22 @@
       config,
       ...
     }: {
-      nixpkgs.overlays = [cachyos-kernel.overlays.default];
+      # nixpkgs.overlays = [cachyos-kernel.overlays.default];
       boot = let
-        perf = pkgs.perf.overrideAttrs (old: {
-          version = config.boot.kernelPackages.kernel.version;
-          src = config.boot.kernelPackages.kernel.src;
-        });
-        autofdo-profile = pkgs.callPackage ./packages/mk-afdo-profile.nix {
-          inherit perf;
-          profileGeneration = 0;
-          kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
-        };
+        helpers = pkgs.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
       in {
-        kernelPackages =
-          (pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override {
-            autofdo = autofdo-profile.outPath;
-          })).extend (final: prev: {
-            zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
-              kernel = config.boot.kernelPackages.kernel;
-            };
-            corefreq = prev.corefreq.overrideAttrs (old: {
-              makeFlags = (old.makeFlags or []) ++ ["CC=clang"];
-            });
-          });
+        kernelPackages = helpers.kernelModuleLLVMOverride ((pkgs.linuxKernel.packagesFor pkgs.autofdo-kernel).extend (final: prev: {
+          zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
+            kernel = config.boot.kernel;
+          };
+        }));
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
         zfs.package = config.boot.kernelPackages.zfs_cachyos;
       };
 
       environment.systemPackages = [
+        pkgs.pref
       ];
     };
 
