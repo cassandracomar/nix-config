@@ -210,7 +210,12 @@
   };
   services.dbus.apparmor = "enabled";
 
-  services.ntpd-rs.enable = true;
+  services.ntpd-rs = {
+    enable = true;
+    settings = {
+      observability.log-level = "warn";
+    };
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
