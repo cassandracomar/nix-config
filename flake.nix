@@ -83,15 +83,10 @@
       })
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
-        perf = prev.perf.overrideAttrs (old: {
-          version = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.version;
-          src = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.src;
-        });
         helpers = prev.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
       in {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
-        inherit perf;
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         mkCachyPackageSet = kernel:
@@ -122,10 +117,6 @@
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
         zfs.package = config.boot.kernelPackages.zfs_cachyos;
       };
-
-      environment.systemPackages = [
-        pkgs.perf
-      ];
     };
 
     # sops-config = {

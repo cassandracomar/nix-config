@@ -53,6 +53,11 @@
   autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
     autofdo = ../../kernel.afdo;
   });
+
+  perf = pkgs.perf.overrideAttrs (old: {
+    version = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.version;
+    src = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.src;
+  });
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
@@ -122,7 +127,7 @@ in {
     # pkgs-optimized.linuxKernel.kernelPatches.request_key_helper
   ];
 
-  environment.systemPackages = [pkgs.lact];
+  environment.systemPackages = [pkgs.lact perf];
   programs.corefreq.enable = true;
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
