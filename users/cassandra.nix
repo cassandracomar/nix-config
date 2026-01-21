@@ -49,9 +49,12 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
-        "-flto=full"
+        "-flto=thin"
         # "-fprofile-generate"
         "-fprofile-use=${profdata}"
+        "-gline-tables-only"
+        "-fdebug-info-for-profiling"
+        "-funique-internal-linkage-names"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
