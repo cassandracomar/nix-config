@@ -43,7 +43,6 @@ stdenv.mkDerivation {
     ls -l bin/
     mkdir -p $out/bin
     install -m755 create_llvm_prof $out/bin/
-    ldd create_gcov
     install -m755 profile_merger $out/bin/profile_merger
     install -m644 libperf_proto.a $out/lib/libperf_proto.a
     install -m644 libperf_proto.so $out/lib/libperf_proto.so
