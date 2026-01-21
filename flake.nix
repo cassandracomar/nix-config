@@ -107,19 +107,24 @@
     }: {
       nixpkgs.overlays = [cachyos-kernel.overlays.default];
       boot = let
+        perf = pkgs.perf.overrideAttrs (old: {
+          version = config.boot.kernelPackages.kernel.version;
+          src = config.boot.kernelPackages.kernel.src;
+        });
         autofdo-profile = pkgs.callPackage ./packages/mk-afdo-profile.nix {
-          binary = "${config.boot.kernelPackages.kernel.dev}/vmlinux";
-          data = ./packages/kernel.data;
+          inherit perf;
+          profileGeneration = 0;
+          kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
         };
       in {
         kernelPackages =
           (pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override {
-            autofdo = ./kernel.afdo;
+            autofdo = autofdo-profile.outPath;
           })).extend (final: prev: {
             zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
               kernel = config.boot.kernelPackages.kernel;
             };
-            corefreq = prev.corefreq.overrideAttrs (old: rec {
+            corefreq = prev.corefreq.overrideAttrs (old: {
               makeFlags = (old.makeFlags or []) ++ ["CC=clang"];
             });
           });
@@ -129,10 +134,6 @@
       };
 
       environment.systemPackages = [
-        (pkgs.perf.overrideAttrs (old: {
-          version = config.boot.kernelPackages.kernel.version;
-          src = config.boot.kernelPackages.kernel.src;
-        }))
       ];
     };
 
