@@ -58,6 +58,17 @@
     version = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.version;
     src = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.src;
   });
+
+  autofdo-profile = pkgs.writeScriptBin "autofdo-profile" ''
+    #!${pkgs.runtimeShell}
+    WORKING_DIR=$(mktemp -d)
+    sudo sh -c "echo 0 > /proc/sys/kernel/kptr_restrict"
+    sudo sh -c "echo 0 > /proc/sys/kernel/perf_event_paranoid"
+
+    perf record -e cpu/event=0xc4,umask=0x0,name=br_inst_retired.taken/ -a -N -b -c 500009 -o $WORKING_DIR/kernel.data -- time sh -c "nix build nixpkgs#linux_xanmod_latest --rebuild --log-format internal-json -v |& nom --json"
+
+    ${pkgs.llvm}/bin/llvm-profgen --kernel --binary=${config.boot.kernelPackages.kernel.dev}/vmlinux --perfdata=$WORKING_DIR/kernel.data -o /home/cassandra/src/github.com/cassandracomar/nix-config/kernel.afdo
+  '';
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
@@ -127,7 +138,7 @@ in {
     # pkgs-optimized.linuxKernel.kernelPatches.request_key_helper
   ];
 
-  environment.systemPackages = [pkgs.lact perf];
+  environment.systemPackages = [pkgs.lact perf autofdo-profile];
   programs.corefreq.enable = true;
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
