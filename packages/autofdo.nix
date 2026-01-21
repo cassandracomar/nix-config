@@ -47,6 +47,7 @@ stdenv.mkDerivation {
     install -m644 libperf_proto.a $out/lib/libperf_proto.a
     install -m644 libperf_proto.so $out/lib/libperf_proto.so
     install -m644 third_party/glog/libglog.so.1 $out/lib/libglog.so.1
+    install -m644 libllvm_propeller*.so $out/lib/
   '';
 
   fixupPhase = ''
