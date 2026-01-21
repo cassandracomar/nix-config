@@ -87,15 +87,19 @@
           version = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.version;
           src = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.src;
         });
+        helpers = prev.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
       in {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
         inherit perf;
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
-        autofdo-kernel = prev.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
-          autofdo = ./kernel.afdo;
-        });
+        mkCachyPackageSet = kernel:
+          helpers.kernelModuleLLVMOverride ((prev.linuxKernel.packagesFor kernel).extend (final': prev': {
+            zfs_cachyos = prev.cachyosKernels.zfs-cachyos-lto.override {
+              inherit kernel;
+            };
+          }));
       })
     ];
 
@@ -112,21 +116,15 @@
       ...
     }: {
       # nixpkgs.overlays = [cachyos-kernel.overlays.default];
-      boot = let
-        helpers = pkgs.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
-      in {
-        kernelPackages = helpers.kernelModuleLLVMOverride ((pkgs.linuxKernel.packagesFor pkgs.autofdo-kernel).extend (final: prev: {
-          zfs_cachyos = pkgs.cachyosKernels.zfs-cachyos-lto.override {
-            kernel = config.boot.kernel;
-          };
-        }));
+      boot = {
+        kernelPackages = pkgs.lib.mkDefault (pkgs.mkCachyPackageSet pkgs.cachyosKernels.linux-cachyos-latest-lto);
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
         zfs.package = config.boot.kernelPackages.zfs_cachyos;
       };
 
       environment.systemPackages = [
-        pkgs.pref
+        pkgs.perf
       ];
     };
 

@@ -2,6 +2,7 @@
   config,
   pkgs,
   nixpkgs,
+  lib,
   ...
 }: let
   # we really only want to use this for the kernel itself to minimize which packages that have to be built locally
@@ -49,12 +50,15 @@
     ];
   };
 
-  CoreFreq = pkgs.callPackage ../../packages/corefreq.nix {kernelPackage = config.boot.kernelPackages.kernel;};
+  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
+    autofdo = ../../kernel.afdo;
+  });
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
+  boot.kernelPackages = lib.mkForce (pkgs.mkCachyPackageSet autofdo-kernel);
   # boot.extraModulePackages = with config.boot.kernelPackages; [CoreFreq];
   # boot.kernelPackages = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4;
   # boot.kernelPackages = pkgs-optimized.linuxKernel.packagesFor (let
