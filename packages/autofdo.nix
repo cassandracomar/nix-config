@@ -14,6 +14,7 @@
   ninja,
   autoPatchelfHook,
   stdenv,
+  python3,
 }:
 stdenv.mkDerivation {
   name = "autofdo";
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
   buildInputs = [libunwind gflags openssl openssl.dev elfutils zstd.dev zstd protobufc protobufc.dev elfutils.dev];
-  nativeBuildInputs = [protobuf_29 cmake clang git pkg-config ninja autoPatchelfHook];
+  nativeBuildInputs = [protobuf_29 cmake clang git pkg-config ninja autoPatchelfHook python3];
   cmakeFlags = [
     "-DENABLE_TOOL=LLVM"
     "-DCMAKE_C_COMPILER=clang"
