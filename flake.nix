@@ -88,58 +88,8 @@
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
       in {
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
-      })
-      (final: prev: {
-        calibre = prev.calibre.overrideAttrs (oldAttrs: {
-          # We want to have pycryptodome around in order to support DeDRM
-          nativeBuildInputs =
-            oldAttrs.nativeBuildInputs
-            ++ [prev.python3Packages.pycryptodome];
-        });
-
-        vcluster =
-          import ./packages/vcluster.nix {inherit (final) fetchurl stdenv;};
         clipcat = clipcat.packages.${system}.clipcat;
-      })
-      (
-        final: prev:
-          import ./packages/actualbudget/override.nix {
-            pkgs = prev;
-            inherit system;
-          }
-      )
-
-      (final: prev: rec {
-        CoreFreq = prev.callPackage ./packages/corefreq.nix {
-          kernelPackage = prev.linux_xanmod_latest;
-        };
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
-        kitty = prev.kitty.overrideAttrs (old: {
-          doInstallCheck = false;
-        });
-        libutp = prev.libutp.overrideAttrs (old: {
-          cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
-        });
-        libnitrokey = prev.libnitrokey.overrideAttrs (old: {
-          cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
-        });
-        rofi-file-browser = prev.rofi-file-browser.overrideAttrs (old: {
-          cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
-        });
-        transmission_3 = prev.transmission_3.overrideAttrs (old: {
-          cmakeFlags = (old.cmakeFlags or []) ++ ["-DCMAKE_POLICY_VERSION_MINIMUM=3.10"];
-        });
-        awscli2 = prev.awscli2.overrideAttrs (old: {
-          pytestCheckPhase = "true";
-        });
-        python3 = prev.python3.override {
-          packageOverrides = pyfinal: pyprev: {
-            pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
-              pytestCheckPhase = "true";
-            });
-          };
-        };
-        python3Packages = python3.pkgs;
       })
     ];
 
