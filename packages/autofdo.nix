@@ -29,7 +29,6 @@ stdenv.mkDerivation {
   nativeBuildInputs = [protobuf_29 cmake clang git pkg-config ninja autoPatchelfHook];
   cmakeFlags = [
     "-DENABLE_TOOL=LLVM"
-    "-DENABLE_TOOL=GCOV"
     "-DCMAKE_C_COMPILER=clang"
     "-DCMAKE_CXX_COMPILER=clang++"
     "-DCMAKE_BUILD_TYPE=Release"
@@ -41,7 +40,6 @@ stdenv.mkDerivation {
     ls -l
     ls -l bin/
     mkdir -p $out/bin
-    install -m755 *_gcov $out/bin/
     install -m755 create_llvm_prof $out/bin/
     ldd create_gcov
     install -m755 profile_merger $out/bin/profile_merger
