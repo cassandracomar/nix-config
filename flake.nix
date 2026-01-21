@@ -88,6 +88,7 @@
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
+        autofdo = prev.callPackage ./packages/autofdo.nix {};
       })
     ];
 
@@ -125,6 +126,7 @@
       };
 
       environment.systemPackages = [
+        pkgs.autofdo
         (pkgs.perf.overrideAttrs (old: {
           version = config.boot.kernelPackages.kernel.version;
           src = config.boot.kernelPackages.kernel.src;
