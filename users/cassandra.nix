@@ -54,6 +54,7 @@
         "-funique-internal-linkage-names"
         "-fbasic-block-address-map"
         "-flto=thin"
+        "-Wl,--build-id"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
       ]
@@ -61,6 +62,7 @@
     );
     NIX_LDFLAGS = toString (
       [
+        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
         "--build-id"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
