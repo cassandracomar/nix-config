@@ -49,9 +49,17 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
+        "-funique-internal-linkage-names"
+        "-fbasic-block-address-map"
         "-flto=thin"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
+      ]
+      ++ old.NIX_CFLAGS_COMPILE or []
+    );
+    NIX_LDFLAGS = toString (
+      [
+        "--build-id"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
