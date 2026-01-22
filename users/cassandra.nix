@@ -49,21 +49,9 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
-        "-gline-tables-only"
-        "-fpseudo-probe-for-profiling"
-        "-funique-internal-linkage-names"
-        "-fbasic-block-address-map"
         "-flto=thin"
-        "-Wl,--build-id"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
-      ]
-      ++ old.NIX_CFLAGS_COMPILE or []
-    );
-    NIX_LDFLAGS = toString (
-      [
-        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
-        "--build-id"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
