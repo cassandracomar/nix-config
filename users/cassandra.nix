@@ -49,6 +49,7 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
+        "-gline-tables-only"
         "-funique-internal-linkage-names"
         "-fbasic-block-address-map"
         "-flto=thin"
