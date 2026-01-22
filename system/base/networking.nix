@@ -44,7 +44,7 @@
     enable = true;
   };
 
-  systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
+  # systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
   # set up anonymized and encrypted DNS
   # services.dnscrypt-proxy2 = {
   #   enable = true;
