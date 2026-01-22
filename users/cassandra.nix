@@ -50,6 +50,7 @@
         "-march=znver4"
         "-mtune=znver4"
         "-gline-tables-only"
+        "-fpseudo-probe-for-profiling"
         "-funique-internal-linkage-names"
         "-fbasic-block-address-map"
         "-flto=thin"
