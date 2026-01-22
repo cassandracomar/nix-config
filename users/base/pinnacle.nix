@@ -202,9 +202,6 @@ in {
         WantedBy = pkgs.lib.mkForce [];
       };
     };
-    "wayland-wm@pinnacle" = {
-      Service.Environment = ["RUST_LOG=debug"];
-    };
   };
 
   home.packages = with pkgs;
