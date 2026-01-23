@@ -1,8 +1,8 @@
 {
   # pkg registries
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
   # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-  inputs.nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+  inputs.nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";

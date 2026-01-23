@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   environment.systemPackages = with pkgs; [
@@ -38,6 +39,10 @@
     })
     nix-output-monitor
   ];
+  programs.command-not-found = {
+    enable = true;
+    dbPath = "${inputs.nixpkgs}/programs.sqlite";
+  };
 
   programs.zsh.enable = true;
   # programs.java.enable = true;

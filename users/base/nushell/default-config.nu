@@ -2,6 +2,10 @@ source `~/.config/nushell/oh-my-posh.nu`
 
 $env.config = ($env.config? | default {})
 $env.config.hooks = ($env.config.hooks? | default {})
+$env.config.hooks.command_not_found = {
+  |command_name|
+  print (command-not-found $command_name | str trim)
+}
 $env.config.hooks.pre_prompt = (
     $env.config.hooks.pre_prompt?
     | default []
