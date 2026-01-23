@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  inputs,
+  system,
   ...
 }: {
   home.packages = with pkgs; [
@@ -156,7 +158,9 @@
 
   programs.nix-index = {
     enable = true;
+    package = inputs.nix-index.packages.${system}.nix-index;
     enableBashIntegration = true;
     enableZshIntegration = true;
+    enableNushellIntegration = true;
   };
 }
