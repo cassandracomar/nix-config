@@ -6,6 +6,8 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+  inputs.nix-index-database.url = "github:nix-community/nix-index-database";
+  inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
   # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
 
@@ -56,6 +58,7 @@
     nix-doom,
     nixgl,
     cachyos-kernel,
+    nix-index-database,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -125,7 +128,7 @@
     # };
 
     base-modules =
-      [kernel ./modules ./system/base pinnacle.nixosModules.default]
+      [kernel ./modules ./system/base pinnacle.nixosModules.default nix-index-database.darwinModules.nix-index]
       ++ map (username: {
         environment.systemPackages = [
           pkgs.nushell
@@ -167,7 +170,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [pinnacle.hmModules.default nix-doom.homeModule];
+              sharedModules = [pinnacle.hmModules.default nix-doom.homeModule nix-index-database.homeModules.default];
               users = pkgs.lib.listToAttrs (map
                 user-module
                 [user]);

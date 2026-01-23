@@ -45,4 +45,8 @@
   '';
 
   programs.obs-studio.enable = true;
+  programs.nix-index = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
 }
