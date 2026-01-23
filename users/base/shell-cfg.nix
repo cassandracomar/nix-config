@@ -64,7 +64,7 @@
     enable = true;
     # we want nix completions from fish so disable this and add it manually
     enableNushellIntegration = false;
-    enableFishIntegration = true;
+    enableFishIntegration = false;
     enableBashIntegration = true;
     enableZshIntegration = true;
   };
