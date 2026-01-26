@@ -5,7 +5,7 @@
   inputs.nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/286f9777b3e8d73ab0086ee889f36d90c8cbd5f5";
+  inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-index.url = "github:nix-community/nix-index";
   inputs.nix-index.inputs.nixpkgs.follows = "nixpkgs";
@@ -76,7 +76,7 @@
     system = "x86_64-linux";
 
     overlays = [
-      cachyos-kernel.overlays.default
+      cachyos-kernel.overlays.pinned
       mozilla.overlay
       emacs.overlay
       nur.overlays.default
