@@ -51,8 +51,8 @@
         "-march=znver4"
         "-mtune=znver4"
         "-flto"
-        # "-fwhole-program"
-        "-fuse-linker-plugin"
+        "-fwhole-program"
+        # "-fuse-linker-plugin"
         "-fprofile-generate=${config.xdg.cacheHome}/emacs"
         # "-fprofile-use=${profdata}"
       ]
