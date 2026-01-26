@@ -52,7 +52,7 @@
         "-mtune=znver4"
         "-flto"
         "-fwhole-program"
-        "-fprofile-generate=${config.home.cacheHome}/emacs"
+        "-fprofile-generate=${config.xdg.cacheHome}/emacs"
         # "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
