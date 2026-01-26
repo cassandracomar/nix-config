@@ -50,7 +50,8 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
-        "-flto=thin"
+        "-flto"
+        "-fwhole-program"
         "-fprofile-generate=${config.home.cacheHome}/emacs"
         # "-fprofile-use=${profdata}"
       ]
