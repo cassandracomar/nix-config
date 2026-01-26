@@ -47,12 +47,12 @@
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
       [
-        "-Os"
+        "-O3"
         "-march=meteorlake"
         "-mtune=meteorlake"
         "-flto=full"
-        # "-fprofile-generate"
-        "-fprofile-use=${profdata}"
+        "-fcs-profile-generate"
+        # "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
