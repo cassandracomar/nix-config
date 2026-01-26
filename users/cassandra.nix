@@ -51,8 +51,8 @@
         "-march=znver4"
         "-mtune=znver4"
         "-flto=thin"
-        # "-fprofile-generate"
-        "-fprofile-use=${profdata}"
+        "-fcs-profile-generate"
+        # "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
