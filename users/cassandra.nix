@@ -55,6 +55,7 @@
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
+    NID_LDFLAGS = toString (["-fuse-ld=${pkgs.lld}/bin/ld.lld"] ++ old.NIX_LDFLAGS or []);
   });
 in {
   imports = [./base];
