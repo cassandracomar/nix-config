@@ -50,6 +50,7 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
+        "-fuse-ld=${pkgs.binutils}/bin/ld.gold"
         "-flto"
         "-fwhole-program"
         # "-fuse-linker-plugin"
