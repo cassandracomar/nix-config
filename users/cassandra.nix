@@ -33,16 +33,16 @@
   };
   profdata = ./base/merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
-    # stdenv = pkgs.llvmPackages.stdenv;
-    # preConfigure = ''
-    #   export CC=${pkgs.llvmPackages.clang}/bin/clang
-    #   export CXX=${pkgs.llvmPackages.clang}/bin/clang++
-    #   export AR=${pkgs.llvm}/bin/llvm-ar
-    #   export NM=${pkgs.llvm}/bin/llvm-nm
-    #   export LD=${pkgs.lld}/bin/ld.lld
-    #   export CC_LD=${pkgs.lld}/bin/ld.lld
-    #   export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
-    # '';
+    stdenv = pkgs.llvmPackages.stdenv;
+    preConfigure = ''
+      export CC=${pkgs.llvmPackages.clang}/bin/clang
+      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
+      export AR=${pkgs.llvm}/bin/llvm-ar
+      export NM=${pkgs.llvm}/bin/llvm-nm
+      export LD=${pkgs.lld}/bin/ld.lld
+      export CC_LD=${pkgs.lld}/bin/ld.lld
+      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
+    '';
 
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
@@ -50,12 +50,9 @@
         "-Os"
         "-march=znver4"
         "-mtune=znver4"
-        "-fuse-ld=${pkgs.binutils}/bin/ld.gold"
-        "-flto"
-        "-fwhole-program"
-        # "-fuse-linker-plugin"
-        "-fprofile-generate=${config.xdg.cacheHome}/emacs"
-        # "-fprofile-use=${profdata}"
+        "-flto=thin"
+        # "-fprofile-generate"
+        "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
