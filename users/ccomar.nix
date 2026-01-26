@@ -51,8 +51,8 @@
         "-march=meteorlake"
         "-mtune=meteorlake"
         "-flto=full"
-        "-fcs-profile-generate"
-        # "-fprofile-use=${profdata}"
+        # "-fcs-profile-generate"
+        "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
