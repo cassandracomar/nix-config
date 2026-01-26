@@ -47,7 +47,7 @@
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
       [
-        "-Os"
+        "-O3"
         "-march=znver4"
         "-mtune=znver4"
         "-flto=thin"
