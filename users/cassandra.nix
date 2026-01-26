@@ -40,6 +40,7 @@
       export AR=${pkgs.llvm}/bin/llvm-ar
       export NM=${pkgs.llvm}/bin/llvm-nm
       export LD=${pkgs.lld}/bin/ld.lld
+      export CC_LD=${pkgs.lld}/bin/ld.lld
       export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
     '';
 
@@ -52,11 +53,9 @@
         "-flto=thin"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
-        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
-    NID_LDFLAGS = toString (["-fuse-ld=${pkgs.lld}/bin/ld.lld"] ++ old.NIX_LDFLAGS or []);
   });
 in {
   imports = [./base];
