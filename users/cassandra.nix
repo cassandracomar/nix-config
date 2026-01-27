@@ -48,6 +48,9 @@
     git = prev.git.overrideAttrs {
       doInstallCheck = false;
     };
+    libgcrypt = prev.libgcrypt.overrideAttrs {
+      doCheck = false;
+    };
   });
   emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
     # stdenv = pkgs.llvmPackages.stdenv;
