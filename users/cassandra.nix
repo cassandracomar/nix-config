@@ -35,13 +35,13 @@
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     preConfigure = ''
-      export CC=${pkgs.llvmPackages.clang}/bin/clang
-      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
-      export AR=${pkgs.llvm}/bin/llvm-ar
-      export NM=${pkgs.llvm}/bin/llvm-nm
-      export LD=${pkgs.lld}/bin/ld.lld
-      export CC_LD=${pkgs.lld}/bin/ld.lld
-      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
+      export CC=${pkgs.llvmPackages.clangUseLLVM}/bin/clang
+      export CXX=${pkgs.llvmPackages.clangUseLLVM}/bin/clang++
+      export AR=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/llvm-ar
+      export NM=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/llvm-nm
+      export LD=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/ld.lld
+      export CC_LD=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/ld.lld
+      export RANLIB=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/llvm-ranlib
     '';
 
     # Extra compiler flags (Clang-flavored)
@@ -50,7 +50,6 @@
         "-O3"
         "-march=znver4"
         "-mtune=znver4"
-        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
         "-flto=thin"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
