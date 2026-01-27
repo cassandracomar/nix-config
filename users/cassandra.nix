@@ -32,7 +32,12 @@
     '';
   };
   profdata = ./base/merged.profdata;
-  emacs' = pkgs.pkgsLLVM.emacs-igc-pgtk.overrideAttrs (old: {
+  pkgs' = pkgs.pkgsLLVM.extend (final: prev: {
+    mpfr = prev.mpfr.overrideAttrs {
+      doCheck = false;
+    };
+  });
+  emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
     # stdenv = pkgs.llvmPackages.stdenv;
     # preConfigure = ''
     #   export CC=${pkgs.llvmPackages.clang}/bin/clang
