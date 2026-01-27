@@ -5,51 +5,6 @@
   lib,
   ...
 }: let
-  # we really only want to use this for the kernel itself to minimize which packages that have to be built locally
-  pkgs-optimized = import nixpkgs {
-    config.allowUnfree = true;
-    localSystem = {
-      gcc.arch = "znver4";
-      gcc.tune = "znver4";
-      system = "x86_64-linux";
-    };
-    overlays = [
-      (final: prev: rec {
-        # tests are broken when running on zfs
-        gitMinimal = prev.gitMinimal.override {
-          doInstallCheck = false;
-        };
-        python3 = prev.python3.override {
-          packageOverrides = pyfinal: pyprev: {
-            pycparser = pyprev.pycparser.overrideAttrs (old: {
-              unittestCheckPhase = "true";
-            });
-            sphinx = pyprev.sphinx.overrideAttrs (old: {
-              pytestCheckPhase = "true";
-              unittestCheckPhase = "true";
-              pythonImportsCheckPhase = "true";
-            });
-            pyrate-limiter = pyprev.pyrate-limiter.overrideAttrs (old: {
-              pytestCheckPhase = "true";
-            });
-          };
-        };
-        python3Packages = python3.pkgs;
-        sphinx = python3Packages.sphinx;
-        jq = pkgs.jq;
-        lzip = prev.lzip.overrideAttrs (old: {
-          doCheck = false;
-        });
-        coreutils = prev.coreutils.overrideAttrs (old: {
-          doCheck = false;
-        });
-        go = prev.go.overrideAttrs (old: {
-          doCheck = false;
-        });
-      })
-    ];
-  };
-
   autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
     autofdo = ../../kernel.afdo;
   });
