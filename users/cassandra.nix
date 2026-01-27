@@ -43,10 +43,10 @@
       doCheck = false;
     };
     gitMinimal = prev.gitMinimal.overrideAttrs {
-      doCheck = false;
+      doInstallCheck = false;
     };
     git = prev.git.overrideAttrs {
-      doCheck = false;
+      doInstallCheck = false;
     };
   });
   emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
