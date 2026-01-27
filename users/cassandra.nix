@@ -33,7 +33,7 @@
   };
   profdata = ./base/merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
-    stdenv = pkgs.overrideCC pkgs.stdenv pkgs.llvmPackages.clangUseLLVM;
+    stdenv = pkgs.llvmPackages.stdenv;
     preConfigure = ''
       export CC=${pkgs.llvmPackages.clang}/bin/clang
       export CXX=${pkgs.llvmPackages.clang}/bin/clang++
