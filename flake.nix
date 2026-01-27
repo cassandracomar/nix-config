@@ -60,7 +60,6 @@
     nix-doom,
     nixgl,
     cachyos-kernel,
-    nix-index,
     nix-index-database,
     ...
   } @ inputs: let
@@ -76,7 +75,7 @@
     system = "x86_64-linux";
 
     overlays = [
-      cachyos-kernel.overlays.pinned
+      cachyos-kernel.overlays.default
       mozilla.overlay
       emacs.overlay
       nur.overlays.default
