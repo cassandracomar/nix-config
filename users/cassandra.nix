@@ -42,6 +42,9 @@
     elfutils = prev.elfutils.overrideAttrs {
       doCheck = false;
     };
+    git-minimal = prev.git-minimal.overrideAttrs {
+      doCheck = false;
+    };
   });
   emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
     # stdenv = pkgs.llvmPackages.stdenv;
