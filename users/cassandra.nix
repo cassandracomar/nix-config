@@ -42,7 +42,7 @@
     elfutils = prev.elfutils.overrideAttrs {
       doCheck = false;
     };
-    git-minimal = prev.git-minimal.overrideAttrs {
+    gitMinimal = prev.gitMinimal.overrideAttrs {
       doCheck = false;
     };
     git = prev.git.overrideAttrs {
