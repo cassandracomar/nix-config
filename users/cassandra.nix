@@ -55,6 +55,7 @@
   emacs' =
     (pkgs.emacs-igc-pgtk.override {
       stdenv = pkgs'.stdenv;
+      libgccjit = pkgs'.libgccjit;
     }).overrideAttrs (old: {
       # stdenv = pkgs.llvmPackages.stdenv;
       # preConfigure = ''
