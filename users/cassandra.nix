@@ -32,37 +32,32 @@
     '';
   };
   profdata = ./base/merged.profdata;
-  buildStdenv = pkgs.overrideCC pkgs.stdenv pkgs.llvmPackages.clangUseLLVM;
-  emacs' =
-    (pkgs.emacs-igc-pgtk.override {
-      stdenv = buildStdenv;
-      libgccjit = pkgs.libgccjit.override {
-        stdenv = buildStdenv;
-      };
-    }).overrideAttrs (old: {
-      # preConfigure = ''
-      #   export CC=${pkgs.llvmPackages.clang}/bin/clang
-      #   export CXX=${pkgs.llvmPackages.clang}/bin/clang++
-      #   export AR=${pkgs.llvm}/bin/llvm-ar
-      #   export NM=${pkgs.llvm}/bin/llvm-nm
-      #   export LD=${pkgs.lld}/bin/ld.lld
-      #   export CC_LD=${pkgs.lld}/bin/ld.lld
-      #   export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
-      # '';
+  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
+    stdenv = pkgs.llvmPackages.stdenv;
+    preConfigure = ''
+      export CC=${pkgs.llvmPackages.clang}/bin/clang
+      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
+      export AR=${pkgs.llvm}/bin/llvm-ar
+      export NM=${pkgs.llvm}/bin/llvm-nm
+      export LD=${pkgs.lld}/bin/ld.lld
+      export CC_LD=${pkgs.lld}/bin/ld.lld
+      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
+    '';
 
-      # Extra compiler flags (Clang-flavored)
-      NIX_CFLAGS_COMPILE = toString (
-        [
-          "-O3"
-          "-march=znver4"
-          "-mtune=znver4"
-          "-flto=thin"
-          # "-fcs-profile-generate"
-          "-fprofile-use=${profdata}"
-        ]
-        ++ old.NIX_CFLAGS_COMPILE or []
-      );
-    });
+    # Extra compiler flags (Clang-flavored)
+    NIX_CFLAGS_COMPILE = toString (
+      [
+        "-O3"
+        "-march=znver4"
+        "-mtune=znver4"
+        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
+        "-flto=thin"
+        # "-fcs-profile-generate"
+        "-fprofile-use=${profdata}"
+      ]
+      ++ old.NIX_CFLAGS_COMPILE or []
+    );
+  });
 in {
   imports = [./base];
 
