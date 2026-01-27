@@ -34,7 +34,6 @@
   profdata = ./base/merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
-    nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.lld];
     preConfigure = ''
       export CC=${pkgs.llvmPackages.clangUseLLVM}/bin/clang
       export CXX=${pkgs.llvmPackages.clangUseLLVM}/bin/clang++
@@ -54,7 +53,7 @@
         "-flto=thin"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
-        "-fuse-ld=ld.lld"
+        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
