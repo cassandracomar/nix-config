@@ -36,6 +36,9 @@
     mpfr = prev.mpfr.overrideAttrs {
       doCheck = false;
     };
+    coreutils = prev.coreutils.overrideAttrs {
+      doCheck = false;
+    };
   });
   emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
     # stdenv = pkgs.llvmPackages.stdenv;
