@@ -31,7 +31,7 @@
       source ${complete_alias}/share/bash-completion/completions/complete_alias
     '';
   };
-  buildStdenv = pkgs.overrideCC pkgs.stdenv pkgs.clangUseLLVM;
+  buildStdenv = pkgs.overrideCC pkgs.stdenv pkgs.llvmPackages.clangUseLLVM;
   profdata = ./base/merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = buildStdenv;
