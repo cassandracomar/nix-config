@@ -32,55 +32,32 @@
     '';
   };
   profdata = ./base/merged.profdata;
-  pkgs' = pkgs.pkgsLLVM.extend (final: prev: {
-    mpfr = prev.mpfr.overrideAttrs {
-      doCheck = false;
-    };
-    coreutils = prev.coreutils.overrideAttrs {
-      doCheck = false;
-    };
-    elfutils = prev.elfutils.overrideAttrs {
-      doCheck = false;
-    };
-    gitMinimal = prev.gitMinimal.overrideAttrs {
-      doInstallCheck = false;
-    };
-    git = prev.git.overrideAttrs {
-      doInstallCheck = false;
-    };
-    libgcrypt = prev.libgcrypt.overrideAttrs {
-      doCheck = false;
-    };
-  });
-  emacs' =
-    (pkgs.emacs-igc-pgtk.override {
-      stdenv = pkgs'.stdenv;
-      libgccjit = pkgs'.libgccjit;
-    }).overrideAttrs (old: {
-      # stdenv = pkgs.llvmPackages.stdenv;
-      # preConfigure = ''
-      #   export CC=${pkgs.llvmPackages.clang}/bin/clang
-      #   export CXX=${pkgs.llvmPackages.clang}/bin/clang++
-      #   export AR=${pkgs.llvm}/bin/llvm-ar
-      #   export NM=${pkgs.llvm}/bin/llvm-nm
-      #   export LD=${pkgs.lld}/bin/ld.lld
-      #   export CC_LD=${pkgs.lld}/bin/ld.lld
-      #   export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
-      # '';
+  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
+    stdenv = pkgs.llvmPackages.stdenv;
+    preConfigure = ''
+      export CC=${pkgs.llvmPackages.clang}/bin/clang
+      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
+      export AR=${pkgs.llvm}/bin/llvm-ar
+      export NM=${pkgs.llvm}/bin/llvm-nm
+      export LD=${pkgs.lld}/bin/ld.lld
+      export CC_LD=${pkgs.lld}/bin/ld.lld
+      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
+    '';
 
-      # Extra compiler flags (Clang-flavored)
-      NIX_CFLAGS_COMPILE = toString (
-        [
-          "-O3"
-          "-march=znver4"
-          "-mtune=znver4"
-          "-flto=thin"
-          # "-fcs-profile-generate"
-          "-fprofile-use=${profdata}"
-        ]
-        ++ old.NIX_CFLAGS_COMPILE or []
-      );
-    });
+    # Extra compiler flags (Clang-flavored)
+    NIX_CFLAGS_COMPILE = toString (
+      [
+        "-O3"
+        "-march=znver4"
+        "-mtune=znver4"
+        "-flto=thin"
+        # "-fcs-profile-generate"
+        "-fprofile-use=${profdata}"
+        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
+      ]
+      ++ old.NIX_CFLAGS_COMPILE or []
+    );
+  });
 in {
   imports = [./base];
 
