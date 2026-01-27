@@ -53,7 +53,6 @@
         "-flto=thin"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
-        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
