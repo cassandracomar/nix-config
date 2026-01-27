@@ -35,8 +35,8 @@
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     preConfigure = ''
-      export CC=${pkgs.llvmPackages.clang}/bin/clang
-      export CXX=${pkgs.llvmPackages.clang}/bin/clang++
+      export CC=${pkgs.llvmPackages.clangUseLLVM}/bin/clang
+      export CXX=${pkgs.llvmPackages.clangUseLLVM}/bin/clang++
       export AR=${pkgs.llvm}/bin/llvm-ar
       export NM=${pkgs.llvm}/bin/llvm-nm
       export LD=${pkgs.lld}/bin/ld.lld
@@ -53,7 +53,6 @@
         "-flto=thin"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
-        "-fuse-ld=${pkgs.lld}/bin/ld.lld"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
