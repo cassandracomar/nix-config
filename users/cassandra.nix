@@ -31,17 +31,18 @@
       source ${complete_alias}/share/bash-completion/completions/complete_alias
     '';
   };
+  buildStdenv = pkgs.overrideCC pkgs.stdenv pkgs.clangUseLLVM;
   profdata = ./base/merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
-    stdenv = pkgs.llvmPackages.stdenv;
+    stdenv = buildStdenv;
     preConfigure = ''
-      export CC=${pkgs.llvmPackages.clangUseLLVM}/bin/clang
-      export CXX=${pkgs.llvmPackages.clangUseLLVM}/bin/clang++
-      export AR=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/llvm-ar
-      export NM=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/llvm-nm
-      export LD=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/ld.lld
-      export CC_LD=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/ld.lld
-      export RANLIB=${pkgs.llvmPackages.clangUseLLVM.bintools}/bin/llvm-ranlib
+      export CC=${buildStdenv.cc.cc}/bin/clang
+      export CXX=${buildStdenv.cc.cc}/bin/clang++
+      export AR=${pkgs.llvm}/bin/llvm-ar
+      export NM=${pkgs.llvm}/bin/llvm-nm
+      export LD=${buildStdenv.cc.bintools}/bin/ld.lld
+      export CC_LD=${buildStdenv.cc.bintools}/bin/ld.lld
+      export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
     '';
 
     # Extra compiler flags (Clang-flavored)
