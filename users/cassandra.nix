@@ -39,6 +39,9 @@
     coreutils = prev.coreutils.overrideAttrs {
       doCheck = false;
     };
+    elfutils = prev.elfutils.overrideAttrs {
+      doCheck = false;
+    };
   });
   emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
     # stdenv = pkgs.llvmPackages.stdenv;
