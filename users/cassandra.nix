@@ -32,9 +32,13 @@
     '';
   };
   profdata = ./base/merged.profdata;
+  buildStdenv = pkgs.overrideCC pkgs.stdenv pkgs.llvmPackages.clangUseLLVM;
   emacs' =
     (pkgs.emacs-igc-pgtk.override {
-      stdenv = pkgs.overrideCC pkgs.stdenv pkgs.llvmPackages.clangUseLLVM;
+      stdenv = buildStdenv;
+      libgccjit = pkgs.libgccjit.override {
+        stdenv = buildStdenv;
+      };
     }).overrideAttrs (old: {
       # preConfigure = ''
       #   export CC=${pkgs.llvmPackages.clang}/bin/clang
