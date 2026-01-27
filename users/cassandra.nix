@@ -45,6 +45,9 @@
     git-minimal = prev.git-minimal.overrideAttrs {
       doCheck = false;
     };
+    git = prev.git.overrideAttrs {
+      doCheck = false;
+    };
   });
   emacs' = pkgs'.emacs-igc-pgtk.overrideAttrs (old: {
     # stdenv = pkgs.llvmPackages.stdenv;
