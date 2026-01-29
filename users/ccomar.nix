@@ -92,20 +92,10 @@ in {
 
   targets.genericLinux = {
     enable = true;
-    nixGL = let
-      nixgl = pkgs.nixgl.override {
-        nvidiaVersion = "580.126.09";
-        nvidiaHash = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
-      };
-    in {
-      packages = nixgl.auto // nixgl;
+    nixGL = {
+      prime.installScript = "nvidia";
       defaultWrapper = "mesa";
       offloadWrapper = "nvidiaPrime";
-      vulkan.enable = true;
-      installScripts = ["mesa" "nvidia" "nvidiaPrime"];
-      prime = {
-        installScript = "nvidia";
-      };
     };
     gpu = {
       enable = true;
@@ -210,11 +200,9 @@ in {
       libX11 = pkgs.xorg.libX11;
       cairo = pkgs.cairo;
     })
-    (config.lib.nixGL.wrapOffload vulkan-tools)
-    (config.lib.nixGL.wrapOffload mesa-demos)
+    vulkan-tools
+    mesa-demos
     mermaid-cli
-    config.targets.genericLinux.nixGL.packages.nixVulkanNvidia
-    config.targets.genericLinux.nixGL.packages.nixGLNvidia
   ];
 
   programs.rbw = {

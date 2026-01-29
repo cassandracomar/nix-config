@@ -104,6 +104,7 @@
       inherit system overlays;
       config = {
         allowUnfree = true;
+        nvidia.acceptLicense = true;
       };
     };
 
