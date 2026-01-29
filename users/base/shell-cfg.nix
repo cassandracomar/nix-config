@@ -158,7 +158,6 @@
 
   programs.nix-index = {
     enable = true;
-    package = inputs.nix-index.packages.${system}.default;
     enableBashIntegration = true;
     enableZshIntegration = true;
     enableNushellIntegration = true;
