@@ -90,19 +90,30 @@ in {
     };
   };
 
-  targets.genericLinux.nixGL = let
-    nixgl = pkgs.nixgl.override {
-      nvidiaVersion = "580.126.09";
-      nvidiaHash = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
+  targets.genericLinux = {
+    enable = true;
+    nixGL = let
+      nixgl = pkgs.nixgl.override {
+        nvidiaVersion = "580.126.09";
+        nvidiaHash = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
+      };
+    in {
+      packages = nixgl.auto // nixgl;
+      defaultWrapper = "mesa";
+      offloadWrapper = "nvidiaPrime";
+      vulkan.enable = true;
+      installScripts = ["mesa" "nvidia" "nvidiaPrime"];
+      prime = {
+        installScript = "nvidia";
+      };
     };
-  in {
-    packages = nixgl.auto // nixgl;
-    defaultWrapper = "mesa";
-    offloadWrapper = "nvidiaPrime";
-    vulkan.enable = true;
-    installScripts = ["mesa" "nvidia" "nvidiaPrime"];
-    prime = {
-      installScript = "nvidia";
+    gpu = {
+      enable = true;
+      nvidia = {
+        enable = true;
+        version = "580.126.09";
+        sha256 = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
+      };
     };
   };
   home.sessionVariables = {
