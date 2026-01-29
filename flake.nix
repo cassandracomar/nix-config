@@ -163,13 +163,11 @@
     user-module = username: {
       name = username;
       value = {
-        modules = [
-          inputs'.nix-index-database.homeModules.default
-          {programs.nix-index-database.comma.enable = true;}
-        ];
         imports = [
+          inputs'.nix-index-database.homeModules.default
           (import ./user.nix {inherit username;})
         ];
+        programs.nix-index-database.comma.enable = true;
       };
     };
     home-modules =
