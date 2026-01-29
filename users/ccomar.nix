@@ -203,6 +203,7 @@ in {
     vulkan-tools
     mesa-demos
     mermaid-cli
+    nvtopPackages.full
   ];
 
   programs.rbw = {
