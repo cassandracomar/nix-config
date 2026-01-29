@@ -1,40 +1,27 @@
 {
   # pkg registries
   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-  # inputs.nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-  inputs.nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-index.url = "github:nix-community/nix-index";
-  inputs.nix-index.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-index-database.url = "github:nix-community/nix-index-database";
-  inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-  # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
+  inputs.nix-index-database.inputs.nixpkgs.follows = "";
 
   # overlays
   inputs.emacs.url = "github:nix-community/emacs-overlay";
-  inputs.emacs.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.emacs.inputs.nixpkgs.follows = "";
+  inputs.emacs.inputs.nixpkgs-stable.follows = "";
   inputs.nur.url = "github:nix-community/NUR";
-  inputs.nur.inputs.nixpkgs.follows = "nixpkgs";
-
-  # overrides via overlay
-  # inputs.nix-direnv.url = "github:nix-community/nix-direnv";
-  # inputs.nix-direnv.inputs.nixpkgs.follows = "nixpkgs";
-
-  # inputs.nixos-generators.url = "github:nix-community/nixos-generators";
-  # inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs-stable";
-  # inputs.nixos-hardware.url = "github:cassandracomar/nixos-hardware";
-  # inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
+  inputs.nur.inputs.nixpkgs.follows = "";
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
-  inputs.poetry2nix.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.poetry2nix.inputs.nixpkgs.follows = "";
   inputs.pinnacle.url = "github:pinnacle-comp/pinnacle";
-  inputs.pinnacle.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.pinnacle.inputs.nixpkgs.follows = "";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
-  inputs.pinnacle-config.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.pinnacle-config.inputs.nixpkgs.follows = "";
   inputs.clipcat.url = "github:xrelkd/clipcat";
   inputs.clipcat.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -46,17 +33,12 @@
 
   inputs.nixgl.url = "github:nix-community/nixGL";
   inputs.nixgl.inputs.nixpkgs.follows = "nixpkgs";
-  # nixConfig = {
-  #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
-  # };
 
   outputs = {
     nixpkgs,
     home-manager,
     emacs,
     nur,
-    # nix-direnv,
-    # sops-nix,
     poetry2nix,
     pinnacle,
     pinnacle-config,
@@ -257,38 +239,6 @@
         };
       })
       nonNixosUsers);
-    # androidImages = pkgs.lib.listToAttrs (map
-    #   (device: {
-    #     name = device;
-    #     value = robotnix.lib.robotnixSystem {
-    #       inherit device;
-    #       flavor = "grapheneos";
-    #       apv.enable = false;
-    #       adevtool.hash = "sha256-FZ5MAr9xlhwwT6OIZKAgC82sLn/Mcn/RHwZmiU37jxc=";
-    #       # buildNumber = "2023050101";
-    #       # buildDateTime = 1683319618;
-    #       cts-profile-fix.enable = true;
-    #       signing = {
-    #         enable = true;
-    #         keyStorePath = ./keys/android;
-    #         sopsDecrypt = {
-    #           enable = true;
-    #           sopsConfig = ./.sops.yaml;
-    #           key = "/data/androidKeys/keys.txt";
-    #           keyType = "age";
-    #         };
-    #       };
-    #       apps = {
-    #         updater = {
-    #           enable = true;
-    #           url = "https://updater.ndra.io";
-    #           includedInFlavor = true;
-    #         };
-    #       };
-    #       prevBuildDir = "/var/www/updater.ndra.io";
-    #       incremental = true;
-    #     };
-    #   }) ["panther"]);
   in {
     inherit nixosConfigurations;
     packages.${system} = pkgs;
@@ -318,24 +268,6 @@
       {}
       hosts
       // nonNixosHomeConfigs;
-
-    # packages.aarch64-linux.banyan-image = let
-    #   pkgs-aarch64 = import self.inputs.nixpkgs-stable {
-    #     system = "aarch64-linux";
-    #     config.allowUnfree = true;
-    #     config.allowUnsupportedSystem = true;
-    #   };
-    # in
-    #   self.inputs.nixos-generators.nixosGenerate rec {
-    #     inherit (pkgs-aarch64) lib;
-    #     format = "sd-image-nanopi-r5c";
-    #     pkgs = pkgs-aarch64;
-    #     customFormats = {
-    #       sd-image-nanopi-r5c = import machines/banyan.nix {
-    #         inherit self lib pkgs;
-    #       };
-    #     };
-    #   };
 
     formatter.${system} = pkgs.alejandra;
     formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
