@@ -163,6 +163,10 @@
     user-module = username: {
       name = username;
       value = {
+        modules = [
+          inputs'.nix-index-database.homeModules.default
+          {programs.nix-index-database.comma.enable = true;}
+        ];
         imports = [
           (import ./user.nix {inherit username;})
         ];
@@ -180,8 +184,6 @@
               sharedModules = [
                 pinnacle.hmModules.default
                 nix-doom.homeModule
-                inputs'.nix-index-database.homeModules.default
-                {programs.nix-index-database.comma.enable = true;}
               ];
               users = pkgs.lib.listToAttrs (map
                 user-module
