@@ -57,6 +57,21 @@
         "type": "github"
       }
     },
+    "call-flake": {
+      "locked": {
+        "lastModified": 1754792893,
+        "narHash": "sha256-11/dQG/vjpfMi4D7ku2o1UtUMf8Sud0KJ/Le44zHIc8=",
+        "owner": "divnix",
+        "repo": "call-flake",
+        "rev": "1abb37095a152e0e8ba4315c57c84905bc8bf93c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "call-flake",
+        "type": "github"
+      }
+    },
     "clipcat": {
       "inputs": {
         "crane": "crane",
@@ -572,6 +587,7 @@
     "root": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
+        "call-flake": "call-flake",
         "clipcat": "clipcat",
         "doom-config": "doom-config",
         "emacs": "emacs",

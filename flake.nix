@@ -1,6 +1,7 @@
 {
   # pkg registries
   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+  inputs.call-flake.url = "github:divnix/call-flake";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -38,6 +39,7 @@
 
   outputs = {
     nixpkgs,
+    call-flake,
     home-manager,
     emacs,
     nur,
@@ -48,7 +50,6 @@
     nix-doom,
     nixgl,
     cachyos-kernel,
-    nix-index-database,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -62,6 +63,17 @@
     ];
     system = "x86_64-linux";
 
+    nix-index-database = call-flake.lib.applyPatches {
+      pkgs = nixpkgs.legacyPackages.${system};
+      name = "nix-index-database-patched";
+      src = inputs.nix-index-database;
+      patches = [
+        (nixpkgs.legacyPackages.${system}.fetchpatch {
+          url = "https://patch-diff.githubusercontent.com/raw/nix-community/nix-index-database/pull/164.patch";
+          sha256 = nixpkgs.legacyPackages.${system}.lib.fakeSha256;
+        })
+      ];
+    };
     overlays = [
       cachyos-kernel.overlays.default
       emacs.overlay
