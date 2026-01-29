@@ -127,4 +127,5 @@
     };
     generateCompletions = true;
   };
+  documentation.man.generateCaches = true;
 }

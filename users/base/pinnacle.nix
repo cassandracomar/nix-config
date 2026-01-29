@@ -227,6 +227,7 @@ in {
       pulseaudio
       uwsm
       uwsm-run
+      wdisplays
     ];
 
   services.clipcat = {

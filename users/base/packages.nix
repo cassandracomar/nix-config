@@ -45,4 +45,5 @@
   '';
 
   programs.obs-studio.enable = true;
+  programs.man.generateCaches = true;
 }

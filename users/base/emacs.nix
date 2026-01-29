@@ -24,6 +24,7 @@
     config.programs.doom-emacs.finalDoomPackage
     emacs-lsp-booster
     mu
+    grip
   ];
 
   systemd.user.startServices = true;
