@@ -110,20 +110,20 @@ in {
     GITHUB_USER = git_config.github.user;
     GSETTINGS_SCHEMA_DIR = "/usr/share/glib-2.0/schemas";
   };
-  programs.doom-emacs.emacs = config.lib.nixGL.wrap emacs';
+  programs.doom-emacs.emacs = emacs';
   wayland.windowManager.pinnacle = {
     systemd.useService = lib.mkForce true;
     config = {
-      nixGL.enable = true;
+      nixGL.enable = false;
       xdg-portals.enable = true;
     };
   };
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
 
-  services.wpaperd.package = config.lib.nixGL.wrap pkgs.wpaperd;
-  services.clipcat.package = config.lib.nixGL.wrap pkgs.clipcat;
-  programs.wezterm.package = config.lib.nixGL.wrap pkgs.wezterm;
-  programs.eww.package = config.lib.nixGL.wrap pkgs.eww;
+  services.wpaperd.package = pkgs.wpaperd;
+  services.clipcat.package = pkgs.clipcat;
+  programs.wezterm.package = pkgs.wezterm;
+  programs.eww.package = pkgs.eww;
 
   systemd.user.services.clipcat.Service = {
     ExecStartPre = lib.mkForce "${pkgs.writeShellScript "clipcatd-exec-start-pre" ''
@@ -235,9 +235,9 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = config.lib.nixGL.wrapOffload (pkgs.firefox.override {
+    package = pkgs.firefox.override {
       extraPolicies = {DisableAppUpdate = true;};
-    });
+    };
     profiles = {
       "yg8ij66s.default" = {
         isDefault = true;
