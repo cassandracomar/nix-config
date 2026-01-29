@@ -16,7 +16,7 @@ let external_completer = {|spans|
   })
 
   let fish_completer = {|spans|
-      fish -i --command $"complete '--do-complete=($spans | str join ' ')'"
+      fish --command $"complete '--do-complete=($spans | str join ' ')'"
       | from tsv --flexible --noheaders --no-infer
       | rename value description
       | update value {
@@ -26,9 +26,7 @@ let external_completer = {|spans|
   let carapace_completer = {|spans| carapace $spans.0 nushell ...$spans | from json}
 
   match $spans.0 {
-    nu => $fish_completer
-    nix => $fish_completer
-    _ => $carapace_completer
+    _ => $fish_completer
   } | do $in $spans
 }
 
