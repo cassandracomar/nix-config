@@ -14,9 +14,10 @@
   # inputs.robotnix.url = "github:cassandracomar/robotnix/fix-cts-profile";
 
   # overlays
-  inputs.mozilla = {url = "github:mozilla/nixpkgs-mozilla";};
   inputs.emacs.url = "github:nix-community/emacs-overlay";
+  inputs.emacs.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nur.url = "github:nix-community/NUR";
+  inputs.nur.inputs.nixpkgs.follows = "nixpkgs";
 
   # overrides via overlay
   # inputs.nix-direnv.url = "github:nix-community/nix-direnv";
@@ -28,9 +29,12 @@
   # inputs.nixos-hardware.url = "path:/Users/ccomar/src/git.drwholdings.com/nixos/nixos-hardware";
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
+  inputs.poetry2nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.pinnacle.url = "github:pinnacle-comp/pinnacle";
+  inputs.pinnacle.inputs.nixpkgs.follows = "nixpkgs";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
+  inputs.pinnacle-config.inputs.nixpkgs.follows = "nixpkgs";
   inputs.clipcat.url = "github:xrelkd/clipcat";
   inputs.clipcat.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -41,6 +45,7 @@
   inputs.doom-config.flake = false;
 
   inputs.nixgl.url = "github:nix-community/nixGL";
+  inputs.nixgl.inputs.nixpkgs.follows = "nixpkgs";
   # nixConfig = {
   #   sandbox-paths = ["/data/androidKeys" "/var/www/updater.ndra.io"];
   # };
@@ -48,7 +53,6 @@
   outputs = {
     nixpkgs,
     home-manager,
-    mozilla,
     emacs,
     nur,
     # nix-direnv,
@@ -76,7 +80,6 @@
 
     overlays = [
       cachyos-kernel.overlays.default
-      mozilla.overlay
       emacs.overlay
       nur.overlays.default
       pinnacle.overlays.default
