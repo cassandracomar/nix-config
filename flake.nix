@@ -99,14 +99,6 @@
             zfs_cachyos = prev.cachyosKernels.zfs-cachyos-lto.override {
               inherit kernel;
             };
-            zenpower = prev'.zenpower.overrideAttrs (old: {
-              src = prev.fetchFromGitHub {
-                owner = "AliEmreSenel";
-                repo = "zenpower3";
-                rev = "dc4f1e2d2f5e26ad5b314497485419cb240e7134";
-                sha256 = "sha256-NvCBog1rAAjbhT9dMOjsmio6lVZ9h36XvOiE7znJdTo=";
-              };
-            });
           }));
       })
     ];
