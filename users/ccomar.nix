@@ -93,16 +93,16 @@ in {
   targets.genericLinux = {
     enable = true;
     nixGL = {
-      prime.installScript = "nvidia";
-      defaultWrapper = "mesa";
-      offloadWrapper = "nvidiaPrime";
+      prime = {
+        installScript = "nvidia";
+      };
     };
     gpu = {
       enable = true;
       nvidia = {
         enable = true;
-        version = "580.126.09";
-        sha256 = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
+        version = "590.48.01";
+        sha256 = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
       };
     };
   };
