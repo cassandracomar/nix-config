@@ -46,4 +46,5 @@
 
   programs.obs-studio.enable = true;
   programs.man.generateCaches = true;
+  programs.nix-index-database.comma.enable = true;
 }

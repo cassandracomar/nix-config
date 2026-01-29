@@ -133,7 +133,7 @@
         ./modules
         ./system/base
         pinnacle.nixosModules.default
-        inputs'.nix-index-database.darwinModules.nix-index
+        inputs'.nix-index-database.nixosModules.default
         {programs.nix-index-database.comma.enable = true;}
       ]
       ++ map (username: {
