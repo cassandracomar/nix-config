@@ -204,6 +204,12 @@ in {
     mesa-demos
     mermaid-cli
     nvtopPackages.full
+    gh
+    nix-output-monitor
+    opentofu
+    opentofu-ls
+    prettier
+    terragrunt
   ];
 
   programs.rbw = {
