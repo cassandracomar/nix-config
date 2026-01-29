@@ -177,7 +177,12 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [pinnacle.hmModules.default nix-doom.homeModule inputs'.nix-index-database.homeModules.default];
+              sharedModules = [
+                pinnacle.hmModules.default
+                nix-doom.homeModule
+                inputs'.nix-index-database.homeModules.default
+                {programs.nix-index-database.comma.enable = true;}
+              ];
               users = pkgs.lib.listToAttrs (map
                 user-module
                 [user]);
