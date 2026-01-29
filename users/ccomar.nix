@@ -92,8 +92,8 @@ in {
 
   targets.genericLinux.nixGL = let
     nixgl = pkgs.nixgl.override {
-      nvidiaVersion = "580.95.05";
-      nvidiaHash = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
+      nvidiaVersion = "580.126.09";
+      nvidiaHash = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
     };
   in {
     packages = nixgl.auto // nixgl;
