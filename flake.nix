@@ -13,7 +13,7 @@
   inputs.emacs.inputs.nixpkgs.follows = "";
   inputs.emacs.inputs.nixpkgs-stable.follows = "";
   inputs.nur.url = "github:nix-community/NUR";
-  inputs.nur.inputs.nixpkgs.follows = "";
+  inputs.nur.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
   inputs.poetry2nix.inputs.nixpkgs.follows = "";
