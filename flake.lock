@@ -57,21 +57,6 @@
         "type": "github"
       }
     },
-    "call-flake": {
-      "locked": {
-        "lastModified": 1754792893,
-        "narHash": "sha256-11/dQG/vjpfMi4D7ku2o1UtUMf8Sud0KJ/Le44zHIc8=",
-        "owner": "divnix",
-        "repo": "call-flake",
-        "rev": "1abb37095a152e0e8ba4315c57c84905bc8bf93c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "divnix",
-        "repo": "call-flake",
-        "type": "github"
-      }
-    },
     "clipcat": {
       "inputs": {
         "crane": "crane",
@@ -438,15 +423,16 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1765267181,
-        "narHash": "sha256-d3NBA9zEtBu2JFMnTBqWj7Tmi7R5OikoU2ycrdhQEws=",
-        "owner": "nix-community",
+        "lastModified": 1765189544,
+        "narHash": "sha256-uGPUxiIP8MMlI8+jq8+tjyei4m3OXtVIcxpl+dzsM+o=",
+        "owner": "youwen5",
         "repo": "nix-index-database",
-        "rev": "82befcf7dc77c909b0f2a09f5da910ec95c5b78f",
+        "rev": "36e6decfe5283d60ea71a8811fcc02b5b7166169",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "youwen5",
+        "ref": "main",
         "repo": "nix-index-database",
         "type": "github"
       }
@@ -587,7 +573,6 @@
     "root": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
-        "call-flake": "call-flake",
         "clipcat": "clipcat",
         "doom-config": "doom-config",
         "emacs": "emacs",
