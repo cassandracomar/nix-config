@@ -127,7 +127,14 @@
     # };
 
     base-modules =
-      [kernel ./modules ./system/base pinnacle.nixosModules.default inputs'.nix-index-database.darwinModules.nix-index]
+      [
+        kernel
+        ./modules
+        ./system/base
+        pinnacle.nixosModules.default
+        inputs'.nix-index-database.darwinModules.nix-index
+        {programs.nix-index-database.comma.enable = true;}
+      ]
       ++ map (username: {
         environment.systemPackages = [
           pkgs.nushell
