@@ -1,13 +1,14 @@
 {
   # pkg registries
   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+  inputs.flake-input-patcher.url = "github:jfly/flake-input-patcher";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-index.url = "github:nix-community/nix-index";
   inputs.nix-index.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-index-database.url = "github:youwen5/nix-index-database/main";
+  inputs.nix-index-database.url = "github:nix-community/nix-index-database";
   inputs.nix-index-database.inputs.nixpkgs.follows = "";
 
   # overlays
@@ -38,7 +39,7 @@
 
   outputs = {
     nixpkgs,
-    nix-index-database,
+    flake-input-patcher,
     home-manager,
     emacs,
     nur,
@@ -61,6 +62,15 @@
       }
     ];
     system = "x86_64-linux";
+    patcher = flake-input-patcher.lib.${system};
+    inputs' = patcher.patch inputs {
+      nix-index-database.patches = [
+        (patcher.fetchpatch {
+          url = "https://patch-diff.githubusercontent.com/raw/nix-community/nix-index-database/pull/164.patch";
+          sha256 = "sha256-cELe2shVKfaYquV/I24D0uAXx3wjCIrV/amK1LAwQEA=";
+        })
+      ];
+    };
 
     overlays = [
       cachyos-kernel.overlays.default
@@ -117,7 +127,7 @@
     # };
 
     base-modules =
-      [kernel ./modules ./system/base pinnacle.nixosModules.default nix-index-database.darwinModules.nix-index]
+      [kernel ./modules ./system/base pinnacle.nixosModules.default inputs'.nix-index-database.darwinModules.nix-index]
       ++ map (username: {
         environment.systemPackages = [
           pkgs.nushell
@@ -159,7 +169,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [pinnacle.hmModules.default nix-doom.homeModule nix-index-database.homeModules.default];
+              sharedModules = [pinnacle.hmModules.default nix-doom.homeModule inputs'.nix-index-database.homeModules.default];
               users = pkgs.lib.listToAttrs (map
                 user-module
                 [user]);
