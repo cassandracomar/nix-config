@@ -38,6 +38,7 @@
   inputs.nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = {
+    self,
     nixpkgs,
     call-flake,
     home-manager,
@@ -63,7 +64,7 @@
     ];
     system = "x86_64-linux";
 
-    nix-index-database = call-flake.lib.applyPatches {
+    nix-index-database = self.lib.applyPatches {
       pkgs = nixpkgs.legacyPackages.${system};
       name = "nix-index-database-patched";
       src = inputs.nix-index-database;
@@ -256,6 +257,63 @@
   in {
     inherit nixosConfigurations;
     packages.${system} = pkgs;
+    lib = {
+      applyPatches = {
+        pkgs,
+        name,
+        src,
+        patches,
+        lockFileEntries ? {},
+      }: let
+        inherit (pkgs) lib;
+        numOfPatches = lib.length patches;
+
+        patchedFlake = let
+          patched =
+            (pkgs.applyPatches {
+              inherit name src;
+              patches = map pkgs.fetchpatch2 patches;
+            }).overrideAttrs (_: prevAttrs: {
+              outputs = ["out" "narHash"];
+              installPhase = lib.concatStringsSep "\n" [
+                prevAttrs.installPhase
+                ''
+                  ${lib.getExe pkgs.nix} \
+                    --extra-experimental-features nix-command \
+                    --offline \
+                    hash path ./ \
+                    > $narHash
+                ''
+              ];
+            });
+
+          lockFilePath = "${patched.outPath}/flake.lock";
+
+          lockFile = builtins.unsafeDiscardStringContext (lib.generators.toJSON {} (
+            if lib.pathExists lockFilePath
+            then let
+              original = lib.importJSON lockFilePath;
+            in {
+              inherit (original) root;
+              nodes = original.nodes // lockFileEntries;
+            }
+            else {
+              nodes.root = {};
+              root = "root";
+            }
+          ));
+
+          flake = {
+            inherit (patched) outPath;
+            narHash = lib.fileContents patched.narHash;
+          };
+        in
+          (import "${call-flake}/call-flake.nix") lockFile flake "";
+      in
+        if numOfPatches == 0
+        then lib.trace "applyPatches: skipping ${name}, no patches" src
+        else lib.trace "applyPatches: creating ${name}, number of patches: ${toString numOfPatches}" patchedFlake;
+    };
     build =
       pkgs.lib.mapAttrs
       (
