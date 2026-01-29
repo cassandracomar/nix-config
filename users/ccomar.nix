@@ -202,6 +202,8 @@ in {
     (config.lib.nixGL.wrapOffload vulkan-tools)
     (config.lib.nixGL.wrapOffload mesa-demos)
     mermaid-cli
+    config.targets.genericLinux.nixGL.packages.nixVulkanNvidia
+    config.targets.genericLinux.nixGL.packages.nixGLNvidia
   ];
 
   programs.rbw = {
