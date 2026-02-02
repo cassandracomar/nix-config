@@ -10,7 +10,6 @@
     kind
     kubernetes-helm
     minikube
-    docker-machine-kvm2
     docker
     docker-buildx
     docker-credential-helpers
