@@ -12,7 +12,7 @@
   inputs.nix-index-database.inputs.nixpkgs.follows = "";
 
   # overlays
-  inputs.emacs.url = "github:nix-community/emacs-overlay"; # pin back to avoid breakage
+  inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.emacs.inputs.nixpkgs.follows = "";
   inputs.emacs.inputs.nixpkgs-stable.follows = "";
   inputs.nur.url = "github:nix-community/NUR";
