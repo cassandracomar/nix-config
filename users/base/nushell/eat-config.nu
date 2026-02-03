@@ -116,7 +116,7 @@ module eat {
     let title_notice = "2"
     let user = $env.USER
     let hostname = (hostname)
-    let pwd = ($env.PWD | str replace $nu.home-path '~')
+    let pwd = ($env.PWD | str replace $nu.home-dir '~')
     let user_indicator = if $user == "root" {
       r#'\#'#
     } else {
