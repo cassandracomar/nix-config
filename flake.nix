@@ -114,7 +114,7 @@
           patches = [
             (prev.fetchpatch {
               url = "https://github.com/redhat-developer/yaml-language-server/pull/1169.patch";
-              sha256 = "sha256-g4uMv65qAK3ytx5HSL8hBCemdigagdlKRUmZErT9LV8=";
+              sha256 = "sha256-zjGug25df695nqdSGOQCn7cKxusgxqgoheBUaIOGQnQ=";
             })
           ];
         });
