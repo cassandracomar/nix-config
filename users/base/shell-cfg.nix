@@ -25,6 +25,7 @@
     rlwrap
     oh-my-posh
     (writeScriptBin "nixos-rebuild" (builtins.readFile ../../scripts/nixos-rebuild))
+    (writeScriptBin "hm" (builtins.readFile ../../scripts/hm))
   ];
 
   home.shell.enableShellIntegration = true;
