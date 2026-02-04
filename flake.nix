@@ -36,6 +36,8 @@
 
   inputs.nixgl.url = "github:nix-community/nixGL";
   inputs.nixgl.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nix-output-monitor.url = "github:maralorn/nix-output-monitor";
+  inputs.nix-output-monitor.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = {
     nixpkgs,
@@ -50,6 +52,7 @@
     nix-doom,
     nixgl,
     cachyos-kernel,
+    nix-output-monitor,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -97,6 +100,7 @@
               inherit kernel;
             };
           }));
+        nix-output-monitor = nix-output-monitor.packages.${system}.default;
       })
     ];
 
