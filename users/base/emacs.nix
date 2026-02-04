@@ -26,6 +26,7 @@
     mu
     grip
     helm-ls
+    jsonnet-language-server
   ];
 
   systemd.user.startServices = true;
