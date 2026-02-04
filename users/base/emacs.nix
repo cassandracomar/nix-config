@@ -25,6 +25,7 @@
     emacs-lsp-booster
     mu
     grip
+    helm-ls
   ];
 
   systemd.user.startServices = true;
