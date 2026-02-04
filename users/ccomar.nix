@@ -207,7 +207,7 @@ in {
     gh
     nix-output-monitor
     opentofu
-    opentofu-ls
+    tofu-ls
     prettier
     terragrunt
   ];
