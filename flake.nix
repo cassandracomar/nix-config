@@ -97,6 +97,8 @@
               inherit kernel;
             };
           }));
+
+        yaml-language-server = prev.callPackage ./packages/yaml-language-server.nix {};
       })
     ];
 
