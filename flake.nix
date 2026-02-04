@@ -97,6 +97,28 @@
               inherit kernel;
             };
           }));
+
+        yaml-language-server = prev.yaml-language-server.overrideAttrs (finalAttrs: prevAttrs: {
+          version = "1.20.0-fefd3a6d";
+          src = prev.fetchFromGitHub {
+            owner = "redhat-developer";
+            repo = "yaml-language-server";
+            rev = "fefd3a6dd9758bec0ef3690b2797e5e939feadc8";
+            hash = "sha256-7Qhgu/14vvCL5MK+MJ4hq1B50PtlEZEQgkG01/6sDqg=";
+          };
+          npmDepsHash = "sha256-lqH1zDRAJrZ1nybPkJLCzXUUahniHz1NQKcKtYXzQPY=";
+          npmDeps = prev.fetchNpmDeps {
+            inherit (finalAttrs) src;
+            name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
+            hash = finalAttrs.npmDepsHash;
+          };
+          patches = [
+            (prev.fetchpatch {
+              url = "https://github.com/redhat-developer/yaml-language-server/pull/1169.patch";
+              sha256 = "sha256-g4uMv65qAK3ytx5HSL8hBCemdigagdlKRUmZErT9LV8=";
+            })
+          ];
+        });
       })
     ];
 
