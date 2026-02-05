@@ -41,7 +41,7 @@ in {
     kernelParams = [
       "quiet"
       "udev.log_level=3"
-      "systemd.show_status=auto"
+      "systemd.show_status=no"
     ];
     loader.timeout = 0;
   };
