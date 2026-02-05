@@ -84,6 +84,12 @@
           DHCPPrefixDelegation = true;
         };
       };
+      "11-wireless" = {
+        matchConfig.Name = ["wlp11s0"];
+        linkConfig = {
+          RequiredForOnline = false;
+        };
+      };
     };
   };
   networking.firewall.interfaces."enp10s0".allowedUDPPorts = [546 547];
