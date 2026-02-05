@@ -10,5 +10,9 @@
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
 
-  services.udev.packages = with pkgs; [yubikey-personalization libnitrokey];
+  services.udev.packages = with pkgs; [yubikey-personalization];
+  hardware = {
+    nitrokey.enable = true;
+    gpgSmartcards.enable = true;
+  };
 }
