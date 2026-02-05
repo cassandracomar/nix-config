@@ -63,6 +63,6 @@ in {
   hardware.amdgpu = {
     opencl.enable = true;
     overdrive.enable = true;
-    initrd.enable = true;
+    initrd.enable = false;
   };
 }
