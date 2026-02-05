@@ -16,7 +16,7 @@
       runHook preInstall
 
       mkdir -p $out/share/plymouth/themes/onePiece-plymouth
-      cp * $out/share/plymouth/themes/onePiece-plymouth
+      cp -r * $out/share/plymouth/themes/onePiece-plymouth
       find $out/share/plymouth/themes/ -name \*.plymouth -exec sed -i "s@\/usr\/@$out\/@" {} \;
 
       runHook postInstall
