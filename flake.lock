@@ -648,11 +648,11 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1770245457,
-        "narHash": "sha256-sN7QdLxgrUYrpN8hTGVAG3Tfi0yfCusuDDFhbKf7V+I=",
+        "lastModified": 1770249534,
+        "narHash": "sha256-NI9mPRqD6Kz28kiMQF8tILseP3Hs4IDS1ivXeYEzd38=",
         "owner": "pinnacle-comp",
         "repo": "pinnacle",
-        "rev": "9d9f2b611cd69760d937371b46ae7ae11c7524e9",
+        "rev": "4a9fa0c41406f300809bb112cd7a20f60f2889a5",
         "type": "github"
       },
       "original": {
