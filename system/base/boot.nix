@@ -42,6 +42,7 @@ in {
       "quiet"
       "udev.log_level=3"
       "systemd.show_status=no"
+      "plymouth.use-simpledrm"
     ];
     loader.timeout = 0;
   };
