@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   plymouth-op = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "plymouth-onepiece-theme";
-    version = "1.0.0";
+    version = "0.0.5";
 
     src = pkgs.fetchFromGitHub {
       owner = "Anxhul10";
@@ -31,6 +31,17 @@ in {
       enable = true;
       themePackages = [plymouth-op];
       theme = "onePiece-plymouth";
+      extraConfig = ''
+        DeviceScale=2
+      '';
     };
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "udev.log_level=3"
+      "systemd.show_status=auto"
+    ];
+    loader.timeout = 0;
   };
 }
