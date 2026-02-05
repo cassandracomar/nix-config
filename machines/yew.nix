@@ -69,20 +69,11 @@
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
   systemd.network = {
-    # links."enp211s0f0" = {
-    #   matchConfig.PermanentMacAddress = "a8:a1:59:e3:66:6d";
-    #   linkConfig = {
-    #     AutoNegotiation = false;
-    #     BitsPerSecond = "10G";
-    #     Duplex = "full";
-    #   };
-    # };
+    wait-online.enable = false;
     networks = {
       "10-wired" = {
         matchConfig.Name = ["enp10s0"];
         DHCP = "yes";
-        # dns = ["[::1]:1053" "127.0.0.1:1053" "192.168.2.1:53"];
-        # domains = ["~."];
         linkConfig = {
           RequiredForOnline = true;
           Multicast = true;
@@ -91,56 +82,8 @@
         };
         networkConfig = {
           DHCPPrefixDelegation = true;
-          # IPv6AcceptRA = true;
-          # IPv6SendRA = false;
         };
-        # dhcpPrefixDelegationConfig = {
-        #   Assign = true;
-        # };
-        # dhcpV4Config = {
-        #   UseDNS = false;
-        #   ClientIdentifier = "mac";
-        # };
-        # dhcpV6Config = {
-        #   UseDNS = false;
-        #   PrefixDelegationHint = "::/63";
-        # };
-        # ipv6AcceptRAConfig = {
-        #   DHCPv6Client = "always";
-        # };
       };
-      # "10-wired-bridge" = {
-      #   matchConfig.Name = ["enp211s0f1"];
-      #   DHCP = "no";
-      #   linkConfig = {
-      #     RequiredForOnline = true;
-      #   };
-      #   networkConfig = {
-      #     LLMNR = false;
-      #     MulticastDNS = true;
-      #     DHCPServer = true;
-      #     # IPForward = true;
-      #     IPMasquerade = "ipv4";
-      #     Address = ["192.168.2.1/24"];
-      #     DHCPPrefixDelegation = true;
-      #     ConfigureWithoutCarrier = true;
-      #     IPv6SendRA = true;
-      #   };
-      #   dhcpServerConfig = {
-      #     DNS = ["192.168.2.1"];
-      #     EmitNTP = false;
-      #     EmitSIP = false;
-      #     EmitDNS = true;
-      #     BindToInterface = false;
-      #     PoolOffset = 100;
-      #     PoolSize = 20;
-      #   };
-      #   routes = [
-      #     {
-      #       Destination = "192.168.2.0/24";
-      #     }
-      #   ];
-      # };
     };
   };
   networking.firewall.interfaces."enp10s0".allowedUDPPorts = [546 547];
@@ -158,24 +101,4 @@
   ];
 
   services.openssh.enable = true;
-  services.transmission = {
-    enable = true;
-    openRPCPort = true;
-    openPeerPorts = true;
-    openFirewall = true;
-  };
-
-  # sops.secrets."aws-credentials.env" = {
-  #   format = "dotenv";
-  #   sopsFile = ../keys/route53/aws-credentials.env;
-  #   reloadUnits = [ "r53-ddns" ];
-  # };
-
-  # services.r53-ddns = {
-  #   enable = true;
-  #   zoneID = "ZS9NHZRGTITZA";
-  #   domain = "ndra.io";
-  #   hostname = "yew";
-  #   environmentFile = config.sops.secrets."aws-credentials.env".path;
-  # };
 }
