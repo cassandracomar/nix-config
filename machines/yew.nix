@@ -94,9 +94,6 @@
   };
   networking.firewall.interfaces."enp10s0".allowedUDPPorts = [546 547];
 
-  powerManagement.cpuFreqGovernor =
-    pkgs.lib.mkForce
-    "ondemand";
   environment.systemPackages = with pkgs; [
     freeipmi
     dmidecode

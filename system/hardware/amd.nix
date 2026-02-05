@@ -24,6 +24,21 @@
 
     ${pkgs.llvm}/bin/llvm-profgen --kernel --binary=${config.boot.kernelPackages.kernel.dev}/vmlinux --perfdata=$WORKING_DIR/kernel.data -o /home/cassandra/src/github.com/cassandracomar/nix-config/kernel.afdo
   '';
+  decodeMbox = pkgs.writeShellScript "decodeMbox" ''
+    # The lore.kernel.org mailing list uses public-inbox, which supports
+    # downloading threads as a gzip-compressed mbox file (see the "mbox.gz" link
+    # next to "Thread overview"). This can be used to download a patch series in
+    # a single file. However, public-inbox may not sort the messages in the
+    # thread [1], which may break application of the patches. b4 am [2] can be
+    # used to sort patches in the mbox file and produce a patch that can be
+    # applied with git am or patch.
+    # [1]: https://public-inbox.org/meta/20240411-dancing-pink-marmoset-f442d0@meerkat/
+    # [2]: https://b4.docs.kernel.org/en/latest/maintainer/am-shazam.html
+    # b4 expects git to be in $PATH and $XDG_DATA_HOME to be writable.
+    export PATH="${lib.makeBinPath [pkgs.gitMinimal]}:$PATH"
+    export XDG_DATA_HOME="$(mktemp -d)"
+    gzip -dc | ${pkgs.b4}/bin/b4 -n --offline-mode am -m - -o -
+  '';
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
@@ -38,6 +53,14 @@ in {
       patch = pkgs.fetchpatch {
         url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
         sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
+      };
+    }
+    {
+      name = "amdgpu-hdmi-vrr";
+      patch = pkgs.fetchpatch {
+        url = "https://lore.kernel.org/lkml/20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com/t.mbox.gz";
+        hash = "sha256-fMzveDZinJM5MM/U+lchGqknNcQFYT2h7kdkYkeYEYs=";
+        decode = decodeMbox;
       };
     }
   ];
