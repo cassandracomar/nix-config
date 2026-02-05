@@ -31,6 +31,7 @@ in {
       enable = true;
       themePackages = [plymouth-op];
       theme = "onePiece-plymouth";
+      logo = "${plymouth-op}/share/plymouth/themes/onePiece-plymouth/media/740af368-d542-4bb1-bd29-e22ceb8c8b72-0.png";
       extraConfig = ''
         DeviceScale=2
       '';
