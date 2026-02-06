@@ -98,11 +98,11 @@
     "doom-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1770247262,
-        "narHash": "sha256-9pFOYDGHVDBtMjz8OzEYoSD3yetAlgahJgZFueK9+hs=",
+        "lastModified": 1770351563,
+        "narHash": "sha256-gPZwKGAGq+YeptTfLZn2rrTVyObNLFQXUHGkGpH3ixg=",
         "owner": "cassandracomar",
         "repo": "doom-config",
-        "rev": "97ca1320803e3003b4e1792795ac18763715fd7f",
+        "rev": "8db30dd02691c43db6db721705e298f93e0d48a4",
         "type": "github"
       },
       "original": {
@@ -628,11 +628,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770349279,
-        "narHash": "sha256-x2f4ODhgSS2f8B5tLmH8tB07dOm1EHEeFz8WT3xSkwA=",
+        "lastModified": 1770350935,
+        "narHash": "sha256-fobbeRg3cZKG3uEx3Fw1pCOnFOPjJNbsAnAcBxK+CeI=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "35b310d3e67f29c87c29127bc0ccc82ce30bf313",
+        "rev": "ee338a97c846910244e87abbe92e5de159a2d97a",
         "type": "github"
       },
       "original": {
@@ -669,11 +669,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770349955,
-        "narHash": "sha256-0vM4aIayuvjEVNc42YoWOQhRcW35sfuseUnO8NC+OyQ=",
+        "lastModified": 1770352415,
+        "narHash": "sha256-CQxCa73kV6e3PSoLNDbvmsKnQj/8nijhT8F+TbJuBB4=",
         "owner": "cassandracomar",
         "repo": "pinnacle-config",
-        "rev": "4bf083c738b8a9d2fd7661ae7255547ba5e46b54",
+        "rev": "6e1be23cc770248d0d76af108d4370d20e174511",
         "type": "github"
       },
       "original": {
