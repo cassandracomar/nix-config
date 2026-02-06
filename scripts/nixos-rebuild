@@ -24,6 +24,7 @@ case $1 in
         esac
 
         git -C $CONFIG_FLAKE_PATH push
+        sudo nix flake update --flake /etc/nixos
         exec $NR_EXEC os switch -e sudo -u "$@" /etc/nixos
         ;;
     *)
