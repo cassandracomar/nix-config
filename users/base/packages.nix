@@ -38,6 +38,8 @@
       fly
       veracrypt
       nixd
+      wdisplays
+      gh
     ]
     ++ (with pkgs.nodePackages; [
       bash-language-server
