@@ -71,7 +71,7 @@ in {
     vulkan-tools
     heroic
     mangohud
-    kommiku
+    komikku
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = emacs';
