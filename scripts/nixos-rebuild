@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-before=$(realpath "$(which emacs)")
 NR_EXEC=/run/current-system/sw/bin/nh
-NOM_EXEC=/run/current-system/sw/bin/nom
 CONFIG_FLAKE_PATH=~/src/github.com/cassandracomar/nix-config
 
 case $1 in

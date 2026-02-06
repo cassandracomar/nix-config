@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
-HM_EXEC=~/.nix-profile/bin/home-manager
-HM_ARGS=("--log-format" "internal-json" "-v")
-NOM_EXEC=~/.nix-profile/bin/nom
+HM_EXEC=~/.nix-profile/bin/nh
 CONFIG_FLAKE_PATH=~/src/github.com/cassandracomar/nix-config
 
 echo "invoking home-manager"
 
 case $1 in
     test)
-        nix flake update --flake ~/.config/home-manager --override-input nix-config "path:$CONFIG_FLAKE_PATH"
-        $HM_EXEC --override-input nix-config "path:$CONFIG_FLAKE_PATH" "${HM_ARGS[@]}" "$@" |& $NOM_EXEC --json
+        exec $HM_EXEC home switch --override-input nix-config "path:$CONFIG_FLAKE_PATH" "$@" ~/.config/home-manager
         ;;
     upgrade)
         git -C $CONFIG_FLAKE_PATH pull
@@ -28,11 +25,9 @@ case $1 in
         esac
 
         git -C $CONFIG_FLAKE_PATH push
-        nix flake update --flake ~/.config/home-manager 
-        $HM_EXEC switch "${HM_ARGS[@]}" "$@" |& $NOM_EXEC --json
+        exec $HM_EXEC home switch -u "$@" ~/.config/home-manager
         ;;
     *)
-        nix flake update --flake ~/.config/home-manager 
-        $HM_EXEC "${HM_ARGS[@]}" "$@" |& $NOM_EXEC --json
+        exec $HM_EXEC home "$@" -u ~/.config/home-manager
         ;;
 esac
