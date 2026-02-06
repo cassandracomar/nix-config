@@ -38,6 +38,7 @@
       cairo = pkgs.cairo;
     })
     nix-output-monitor
+    nh
   ];
 
   programs.zsh.enable = true;

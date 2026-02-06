@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
 before=$(realpath "$(which emacs)")
-NR_EXEC=/run/current-system/sw/bin/nixos-rebuild
-NR_ARGS=("--log-format" "internal-json" "-v")
+NR_EXEC=/run/current-system/sw/bin/nh
 NOM_EXEC=/run/current-system/sw/bin/nom
 CONFIG_FLAKE_PATH=~/src/github.com/cassandracomar/nix-config
 
 case $1 in
     test)
         sudo nix flake update --flake /etc/nixos --override-input nix-config "path:$CONFIG_FLAKE_PATH"
-        sudo $NR_EXEC --override-input nix-config "path:$CONFIG_FLAKE_PATH" "${NR_ARGS[@]}" "$@" |& $NOM_EXEC --json
+        exec $NR_EXEC os switch "$@" /etc/nixos
         ;;
     upgrade)
         git -C $CONFIG_FLAKE_PATH pull
@@ -27,11 +26,9 @@ case $1 in
         esac
 
         git -C $CONFIG_FLAKE_PATH push
-        sudo nix flake update --flake /etc/nixos
-        sudo $NR_EXEC switch "${NR_ARGS[@]}" "$@" |& $NOM_EXEC --json
+        exec $NR_EXEC os switch -u "$@" /etc/nixos
         ;;
     *)
-        sudo nix flake update --flake /etc/nixos
-        sudo $NR_EXEC "${NR_ARGS[@]}" "$@" |& $NOM_EXEC --json
+        exec $NR_EXEC os "$@" -u /etc/nixos
         ;;
 esac

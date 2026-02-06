@@ -210,6 +210,7 @@ in {
     tofu-ls
     prettier
     terragrunt
+    nh
   ];
 
   programs.rbw = {
