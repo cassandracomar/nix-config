@@ -4,5 +4,5 @@
   pkgs,
   ...
 }: {
-  imports = [./actualbudget];
+  imports = [./actualbudget ./usb-wakeup-disable.nix];
 }

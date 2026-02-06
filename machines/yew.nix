@@ -104,4 +104,11 @@
   ];
 
   services.openssh.enable = true;
+
+  hardware.usb.wakeupDisabled = [
+    {
+      vendor = "046d";
+      product = "c08b";
+    }
+  ];
 }
