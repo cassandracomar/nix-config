@@ -228,6 +228,9 @@ in {
       uwsm
       uwsm-run
       wdisplays
+      slurp
+      grim
+      nixfmt
     ];
 
   services.clipcat = {
