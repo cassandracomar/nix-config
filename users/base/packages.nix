@@ -9,6 +9,7 @@
 
   home.packages = with pkgs;
     [
+      eza
       slack
       signal-desktop
       keepassxc
