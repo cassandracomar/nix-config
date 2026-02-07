@@ -100,7 +100,7 @@
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         mkCachyPackageSet = kernel:
           helpers.kernelModuleLLVMOverride ((prev.linuxKernel.packagesFor kernel).extend (final': prev': {
-            zfs_cachyos = final.callPackage "${cachyos-kernel}/zfs-cachyos" {
+            zfs_cachyos = final'.callPackage "${cachyos-kernel}/zfs-cachyos" {
               inherit inputs kernel;
             };
           }));
