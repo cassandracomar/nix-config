@@ -92,3 +92,7 @@ export def --wrapped "nh home upgrade" [...raw_args] {
 
   nh home switch -u ...($raw_args)
 }
+
+export def --wrapped "ls" [...raw_args] {
+  eza ...($raw_args)
+}
