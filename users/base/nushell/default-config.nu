@@ -69,7 +69,7 @@ export def --env "nh update banyan" [] {
   nh os switch --target-host banyan.local -H banyan $banyan_flake
 }
 
-export def --env "nh update yew" [] {
+export def --env "nh update os" [] {
   git -C $env.NH_FLAKE pull
   nix flake update --flake $env.NH_FLAKE --commit-lock-file
   git -C $env.NH_FLAKE push
