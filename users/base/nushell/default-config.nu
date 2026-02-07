@@ -60,7 +60,7 @@ export def --env "git cc" [server_org_repo: string] {
   cd $"~/src/($server)/($org)/($repo)"
 }
 
-export def "nh os upgrade" [host?: string, ...raw_args: string] {
+export def --wrapped "nh os upgrade" [host?: string, ...raw_args: string] {
   let hostname = (hostname);
   if $host == "banyan" {
     $env.NH_FLAKE = "~/src/gitlab.com/zanny/banyan" | path expand;
@@ -78,7 +78,7 @@ export def "nh os upgrade" [host?: string, ...raw_args: string] {
   nh os switch ...($args) ...($raw_args)
 }
 
-export def --env "nh home upgrade" [...raw_args] {
+export def --wrapped "nh home upgrade" [...raw_args] {
   git -C $env.NH_FLAKE pull
   nix flake update --flake $env.NH_FLAKE --commit-lock-file
   git -C $env.NH_FLAKE push
