@@ -127,8 +127,8 @@
         # bug fix for performance regression for zfs since 5.3
         kernelParams = ["init_on_alloc=0" "init_on_free=0"];
         zfs = {
-          package = config.boot.kernelpackages.zfs_cachyos;
-          modulePackage = config.boot.kernelpackages.zfs_cachyos;
+          package = config.boot.kernelPackages.zfs_cachyos;
+          modulePackage = config.boot.kernelPackages.zfs_cachyos;
         };
       };
     };
