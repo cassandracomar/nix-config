@@ -60,7 +60,7 @@ export def --env "git cc" [server_org_repo: string] {
   cd $"~/src/($server)/($org)/($repo)"
 }
 
-export def "nh os upgrade" [host?: string, ...raw_args] {
+export def "nh os upgrade" [host?: string, ...raw_args: list<string>] {
   let hostname = (hostname);
   if $host == "banyan" {
     $env.NH_FLAKE = "~/src/gitlab.com/zanny/banyan" | path expand;
