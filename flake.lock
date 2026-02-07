@@ -450,6 +450,26 @@
         "type": "github"
       }
     },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769954458,
+        "narHash": "sha256-aLWuo5CR5Mw20krNR0/JhZ1fC35PgJFAVWwtqIkkJAk=",
+        "owner": "nix-community",
+        "repo": "nh",
+        "rev": "8c5e29cdc321714d518c7d0c057b8d912c30448e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
     "nix-doom": {
       "inputs": {
         "doomemacs": "doomemacs",
@@ -712,6 +732,7 @@
         "emacs": "emacs",
         "flake-input-patcher": "flake-input-patcher",
         "home-manager": "home-manager",
+        "nh": "nh",
         "nix-doom": "nix-doom",
         "nix-index": "nix-index",
         "nix-index-database": "nix-index-database",

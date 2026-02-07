@@ -38,6 +38,8 @@
   inputs.nixgl.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-output-monitor.url = "github:maralorn/nix-output-monitor";
   inputs.nix-output-monitor.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nh.url = "github:nix-community/nh";
+  inputs.nh.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = {
     nixpkgs,
@@ -53,6 +55,7 @@
     nixgl,
     cachyos-kernel,
     nix-output-monitor,
+    nh,
     ...
   } @ inputs: let
     hosts = ["cherry" "walnut" "magus" "yew"];
@@ -83,6 +86,7 @@
       nix-doom.overlays.default
       emacs.overlays.emacs
       nixgl.overlays.default
+      nh.overlays.default
       (final: prev: {
         poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
       })
