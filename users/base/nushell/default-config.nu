@@ -59,3 +59,12 @@ export def --env git_checkout [server_org_repo: string] {
   git clone $"git@($server):($org)/($repo)" ~/src/$"($server)/($org)/($repo)"
   cd $"~/src/($server)/($org)/($repo)"
 }
+
+export def --env "nh update banyan" [] {
+  let banyan_flake = "~/src/gitlab.com/zanny/banyan" | path expand;
+  git -C $banyan_flake pull
+  nix flake update --flake $banyan_flake --commit-lock-file
+  git -C $banyan_flake push
+
+  nh os switch --target-host banyan.local -H banyan $banyan_flake
+}
