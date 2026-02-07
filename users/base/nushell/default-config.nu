@@ -60,21 +60,22 @@ export def --env "git cc" [server_org_repo: string] {
   cd $"~/src/($server)/($org)/($repo)"
 }
 
-export def --env "nh os upgrade banyan" [] {
-  let banyan_flake = "~/src/gitlab.com/zanny/banyan" | path expand;
-  git -C $banyan_flake pull
-  nix flake update --flake $banyan_flake --commit-lock-file
-  git -C $banyan_flake push
+export def "nh os upgrade" [host?: string] {
+  let hostname = (hostname);
+  if $host == "banyan" {
+    $env.NH_FLAKE = "~/src/gitlab.com/zanny/banyan" | path expand;
+  }
 
-  nh os switch --target-host banyan.local -H banyan $banyan_flake
-}
-
-export def --env "nh os upgrade" [] {
   git -C $env.NH_FLAKE pull
   nix flake update --flake $env.NH_FLAKE --commit-lock-file
   git -C $env.NH_FLAKE push
+  
+  mut args = [];
+  if $host != null and $hostname != $host {
+    $args ++= ["--target-host", $"($host).local", "-H", $host];
+  }
 
-  nh os switch -u
+  nh os switch ...($args)
 }
 
 export def --env "nh home upgrade" [] {
