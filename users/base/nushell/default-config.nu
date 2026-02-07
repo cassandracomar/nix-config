@@ -49,7 +49,7 @@ $env.config | merge deep {
 #   $"($old_prompt)\n └─>> "
 # }
 
-export def --env git_checkout [server_org_repo: string] {
+export def --env "git cc" [server_org_repo: string] {
   let split = $server_org_repo | split column "/" server org repo
 
   let server = $split | get server.0
