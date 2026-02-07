@@ -100,8 +100,8 @@
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         mkCachyPackageSet = kernel:
           helpers.kernelModuleLLVMOverride ((prev.linuxKernel.packagesFor kernel).extend (final': prev': {
-            zfs_cachyos = prev.cachyosKernels.zfs-cachyos-lto.override {
-              inherit kernel;
+            zfs_cachyos = final.callPackage "${cachyos-kernel}/zfs-cachyos" {
+              inherit inputs kernel;
             };
           }));
         nix-output-monitor = nix-output-monitor.packages.${system}.default;
