@@ -60,7 +60,7 @@ export def --env "git cc" [server_org_repo: string] {
   cd $"~/src/($server)/($org)/($repo)"
 }
 
-export def --env "nh update banyan" [] {
+export def --env "nh os upgrade banyan" [] {
   let banyan_flake = "~/src/gitlab.com/zanny/banyan" | path expand;
   git -C $banyan_flake pull
   nix flake update --flake $banyan_flake --commit-lock-file
@@ -69,7 +69,7 @@ export def --env "nh update banyan" [] {
   nh os switch --target-host banyan.local -H banyan $banyan_flake
 }
 
-export def --env "nh update os" [] {
+export def --env "nh os upgrade" [] {
   git -C $env.NH_FLAKE pull
   nix flake update --flake $env.NH_FLAKE --commit-lock-file
   git -C $env.NH_FLAKE push
@@ -77,7 +77,7 @@ export def --env "nh update os" [] {
   nh os switch -u
 }
 
-export def --env "nh update home" [] {
+export def --env "nh home upgrade" [] {
   git -C $env.NH_FLAKE pull
   nix flake update --flake $env.NH_FLAKE --commit-lock-file
   git -C $env.NH_FLAKE push
