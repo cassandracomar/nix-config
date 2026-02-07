@@ -60,8 +60,15 @@ export def --env "git cc" [server_org_repo: string] {
   cd $"~/src/($server)/($org)/($repo)"
 }
 
-export def --wrapped "nh os upgrade" [host?: string, ...raw_args: string] {
+export def --wrapped "nh os upgrade" [...raw_args: string] {
   let hostname = (hostname);
+  mut raw_args = $raw_args;
+  mut host = null;
+  if ($raw_args | length) != 0 and (not ($raw_args.0 | str starts-with "-")) {
+    $host = $raw_args.0;
+    $raw_args = $raw_args | skip 1;
+  }
+
   if $host == "banyan" {
     $env.NH_FLAKE = "~/src/gitlab.com/zanny/banyan" | path expand;
   }
