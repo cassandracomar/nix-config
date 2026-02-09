@@ -15,7 +15,7 @@
     zsh
     git
     tmux
-    xorg.xbacklight
+    xbacklight
     pamixer
     pavucontrol
     brightnessctl
@@ -34,7 +34,7 @@
     nix-zsh-completions
     (hwloc.override {
       x11Support = true;
-      libX11 = pkgs.xorg.libX11;
+      libX11 = pkgs.libX11;
       cairo = pkgs.cairo;
     })
     nix-output-monitor

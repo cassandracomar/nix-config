@@ -38,8 +38,8 @@ in {
       pango
       cairo
       xlibsWrapper
-      xorg.libXdamage
-      xorg.libxshmfence
+      libXdamage
+      libxshmfence
     ];
 
     unpackPhase = "true";
