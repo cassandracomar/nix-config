@@ -34,7 +34,6 @@
     nix-zsh-completions
     (hwloc.override {
       x11Support = true;
-      libX11 = pkgs.libX11;
       cairo = pkgs.cairo;
     })
     nix-output-monitor
