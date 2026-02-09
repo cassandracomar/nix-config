@@ -109,6 +109,7 @@ in {
   home.sessionVariables = {
     GITHUB_USER = git_config.github.user;
     GSETTINGS_SCHEMA_DIR = "/usr/share/glib-2.0/schemas";
+    NH_FLAKE = "${config.home.homeDirectory}/src/github.com/cassandracomar/nix-config";
   };
   programs.doom-emacs.emacs = emacs';
   wayland.windowManager.pinnacle = {
