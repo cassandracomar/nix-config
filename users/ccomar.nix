@@ -197,7 +197,6 @@ in {
     yubikey-personalization
     (hwloc.override {
       x11Support = true;
-      libX11 = pkgs.libX11;
       cairo = pkgs.cairo;
     })
     vulkan-tools
