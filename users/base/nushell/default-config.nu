@@ -24,8 +24,8 @@ let external_completer = {|spans|
       let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
       if ($need_quote and ($value | path exists)) {
         let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
-        let expanded_path = $expanded_path | str replace --all "\"" "\\\"";
-        $'"($expanded_path)"'
+        let expanded_path = $expanded_path | str replace --all '\"' '\\\"';
+        $'($expanded_path)'
       } else {$value}
     }
   }
