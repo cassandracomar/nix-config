@@ -21,9 +21,12 @@ let external_completer = {|spans|
       $'"($expanded_path | str replace --all "\"" "\\\"")"'
     } else {$value}
   }
+  let unquote = {|value|
+    $value | str replace --all "'" "" | str replace --all '"' "" | str replace --all "`" ""
+  }
 
   let fish_completer = {|spans|
-    fish --command $"complete '--do-complete=($spans | str replace --all "\'" "" | str replace --all "\"" "" | str replace --all "`" "" | each {do $quote_if_needed $in} | str join ' ')'"
+    fish --command $"complete '--do-complete=($spans | do $unquote $in | each {do $quote_if_needed $in} | str join ' ')'"
     | from tsv --flexible --noheaders --no-infer
     | rename value description
     | update value {|row|
