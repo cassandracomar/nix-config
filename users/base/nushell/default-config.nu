@@ -14,18 +14,20 @@ let external_completer = {|spans|
   } else {
     $spans | skip 1 | prepend ($spans.0)
   })
+  let quote_if_needed = {|value|
+    let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
+    if ($need_quote and ($value | path exists)) {
+      let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
+      $'"($expanded_path | str replace --all "\"" "\\\"")"'
+    } else {$value}
+  }
 
   let fish_completer = {|spans|
-    fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
+    fish --command $"complete '--do-complete=($spans | str replace --all "'" "" | str replace --all '"' '' | str replace --all "`" "" | each {do $quote_if_needed $in} | str join ' ')'"
     | from tsv --flexible --noheaders --no-infer
     | rename value description
     | update value {|row|
-      let value = $row.value
-      let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
-      if ($need_quote and ($value | path exists)) {
-        let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
-        $'"($expanded_path | str replace --all "\"" "\\\"")"'
-      } else {$value}
+      do $quote_if_needed $row.value
     }
   }
   let carapace_completer = {|spans| carapace $spans.0 nushell ...$spans | from json}
