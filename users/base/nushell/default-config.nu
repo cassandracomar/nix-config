@@ -79,7 +79,7 @@ export def --wrapped "nh os upgrade" [...raw_args: string] {
   
   mut args = [];
   if $host != null and $hostname != $host {
-    $args ++= ["--target-host", $"($host).local", "-H", $host];
+    $args ++= ["--target-host", $"($host).local", "--build-host", $"($host).local", "-H", $host];
   }
 
   nh os switch ...($args) ...($raw_args)
