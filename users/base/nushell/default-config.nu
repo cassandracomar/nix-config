@@ -23,7 +23,7 @@ let external_completer = {|spans|
   }
 
   let fish_completer = {|spans|
-    fish --command $"complete '--do-complete=($spans | str replace --all "'" "" | str replace --all '"' '' | str replace --all "`" "" | each {do $quote_if_needed $in} | str join ' ')'"
+    fish --command $"complete '--do-complete=($spans | str replace --all "\'" "" | str replace --all "\"" "" | str replace --all "`" "" | each {do $quote_if_needed $in} | str join ' ')'"
     | from tsv --flexible --noheaders --no-infer
     | rename value description
     | update value {|row|
