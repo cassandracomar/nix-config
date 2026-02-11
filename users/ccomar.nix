@@ -7,7 +7,10 @@
   git_config = {
     userName = "Cassandra Comar";
     userEmail = "ccomar@drwholdings.com";
-    github.user = "cassandracomar";
+    github = {
+      user = "cassandracomar";
+      "git.drwholdings.com/api/v3".user = "ccomar";
+    };
   };
 
   complete_alias = pkgs.stdenv.mkDerivation {
