@@ -480,11 +480,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1770800979,
-        "narHash": "sha256-0vr7DLKNDZydjHQkIBZmA1TuungjisdEIQtBxD5SLUY=",
+        "lastModified": 1770887282,
+        "narHash": "sha256-8vmh9ZSLEuXanLMeiuvAlJCKprBiEBW7N0SbUnMgpfM=",
         "owner": "marienz",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "b3311147bf6ad7b3bed442ed5179f8556ae294b9",
+        "rev": "a9cdd935c314894dd03287b287cc21c6f8004c7f",
         "type": "github"
       },
       "original": {
@@ -629,11 +629,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1770781623,
-        "narHash": "sha256-QMYxyB6ypW27ndRESrqrJyB9kXqZs9rQIsmDRyvX0lA=",
-        "rev": "c05d2232d2feaa4c7a07f1168606917402868195",
+        "lastModified": 1770843696,
+        "narHash": "sha256-9SFCZkVcpDOV6unH5hVEy4+dB0rxMuUoBnDAO6vshac=",
+        "rev": "2343bbb58f99267223bc2aac4fc9ea301a155a16",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre944414.c05d2232d2fe/nixexprs.tar.xz?lastModified=1770781623&rev=c05d2232d2feaa4c7a07f1168606917402868195"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre944764.2343bbb58f99/nixexprs.tar.xz?lastModified=1770843696&rev=2343bbb58f99267223bc2aac4fc9ea301a155a16"
       },
       "original": {
         "type": "tarball",
@@ -648,11 +648,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770844067,
-        "narHash": "sha256-LqHv8Bw3KQiVat2aauPaW/ef1U54r5u/IG1LRaqvqyk=",
+        "lastModified": 1770903859,
+        "narHash": "sha256-8kyD25lSJe4Jbfu6SnztzzYHS1AjEHNccv9AHGY3QNw=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a9646baf1ee76b7b928a727d554e34f151b3f51d",
+        "rev": "ddacb974c4962422644436683d7a507ddebaf2a2",
         "type": "github"
       },
       "original": {
@@ -668,11 +668,11 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1770768403,
-        "narHash": "sha256-5Qr53zhNFdVhC3h/YqgUbY87BsxeMLBrfXAJweAG+1o=",
+        "lastModified": 1770847977,
+        "narHash": "sha256-XjoUVU0hGxZP4DHID+GHP4ctIzVON3vZ4FfHElw5SXY=",
         "owner": "pinnacle-comp",
         "repo": "pinnacle",
-        "rev": "a6773977b46bf64a0cfee91a775d7a6446bc2ec1",
+        "rev": "06288f93cf1764db0067bd9b17b9e585579d24ee",
         "type": "github"
       },
       "original": {
