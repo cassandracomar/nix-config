@@ -57,6 +57,15 @@
       ++ old.NIX_CFLAGS_COMPILE or []
     );
   });
+  mangayomi = pkgs.mangayomi.overrideAttrs (old: rec {
+    version = "0.7.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "kodjodevf";
+      repo = "mangayomi";
+      rev = "v${version}";
+      sha256 = "sha256-wJSaFbr3tpjLInU7XtpKWYC28M1vEwvbWn+5Cz7NX1I=";
+    };
+  });
 in {
   imports = [./base];
 
@@ -72,6 +81,7 @@ in {
     heroic
     mangohud
     komikku
+    mangayomi
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = emacs';
