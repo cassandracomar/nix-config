@@ -72,6 +72,8 @@
       cargoHash = "sha256-lKEkTHLTX6RdTxC8bU3GQm0RD2RBy4rDHzBHIiks4eg=";
       passthru.libraryPath = "lib/librust_lib_mangayomi.so";
     };
+    gitHashes = pkgs.lib.importJSON ./base/git-hashes.json;
+    pubspecLock = pkgs.lib.importJSON ./base/pubspec.lock.json;
   });
 in {
   imports = [./base];
