@@ -69,7 +69,7 @@
     rustDep = pkgs.rustPlatform.buildRustPackage {
       inherit pname version src;
       sourceRoot = "${src.name}/rust";
-      cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      cargoHash = "sha256-lKEkTHLTX6RdTxC8bU3GQm0RD2RBy4rDHzBHIiks4eg=";
       passthru.libraryPath = "lib/librust_lib_mangayomi.so";
     };
   });
