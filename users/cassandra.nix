@@ -58,12 +58,19 @@
     );
   });
   mangayomi = pkgs.mangayomi.overrideAttrs (old: rec {
+    pname = "mangayomi";
     version = "0.7.1";
     src = pkgs.fetchFromGitHub {
       owner = "kodjodevf";
       repo = "mangayomi";
       rev = "v${version}";
       sha256 = "sha256-wJSaFbr3tpjLInU7XtpKWYC28M1vEwvbWn+5Cz7NX1I=";
+    };
+    rustDep = pkgs.rustPlatform.buildRustPackage {
+      inherit pname version src;
+      sourceRoot = "${src.name}/rust";
+      cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      passthru.libraryPath = "lib/librust_lib_mangayomi.so";
     };
   });
 in {
