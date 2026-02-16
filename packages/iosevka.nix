@@ -4,6 +4,7 @@
   stdenv,
   parallel,
   python3,
+  python3Packages,
   ...
 }: let
   plainPackage = iosevka.override {
@@ -15,7 +16,13 @@
     };
     set = "Custom";
   };
-  pyenv = python3.withPackages (ps: with ps; [fonttools opentype-feature-freezer]);
+  pyenv = python3.withPackages (ps:
+    with ps; [
+      fonttools
+      (opentype-feature-freezer.overrideAttrs (old: {
+        patches = (old.patches or []) ++ [./feature-freezer-fontTools.patch];
+      }))
+    ]);
 in {
   fontToolsPyEnv = pyenv;
   iosevka-custom = plainPackage;
