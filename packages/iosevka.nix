@@ -29,7 +29,7 @@ in {
     buildPhase = ''
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' nerd-font-patcher --complete --careful {/}
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' chmod +x {/}
-      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} -m ${pyenv}/bin/pyftfeatfreeze -rnv -f dlig
+      # find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} -m ${pyenv}/bin/pyftfeatfreeze -rnv -f dlig
     '';
     installPhase = "cp -a . $out";
   };
