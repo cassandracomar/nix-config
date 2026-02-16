@@ -3,7 +3,7 @@
   nerd-font-patcher,
   stdenv,
   parallel,
-  python3Packages,
+  python3,
   ...
 }: let
   plainPackage = iosevka.override {
@@ -15,6 +15,7 @@
     };
     set = "Custom";
   };
+  pyenv = python3.withPackages (ps: with ps; [fonttools opentype-feature-freezer]);
 in {
   iosevka-custom = plainPackage;
   iosevka-nerd-font = stdenv.mkDerivation {
@@ -28,7 +29,7 @@ in {
     buildPhase = ''
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' nerd-font-patcher --complete --careful {/}
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' chmod +x {/}
-      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} -m ${python3Packages.opentype-feature-freezer}/bin/pyftfeatfreeze -rnv -f dlig
+      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} -m ${pyenv}/bin/pyftfeatfreeze -rnv -f dlig
     '';
     installPhase = "cp -a . $out";
   };
