@@ -18,8 +18,6 @@
   inputs.nur.url = "github:nix-community/NUR";
   inputs.nur.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.poetry2nix.url = "github:nix-community/poetry2nix";
-  inputs.poetry2nix.inputs.nixpkgs.follows = "";
   inputs.pinnacle.url = "github:pinnacle-comp/pinnacle";
   inputs.pinnacle.inputs.nixpkgs.follows = "";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
@@ -47,7 +45,6 @@
     home-manager,
     emacs,
     nur,
-    poetry2nix,
     pinnacle,
     pinnacle-config,
     clipcat,
@@ -87,9 +84,6 @@
       emacs.overlays.emacs
       nixgl.overlays.default
       nh.overlays.default
-      (final: prev: {
-        poetry2nix = poetry2nix.lib.mkPoetry2Nix {pkgs = prev;};
-      })
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
         helpers = prev.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
