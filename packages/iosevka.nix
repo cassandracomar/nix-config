@@ -1,9 +1,9 @@
 {
-  aporetic,
+  iosevka,
   callPackage,
   ...
 }: let
-  iosevka-custom = aporetic.override {
+  iosevka-custom = iosevka.override {
     privateBuildPlan = {
       family = "Iosevka";
       ligations.inherits = "dlig";
