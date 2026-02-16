@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   programs.pinnacle = {
     enable = true;
     xdg-portals.enable = true;
@@ -24,8 +29,41 @@
   };
 
   # set up the display manager
-  services.displayManager = {
+  services.displayManager = let
+    cfg = config.programs.uwsm;
+    mk_uwsm_desktop_entry = opts: (pkgs.writeTextFile {
+      name = "${opts.name}-uwsm";
+      text = ''
+        [Desktop Entry]
+        Name=${opts.prettyName} (UWSM)
+        Comment=${opts.comment}
+        Exec=${lib.getExe cfg.package} start -F -- ${opts.binPath} ${lib.strings.escapeShellArgs opts.extraArgs}
+        Type=Application
+      '';
+      destination = "/share/wayland-sessions/${opts.name}-uwsm.desktop";
+      derivationArgs = {
+        passthru.providedSessions = ["${opts.name}-uwsm"];
+      };
+    });
+    desktopEntries =
+      lib.mapAttrsToList (
+        name: value:
+          mk_uwsm_desktop_entry {
+            inherit name;
+            inherit
+              (value)
+              prettyName
+              comment
+              binPath
+              extraArgs
+              ;
+          }
+      )
+      cfg.waylandCompositors;
+  in {
+    enable = true;
     defaultSession = "pinnacle-uwsm";
+    sessionPackages = desktopEntries;
     autoLogin = {
       enable = true;
       user = pkgs.lib.mkForce "cassandra";
