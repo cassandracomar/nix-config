@@ -1,21 +1,15 @@
 {
   nerd-font-patcher,
-  parallel,
+  fd,
   stdenv,
 }: pkg:
 stdenv.mkDerivation {
   pname = "${pkg.pname}-nerd-font";
   version = pkg.version;
-
   src = pkg;
-
-  nativeBuildInputs = [nerd-font-patcher parallel];
-
-  buildPhase = ''
-    find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' nerd-font-patcher --complete --careful {/}
-  '';
+  nativeBuildInputs = [nerd-font-patcher fd];
   installPhase = ''
     mkdir -p $out/share/fonts/{truetype,opentype}
-    find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | xargs -0 -I'{}' install -m644 {} $out/{}
+    fd -e ttf -e otf -j ''${NIX_BUILD_CORES} -x nerd-font-patcher --complete --careful --outputdir $out/{//} {//}/{/}
   '';
 }
