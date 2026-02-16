@@ -16,6 +16,6 @@ stdenv.mkDerivation {
   '';
   installPhase = ''
     mkdir -p $out/share/fonts/{truetype,opentype}
-    find \( -name "*NerdFont*.ttf" -o -name "*Name*.otf" \) -print0 | xargs -0 -I'{}' install -m644 {} $out/{}
+    find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | xargs -0 -I'{}' install -m644 {} $out/{}
   '';
 }
