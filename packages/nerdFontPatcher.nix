@@ -2,9 +2,10 @@
   nerd-font-patcher,
   fd,
   stdenv,
+  lib,
 }: pkg:
 stdenv.mkDerivation {
-  pname = "${pkg.pname}-nerd-font";
+  pname = "${lib.strings.toLower pkg.pname}-nerd-font";
   version = pkg.version;
   src = pkg;
   nativeBuildInputs = [nerd-font-patcher fd];

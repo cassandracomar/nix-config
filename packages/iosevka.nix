@@ -10,7 +10,7 @@
       ligations.enables = ["slasheq"];
       exportGlyphNames = true;
     };
-    set = "Custom";
+    set = "-Custom";
   };
   nerdFontPatcher = callPackage ./nerdFontPatcher.nix {};
 in {
