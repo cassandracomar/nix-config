@@ -153,7 +153,6 @@
             "sound"
             "docker"
             "libvirtd"
-            "transmission"
             "jackaudio"
             "adbusers"
           ];
