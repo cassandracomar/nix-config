@@ -34,13 +34,13 @@ in {
 
     nativeBuildInputs = [nerd-font-patcher parallel];
 
-    buildPhase = ''
+    installPhase = ''
+      mkdir $out
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' nerd-font-patcher --complete --careful {/}
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' chmod +x {/}
-      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -I'{}' -P ''${NIX_BUILD_CORES} -m ${pyenv}/bin/pyftfeatfreeze -rnv -f dlig '{}' .
-      find . -type f
+      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -I'{}' -P ''${NIX_BUILD_CORES} -m ${pyenv}/bin/pyftfeatfreeze -rnv -f dlig '{}' $out
+      find $out -type f
       exit -1
     '';
-    installPhase = "cp -a . $out";
   };
 }
