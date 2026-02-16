@@ -23,11 +23,11 @@
         patches = (old.patches or []) ++ [./feature-freezer-fontTools.patch];
       }))
     ]);
-in {
+in rec {
   fontToolsPyEnv = pyenv;
   iosevka-custom = plainPackage;
-  iosevka-nerd-font = stdenv.mkDerivation {
-    pname = "iosevka-nerd-font";
+  iosevka-nerd-font-pre = stdenv.mkDerivation {
+    pname = "iosevka-nerd-font-pre";
     version = plainPackage.version;
 
     src = plainPackage;
@@ -38,8 +38,19 @@ in {
       mkdir $out
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' nerd-font-patcher --complete --careful {/}
       find \( -name \*.ttf -o -name \*.otf \) -print0 | parallel -0 -P ''${NIX_BUILD_CORES} cd {//} '&&' chmod +x {/}
-      find \( -name "*NerdFont*.ttf" -o -name "*NerdFont*.otf" \) -print0 | parallel -0 -I'{}' -P ''${NIX_BUILD_CORES} -m ${pyenv}/bin/pyftfeatfreeze -rnv -f dlig '{}' .
     '';
     installPhase = "cp -a . $out";
+  };
+  iosevka-nerd-font = stdenv.mkDerivation {
+    pname = "iosevka-nerd-font";
+    version = plainPackage.version;
+    src = iosevka-nerd-font-pre;
+
+    nativeBuildInputs = [parallel pyenv];
+
+    installPhase = ''
+      mkdir -p $out/share/fonts/opentype
+      find -name "*NerdFont*.ttf" -exec sh -c 'echo $(dirname {})/$(basename {} .ttf)' \; | parallel -P ''${NIX_BUILD_CORES} -m pyftfeatfreeze -nv -f dlig {//}/{/}.ttf $out/share/fonts/opentype/{/}.otf
+    '';
   };
 }
