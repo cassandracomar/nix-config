@@ -17,6 +17,7 @@
   };
   pyenv = python3.withPackages (ps: with ps; [fonttools opentype-feature-freezer]);
 in {
+  fontToolsPyEnv = pyenv;
   iosevka-custom = plainPackage;
   iosevka-nerd-font = stdenv.mkDerivation {
     pname = "iosevka-nerd-font";

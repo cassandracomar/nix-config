@@ -89,7 +89,7 @@
         helpers = prev.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
       in {
         inherit (prev.lixPackageSets.stable) nix-eval-jobs nix-fast-build colmena nixpkgs-review;
-        inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom;
+        inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom fontToolsPyEnv;
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         mkCachyPackageSet = kernel:
