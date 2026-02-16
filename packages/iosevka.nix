@@ -4,7 +4,6 @@
   stdenv,
   parallel,
   python3,
-  python3Packages,
   ...
 }: let
   plainPackage = iosevka.override {
