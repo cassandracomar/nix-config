@@ -5,7 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    wineWowPackages.waylandFull
+    wineWow64Packages.waylandFull
     winetricks
     lutris
     virt-viewer
