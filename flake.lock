@@ -98,11 +98,11 @@
     "doom-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1771415454,
-        "narHash": "sha256-BhR30Eo4aSfNzqDRIf3mqmj4KHG0kmzM6PXeayxZpXY=",
+        "lastModified": 1771434030,
+        "narHash": "sha256-gn488WzzxFLwq//ynezff/em6fAS42w1pLqTCxNrf/I=",
         "owner": "cassandracomar",
         "repo": "doom-config",
-        "rev": "58b33ca36c0a1d792ec9238e4aafe6ecb292d7dd",
+        "rev": "ba0dbd82c16b7ecbfe7fcd2b0f1d100d10c4c613",
         "type": "github"
       },
       "original": {
