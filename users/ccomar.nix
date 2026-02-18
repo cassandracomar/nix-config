@@ -505,9 +505,9 @@ in {
       "davmail.loginUrl" = "https://adfs.drwholdings.com/adfs/la/";
       "davmail.defaultDomain" = "us";
       "log4j.logger.davmail" = "DEBUG";
-      "log4j.logger.httpclient.wire" = "DEBUG";
-      "log4j.logger.org.apache.commons.httpclient" = "DEBUG";
-      "log4j.rootLogger" = "DEBUG";
+      "log4j.logger.httpclient.wire" = "WARN";
+      "log4j.logger.org.apache.commons.httpclient" = "WARN";
+      "log4j.rootLogger" = "WARN";
     };
   };
   systemd.user.services.davmail.Service = {
