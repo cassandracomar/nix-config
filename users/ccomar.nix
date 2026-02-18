@@ -497,14 +497,25 @@ in {
       # "davmail.server" = true;
     };
   };
-  systemd.user.services.davmail.Service = let
-    javaProperties = pkgs.formats.javaProperties {};
-    settingsFile = javaProperties.generate "davmail.properties" config.services.davmail.settings;
-  in
-    lib.mkForce {
-      Type = "exec";
-      ExecStart = "${lib.getExe config.services.davmail.package} ${settingsFile}";
-      Restart = "on-failure";
-    };
+  systemd.user.services.davmail.Service = {
+    LockPersonality = lib.mkForce false;
+    NoNewPrivileges = lib.mkForce false;
+    PrivateDevices = lib.mkForce false;
+    PrivateTmp = lib.mkForce false;
+    PrivateUsers = lib.mkForce false;
+    ProtectClock = lib.mkForce false;
+    ProtectControlGroups = lib.mkForce false;
+    ProtectHostname = lib.mkForce false;
+    ProtectKernelLogs = lib.mkForce false;
+    ProtectKernelModules = lib.mkForce false;
+    ProtectKernelTunables = lib.mkForce false;
+    RemoveIPC = lib.mkForce false;
+    RestrictAddressFamilies = lib.mkForce [""];
+    ProtectSystem = lib.mkForce false;
+    RestrictNamespaces = lib.mkForce false;
+    RestrictRealtime = lib.mkForce false;
+    RestrictSUIDSGID = lib.mkForce false;
+  };
+
   home.stateVersion = "21.11";
 }
