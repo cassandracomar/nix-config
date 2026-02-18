@@ -285,7 +285,7 @@ in {
   };
 
   services.mbsync = {
-    enable = false;
+    enable = true;
   };
 
   accounts.email = {
