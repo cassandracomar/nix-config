@@ -445,7 +445,7 @@ in {
           enable = true;
           create = "both";
         };
-        primary = true;
+        primary = false;
         realName = "Cassandra Comar";
         imap.host = "imap.purelymail.com";
         smtp = {
