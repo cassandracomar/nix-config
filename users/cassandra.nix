@@ -300,47 +300,49 @@ in {
 
   accounts.email = {
     maildirBasePath = "${config.xdg.dataHome}/maildir";
-    accounts."cass@nie.rs" = {
-      address = "cass@nie.rs";
-      passwordCommand = "${pkgs.rbw}/bin/rbw get purelymail.com cass@nie.rs";
-      mbsync = {
-        enable = true;
-        create = "both";
+    accounts = {
+      "cass@nie.rs" = {
+        address = "cass@nie.rs";
+        passwordCommand = "${pkgs.rbw}/bin/rbw get purelymail.com cass@nie.rs";
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        primary = false;
+        realName = "Cassandra Comar";
+        imap.host = "imap.purelymail.com";
+        smtp = {
+          host = "smtp.purelymail.com";
+        };
+        msmtp.enable = true;
+        notmuch.enable = true;
+        imapnotify = {
+          enable = true;
+          onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
+        };
+        userName = "cass@nie.rs";
       };
-      primary = false;
-      realName = "Cassandra Comar";
-      imap.host = "imap.purelymail.com";
-      smtp = {
-        host = "smtp.purelymail.com";
+      "cass@mountclare.net" = {
+        address = "cass@mountclare.net";
+        passwordCommand = "${pkgs.rbw}/bin/rbw get purelymail.com cass@mountclare.net";
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        primary = true;
+        realName = "Cassandra Comar";
+        imap.host = "imap.purelymail.com";
+        smtp = {
+          host = "smtp.purelymail.com";
+        };
+        msmtp.enable = true;
+        notmuch.enable = true;
+        imapnotify = {
+          enable = true;
+          onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
+        };
+        userName = "cass@mountclare.net";
       };
-      msmtp.enable = true;
-      notmuch.enable = true;
-      imapnotify = {
-        enable = true;
-        onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
-      };
-      userName = "cass@nie.rs";
-    };
-    accounts."cass@mountclare.net" = {
-      address = "cass@mountclare.net";
-      passwordCommand = "${pkgs.rbw}/bin/rbw get purelymail.com cass@mountclare.net";
-      mbsync = {
-        enable = true;
-        create = "both";
-      };
-      primary = true;
-      realName = "Cassandra Comar";
-      imap.host = "imap.purelymail.com";
-      smtp = {
-        host = "smtp.purelymail.com";
-      };
-      msmtp.enable = true;
-      notmuch.enable = true;
-      imapnotify = {
-        enable = true;
-        onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
-      };
-      userName = "cass@mountclare.net";
     };
   };
 
