@@ -497,8 +497,14 @@ in {
       # "davmail.server" = true;
     };
   };
-  systemd.user.services.davmail.Service.ProtectHostname = lib.mkForce false;
-  systemd.user.services.davmail.Service.ProtectKernelModules = lib.mkForce false;
-
+  systemd.user.services.davmail.Service = let
+    javaProperties = pkgs.formats.javaProperties {};
+    settingsFile = javaProperties.generate "davmail.properties" config.services.davmail.settings;
+  in
+    lib.mkForce {
+      Type = "exec";
+      ExecStart = "${lib.getExe config.services.davmail.package} ${settingsFile}";
+      Restart = "on-failure";
+    };
   home.stateVersion = "21.11";
 }
