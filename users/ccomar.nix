@@ -426,6 +426,11 @@ in {
       tags = +risk;+splunk;-new;-inbox
       message = very spammy
 
+      [Filter.4]
+      query = 'from:app@statushero.com'
+      tags = +statushero;-new;-inbox
+      message = spam
+
       [InboxFilter]
     '';
   };
