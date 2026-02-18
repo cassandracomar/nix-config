@@ -407,7 +407,7 @@ in {
       [ArchiveSentMailsFilter]
 
       [FolderNameFilter.1]
-      folder_transforms = cass@nie.rs:nie.rs cass@mountclare.net:mountclare.net
+      folder_transforms = cass@nie.rs:nie.rs cass@mountclare.net:mountclare.net ccomar@drwholdings.com:drwholdings.com
       maildir_separator = /
       folder_lowercases = true
 
