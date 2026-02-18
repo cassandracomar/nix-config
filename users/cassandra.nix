@@ -289,12 +289,6 @@ in {
       };
       msmtp.enable = true;
       userName = "cass@nie.rs";
-      folders = {
-        drafts = "drafts";
-        inbox = "inbox";
-        sent = "sent";
-        trash = "trash";
-      };
     };
     accounts."cass@mountclare.net" = {
       address = "cass@mountclare.net";
@@ -311,12 +305,6 @@ in {
       };
       msmtp.enable = true;
       userName = "cass@mountclare.net";
-      folders = {
-        drafts = "drafts";
-        inbox = "inbox";
-        sent = "sent";
-        trash = "trash";
-      };
     };
   };
 
