@@ -317,7 +317,7 @@ in {
       notmuch.enable = true;
       imapnotify = {
         enable = true;
-        onNotify = {mail = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";};
+        onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
       };
       userName = "cass@nie.rs";
     };
@@ -338,7 +338,7 @@ in {
       notmuch.enable = true;
       imapnotify = {
         enable = true;
-        onNotify = {mail = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";};
+        onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
       };
       userName = "cass@mountclare.net";
     };
