@@ -295,7 +295,7 @@ in {
 
       [Filter.1]
       query = 'from:amazon.com OR from:walmart.com'
-      tags = +shopping;-new
+      tags = +shopping;-new;-inbox
       message = kind of spammy
 
       [InboxFilter]

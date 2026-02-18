@@ -413,17 +413,17 @@ in {
 
       [Filter.1]
       query = 'from:amazon.com OR from:walmart.com'
-      tags = +shopping;-new
+      tags = +shopping;-new;-inbox
       message = kind of spammy
 
       [Filter.2]
       query = 'to:github@drwholdings.com'
-      tags = +github;-new
+      tags = +github;-new;-inbox
       message = very spammy
 
       [Filter.3]
       query = 'from:splunk-chi@drwholdings.com AND subject:Risk'
-      tags = +risk;+splunk;-new
+      tags = +risk;+splunk;-new;-inbox
       message = very spammy
 
       [InboxFilter]
