@@ -383,9 +383,6 @@ in {
 
   programs.mbsync = {
     enable = true;
-    extraConfig = ''
-      AuthMechs LOGIN
-    '';
   };
   programs.msmtp.enable = true;
   programs.notmuch = {
@@ -470,6 +467,9 @@ in {
         mbsync = {
           enable = true;
           create = "both";
+          extraConfig.account = {
+            AuthMechs = ["LOGIN"];
+          };
         };
         primary = true;
         realName = "Cassandra Comar";
