@@ -383,16 +383,62 @@ in {
 
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;
+  programs.notmuch = {
+    enable = true;
+    hooks = {
+      preNew = "${pkgs.isync}/bin/mbsync -L --all";
+      postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
+    };
+    new = {
+      ignore = ["trash" "*.json"];
+      tags = ["new"];
+    };
+    search.excludeTags = ["trash" "deleted" "spam"];
+    maildir.synchronizeFlags = true;
+  };
+  programs.afew = {
+    enable = true;
+    extraConfig = ''
+      [SpamFilter]
+      [KillThreadsFilter]
+      [ListMailsFilter]
+      [ArchiveSentMailsFilter]
 
-  services.mbsync = {
-    enable = false;
+      [FolderNameFilter.1]
+      folder_transforms = cass@nie.rs:nie.rs cass@mountclare.net:mountclare.net
+      maildir_separator = /
+      folder_lowercases = true
+
+      [InboxFilter]
+    '';
   };
 
   accounts.email = {
     maildirBasePath = "${config.xdg.dataHome}/maildir";
-    accounts.cass = {
+    accounts."cass@nie.rs" = {
       address = "cass@nie.rs";
       passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
+      mbsync = {
+        enable = true;
+        create = "both";
+      };
+      primary = false;
+      realName = "Cassandra Comar";
+      imap.host = "imap.purelymail.com";
+      smtp = {
+        host = "smtp.purelymail.com";
+      };
+      msmtp.enable = true;
+      notmuch.enable = true;
+      imapnotify = {
+        enable = true;
+        onNotify = {mail = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";};
+      };
+      userName = "cass@nie.rs";
+    };
+    accounts."cass@mountclare.net" = {
+      address = "cass@mountclare.net";
+      passwordCommand = "rbw get purelymail.com 'cass@mountclare.net'";
       mbsync = {
         enable = true;
         create = "both";
@@ -404,7 +450,12 @@ in {
         host = "smtp.purelymail.com";
       };
       msmtp.enable = true;
-      userName = "cass@nie.rs";
+      notmuch.enable = true;
+      imapnotify = {
+        enable = true;
+        onNotify = {mail = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";};
+      };
+      userName = "cass@mountclare.net";
     };
   };
 

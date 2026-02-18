@@ -270,6 +270,7 @@ in {
   programs.notmuch = {
     enable = true;
     hooks = {
+      preNew = "${pkgs.isync}/bin/mbsync -L --all";
       postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
     };
     new = {
@@ -296,11 +297,6 @@ in {
     '';
   };
 
-  services.mbsync = {
-    enable = true;
-    postExec = "${pkgs.notmuch}/bin/notmuch new";
-  };
-
   accounts.email = {
     maildirBasePath = "${config.xdg.dataHome}/maildir";
     accounts."cass@nie.rs" = {
@@ -318,6 +314,10 @@ in {
       };
       msmtp.enable = true;
       notmuch.enable = true;
+      imapnotify = {
+        enable = true;
+        onNotify = {mail = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";};
+      };
       userName = "cass@nie.rs";
     };
     accounts."cass@mountclare.net" = {
@@ -335,6 +335,10 @@ in {
       };
       msmtp.enable = true;
       notmuch.enable = true;
+      imapnotify = {
+        enable = true;
+        onNotify = {mail = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";};
+      };
       userName = "cass@mountclare.net";
     };
   };
