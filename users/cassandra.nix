@@ -5,7 +5,7 @@
 }: let
   git_config = {
     userName = "Cassandra Comar";
-    userEmail = "cass@ndra.io";
+    userEmail = "cass@mountclare.net";
     github.user = "cassandracomar";
   };
 
