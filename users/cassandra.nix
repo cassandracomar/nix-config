@@ -271,7 +271,14 @@ in {
     enable = true;
     hooks = {
       preNew = "mbsync --all";
+      postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
     };
+    new = {
+      ignore = ["trash" "*.json"];
+      tags = ["new"];
+    };
+    search.excludeTags = ["trash" "deleted" "spam"];
+    maildir.synchronizeFlags = true;
   };
   programs.afew = {
     enable = true;
