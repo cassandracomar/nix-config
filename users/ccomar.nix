@@ -483,39 +483,5 @@ in {
     };
   };
 
-  services.davmail = {
-    enable = true;
-    imitateOutlook = true;
-    settings = {
-      # "davmail.allowRemote" = false;
-      # "davmail.bindAddress" = "127.0.0.1";
-      # "davmail.caldavAutoSchedule" = true;
-      # "davmail.imapPort" = 1043;
-      # "davmail.smtpPort" = 1025;
-      "davmail.url" = "https://webmail.drwholdings.com/owa";
-      # "davmail.mode" = "O365Modern";
-      # "davmail.server" = true;
-    };
-  };
-  systemd.user.services.davmail.Service = {
-    LockPersonality = lib.mkForce false;
-    NoNewPrivileges = lib.mkForce false;
-    PrivateDevices = lib.mkForce false;
-    PrivateTmp = lib.mkForce false;
-    PrivateUsers = lib.mkForce false;
-    ProtectClock = lib.mkForce false;
-    ProtectControlGroups = lib.mkForce false;
-    ProtectHostname = lib.mkForce false;
-    ProtectKernelLogs = lib.mkForce false;
-    ProtectKernelModules = lib.mkForce false;
-    ProtectKernelTunables = lib.mkForce false;
-    RemoveIPC = lib.mkForce false;
-    RestrictAddressFamilies = lib.mkForce [""];
-    ProtectSystem = lib.mkForce false;
-    RestrictNamespaces = lib.mkForce false;
-    RestrictRealtime = lib.mkForce false;
-    RestrictSUIDSGID = lib.mkForce false;
-  };
-
   home.stateVersion = "21.11";
 }
