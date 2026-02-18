@@ -497,6 +497,7 @@ in {
       # "davmail.server" = true;
     };
   };
+  systemd.user.services.davmail.Service.ProtectHostname = lib.mkForce false;
 
   home.stateVersion = "21.11";
 }
