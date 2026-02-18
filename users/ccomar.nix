@@ -388,7 +388,7 @@ in {
   programs.notmuch = {
     enable = true;
     hooks = {
-      preNew = "${pkgs.isync}/bin/mbsync -L --all";
+      preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
       postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
     };
     new = {
@@ -456,7 +456,7 @@ in {
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync cass@nie.rs && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@nie.rs && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@nie.rs";
       };
@@ -477,7 +477,7 @@ in {
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync cass@mountclare.net && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@mountclare.net && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@mountclare.net";
       };
@@ -508,7 +508,7 @@ in {
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync ccomar@drwholdings.com && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln ccomar@drwholdings.com && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "ccomar";
       };
