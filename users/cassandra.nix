@@ -302,7 +302,7 @@ in {
     maildirBasePath = "${config.xdg.dataHome}/maildir";
     accounts."cass@nie.rs" = {
       address = "cass@nie.rs";
-      passwordCommand = "rbw get purelymail.com 'cass@nie.rs'";
+      passwordCommand = "rbw get purelymail.com cass@nie.rs";
       mbsync = {
         enable = true;
         create = "both";
@@ -323,7 +323,7 @@ in {
     };
     accounts."cass@mountclare.net" = {
       address = "cass@mountclare.net";
-      passwordCommand = "rbw get purelymail.com 'cass@mountclare.net'";
+      passwordCommand = "rbw get purelymail.com cass@mountclare.net";
       mbsync = {
         enable = true;
         create = "both";
