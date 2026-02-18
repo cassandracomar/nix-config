@@ -475,12 +475,12 @@ in {
         primary = true;
         realName = "Cassandra Comar";
         imap = {
-          host = "127.0.0.1";
+          host = "127.0.0.32";
           port = 1143;
           tls.enable = false;
         };
         smtp = {
-          host = "127.0.0.1";
+          host = "127.0.0.32";
           port = 1025;
           tls.enable = false;
         };
@@ -504,6 +504,10 @@ in {
       "davmail.url" = "https://webmail.drwholdings.com/ews/exchange.asmx";
       "davmail.loginUrl" = "https://adfs.drwholdings.com/adfs/la/";
       "davmail.defaultDomain" = "us";
+      "log4j.logger.davmail" = "DEBUG";
+      "log4j.logger.httpclient.wire" = "DEBUG";
+      "log4j.logger.org.apache.commons.httpclient" = "DEBUG";
+      "log4j.rootLogger" = "DEBUG";
     };
   };
   systemd.user.services.davmail.Service = {
