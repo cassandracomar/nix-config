@@ -5,6 +5,7 @@
     ./games.nix
     ./haskell.nix
     ./kubernetes.nix
+    ./mail.nix
     ./packages.nix
     # ./rust.nix
     ./shell-cfg.nix

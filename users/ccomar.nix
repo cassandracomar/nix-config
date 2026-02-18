@@ -381,106 +381,27 @@ in {
     };
   };
 
-  programs.mbsync = {
-    enable = true;
-  };
-  programs.msmtp.enable = true;
-  programs.notmuch = {
-    enable = true;
-    hooks = {
-      preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
-      postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
-    };
-    new = {
-      ignore = ["trash" "*.json"];
-      tags = ["new"];
-    };
-    search.excludeTags = ["trash" "deleted" "spam"];
-    maildir.synchronizeFlags = true;
-  };
-  programs.afew = {
-    enable = true;
-    extraConfig = ''
-      [SpamFilter]
-      [KillThreadsFilter]
-      [ListMailsFilter]
-      [ArchiveSentMailsFilter]
+  programs.afew.extraConfig = ''
+    [Filter.2]
+    query = 'to:github@drwholdings.com'
+    tags = +github;-new;-inbox
+    message = very spammy
 
-      [FolderNameFilter.1]
-      folder_transforms = cass@nie.rs:nie.rs cass@mountclare.net:mountclare.net ccomar@drwholdings.com:drwholdings.com
-      maildir_separator = /
-      folder_lowercases = true
+    [Filter.3]
+    query = 'from:splunk-chi@drwholdings.com AND subject:Risk'
+    tags = +risk;+splunk;-new;-inbox
+    message = very spammy
 
-      [Filter.1]
-      query = 'from:amazon.com OR from:walmart.com'
-      tags = +shopping;-new;-inbox
-      message = kind of spammy
+    [Filter.4]
+    query = 'from:app@statushero.com'
+    tags = +statushero;-new;-inbox
+    message = spam
 
-      [Filter.2]
-      query = 'to:github@drwholdings.com'
-      tags = +github;-new;-inbox
-      message = very spammy
-
-      [Filter.3]
-      query = 'from:splunk-chi@drwholdings.com AND subject:Risk'
-      tags = +risk;+splunk;-new;-inbox
-      message = very spammy
-
-      [Filter.4]
-      query = 'from:app@statushero.com'
-      tags = +statushero;-new;-inbox
-      message = spam
-
-      [InboxFilter]
-    '';
-  };
-  services.imapnotify.enable = true;
+    [InboxFilter]
+  '';
 
   accounts.email = {
-    maildirBasePath = "${config.xdg.dataHome}/maildir";
     accounts = {
-      "cass@nie.rs" = {
-        address = "cass@nie.rs";
-        passwordCommand = "${pkgs.rbw}/bin/rbw get purelymail.com cass@nie.rs";
-        mbsync = {
-          enable = true;
-          create = "both";
-        };
-        primary = false;
-        realName = "Cassandra Comar";
-        imap.host = "imap.purelymail.com";
-        smtp = {
-          host = "smtp.purelymail.com";
-        };
-        msmtp.enable = true;
-        notmuch.enable = true;
-        imapnotify = {
-          enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@nie.rs && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
-        };
-        userName = "cass@nie.rs";
-      };
-      "cass@mountclare.net" = {
-        address = "cass@mountclare.net";
-        passwordCommand = "${pkgs.rbw}/bin/rbw get purelymail.com cass@mountclare.net";
-        mbsync = {
-          enable = true;
-          create = "both";
-        };
-        primary = false;
-        realName = "Cassandra Comar";
-        imap.host = "imap.purelymail.com";
-        smtp = {
-          host = "smtp.purelymail.com";
-        };
-        msmtp.enable = true;
-        notmuch.enable = true;
-        imapnotify = {
-          enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@mountclare.net && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
-        };
-        userName = "cass@mountclare.net";
-      };
       "ccomar@drwholdings.com" = {
         address = "ccomar@drwholdings.com";
         passwordCommand = "${pkgs.rbw}/bin/rbw get drwholdings.com ccomar";
