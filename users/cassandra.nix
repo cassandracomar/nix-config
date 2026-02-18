@@ -270,7 +270,6 @@ in {
   programs.notmuch = {
     enable = true;
     hooks = {
-      preNew = "mbsync --all";
       postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
     };
     new = {
@@ -286,6 +285,7 @@ in {
 
   services.mbsync = {
     enable = true;
+    postExec = "${pkgs.notmuch}/bin/notmuch new";
   };
 
   accounts.email = {
