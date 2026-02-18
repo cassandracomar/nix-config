@@ -468,7 +468,7 @@ in {
         };
         primary = true;
         realName = "Cassandra Comar";
-        imap.host = "127.0.0.1:1043";
+        imap.host = "127.0.0.1:1143";
         smtp = {
           host = "127.0.0.1:1025";
         };
@@ -487,14 +487,14 @@ in {
     enable = true;
     imitateOutlook = true;
     settings = {
-      "davmail.allowRemote" = false;
+      # "davmail.allowRemote" = false;
       "davmail.bindAddress" = "127.0.0.1";
       "davmail.caldavAutoSchedule" = true;
-      "davmail.imapPort" = 1043;
-      "davmail.smtpPort" = 1025;
+      # "davmail.imapPort" = 1043;
+      # "davmail.smtpPort" = 1025;
       "davmail.url" = "https://webmail.drwholdings.com/owa";
-      "davmail.mode" = "O365Modern";
-      "davmail.server" = true;
+      # "davmail.mode" = "O365Modern";
+      # "davmail.server" = true;
     };
   };
 
