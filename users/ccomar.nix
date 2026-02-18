@@ -471,10 +471,12 @@ in {
         imap = {
           host = "127.0.0.1";
           port = 1143;
+          tls.enable = false;
         };
         smtp = {
           host = "127.0.0.1";
           port = 1025;
+          tls.enable = false;
         };
         msmtp.enable = true;
         notmuch.enable = true;
