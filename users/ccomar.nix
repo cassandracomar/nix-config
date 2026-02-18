@@ -459,6 +459,27 @@ in {
         };
         userName = "cass@mountclare.net";
       };
+      "ccomar@drwholdings.com" = {
+        address = "ccomar@drwholdings.com";
+        passwordCommand = "${pkgs.rbw}/bin/rbw get drwholdings.com ccomar";
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        primary = true;
+        realName = "Cassandra Comar";
+        imap.host = "127.0.0.143:1043";
+        smtp = {
+          host = "127.0.0.143:1025";
+        };
+        msmtp.enable = true;
+        notmuch.enable = true;
+        imapnotify = {
+          enable = true;
+          onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
+        };
+        userName = "cass@mountclare.net";
+      };
     };
   };
 
@@ -469,8 +490,8 @@ in {
       "davmail.allowRemote" = false;
       "davmail.bindAddress" = "127.0.0.143";
       "davmail.caldavAutoSchedule" = true;
-      "davmail.imapPort" = 143;
-      "davmail.smtpPort" = 25;
+      "davmail.imapPort" = 1043;
+      "davmail.smtpPort" = 1025;
       "davmail.url" = "https://webmail.drwholdings.com/owa";
       "davmail.mode" = "O365Modern";
       "davmail.server" = true;
