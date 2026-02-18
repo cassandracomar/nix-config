@@ -381,7 +381,12 @@ in {
     };
   };
 
-  programs.mbsync.enable = true;
+  programs.mbsync = {
+    enable = true;
+    extraConfig = ''
+      AuthMechs LOGIN
+    '';
+  };
   programs.msmtp.enable = true;
   programs.notmuch = {
     enable = true;
@@ -434,7 +439,7 @@ in {
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync cass@nie.rs && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@nie.rs";
       };
@@ -455,7 +460,7 @@ in {
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync cass@mountclare.net && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@mountclare.net";
       };
@@ -482,9 +487,9 @@ in {
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync ccomar@drwholdings.com && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
-        userName = "us\\ccomar";
+        userName = "ccomar";
       };
     };
   };
