@@ -467,9 +467,9 @@ in {
         mbsync = {
           enable = true;
           create = "both";
-          extraConfig.account = {
-            AuthMechs = ["LOGIN"];
-          };
+          # extraConfig.account = {
+          #   AuthMechs = ["LOGIN"];
+          # };
         };
         primary = true;
         realName = "Cassandra Comar";
