@@ -468,9 +468,9 @@ in {
         };
         primary = true;
         realName = "Cassandra Comar";
-        imap.host = "127.0.0.143:1043";
+        imap.host = "127.0.0.1:1043";
         smtp = {
-          host = "127.0.0.143:1025";
+          host = "127.0.0.1:1025";
         };
         msmtp.enable = true;
         notmuch.enable = true;
@@ -488,7 +488,7 @@ in {
     imitateOutlook = true;
     settings = {
       "davmail.allowRemote" = false;
-      "davmail.bindAddress" = "127.0.0.143";
+      "davmail.bindAddress" = "127.0.0.1";
       "davmail.caldavAutoSchedule" = true;
       "davmail.imapPort" = 1043;
       "davmail.smtpPort" = 1025;
