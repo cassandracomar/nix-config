@@ -494,6 +494,7 @@ in {
       };
     };
   };
+
   services.davmail = {
     enable = true;
     settings = {
@@ -510,6 +511,9 @@ in {
       "log4j.rootLogger" = "WARN";
     };
   };
+
+  # the hardening settings applied to davmail are so severe that systemd can't even exec the process.
+  # turn these down so the process can actually be started.
   systemd.user.services.davmail.Service = {
     LockPersonality = lib.mkForce false;
     PrivateDevices = lib.mkForce false;
