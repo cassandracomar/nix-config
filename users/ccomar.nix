@@ -498,6 +498,7 @@ in {
     };
   };
   systemd.user.services.davmail.Service.ProtectHostname = lib.mkForce false;
+  systemd.user.services.davmail.Service.ProtectKernelModules = lib.mkForce false;
 
   home.stateVersion = "21.11";
 }
