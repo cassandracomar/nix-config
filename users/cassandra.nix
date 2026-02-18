@@ -293,6 +293,11 @@ in {
       maildir_separator = /
       folder_lowercases = true
 
+      [Filter.1]
+      query = 'from:amazon.com OR from:walmart.com'
+      tags = +shopping;-new
+      message = kind of spammy
+
       [InboxFilter]
     '';
   };

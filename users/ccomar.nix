@@ -411,6 +411,21 @@ in {
       maildir_separator = /
       folder_lowercases = true
 
+      [Filter.1]
+      query = 'from:amazon.com OR from:walmart.com'
+      tags = +shopping;-new
+      message = kind of spammy
+
+      [Filter.2]
+      query = 'to:github@drwholdings.com'
+      tags = +github;-new
+      message = very spammy
+
+      [Filter.3]
+      query = 'from:splunk-chi@drwholdings.com AND subject:Risk'
+      tags = +risk;+splunk;-new
+      message = very spammy
+
       [InboxFilter]
     '';
   };
