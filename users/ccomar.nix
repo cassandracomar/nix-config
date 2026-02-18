@@ -468,9 +468,13 @@ in {
         };
         primary = true;
         realName = "Cassandra Comar";
-        imap.host = "127.0.0.1:1143";
+        imap = {
+          host = "127.0.0.1";
+          port = 1143;
+        };
         smtp = {
-          host = "127.0.0.1:1025";
+          host = "127.0.0.1";
+          port = 1025;
         };
         msmtp.enable = true;
         notmuch.enable = true;
