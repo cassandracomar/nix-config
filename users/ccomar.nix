@@ -488,8 +488,8 @@ in {
     imitateOutlook = true;
     settings = {
       # "davmail.allowRemote" = false;
-      "davmail.bindAddress" = "127.0.0.1";
-      "davmail.caldavAutoSchedule" = true;
+      # "davmail.bindAddress" = "127.0.0.1";
+      # "davmail.caldavAutoSchedule" = true;
       # "davmail.imapPort" = 1043;
       # "davmail.smtpPort" = 1025;
       "davmail.url" = "https://webmail.drwholdings.com/owa";
