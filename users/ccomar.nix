@@ -469,6 +469,7 @@ in {
           create = "both";
           extraConfig.account = {
             AuthMechs = ["LOGIN"];
+            Timeout = 1200;
           };
         };
         primary = true;
