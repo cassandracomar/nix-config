@@ -267,6 +267,15 @@ in {
 
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;
+  programs.notmuch = {
+    enable = true;
+    hooks = {
+      preNew = "mbsync --all";
+    };
+  };
+  programs.afew = {
+    enable = true;
+  };
 
   services.mbsync = {
     enable = false;
@@ -288,6 +297,7 @@ in {
         host = "smtp.purelymail.com";
       };
       msmtp.enable = true;
+      notmuch.enable = true;
       userName = "cass@nie.rs";
     };
     accounts."cass@mountclare.net" = {
@@ -304,6 +314,7 @@ in {
         host = "smtp.purelymail.com";
       };
       msmtp.enable = true;
+      notmuch.enable = true;
       userName = "cass@mountclare.net";
     };
   };
