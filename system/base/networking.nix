@@ -258,4 +258,14 @@
       -----END CERTIFICATE-----
     ''
   ];
+  services.networkd-dispatcher = {
+    enable = true;
+    rules."trigger-notmuch" = {
+      onState = ["routable"];
+      script = ''
+        #!${pkgs.runtimeShell}
+        ${pkgs.sudo-rs}/bin/sudo -u ccomar ${pkgs.notmuch}/bin/notmuch new
+      '';
+    };
+  };
 }

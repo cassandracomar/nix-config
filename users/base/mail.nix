@@ -85,20 +85,4 @@
       };
     };
   };
-
-  systemd.user.services.notmuch-online = {
-    Unit = {
-      Description = "trigger notmuch when (re)connecting to the internet";
-      After = ["network-online.target"];
-    };
-
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.notmuch}/bin/notmuch new";
-    };
-
-    Install = {
-      WantedBy = ["network-online.target"];
-    };
-  };
 }
