@@ -281,6 +281,19 @@ in {
   };
   programs.afew = {
     enable = true;
+    extraConfig = ''
+      [SpamFilter]
+      [KillThreadsFilter]
+      [ListMailsFilter]
+      [ArchiveSentMailsFilter]
+
+      [FolderNameFilter.1]
+      folder_transforms = cass@nie.rs:nie.rs cass@mountclare.net:mountclare.net
+      maildir_separator = /
+      folder_lowercases = true
+
+      [InboxFilter]
+    '';
   };
 
   services.mbsync = {
