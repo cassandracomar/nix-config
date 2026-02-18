@@ -484,7 +484,7 @@ in {
           enable = true;
           onNotify = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.notifymuch}/bin/notifymuch";
         };
-        userName = "cass@mountclare.net";
+        userName = "ccomar";
       };
     };
   };
