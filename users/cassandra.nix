@@ -296,6 +296,7 @@ in {
       [InboxFilter]
     '';
   };
+  services.imapnotify.enable = true;
 
   accounts.email = {
     maildirBasePath = "${config.xdg.dataHome}/maildir";
