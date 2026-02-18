@@ -494,6 +494,28 @@ in {
       };
     };
   };
+  services.davmail = {
+    enable = true;
+    settings = {
+      "davmail.server" = true;
+      "davmail.allowRemote" = false;
+      "davmail.bindAddress" = "127.0.0.32";
+      "davmail.mode" = "Auto";
+      "davmail.url" = "https://webmail.drwholdings.com/ews/exchange.asmx";
+      "davmail.loginUrl" = "https://adfs.drwholdings.com/adfs/la/";
+      "davmail.defaultDomain" = "us";
+    };
+  };
+  systemd.user.services.davmail.Service = {
+    LockPersonality = lib.mkForce false;
+    PrivateDevices = lib.mkForce false;
+    ProtectClock = lib.mkForce false;
+    ProtectControlGroups = lib.mkForce false;
+    ProtectKernelLogs = lib.mkForce false;
+    ProtectKernelModules = lib.mkForce false;
+    ProtectKernelTunables = lib.mkForce false;
+    CapabilityBoundingSet = lib.mkForce "~";
+  };
 
   home.stateVersion = "21.11";
 }
