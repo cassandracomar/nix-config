@@ -264,7 +264,7 @@
       onState = ["routable"];
       script = ''
         #!${pkgs.runtimeShell}
-        ${pkgs.sudo-rs}/bin/sudo -u ccomar ${pkgs.notmuch}/bin/notmuch new
+        ${pkgs.sudo-rs}/bin/sudo -u cassandra ${pkgs.notmuch}/bin/notmuch new
       '';
     };
   };
