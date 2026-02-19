@@ -1,0 +1,14 @@
+diff --git a/vpn_slice/__main__.py b/vpn_slice/__main__.py
+index 6b93276..01f02be 100755
+--- a/vpn_slice/__main__.py
++++ b/vpn_slice/__main__.py
+@@ -253,8 +253,7 @@ def do_connect(env, args):
+         if 'domain_vpn_dns' not in providers:
+             print("WARNING: no split dns provider available; trying resolvectl...", file=stderr)
+             print(subprocess.run(['resolvectl', 'dns', 'tun0', *map(str, env.dns)]), file=stderr)
+-            for domain in args.vpn_domains:
+-                print(subprocess.run(['resolvectl', 'domain', 'tun0', domain]), file=stderr)
++            print(subprocess.run(['resolvectl', 'domain', 'tun0'] + args.vpn_domains), file=stderr)
+         else:
+             providers.domain_vpn_dns.configure_domain_vpn_dns(args.vpn_domains, env.dns)
+ 
