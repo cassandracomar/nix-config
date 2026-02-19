@@ -9,7 +9,10 @@
     enable = true;
     hooks = {
       preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
-      postNew = "${pkgs.afew}/bin/afew --tag --new --verbose";
+      postNew = ''
+        ${pkgs.afew}/bin/afew --tag --new --verbose
+        ${pkgs.notifymuch}/bin/notifymuch
+      '';
     };
     new = {
       ignore = ["trash" "*.json"];
