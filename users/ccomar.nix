@@ -221,7 +221,7 @@ in {
     settings = {
       email = "cass@ndra.io";
       pinentry = pkgs.pinentry-rofi;
-      lock_timeout = 3600;
+      lock_timeout = 86400;
     };
   };
 
