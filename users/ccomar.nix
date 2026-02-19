@@ -427,6 +427,11 @@ in {
     tags = +sentry;-inbox;-new
     message = spammy and of questionable relevance
 
+    [Filter.10]
+    query = 'from:daily@updates.miro.com'
+    tags = +miro;-inbox;-new
+    message = spam
+
     [InboxFilter]
   '';
 
