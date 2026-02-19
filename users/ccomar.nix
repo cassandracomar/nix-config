@@ -422,6 +422,11 @@ in {
     tags = +alerts;+important;-inbox
     message = keep an eye on these separately
 
+    [Filter.9]
+    query = 'from:srv_sentry@drwholdings.com'
+    tags = +sentry;-inbox;-new
+    message = spammy and of questionable relevance
+
     [InboxFilter]
   '';
 
