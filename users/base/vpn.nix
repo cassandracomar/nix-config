@@ -15,12 +15,16 @@
       ];
   });
   launch-split = pkgs.writeShellScript "launch-split.sh" ''
-    ${vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw,us.drwholdings.com --verbose --dump 10.0.0.0/8 2>&1 \
+    ${vpn-slice}/bin/vpn-slice --no-fork \
+      --domains-vpn-dns drwholdings.com,drw,us.drwholdings.com \
+      --no-host-names \
+      --no-ns-hosts \
+      --verbose \
+      --dump \
+      10.0.0.0/8 2>&1 \
     | sudo -u ${config.home.username} systemd-cat -t vpn-slice
   '';
   launch-vpn = pkgs.writeShellScript "launch-vpn.sh" ''
-    sudo sed -i 's/fake/bogus/' /etc/hosts
-
     ${pkgs.rbw}/bin/rbw get drwholdings.com ccomar \
     | sudo ${pkgs.openconnect}/bin/openconnect --pid-file "$XDG_RUNTIME_DIR"/openconnect.pid \
         --user=ccomar \
