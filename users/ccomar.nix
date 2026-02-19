@@ -382,6 +382,11 @@ in {
   };
 
   programs.afew.extraConfig = ''
+    [FolderNameFilter.2]
+    folder_transforms = ccomar@drwholdings.net:drwholdings.net
+    maildir_separator = /
+    folder_lowercases = true
+
     [Filter.2]
     query = 'to:github@drwholdings.com'
     tags = +github;-new;-inbox
