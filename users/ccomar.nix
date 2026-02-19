@@ -409,7 +409,7 @@ in {
 
     [Filter.6]
     query = 'from:no-reply@pagerduty.com'
-    tags = +pagerduty;+important;-inbox
+    tags = +pagerduty;+alerts;+important;-inbox
     message = keep an eye on these separately
 
     [Filter.7]
