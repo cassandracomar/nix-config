@@ -14,7 +14,7 @@
       ];
   });
   launch-split = pkgs.writeShellScript "launch-split.sh" ''
-    ${vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw,us.drwholdings.com --verbose --dump 10.0.0.0/8 2>&1 \
+    ${vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw --verbose --dump 10.0.0.0/8 2>&1 \
     | sudo -u ${config.home.username} systemd-cat -t vpn-slice
   '';
   launch-vpn = pkgs.writeShellScript "launch-vpn.sh" ''
@@ -36,7 +36,7 @@
     fi
   '';
   fixup-dns = pkgs.writeShellScript "fixup-dns.sh" ''
-    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw us.drwholdings.com
+    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw
   '';
 in {
   systemd.user.services.anyconnect = {
