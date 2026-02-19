@@ -402,6 +402,11 @@ in {
     tags = +statushero;-new;-inbox
     message = spam
 
+    [Filter.5]
+    query = 'subject:"Posit Connect"'
+    tags = +risk;-new;-inbox
+    message = irrelevant
+
     [InboxFilter]
   '';
 
