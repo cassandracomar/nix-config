@@ -407,6 +407,11 @@ in {
     tags = +risk;-new;-inbox
     message = irrelevant
 
+    [Filter.6]
+    query = 'from:no-reply@pagerduty.com'
+    tags = +pagerduty;+important;-inbox
+    message = keep an eye on these separately
+
     [InboxFilter]
   '';
 
