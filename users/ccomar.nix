@@ -398,7 +398,7 @@ in {
     message = very spammy
 
     [Filter.4]
-    query = 'from:app@statushero.com'
+    query = 'from:app@statushero.com or from:notifications@app.steady.space'
     tags = +statushero;-new;-inbox
     message = spam
 
