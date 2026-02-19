@@ -35,7 +35,7 @@
       sudo kill "$MAINPID" "$(cat "$XDG_RUNTIME_DIR"/openconnect.pid)"
     fi
   '';
-  fixup-dns = pkgs.writeShellScript "fixup-dns.sh" ''
+  fixup-dns = pkgs.writeShellScriptBin "vpn-fixup-dns.sh" ''
     sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw drw.slack.com
   '';
 in {
@@ -50,21 +50,5 @@ in {
       ExecStop = "${kill-vpn}";
     };
   };
-  systemd.user.services.vpn-dns = {
-    Unit = {
-      Description = "fixup vpn dns";
-      After = ["anyconnect.service"];
-      BindsTo = ["anyconnect.service"];
-    };
-
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${fixup-dns}";
-      RemainAfterExit = true;
-    };
-
-    Install = {
-      WantedBy = ["anyconnect.service"];
-    };
-  };
+  home.packages = [fixup-dns];
 }
