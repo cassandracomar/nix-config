@@ -231,6 +231,14 @@ in {
       slurp
       grim
       nixfmt
+      (pkgs.writeScriptBin "rofi-askpass.sh" ''
+        #!/usr/bin/env bash
+        ${pkgs.rofi}/bin/rofi -dmenu \
+            -password \
+            -i \
+            -no-fixed-num-lines \
+            -p "$1 password:"
+      '')
     ];
 
   services.clipcat = {

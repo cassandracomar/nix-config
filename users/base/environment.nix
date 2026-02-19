@@ -2,7 +2,16 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  rofi-askpass = pkgs.writeScriptBin "rofi-askpass.sh" ''
+    #!/usr/bin/env bash
+      rofi -dmenu \
+          -password \
+          -i \
+          -no-fixed-num-lines \
+          -p "Password:"
+  '';
+in {
   home.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
     MOZ_ACCELERATED = "1";
@@ -15,10 +24,14 @@
     ROFI_SCREENSHOT_DIR = "${config.xdg.userDirs.pictures}/screenshots";
     GODEBUG = "netedns0=0";
     NH_FLAKE = "${config.home.homeDirectory}/src/github.com/cassandracomar/nix-config";
+    SSH_ASKPASS = "${rofi-askpass}/bin/rofi-askpass.sh";
+    SSH_ASKPASS_REQUIRE = "force";
+    SUDO_ASKPASS = "${rofi-askpass}/bin/rofi-askpass.sh";
   };
 
   home.sessionPath = ["${config.home.homeDirectory}/.cargo/bin" "${config.home.homeDirectory}/.local/bin" "${config.home.homeDirectory}/.krew/bin"];
   xdg.systemDirs.data = ["$HOME/.nix-profile/share"];
+  home.packages = [rofi-askpass];
 
   xdg.userDirs = {
     enable = true;
