@@ -60,7 +60,6 @@ in {
     Service = {
       Type = "oneshot";
       ExecStart = "${fixup-dns}";
-      RemainAfterExit = true;
     };
 
     Install = {
