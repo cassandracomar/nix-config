@@ -36,7 +36,8 @@
     fi
   '';
   fixup-dns = pkgs.writeShellScript "fixup-dns.sh" ''
-    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw
+    sleep 5
+    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw us.drwholdings.com
   '';
 in {
   systemd.user.services.anyconnect = {
