@@ -437,6 +437,11 @@ in {
     tags = +vsp;-inbox;-new
     message = spam
 
+    [Filter.12]
+    query = 'from:servicectr@bloomberg.net'
+    tags = +bloomberg;-inbox;-new
+    message = spam
+
     [InboxFilter]
   '';
 
