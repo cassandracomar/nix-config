@@ -432,6 +432,11 @@ in {
     tags = +miro;-inbox;-new
     message = spam
 
+    [Filter.11]
+    query = 'from:VSPVisionCareVCM@e.vsp.com'
+    tags = +vsp;-inbox;-new
+    message = spam
+
     [InboxFilter]
   '';
 
