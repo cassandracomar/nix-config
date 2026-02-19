@@ -14,7 +14,7 @@
       ];
   });
   launch-split = pkgs.writeShellScript "launch-split.sh" ''
-    ${vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw,drw.slack.com --verbose --dump 10.0.0.0/8 2>&1 \
+    ${vpn-slice}/bin/vpn-slice --no-fork --domains-vpn-dns drwholdings.com,drw,us.drwholdings.com --verbose --dump 10.0.0.0/8 2>&1 \
     | sudo -u ${config.home.username} systemd-cat -t vpn-slice
   '';
   launch-vpn = pkgs.writeShellScript "launch-vpn.sh" ''
@@ -35,8 +35,8 @@
       sudo kill "$MAINPID" "$(cat "$XDG_RUNTIME_DIR"/openconnect.pid)"
     fi
   '';
-  fixup-dns = pkgs.writeShellScriptBin "vpn-fixup-dns.sh" ''
-    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw drw.slack.com
+  fixup-dns = pkgs.writeShellScript "fixup-dns.sh" ''
+    sudo ${pkgs.systemd}/bin/resolvectl domain tun0 drwholdings.com drw us.drwholdings.com
   '';
 in {
   systemd.user.services.anyconnect = {
@@ -50,5 +50,21 @@ in {
       ExecStop = "${kill-vpn}";
     };
   };
-  home.packages = [fixup-dns];
+  systemd.user.services.vpn-dns = {
+    Unit = {
+      Description = "fixup vpn dns";
+      After = ["anyconnect.service"];
+      BindsTo = ["anyconnect.service"];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${fixup-dns}";
+      RemainAfterExit = true;
+    };
+
+    Install = {
+      WantedBy = ["anyconnect.service"];
+    };
+  };
 }
