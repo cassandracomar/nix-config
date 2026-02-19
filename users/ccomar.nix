@@ -442,6 +442,11 @@ in {
     tags = +bloomberg;-inbox;-new
     message = spam
 
+    [Filter.13]
+    query = 'from:Communications@DRWHoldings.com'
+    tags = +communications;-inbox;-new
+    message = too noisy
+
     [InboxFilter]
   '';
 
