@@ -412,6 +412,16 @@ in {
     tags = +pagerduty;+important;-inbox
     message = keep an eye on these separately
 
+    [Filter.7]
+    query = 'from:drw@service-now.com'
+    tags = +servicenow;-new;-inbox
+    message = these are mostly irrelevant
+
+    [Filter.8]
+    query = 'to:/up-.*-alerts@drw/'
+    tags = +alerts;+important;-inbox
+    message = keep an eye on these separately
+
     [InboxFilter]
   '';
 
