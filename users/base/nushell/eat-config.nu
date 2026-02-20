@@ -101,11 +101,18 @@ module eat {
     notify "51;e;M" $'($msg_command);($msg_args | str join ";")'
   }
 
-  # Open a file in Emacs
+  # open a file in emacs
   export def open [
-    filepath: path # File to open
+    filepath: path # file to open
   ] {
     send "open" $filepath
+  }
+
+  # call a git command
+  export def "git status" [
+    ...args: string # subcommand arguments
+  ] {
+    send "git" "status" ...($args)
   }
 
   # update the eat terminal title
@@ -138,6 +145,10 @@ eat enable_integration
 #    (cl-callf find-file (car args) (cdr args)))
 #  (add-to-list 'eat-message-handler-alist '("open" . +eat/nu-open))
 alias find-file = eat open
+
+export def "git status" [command: string, ...args: string] {
+  eat git status $command ...($args)
+}
 
 # there are also probably other useful aliases/handlers one could add
 # -- e.g. using emacs' native manpage render for manpages.
