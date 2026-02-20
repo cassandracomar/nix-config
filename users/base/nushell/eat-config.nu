@@ -146,8 +146,8 @@ eat enable_integration
 #  (add-to-list 'eat-message-handler-alist '("open" . +eat/nu-open))
 alias find-file = eat open
 
-export def "git status" [command: string, ...args: string] {
-  eat git status $command ...($args)
+export def "git status" [...args: string] {
+  eat git status ...($args)
 }
 
 # there are also probably other useful aliases/handlers one could add
