@@ -108,11 +108,12 @@ module eat {
     send "open" $filepath
   }
 
-  # call a git command
-  export def "git status" [
-    ...args: string # subcommand arguments
+  # invoke a magit command
+  export def "magit" [
+    command: string
+    ...args: string
   ] {
-    send "git" "status" ...($args)
+    send "git" $command ...($args)
   }
 
   # update the eat terminal title
@@ -147,7 +148,11 @@ eat enable_integration
 alias find-file = eat open
 
 export def "git status" [...args: string] {
-  eat git status ...($args)
+  eat magit status ...($args)
+}
+
+export def "git log" [...args: string] {
+  eat magit log ...($args)
 }
 
 # there are also probably other useful aliases/handlers one could add
