@@ -33,13 +33,13 @@ in {
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
 
   boot.kernelPatches = [
-    {
-      name = "lact-max-clocks";
-      patch = pkgs.fetchpatch {
-        url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
-        sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
-      };
-    }
+    # {
+    #   name = "lact-max-clocks";
+    #   patch = pkgs.fetchpatch {
+    #     url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
+    #     sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
+    #   };
+    # }
   ];
 
   environment.systemPackages = [pkgs.lact perf autofdo-profile];
