@@ -17,6 +17,7 @@
     pandoc
     nodePackages.bash-language-server
     yaml-language-server
+    yaml-schema-router
     dockerfile-language-server
     # gcc
     # stdenv_mold
