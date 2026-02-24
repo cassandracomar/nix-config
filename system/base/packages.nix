@@ -24,7 +24,6 @@
     pinentry-curses
     paperkey
     virt-manager
-    pulseeffects-legacy
     p7zip
     unrar
     unzip
