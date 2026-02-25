@@ -80,30 +80,6 @@ in {
   ];
   home.sessionVariables.GITHUB_USER = git_config.github.user;
   programs.doom-emacs.emacs = emacs';
-  # home.file."personal.gitconfig" = {
-  #   target = ".personal.gitconfig";
-  #   source = pkgs.writeTextFile {
-  #     name = ".personal.gitconfig";
-  #     text = ''
-  #       [user]
-  #       	email = "${git_config.userEmail}"
-  #       	name = "${git_config.userName}"
-  #       	signingKey = "${git_config.signing.key}"
-  #     '';
-  #   };
-  # };
-  # home.file.".work.gitconfig" = {
-  #   target = ".work.gitconfig";
-  #   source = pkgs.writeTextFile {
-  #     name = ".work.gitconfig";
-  #     text = ''
-  #       [user]
-  #       	email = "ccomar@drwholdings.com"
-  #       	name = "Cassandra Comar"
-  #       	signingKey = "0x0DF1B6D8D3880CC2"
-  #     '';
-  #   };
-  # };
 
   programs.rbw = {
     enable = true;
@@ -129,8 +105,7 @@ in {
       gpg = {
         program = "${pkgs.gnupg}/bin/gpg2";
       };
-      # includeIf."gitdir:/home/cassandra/src/git.drwholdings.com/".path = "/home/cassandra/.work.gitconfig";
-      # includeIf."gitdir:/home/cassandra/src/github.com/".path = "/home/cassandra/.personal.gitconfig";
+      user.signingKey = git_config.signing.signByDefault;
     };
   };
 
