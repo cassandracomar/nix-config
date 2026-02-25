@@ -7,7 +7,10 @@
     userName = "Cassandra Comar";
     userEmail = "cass@mountclare.net";
     github.user = "cassandracomar";
-    signing.key = "104EE74E24A0372BEAF55533B01918F77E04AC99";
+    signing = {
+      signByDefault = true;
+      key = "104EE74E24A0372BEAF55533B01918F77E04AC99";
+    };
   };
 
   complete_alias = pkgs.stdenv.mkDerivation {
