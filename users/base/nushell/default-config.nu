@@ -93,7 +93,11 @@ export def --wrapped "nh os upgrade" [...raw_args: string] {
   }
 
   nh os switch ...($args) ...($raw_args)
-  nix store optimise
+  if $host != null and $hostname != $host {
+    ssh ($host).local nix store optimise
+  } else {
+    nix store optimise
+  }
 }
 
 export def --wrapped "nh home upgrade" [...raw_args] {
