@@ -7,6 +7,7 @@
     userName = "Cassandra Comar";
     userEmail = "cass@mountclare.net";
     github.user = "cassandracomar";
+    signing.key = "104EE74E24A0372BEAF55533B01918F77E04AC99";
   };
 
   complete_alias = pkgs.stdenv.mkDerivation {
@@ -119,9 +120,9 @@ in {
       };
       pull.rebase = false;
       inherit (git_config) github;
-      # tag = {
-      #   gpgsign = git_config.signing.signByDefault;
-      # };
+      tag = {
+        gpgsign = git_config.signing.signByDefault;
+      };
       gpg = {
         program = "${pkgs.gnupg}/bin/gpg2";
       };
