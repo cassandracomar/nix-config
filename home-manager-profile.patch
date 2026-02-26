@@ -1,0 +1,31 @@
+diff --git a/modules/home-environment.nix b/modules/home-environment.nix
+index 76bc9241..4f4904c7 100644
+--- a/modules/home-environment.nix
++++ b/modules/home-environment.nix
+@@ -712,11 +712,11 @@ in
+ 
+             nixProfileRemove 'home-manager-path'
+ 
+-            run $oldNix profile add $1
++            run $oldNix profile install $1
+           }
+ 
+           if [[ -e ${cfg.profileDirectory}/manifest.json ]] ; then
+-            INSTALL_CMD="nix profile add"
++            INSTALL_CMD="nix profile install"
+             INSTALL_CMD_ACTUAL="nixReplaceProfile"
+             LIST_CMD="nix profile list"
+             REMOVE_CMD_SYNTAX='nix profile remove {number | store path}'
+diff --git a/tests/integration/standalone/flake-basics.nix b/tests/integration/standalone/flake-basics.nix
+index 51424aca..137b2a25 100644
+--- a/tests/integration/standalone/flake-basics.nix
++++ b/tests/integration/standalone/flake-basics.nix
+@@ -54,7 +54,7 @@
+ 
+     # Make sure that Alice has a "nix profile" compatible profile.
+     if True:
+-      succeed_as_alice("nix profile add nixpkgs#cowsay")
++      succeed_as_alice("nix profile install nixpkgs#cowsay")
+       result = succeed_as_alice("cowsay Hello")
+       machine.log(f"\n{result}")
+ 

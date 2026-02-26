@@ -2,7 +2,7 @@
   # pkg registries
   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
   inputs.flake-input-patcher.url = "github:jfly/flake-input-patcher";
-  inputs.home-manager.url = "github:nix-community/home-manager/603626a8da9e1b622e55251a90ef486b8179334c";
+  inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +42,6 @@
   outputs = {
     nixpkgs,
     flake-input-patcher,
-    home-manager,
     emacs,
     nur,
     pinnacle,
@@ -73,7 +72,9 @@
           sha256 = "sha256-cELe2shVKfaYquV/I24D0uAXx3wjCIrV/amK1LAwQEA=";
         })
       ];
+      home-manager.patches = [./home-manager-profile.patch];
     };
+    home-manager = inputs'.home-manager;
 
     overlays = [
       cachyos-kernel.overlays.default
