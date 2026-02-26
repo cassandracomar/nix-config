@@ -9,7 +9,7 @@
   nixpkgs.hostPlatform = system;
 
   nix = {
-    package = pkgs.lixPackageSets.stable.lix;
+    package = pkgs.lixPackageSets.latest.lix;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
