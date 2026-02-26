@@ -122,6 +122,7 @@ in {
       xdg-portals.enable = true;
     };
   };
+  systemd.user.services.pinnacle.Service.Environment = ["PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128" "WGPU_POWER_PREF=low"];
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
 
   services.wpaperd.package = pkgs.wpaperd;
