@@ -191,7 +191,6 @@ in {
     pinentry-gnome3
     paperkey
     virt-manager
-    pulseeffects-legacy
     p7zip
     unrar
     unzip
