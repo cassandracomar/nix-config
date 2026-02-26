@@ -49,7 +49,6 @@ in {
     enableZshIntegration = true;
     nix-direnv = {
       enable = true;
-      package = pkgs.lixPackageSets.stable.nix-direnv;
     };
   };
 }
