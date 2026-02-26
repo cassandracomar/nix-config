@@ -2,7 +2,6 @@
   imports = [
     ./emacs.nix
     ./environment.nix
-    ./games.nix
     ./haskell.nix
     ./kubernetes.nix
     ./mail.nix

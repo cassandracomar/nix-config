@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{pkgs, ...}: let
   git_config = {
     userName = "Cassandra Comar";
     userEmail = "cass@mountclare.net";
@@ -62,7 +58,7 @@
     );
   });
 in {
-  imports = [./base];
+  imports = [./base ./base/games.nix];
 
   home.username = "cassandra";
   home.homeDirectory = "/home/cassandra";
