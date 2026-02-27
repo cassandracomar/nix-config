@@ -1,0 +1,28 @@
+diff --git a/src/etc/davmail.properties b/src/etc/davmail.properties
+index 32dd6721..440dc99c 100644
+--- a/src/etc/davmail.properties
++++ b/src/etc/davmail.properties
+@@ -53,6 +53,10 @@ davmail.smtpPort=1025
+ # OIDC EWS scopes
+ #davmail.oauth.scope=openid profile offline_access https://outlook.office365.com/EWS.AccessAsUser.All
+ 
++# graph
++#davmail.graphUrl=https://graph.microsoft.com
++#davmail.graphPrefix=beta
++
+ # Optional: separate file to store Oauth tokens
+ #davmail.oauth.tokenFilePath=
+ 
+diff --git a/src/java/davmail/exchange/graph/GraphRequestBuilder.java b/src/java/davmail/exchange/graph/GraphRequestBuilder.java
+index 6c222a79..5a94c982 100644
+--- a/src/java/davmail/exchange/graph/GraphRequestBuilder.java
++++ b/src/java/davmail/exchange/graph/GraphRequestBuilder.java
+@@ -50,7 +50,7 @@ public class GraphRequestBuilder {
+ 
+     String contentType = "application/json";
+     String baseUrl = Settings.getGraphUrl();
+-    String version = Settings.getProperty("davmail.graphVersion", "beta");
++    String version = Settings.getProperty("davmail.graphPrefix", "beta");
+     String mailbox;
+     String objectType;
+ 
