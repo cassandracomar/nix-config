@@ -496,8 +496,8 @@ in {
       "davmail.url" = "https://webmail.drwholdings.com/ews/exchange.asmx";
       "davmail.loginUrl" = "https://adfs.drwholdings.com/adfs/la/";
       "davmail.defaultDomain" = "us";
-      "davmail.outlookUrl " = "https://webmail.drwholdings.com/owa/";
-      "davmail.oauth.clientId " = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
+      "davmail.outlookUrl" = "https://webmail.drwholdings.com/owa/";
+      "davmail.oauth.clientId" = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
       "davmail.oauth.redirectUri" = "http://127.0.0.32/common/oauth2/nativeclient";
       "davmail.enableGraph" = true;
       "davmail.enableOidc" = false;
