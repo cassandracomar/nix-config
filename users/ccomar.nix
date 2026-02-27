@@ -492,13 +492,13 @@ in {
       "davmail.server" = true;
       "davmail.allowRemote" = false;
       "davmail.bindAddress" = "127.0.0.32";
-      "davmail.mode" = "O365Modern";
-      "davmail.url" = "https://webmail.drwholdings.com/ews/exchange.asmx";
-      "davmail.loginUrl" = "https://adfs.drwholdings.com/adfs/la/";
+      "davmail.mode" = "O365";
+      "davmail.url" = "https://webmail.drwholdings.com/owa/";
+      "davmail.loginUrl" = "https://webmail.drwholdings.com/owa/common/oauth2/authorize";
       "davmail.defaultDomain" = "us";
       "davmail.outlookUrl" = "https://webmail.drwholdings.com/owa/";
       "davmail.oauth.clientId" = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
-      "davmail.oauth.redirectUri" = "http://127.0.0.32/common/oauth2/nativeclient";
+      "davmail.oauth.redirectUri" = "http://127.0.0.32/owa/common/oauth2/nativeclient";
       "davmail.enableGraph" = true;
       "davmail.enableOidc" = false;
       "davmail.graphUrl" = "https://webmail.drwholdings.com/owa/graph";
