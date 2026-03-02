@@ -5,7 +5,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-  inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
+  # inputs.cachyos-kernel.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-index.url = "github:nix-community/nix-index";
   inputs.nix-index.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-index-database.url = "github:nix-community/nix-index-database";
