@@ -133,8 +133,10 @@
         settings = {
           main = {
             "1" = "mouseforward";
+            "2" = "f11";
             "3" = "mouseback";
             "4" = "mouse1";
+            "5" = "f12";
             "6" = "mouse2";
           };
         };
