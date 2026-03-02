@@ -129,7 +129,7 @@
         };
       };
       naga = {
-        ids = ["1532:00a7:*"];
+        ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f"];
         settings = {
           main = {
             "1" = "mouseforward";
