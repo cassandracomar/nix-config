@@ -110,5 +110,9 @@
       vendor = "046d";
       product = "c08b";
     }
+    {
+      vendor = "1532";
+      product = "00a7";
+    }
   ];
 }
