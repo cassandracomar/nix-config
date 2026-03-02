@@ -101,7 +101,6 @@
     cpu-x
     lm_sensors
     (pkgs.writeScriptBin "firefox" (builtins.readFile ../scripts/firefox))
-    keyd
   ];
 
   services.openssh.enable = true;
@@ -117,16 +116,7 @@
     }
   ];
 
-  services.keyd = {
+  services.input-remapper = {
     enable = true;
-    keyboards.naga = {
-      ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f" "1532:00a7:58ecc9da"];
-      settings = {
-        main = {
-          "1" = "mouse4";
-          "3" = "mouse5";
-        };
-      };
-    };
   };
 }
