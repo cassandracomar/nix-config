@@ -604,11 +604,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1772359081,
-        "narHash": "sha256-/EblNb7RqX4zA0YHht97WweZYtoFWjBYvAiOIylgLgA=",
-        "rev": "42bbf3e1e000963f4f3f37daa822c67c4d8856c4",
+        "lastModified": 1772419343,
+        "narHash": "sha256-xAHiI07j8nMZuA53r40AoWgYH9bKCgaVowNq5MpkE3g=",
+        "rev": "93178f6a00c22fcdee1c6f5f9ab92f2072072ea9",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre956570.42bbf3e1e000/nixexprs.tar.xz?lastModified=1772359081&rev=42bbf3e1e000963f4f3f37daa822c67c4d8856c4"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre956909.93178f6a00c2/nixexprs.tar.xz?lastModified=1772419343&rev=93178f6a00c22fcdee1c6f5f9ab92f2072072ea9"
       },
       "original": {
         "type": "tarball",
@@ -664,11 +664,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771865260,
-        "narHash": "sha256-NkdVvMFSBMRaKWRg5qM/ymrQKsvCMsJ3oPZHfquD5xk=",
+        "lastModified": 1772461501,
+        "narHash": "sha256-257KzTKXLrFygO8Q2M05F6WS2Zwmpj64ON+AAAvRjq0=",
         "owner": "cassandracomar",
         "repo": "pinnacle-config",
-        "rev": "35f86e2132ca8e15c0796199b6b1ea165b4db3b4",
+        "rev": "217c1ce076b5c6835a14cf01eaa8c86fe1655ffe",
         "type": "github"
       },
       "original": {
