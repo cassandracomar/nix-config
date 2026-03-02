@@ -123,8 +123,10 @@
       ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f" "1532:00a7:58ecc9da"];
       settings = {
         main = {
-          "6" = "mouse2";
+          "1" = "mouseforward";
+          "3" = "mouseback";
           "4" = "mouse1";
+          "6" = "mouse2";
         };
       };
     };
