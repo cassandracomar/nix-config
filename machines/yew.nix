@@ -122,10 +122,9 @@
     keyboards.naga = {
       ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f" "1532:00a7:58ecc9da"];
       settings = {
-        main = {};
-        firefox = {
-          "6" = "C-[";
-          "4" = "C-]";
+        main = {
+          "kp6" = "mouseforward";
+          "kp4" = "mouseback";
         };
       };
     };
