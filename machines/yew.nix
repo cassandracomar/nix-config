@@ -130,7 +130,6 @@
     };
   };
   virtualisation.virtualbox = {
-    enable = true;
     host = {
       enable = true;
       enableExtensionPack = true;
