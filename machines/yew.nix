@@ -119,14 +119,24 @@
 
   services.keyd = {
     enable = true;
-    keyboards.naga = {
-      ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f" "1532:00a7:58ecc9da"];
-      settings = {
-        main = {
-          "1" = "mouseforward";
-          "3" = "mouseback";
-          "4" = "mouse1";
-          "6" = "mouse2";
+    keyboards = {
+      ergodox = {
+        ids = ["feed:1307:*"];
+        settings = {
+          main = {
+            esc = "overload(control, esc)";
+          };
+        };
+      };
+      naga = {
+        ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f" "1532:00a7:58ecc9da"];
+        settings = {
+          main = {
+            "1" = "mouseforward";
+            "3" = "mouseback";
+            "4" = "mouse1";
+            "6" = "mouse2";
+          };
         };
       };
     };
