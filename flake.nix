@@ -171,6 +171,7 @@
             "libvirtd"
             "jackaudio"
             "adbusers"
+            "vboxusers"
           ];
           # shell = pkgs.nushell;
           hashedPasswordFile = "/etc/nixos/${username}.passwd";
@@ -218,7 +219,6 @@
           users.users.${username} = {
             initialHashedPassword = pkgs.lib.mkForce "";
             hashedPasswordFile = pkgs.lib.mkForce null;
-            extraGroups = ["vboxusers"];
           };
         })
         homeUsers
