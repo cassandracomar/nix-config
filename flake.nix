@@ -77,7 +77,7 @@
     home-manager = inputs'.home-manager;
 
     overlays = [
-      cachyos-kernel.overlays.default
+      cachyos-kernel.overlays.pinned
       emacs.overlay
       nur.overlays.default
       pinnacle.overlays.default
