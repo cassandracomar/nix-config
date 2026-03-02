@@ -116,8 +116,25 @@
     }
   ];
 
-  services.input-remapper = {
+  services.keyd = {
     enable = true;
-    enableUdevRules = true;
+    keyboards.naga = {
+      ids = ["1532:00a7:58ecc9da" "1532:00a7:689c585f" "1532:00a7:58ecc9da"];
+      settings = {
+        main = {};
+        firefox = {
+          "6" = "C-[";
+          "4" = "C-]";
+        };
+      };
+    };
+  };
+  virtualisation.virtualbox = {
+    enable = true;
+    host = {
+      enable = true;
+      enableExtensionPack = true;
+      enableKvm = true;
+    };
   };
 }
