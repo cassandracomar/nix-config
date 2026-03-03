@@ -528,6 +528,7 @@ in {
     ProtectKernelModules = lib.mkForce false;
     ProtectKernelTunables = lib.mkForce false;
     CapabilityBoundingSet = lib.mkForce "~";
+    Environment = ["JAVA_OPTS='-Xmx10G -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=3'"];
   };
 
   home.stateVersion = "21.11";
