@@ -167,7 +167,6 @@ in {
     arphic-ukai
     arphic-uming
     font-awesome
-    noto-fonts
     source-han-sans
     wqy_microhei
     wqy_zenhei
