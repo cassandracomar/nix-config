@@ -477,6 +477,7 @@ in {
         msmtp = {
           enable = true;
           extraConfig = {
+            auth = "login";
             tls = "off";
           };
         };
