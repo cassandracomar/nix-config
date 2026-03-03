@@ -41,6 +41,7 @@
 
   outputs = {
     nixpkgs,
+    home-manager,
     flake-input-patcher,
     emacs,
     nur,
@@ -72,9 +73,7 @@
           sha256 = "sha256-cELe2shVKfaYquV/I24D0uAXx3wjCIrV/amK1LAwQEA=";
         })
       ];
-      home-manager.patches = [./home-manager-profile.patch];
     };
-    home-manager = inputs'.home-manager;
 
     overlays = [
       cachyos-kernel.overlays.pinned
