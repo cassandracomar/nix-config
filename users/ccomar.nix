@@ -151,7 +151,7 @@ in {
     iosevka-nerd-font
     inconsolata
     inconsolata-lgc
-    # noto-fonts
+    noto-fonts
     # noto-fonts-cjk-sans
     # noto-fonts-color-emoji
     dejavu_fonts
