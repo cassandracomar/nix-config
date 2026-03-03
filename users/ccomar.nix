@@ -213,6 +213,8 @@ in {
     prettier
     terragrunt
     nh
+    nodejs-slim
+    prettier
   ];
 
   programs.rbw = {
