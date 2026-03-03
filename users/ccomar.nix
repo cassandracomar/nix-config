@@ -475,7 +475,12 @@ in {
           port = 1025;
           tls.enable = false;
         };
-        msmtp.enable = true;
+        msmtp = {
+          enable = true;
+          extraConfig = {
+            tls = false;
+          };
+        };
         notmuch.enable = true;
         imapnotify = {
           enable = true;
