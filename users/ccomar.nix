@@ -152,8 +152,8 @@ in {
     inconsolata
     inconsolata-lgc
     # noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
+    # noto-fonts-cjk-sans
+    # noto-fonts-color-emoji
     dejavu_fonts
     powerline-fonts
     corefonts
