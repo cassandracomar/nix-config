@@ -478,7 +478,7 @@ in {
         msmtp = {
           enable = true;
           extraConfig = {
-            tls = false;
+            tls = "off";
           };
         };
         notmuch.enable = true;
