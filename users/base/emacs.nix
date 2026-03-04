@@ -52,6 +52,11 @@
       pinentry-emacs
       emacs-lsp-booster
     ];
+    emacsPackageOverrides = final: prev: {
+      dumb-jump = prev.dumb-jump.overrideAttrs (old: {
+        packageRequires = (old.packageRequires or []) ++ [final.dash];
+      });
+    };
   };
   services.emacs = {
     enable = true;
