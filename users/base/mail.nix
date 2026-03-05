@@ -39,6 +39,20 @@
     '';
   };
   services.imapnotify.enable = true;
+  systemd.user.services = let
+    safeName = lib.replaceStrings ["@" ":" "\\" "[" "]"] ["-" "-" "-" "" ""];
+  in
+    config.accounts.email.accounts
+    |> lib.filterAttrs (account: attrs: attrs.enable && attrs.imapnotify.enable)
+    |> lib.mapAttrs' (account: attrs: {
+      name = "imapnotify-${safeName account}";
+      value = {
+        Service = {
+          RestartMaxDelaySec = "1m";
+          RestartSteps = 15;
+        };
+      };
+    });
 
   accounts.email = {
     maildirBasePath = "${config.xdg.dataHome}/maildir";
