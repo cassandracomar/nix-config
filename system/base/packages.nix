@@ -110,7 +110,15 @@
 
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-vulkan;
+    package = pkgs.ollama-vulkan.overrideAttrs (old: {
+      version = "0.17.7";
+      src = pkgs.fetchFromGitHub {
+        owner = "ollama";
+        repo = "ollama";
+        tag = "v0.17.7";
+        sha256 = "sha256-cAqc38NHvUo5gphq1csTyosTcpUjFcs0dzB0wreEGjs=";
+      };
+    });
     loadModels = ["deepseek-r1:latest"];
   };
   programs.fish = {
