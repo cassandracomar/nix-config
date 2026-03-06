@@ -15,6 +15,7 @@
       keep-outputs = true
       keep-derivations = true
     '';
+    checkConfig = false;
     distributedBuilds = true;
     buildMachines = [
       {
