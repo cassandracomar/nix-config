@@ -111,6 +111,7 @@
   services.ollama = {
     enable = true;
     loadModels = ["deepseek-r1:latest"];
+    acceleration = "vulkan";
   };
   programs.fish = {
     enable = true;
