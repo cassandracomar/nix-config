@@ -21,7 +21,7 @@
   boot.kernelParams = ["nr_hugepages=4096"];
   boot.extraModulePackages = [config.boot.kernelPackages.it87];
   boot.extraModprobeConfig = ''
-    options zfs metaslab_lba_weighting_enabled=0 zfs_vdev_sync_write_min_active=10  zfs_vdev_sync_write_max_active=32  zfs_vdev_async_write_min_active=10  zfs_vdev_async_write_max_active=32 zfs_arc_max=51539607552
+    options zfs metaslab_lba_weighting_enabled=0 zfs_vdev_sync_write_min_active=10  zfs_vdev_sync_write_max_active=32  zfs_vdev_async_write_min_active=10  zfs_vdev_async_write_max_active=32 zfs_arc_max=8589934592
   '';
   # boot.zfs.extraPools = ["data"];
   boot.loader = {
