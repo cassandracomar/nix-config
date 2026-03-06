@@ -11,7 +11,7 @@
   nix = {
     package = pkgs.lixPackageSets.latest.lix;
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes pipe-operators pipe-operator
       keep-outputs = true
       keep-derivations = true
     '';

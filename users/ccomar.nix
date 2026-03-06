@@ -531,5 +531,10 @@ in {
     Environment = ["JAVA_OPTS='-Xmx10G -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=3'"];
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
   home.stateVersion = "21.11";
 }
