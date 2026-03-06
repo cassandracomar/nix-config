@@ -110,8 +110,8 @@
 
   services.ollama = {
     enable = true;
+    package = pkgs.ollama-vulkan;
     loadModels = ["deepseek-r1:latest"];
-    acceleration = "vulkan";
   };
   programs.fish = {
     enable = true;
