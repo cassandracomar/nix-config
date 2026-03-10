@@ -510,7 +510,7 @@ in {
       "davmail.enableOidc" = false;
       "davmail.graphUrl" = "https://webmail.drwholdings.com/owa/graph";
       "davmail.graphPrefix" = "beta";
-      "davmail.folderSizeLimit" = 10000;
+      "davmail.folderSizeLimit" = 50000;
       "log4j.logger.davmail" = "DEBUG";
       "log4j.logger.httpclient.wire" = "WARN";
       "log4j.logger.org.apache.commons.httpclient" = "WARN";
