@@ -485,7 +485,7 @@ in {
         };
         notmuch.enable = true;
         imapnotify = {
-          enable = true;
+          enable = false;
           onNotify = "${pkgs.isync}/bin/mbsync -Ln ccomar@drwholdings.com && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "ccomar";
@@ -510,6 +510,7 @@ in {
       "davmail.enableOidc" = false;
       "davmail.graphUrl" = "https://webmail.drwholdings.com/owa/graph";
       "davmail.graphPrefix" = "beta";
+      "davmail.folderSizeLimit" = 10000;
       "log4j.logger.davmail" = "DEBUG";
       "log4j.logger.httpclient.wire" = "WARN";
       "log4j.logger.org.apache.commons.httpclient" = "WARN";
