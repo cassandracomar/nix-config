@@ -485,7 +485,7 @@ in {
         };
         notmuch.enable = true;
         imapnotify = {
-          enable = false;
+          enable = true;
           onNotify = "${pkgs.isync}/bin/mbsync -Ln ccomar@drwholdings.com && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "ccomar";
