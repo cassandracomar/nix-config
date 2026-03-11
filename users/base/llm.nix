@@ -7,7 +7,18 @@
       env = {
         ANTHROPIC_BASE_URL = "http://yew.local:11434";
         ANTHROPIC_AUTH_TOKEN = "ollama";
+        CLAUDE_CODE_ENABLE_TELEMETRY = "0";
+        CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
+        CLAUDE_CODE_ATTRIBUTION_HEADER = "0";
       };
+      promptSuggestionEnabled = false;
+      attribution = {
+        commit = "";
+        pr = "";
+      };
+      prefersReducedMotion = true;
+      terminalProgressBarEnabled = false;
+      effortLevel = "high";
     };
   };
 }
