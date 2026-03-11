@@ -151,4 +151,6 @@
       addNetworkInterface = false;
     };
   };
+
+  services.ollama.host = "yew.local";
 }
