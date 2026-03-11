@@ -1,4 +1,5 @@
 {...}: {
+  home.sessionVariables = {OLLAMA_HOST = "yew.local";};
   programs.claude-code = {
     enable = true;
     settings = {
