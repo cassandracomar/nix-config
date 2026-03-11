@@ -121,6 +121,7 @@
     });
     loadModels = ["deepseek-r1:latest"];
     openFirewall = true;
+    host = "[::]";
   };
   programs.fish = {
     enable = true;
