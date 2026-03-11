@@ -120,6 +120,7 @@
       };
     });
     loadModels = ["deepseek-r1:latest"];
+    openFirewall = true;
   };
   programs.fish = {
     enable = true;

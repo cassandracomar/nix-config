@@ -92,7 +92,7 @@
       };
     };
   };
-  networking.firewall.interfaces."enp10s0".allowedUDPPorts = [546 547 11434];
+  networking.firewall.interfaces."enp10s0".allowedUDPPorts = [546 547];
 
   environment.systemPackages = with pkgs; [
     freeipmi
