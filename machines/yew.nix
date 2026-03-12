@@ -10,6 +10,7 @@
     ../system/hardware/amd.nix
     ../system/hardware/acpid.nix
   ];
+  boot.loader.systemd-boot.edk2-uefi-shell.enable = true;
   nix.extraOptions = ''
     system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test big-parallel benchmark
   '';
