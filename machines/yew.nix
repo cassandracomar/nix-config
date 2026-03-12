@@ -70,7 +70,7 @@
   networking.hostName = "yew"; # Define your hostname.
   networking.hostId = "c667b97b";
   systemd.network = {
-    wait-online.enable = false;
+    wait-online.enable = true;
     networks = {
       "10-wired" = {
         matchConfig.Name = ["enp10s0"];
