@@ -3,7 +3,7 @@
   programs.claude-code = {
     enable = true;
     settings = {
-      model = "qwen3-coder-next:80b-UD-IQ3_XXS";
+      model = "qwen3-coder-next:80b-UD-IQ4_XS";
       env = {
         ANTHROPIC_BASE_URL = "http://yew.local:11434";
         ANTHROPIC_AUTH_TOKEN = "ollama";
