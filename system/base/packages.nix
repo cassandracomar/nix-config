@@ -115,8 +115,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "ollama";
         repo = "ollama";
-        rev = "4eec06645170ac1654ac4ecd1f83d8707e68c81c";
-        sha256 = "sha256-usm5RDV4hywt8A7GikulGQKzqKK6FZG57YMGM8f7lvA=";
+        rev = "38908542184bffcf770ad90ced6d5aee6d50b8bf";
+        sha256 = "sha256-aOdqefFikIg7MvvQTCopABSCdlshe4x/PKYrkXXQBBo=";
       };
     });
     loadModels = ["deepseek-r1:latest"];
