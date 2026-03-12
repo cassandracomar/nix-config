@@ -125,7 +125,7 @@
   # make sure amdgpu has initialized.
   systemd.services.ollama = {
     wantedBy = lib.mkForce ["graphical.target"];
-    after = ["graphical.target"];
+    after = ["graphical.target" "network-online.target"];
   };
 
   programs.fish = {
