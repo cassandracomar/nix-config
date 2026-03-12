@@ -115,8 +115,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "ollama";
         repo = "ollama";
-        rev = "8f45236d09332949aa91774dc9eb46caf2abbbc1";
-        sha256 = "sha256-4nqGDYns4MNIjKnsswFgPiPF24lwohEVfNe29HnxfGE=";
+        rev = "036f5f97902c501f266fd36c08d7ad82a7d04d23";
+        sha256 = "sha256-HOLGL6lQVik49PE+8B49IFs36TGkxS+pvNCHow5p5d8=";
       };
       patches = [
         (pkgs.fetchpatch {
