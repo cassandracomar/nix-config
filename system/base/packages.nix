@@ -123,9 +123,14 @@
     openFirewall = true;
   };
   # make sure amdgpu has initialized.
-  systemd.services.ollama = {
-    wantedBy = lib.mkForce ["graphical.target"];
-    after = ["graphical.target" "network-online.target"];
+  systemd.services = {
+    ollama = {
+      wantedBy = lib.mkForce ["graphical.target"];
+      after = lib.mkForce ["graphical.target" "network-online.target"];
+    };
+    ollama-model-loader = {
+      wantedBy = lib.mkForce ["graphical.target" "ollama.service"];
+    };
   };
 
   programs.fish = {
