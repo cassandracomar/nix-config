@@ -22,7 +22,6 @@
   };
 
   systemd.network = {
-    wait-online.enable = false;
     networks = {
       "10-wired" = {
         matchConfig.Type = ["ether"];
