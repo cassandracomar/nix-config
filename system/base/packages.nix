@@ -122,6 +122,11 @@
     loadModels = ["deepseek-r1:latest"];
     openFirewall = true;
   };
+  # make sure amdgpu has initialized.
+  systemd.services.ollama = {
+    after = ["graphical.target"];
+  };
+
   programs.fish = {
     enable = true;
     vendor = {
