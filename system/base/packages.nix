@@ -115,9 +115,15 @@
       src = pkgs.fetchFromGitHub {
         owner = "ollama";
         repo = "ollama";
-        tag = "v0.17.7";
-        sha256 = "sha256-cAqc38NHvUo5gphq1csTyosTcpUjFcs0dzB0wreEGjs=";
+        rev = "8f45236d09332949aa91774dc9eb46caf2abbbc1";
+        sha256 = "sha256-4nqGDYns4MNIjKnsswFgPiPF24lwohEVfNe29HnxfGE=";
       };
+      patches = [
+        (pkgs.fetchpatch {
+          url = "https://github.com/ollama/ollama/pull/14134.patch";
+          sha256 = "sha256-BIk7eluG3hQUxIlQ9zoJJgmGY1etbpTw5S4hMcaGLjY=";
+        })
+      ];
     });
     loadModels = ["deepseek-r1:latest"];
     openFirewall = true;
