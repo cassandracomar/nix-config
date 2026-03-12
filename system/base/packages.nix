@@ -128,6 +128,9 @@
       wantedBy = lib.mkForce ["graphical.target"];
       after = lib.mkForce ["graphical.target" "network-online.target"];
       wants = lib.mkForce ["network-online.target"];
+      environment = {
+        GGML_VK_VISIBLE_DEVICES = "0";
+      };
     };
     ollama-model-loader = {
       wantedBy = lib.mkForce ["ollama.service"];
