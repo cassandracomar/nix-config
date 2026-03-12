@@ -130,7 +130,7 @@
       wants = lib.mkForce ["network-online.target"];
     };
     ollama-model-loader = {
-      wantedBy = lib.mkForce ["graphical.target" "ollama.service"];
+      wantedBy = lib.mkForce ["ollama.service"];
       wants = ["network-online.target"];
     };
   };
