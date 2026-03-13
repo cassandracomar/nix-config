@@ -256,38 +256,25 @@ in {
         Unit = {
           Description = "run llama.cpp";
           StopWhenUnneeded = true;
-          BindsTo = ["llama-cpp-proxy.service"];
         };
         Service = {
-          Type = "simple";
+          Type = "exec";
+          Restart = false;
           ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
           ExecStopPost = "${pkgs.coreutils}/bin/rm -f %t/llama.cpp.sock";
         };
-        Install = {
-          WantedBy = ["graphical-session.target"];
-        };
       };
-      llama-cpp-proxy = let
-        script = pkgs.writeScript "llama-cpp-proxy.sh" ''
-          #!${pkgs.runtimeShell}
-          while ! [ -f $1 ]; do
-            sleep 1
-          done
-
-          /run/current-system/systemd/lib/systemd/systemd-socket-proxyd $1 --exit-idle-time=5min
-        '';
-      in {
+      llama-cpp-proxy = {
         Unit = {
           Description = "proxy for llama.cpp";
-          Requires = ["llama-cpp-proxy.socket"];
+          Requires = ["llama-cpp.service"];
+          After = ["llama-cpp.service"];
         };
         Service = {
-          Type = "simple";
-          ExecStart = "${script} %t/llama.cpp.sock";
-          NonBlocking = true;
-        };
-        Install = {
-          WantedBy = ["graphical-session.target"];
+          Type = "notify";
+          ExecStartPre = ''bash -c 'until curl -I http://127.0.0.1:8002/health | grep "200 OK"; do sleep 1; done' '';
+          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd localhost:8002 --exit-idle-time=5min";
+          TimeoutStartSec = "30s";
         };
       };
     };
