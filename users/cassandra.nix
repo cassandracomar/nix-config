@@ -280,7 +280,6 @@ in {
         Unit = {
           Description = "proxy for llama.cpp";
           Requires = ["llama-cpp.socket"];
-          After = ["llama-cpp.service"];
         };
         Service = {
           Type = "simple";
@@ -296,7 +295,6 @@ in {
       llama-cpp = {
         Unit = {
           Description = "socket for llama.cpp activation";
-          PartOf = ["llama-cpp-proxy.service"];
         };
         Socket = {
           Accept = false;
