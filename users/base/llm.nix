@@ -3,6 +3,7 @@
   programs.claude-code = {
     enable = true;
     settings = {
+      model = "qwen3.5:35b-UD-IQ3_XXS";
       env = {
         ANTHROPIC_BASE_URL = "http://yew.local:8001";
         ANTHROPIC_API_KEY = "sk-no-key-required";
