@@ -256,6 +256,7 @@ in {
         Unit = {
           Description = "run llama.cpp";
           StopWhenUnneeded = true;
+          BindsTo = ["llama-cpp-proxy.service"];
         };
         Service = {
           Type = "simple";
@@ -278,9 +279,7 @@ in {
       in {
         Unit = {
           Description = "proxy for llama.cpp";
-          PartOf = ["llama-cpp.service"];
-          Requires = ["llama-cpp.service" "llama-cpp.socket"];
-          After = ["llama-cpp.socket" "llama-cpp.service"];
+          Requires = ["llama-cpp.socket"];
         };
         Service = {
           Type = "simple";
