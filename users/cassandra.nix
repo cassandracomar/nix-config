@@ -268,8 +268,7 @@ in {
       llama-cpp-proxy = let
         script = pkgs.writeScript "llama-cpp-proxy.sh" ''
           #!${pkgs.runtimeShell}
-          while ! [ -f $1 ];
-          do
+          while [ ! -f $1 ]; do
             sleep 1
           end
 
