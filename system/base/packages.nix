@@ -6,21 +6,14 @@
   ...
 }: let
   llama-cpp-vulkan = pkgs.llama-cpp-vulkan.overrideAttrs (final: prev: {
+    version = "8298";
     src = pkgs.fetchFromGitHub {
       owner = "ggml-org";
       repo = "llama.cpp";
       rev = "57819b8d4b39d893408e51520dff3d47d1ebb757";
       sha256 = "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=";
     };
-    npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-    npmDeps = pkgs.fetchNpmDeps {
-      name = "${final.pname}-${final.version}-npm-deps";
-      inherit (final) src patches;
-      preBuild = ''
-        pushd ${final.npmRoot}
-      '';
-      hash = final.npmDepsHash;
-    };
+    npmDepsHash = "sha256-5ZswgZFLeI32/xQZqCTTFbCzleDqr5AotjFg/5rNn1M=";
   });
 in {
   environment.systemPackages = with pkgs; [
