@@ -260,7 +260,7 @@ in {
         Service = {
           Type = "exec";
           Restart = "no";
-          ExecStart = "${config.home.homeDirectory}/src/models/qwen3-coder-next/start-server.sh";
+          ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
         };
       };
       llama-cpp-proxy = {
