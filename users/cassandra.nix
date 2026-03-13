@@ -280,10 +280,11 @@ in {
         Unit = {
           Description = "proxy for llama.cpp";
           Requires = ["llama-cpp.socket"];
+          After = ["llama-cpp.service"];
         };
         Service = {
           Type = "simple";
-          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min ";
+          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min";
           NonBlocking = true;
         };
         Install = {
