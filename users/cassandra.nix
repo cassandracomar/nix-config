@@ -279,7 +279,7 @@ in {
       in {
         Unit = {
           Description = "proxy for llama.cpp";
-          Requires = ["llama-cpp.socket"];
+          Requires = ["llama-cpp-proxy.socket"];
         };
         Service = {
           Type = "simple";
