@@ -269,6 +269,7 @@ in {
           Description = "proxy for llama.cpp";
           Requires = ["llama-cpp.service"];
           After = ["llama-cpp.service"];
+          BindsTo = ["llama-cpp.service"];
         };
         Service = {
           Type = "notify";
