@@ -273,7 +273,7 @@ in {
         Service = {
           Type = "notify";
           ExecStartPre = ''${pkgs.runtimeShell} -c 'until curl -I http://127.0.0.1:8002/health | grep "200 OK"; do sleep 1; done' '';
-          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd localhost:8002 --exit-idle-time=5min";
+          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd 127.0.0.1:8002 --exit-idle-time=5min";
           TimeoutStartSec = "30s";
         };
       };
