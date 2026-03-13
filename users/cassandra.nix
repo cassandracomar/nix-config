@@ -269,11 +269,12 @@ in {
         Unit = {
           Description = "proxy for llama.cpp";
           PartOf = ["llama-cpp.service"];
+          Requires = ["llama-cpp.service" "llama-cpp.socket"];
+          After = ["llama-cpp.socket" "llama-cpp.service"];
         };
         Service = {
-          Type = "simple";
+          Type = "notify";
           ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min";
-          NonBlocking = true;
         };
         Install = {
           WantedBy = ["graphical-session.target"];
