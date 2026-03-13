@@ -261,7 +261,6 @@ in {
           Type = "exec";
           Restart = "no";
           ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
-          ExecStopPost = "${pkgs.coreutils}/bin/rm -f %t/llama.cpp.sock";
         };
       };
       llama-cpp-proxy = {
