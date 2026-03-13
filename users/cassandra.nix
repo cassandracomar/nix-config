@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   git_config = {
     userName = "Cassandra Comar";
     userEmail = "cass@mountclare.net";
@@ -245,6 +249,54 @@ in {
   programs.afew.extraConfig = ''
     [InboxFilter]
   '';
+
+  systemd.user = {
+    services = {
+      llama-cpp = {
+        Unit = {
+          Description = "run llama.cpp";
+          StopWhenUnneeded = true;
+        };
+        Service = {
+          ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
+          Type = "simple";
+        };
+        Install = {
+          WantedBy = ["graphical-session.target"];
+        };
+      };
+      llama-cpp-proxy = {
+        Unit = {
+          Description = "proxy for llama.cpp";
+          PartOf = ["llama-cpp.service"];
+        };
+        Service = {
+          Type = "simple";
+          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min";
+          NonBlocking = true;
+        };
+        Install = {
+          WantedBy = ["graphical-session.target"];
+        };
+      };
+    };
+    sockets = {
+      llama-cpp = {
+        Unit = {
+          Description = "socket for llama.cpp activation";
+          PartOf = ["llama-cpp.service"];
+        };
+        Socket = {
+          Accept = false;
+          ListenStream = 8001;
+          NoDelay = true;
+        };
+        Install = {
+          WantedBy = ["sockets.target"];
+        };
+      };
+    };
+  };
 
   home.stateVersion = "21.11";
 }
