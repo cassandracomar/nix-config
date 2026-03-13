@@ -282,8 +282,9 @@ in {
           After = ["llama-cpp.socket" "llama-cpp.service"];
         };
         Service = {
-          Type = "notify";
+          Type = "simple";
           ExecStart = "${script} %t/llama.cpp.sock";
+          NonBlocking = true;
         };
         Install = {
           WantedBy = ["graphical-session.target"];
