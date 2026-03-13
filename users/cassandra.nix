@@ -268,9 +268,9 @@ in {
       llama-cpp-proxy = let
         script = pkgs.writeScript "llama-cpp-proxy.sh" ''
           #!${pkgs.runtimeShell}
-          while [ ! -f $1 ]; do
+          while ! [ -f $1 ]; do
             sleep 1
-          end
+          done
 
           /run/current-system/systemd/lib/systemd/systemd-socket-proxyd $1 --exit-idle-time=5min
         '';
