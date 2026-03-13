@@ -295,7 +295,7 @@ in {
       llama-cpp = {
         Unit = {
           Description = "socket for llama.cpp activation";
-          PartOf = ["llama-cpp.service"];
+          PartOf = ["llama-cpp-proxy.service"];
         };
         Socket = {
           Accept = false;
