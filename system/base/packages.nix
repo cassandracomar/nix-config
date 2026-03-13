@@ -4,7 +4,16 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  llama-cpp-vulkan = pkgs.llama-cpp-vulkan.overrideAttrs (old: {
+    src = pkgs.fetchFromGitHub {
+      owner = "ggml-org";
+      repo = "llama.cpp";
+      rev = "57819b8d4b39d893408e51520dff3d47d1ebb757";
+      sha256 = "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=";
+    };
+  });
+in {
   environment.systemPackages = with pkgs; [
     sops
     ssh-to-pgp
@@ -37,6 +46,7 @@
     })
     nix-output-monitor
     nh
+    llama-cpp-vulkan
   ];
 
   programs.zsh.enable = true;
