@@ -265,7 +265,16 @@ in {
           WantedBy = ["graphical-session.target"];
         };
       };
-      llama-cpp-proxy = {
+      llama-cpp-proxy = let
+        script = pkgs.writeScript "llama-cpp-proxy.sh" ''
+          while ! [ -f $1 ];
+          do
+            sleep 1
+          end
+
+          /run/current-system/systemd/lib/systemd/systemd-socket-proxyd $1 --exit-idle-time=5min
+        '';
+      in {
         Unit = {
           Description = "proxy for llama.cpp";
           PartOf = ["llama-cpp.service"];
@@ -274,7 +283,7 @@ in {
         };
         Service = {
           Type = "notify";
-          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min";
+          ExecStart = "${script} %t/llama.cpp.sock";
         };
         Install = {
           WantedBy = ["graphical-session.target"];
