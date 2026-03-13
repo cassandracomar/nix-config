@@ -258,8 +258,9 @@ in {
           StopWhenUnneeded = true;
         };
         Service = {
-          ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
           Type = "simple";
+          ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
+          ExecStopPost = "rm %t/llama.cpp.sock";
         };
         Install = {
           WantedBy = ["graphical-session.target"];
