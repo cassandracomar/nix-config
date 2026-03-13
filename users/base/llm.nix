@@ -5,8 +5,8 @@
     settings = {
       model = "qwen3-coder-next:80b-UD-IQ4_XS";
       env = {
-        ANTHROPIC_BASE_URL = "http://yew.local:11434";
-        ANTHROPIC_AUTH_TOKEN = "ollama";
+        ANTHROPIC_BASE_URL = "http://yew.local:8001";
+        ANTHROPIC_API_KEY = "sk-no-key-required";
         CLAUDE_CODE_ENABLE_TELEMETRY = "0";
         CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
         CLAUDE_CODE_ATTRIBUTION_HEADER = "0";
