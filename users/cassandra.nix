@@ -283,7 +283,7 @@ in {
         };
         Service = {
           Type = "simple";
-          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min %t/llama.cpp.sock";
+          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min ";
           NonBlocking = true;
         };
         Install = {
