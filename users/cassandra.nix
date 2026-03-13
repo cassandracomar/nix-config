@@ -274,7 +274,7 @@ in {
         };
         Service = {
           Type = "notify";
-          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd %t/llama.cpp.sock --exit-idle-time=5min";
+          ExecStart = "/run/current-system/systemd/lib/systemd/systemd-socket-proxyd 127.0.0.1:8002 --exit-idle-time=5min";
         };
         Install = {
           WantedBy = ["graphical-session.target"];
