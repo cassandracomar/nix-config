@@ -160,4 +160,8 @@ in {
     generateCompletions = true;
   };
   documentation.man.generateCaches = true;
+  services.transmission = {
+    enable = true;
+    package = pkgs.transmission_4;
+  };
 }
