@@ -13,7 +13,7 @@
       rev = "3a5cb629b180a074e02056a40695528a2171254c";
       sha256 = "sha256-kjogc/NBMZWLaHU3jeIoQVNs4yjqWZIDcXaylkWfzGo=";
     };
-    npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    npmDepsHash = "sha256-DxgUDVr+kwtW55C4b89Pl+j3u2ILmACcQOvOBjKWAKQ=";
   });
 in {
   environment.systemPackages = with pkgs; [
