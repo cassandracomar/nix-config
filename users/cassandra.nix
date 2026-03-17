@@ -62,7 +62,7 @@
     );
   });
 in {
-  imports = [./base ./base/games.nix];
+  imports = [./base ./base/games.nix ./base/llm.nix];
 
   home.username = "cassandra";
   home.homeDirectory = "/home/cassandra";

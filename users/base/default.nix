@@ -4,7 +4,6 @@
     ./environment.nix
     ./haskell.nix
     ./kubernetes.nix
-    ./llm.nix
     ./mail.nix
     ./packages.nix
     # ./rust.nix
