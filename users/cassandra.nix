@@ -261,6 +261,7 @@ in {
           Type = "exec";
           Restart = "no";
           ExecStart = "${config.home.homeDirectory}/src/models/qwen3.5/start-server.sh";
+          Environment = ["GGML_VK_ALLOW_GRAPHICS_QUEUE=1"];
         };
       };
       llama-cpp-proxy = {
