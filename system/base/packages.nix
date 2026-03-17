@@ -6,7 +6,7 @@
   ...
 }: let
   llama-cpp-vulkan = pkgs.llama-cpp-vulkan.overrideAttrs (final: prev: {
-    version = "8298";
+    version = "8392";
     src = pkgs.fetchFromGitHub {
       owner = "ggml-org";
       repo = "llama.cpp";
