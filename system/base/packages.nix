@@ -10,10 +10,10 @@
     src = pkgs.fetchFromGitHub {
       owner = "ggml-org";
       repo = "llama.cpp";
-      rev = "57819b8d4b39d893408e51520dff3d47d1ebb757";
-      sha256 = "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=";
+      rev = "3a5cb629b180a074e02056a40695528a2171254c";
+      sha256 = "sha256-kjogc/NBMZWLaHU3jeIoQVNs4yjqWZIDcXaylkWfzGo=";
     };
-    npmDepsHash = "sha256-5ZswgZFLeI32/xQZqCTTFbCzleDqr5AotjFg/5rNn1M=";
+    npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   });
 in {
   environment.systemPackages = with pkgs; [

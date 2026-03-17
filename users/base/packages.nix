@@ -14,7 +14,6 @@
       slack
       signal-desktop
       keepassxc
-      google-chrome
       discord
       spotify
       curlFull
