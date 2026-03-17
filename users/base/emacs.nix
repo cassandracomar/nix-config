@@ -25,7 +25,7 @@
     config.programs.doom-emacs.finalDoomPackage
     emacs-lsp-booster
     mu
-    grip
+    python3Packages.grip
     helm-ls
     jsonnet-language-server
   ];
