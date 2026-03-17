@@ -14,7 +14,6 @@
       slack
       signal-desktop
       keepassxc
-      discord
       spotify
       curlFull
       rclone
