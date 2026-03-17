@@ -114,6 +114,7 @@
               ./davmail.patch
             ];
         });
+        electron_39 = prev.electron_39-bin;
       })
     ];
 
