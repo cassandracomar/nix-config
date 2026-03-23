@@ -172,6 +172,7 @@
             "jackaudio"
             "adbusers"
             "vboxusers"
+            "docker"
           ];
           # shell = pkgs.nushell;
           hashedPasswordFile = "/etc/nixos/${username}.passwd";
