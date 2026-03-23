@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ./emacs.nix
     ./environment.nix
@@ -14,4 +18,6 @@
   ];
 
   home.packages = with pkgs; [rustc cargo];
+  xdg.userDirs.setSessionVariables = true;
+  gtk.gtk4.theme = config.gtk.theme;
 }
