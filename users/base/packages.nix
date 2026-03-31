@@ -7,44 +7,39 @@
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
 
-  home.packages = with pkgs;
-    [
-      eza
-      bottom
-      slack
-      signal-desktop
-      keepassxc
-      spotify
-      curlFull
-      rclone
-      syncthing
-      dbus
-      terraform
-      xclip
-      lilypond
-      reaper
-      evtest
-      audacity
-      # pkgs.ocenaudio
-      android-studio
-      # ffmpeg-full
-      # svt-av1
-      # libopus
-      numactl
-      arandr
-      pinentry-rofi
-      openconnect
-      android-tools
-      fly
-      veracrypt
-      nixd
-      wdisplays
-      gh
-    ]
-    ++ (with pkgs.nodePackages; [
-      bash-language-server
-      vscode-json-languageserver
-    ]);
+  home.packages = with pkgs; [
+    eza
+    bottom
+    slack
+    signal-desktop
+    keepassxc
+    spotify
+    curlFull
+    rclone
+    syncthing
+    dbus
+    terraform
+    xclip
+    lilypond
+    reaper
+    evtest
+    audacity
+    # pkgs.ocenaudio
+    android-studio
+    # ffmpeg-full
+    # svt-av1
+    # libopus
+    numactl
+    arandr
+    pinentry-rofi
+    openconnect
+    android-tools
+    fly
+    veracrypt
+    nixd
+    wdisplays
+    gh
+  ];
 
   home.file.".config/discord/settings.json".text = ''
     { "SKIP_HOST_UPDATE": true }

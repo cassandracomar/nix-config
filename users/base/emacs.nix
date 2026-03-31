@@ -15,7 +15,6 @@
     nixd
     ripgrep
     pandoc
-    nodePackages.bash-language-server
     yaml-language-server
     yaml-schema-router
     dockerfile-language-server
@@ -28,6 +27,8 @@
     python3Packages.grip
     helm-ls
     jsonnet-language-server
+    bash-language-server
+    vscode-json-languageserver
   ];
 
   systemd.user.startServices = true;
