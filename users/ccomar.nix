@@ -241,6 +241,7 @@ in {
       gpg = {
         program = "${pkgs.gnupg}/bin/gpg2";
       };
+      signing.format = "openpgp";
       # includeIf."gitdir:/home/cassandra/src/git.drwholdings.com/".path = "/home/cassandra/.work.gitconfig";
       # includeIf."gitdir:/home/cassandra/src/github.com/".path = "/home/cassandra/.personal.gitconfig";
     };

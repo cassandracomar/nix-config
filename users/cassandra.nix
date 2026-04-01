@@ -105,6 +105,7 @@ in {
       gpg = {
         program = "${pkgs.gnupg}/bin/gpg2";
       };
+      signing.format = "openpgp";
       user.signingKey = git_config.signing.signByDefault;
     };
   };
