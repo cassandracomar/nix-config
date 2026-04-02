@@ -57,7 +57,7 @@
       dumb-jump = prev.dumb-jump.overrideAttrs (old: {
         packageRequires = (old.packageRequires or []) ++ [final.dash];
       });
-      claude-code-ide-extras = prev.claude-code-ide-extras.overrideAttrs (old: {
+      claude-code-ide-extras-emacs = prev.claude-code-ide-extras-emacs.overrideAttrs (old: {
         packageRequires = (old.packageRequires or []) ++ [final.claude-code-ide];
       });
     };
