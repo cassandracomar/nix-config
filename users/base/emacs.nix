@@ -36,7 +36,7 @@
   programs.doom-emacs = {
     enable = true;
     doomDir = inputs.doom-config;
-    doomLocalDir = "${config.xdg.dataHome}/doom";
+    doomLocalDir = "${config.xdg.dataHome}/nix-doom";
     experimentalFetchTree = true;
     extraPackages = epkgs:
       with epkgs; [
