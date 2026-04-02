@@ -58,7 +58,7 @@
         packageRequires = (old.packageRequires or []) ++ [final.dash];
       });
       claude-code-ide-extras-emacs = prev.claude-code-ide-extras-emacs.overrideAttrs (old: {
-        packageRequires = (old.packageRequires or []) ++ [final.claude-code-ide];
+        packageRequires = (old.packageRequires or []) ++ [final.claude-code-ide final.projectile];
       });
     };
   };
