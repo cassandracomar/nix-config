@@ -85,7 +85,7 @@
 
   programs.password-store.enable = false;
   services.pass-secret-service.enable = false;
-  services.yubikey-agent.enable = true;
+  services.yubikey-agent.enable = false;
 
   programs.zsh = {
     enable = true;
