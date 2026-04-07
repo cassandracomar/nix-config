@@ -96,11 +96,11 @@
     "doom-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1775512893,
-        "narHash": "sha256-7KWmT10Lwi0MkDS5fCZxE/bYkN7q+P2q7T2YgAaoStU=",
+        "lastModified": 1775523670,
+        "narHash": "sha256-ruKbVL9RMIp7d6avzjwoq48PtiOT4QWxPAG8mppdwdU=",
         "owner": "cassandracomar",
         "repo": "doom-config",
-        "rev": "7d69100469c72054966d784010f75ff30a4d8c70",
+        "rev": "ee2c96d39a6f09738c9eea52119406c79e81024b",
         "type": "github"
       },
       "original": {
@@ -604,11 +604,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1775403759,
-        "narHash": "sha256-avkT2TR2Wh/TQTysYGFOkGiF5+2R2nS7TZOfQ4omieQ=",
-        "rev": "5e11f7acce6c3469bef9df154d78534fa7ae8b6c",
+        "lastModified": 1775464765,
+        "narHash": "sha256-kAjc72jrTAB5pVnt+JgyrSztEBt/vZo7wbkHV/4PbqA=",
+        "rev": "83e29f2b8791f6dec20804382fcd9a666d744c07",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre975217.5e11f7acce6c/nixexprs.tar.xz?lastModified=1775403759&rev=5e11f7acce6c3469bef9df154d78534fa7ae8b6c"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre975711.83e29f2b8791/nixexprs.tar.xz?lastModified=1775464765&rev=83e29f2b8791f6dec20804382fcd9a666d744c07"
       },
       "original": {
         "type": "tarball",
@@ -623,11 +623,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775509861,
-        "narHash": "sha256-HvwYWOi/M8vVWndCeAm74FzYJE/S5XrIyMtFprhLn/g=",
+        "lastModified": 1775522628,
+        "narHash": "sha256-vyLm8HiNSwx5GnDXIsmZvUvGHcoZMrtp9jmOmaxJ+Ew=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "2634d2eddc4079235480eee915b54e2c82fc462f",
+        "rev": "62128626d77976f3e4f135f81d23d51803b45ed0",
         "type": "github"
       },
       "original": {
