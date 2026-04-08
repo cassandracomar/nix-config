@@ -60,6 +60,12 @@
       claude-code-ide-extras-emacs = prev.claude-code-ide-extras-emacs.overrideAttrs (old: {
         packageRequires = (old.packageRequires or []) ++ [final.claude-code-ide final.projectile];
       });
+      agent-shell-ediff = prev.agent-shell-ediff.overrideAttrs (old: {
+        packageRequires = (old.packageRequires or []) ++ [final.agent-shell];
+      });
+      agent-shell-dispatch = prev.agent-shell-dispatch.overrideAttrs (old: {
+        packageRequires = (old.packageRequires or []) ++ [final.agent-shell];
+      });
     };
   };
   services.emacs = {
