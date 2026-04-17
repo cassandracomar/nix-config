@@ -131,6 +131,7 @@
               };
               meta.homepage = "https://github.com/zellio/tree-sitter-gotmpl";
             };
+            generate = false;
           };
       })
     ];
