@@ -116,6 +116,23 @@
         });
         electron_39 = prev.electron_39-bin;
       })
+      (final: prev: {
+        tree-sitter-grammars =
+          prev.tree-sitter-grammars
+          // {
+            tree-sitter-gotmpl = prev.tree-sitter.buildGrammar {
+              language = "gotmpl";
+              version = "0.2.0";
+              src = prev.fetchFromGitHub {
+                owner = "zellio";
+                repo = "tree-sitter-gotmpl";
+                rev = "5c91dafb003f4a63ff37853c958fc622fbf436e6";
+                hash = "sha256-3Wyt59aGj34TXBPzgQWz8jzJs+fg8sThUHk+/PhR4Z0=";
+              };
+              meta.homepage = "https://github.com/zellio/tree-sitter-gotmpl";
+            };
+          };
+      })
     ];
 
     pkgs = import nixpkgs {
