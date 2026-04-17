@@ -66,9 +66,6 @@
       agent-shell-dispatch = prev.agent-shell-dispatch.overrideAttrs (old: {
         packageRequires = (old.packageRequires or []) ++ [final.agent-shell];
       });
-      gotmpl-ts-mode = prev.gotmpl-ts-mode.overrideAttrs (old: {
-        packageRequires = (old.packageRequires or []) ++ [pkgs.tree-sitter-grammars.tree-sitter-gotmpl];
-      });
     };
   };
   services.emacs = {
