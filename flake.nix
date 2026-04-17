@@ -123,6 +123,7 @@
             tree-sitter-gotmpl = prev.tree-sitter.buildGrammar {
               language = "gotmpl";
               version = "0.2.0";
+              generate = true;
               src = prev.fetchFromGitHub {
                 owner = "zellio";
                 repo = "tree-sitter-gotmpl";
@@ -131,7 +132,6 @@
               };
               meta.homepage = "https://github.com/zellio/tree-sitter-gotmpl";
             };
-            generate = false;
           };
       })
     ];
