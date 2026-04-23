@@ -66,14 +66,6 @@
     ];
     system = "x86_64-linux";
     patcher = flake-input-patcher.lib.${system};
-    inputs' = patcher.patch inputs {
-      nix-index-database.patches = [
-        (patcher.fetchpatch {
-          url = "https://patch-diff.githubusercontent.com/raw/nix-community/nix-index-database/pull/164.patch";
-          sha256 = "sha256-cELe2shVKfaYquV/I24D0uAXx3wjCIrV/amK1LAwQEA=";
-        })
-      ];
-    };
 
     overlays = [
       cachyos-kernel.overlays.pinned
@@ -116,34 +108,42 @@
         });
         electron_39 = prev.electron_39-bin;
       })
-      (final: prev:
-        let
-          gotmpl-grammar = prev.tree-sitter.buildGrammar {
-            language = "gotmpl";
-            version = "0.2.0";
-            generate = true;
-            src = prev.fetchFromGitHub {
-              owner = "zellio";
-              repo = "tree-sitter-gotmpl";
-              rev = "5c91dafb003f4a63ff37853c958fc622fbf436e6";
-              hash = "sha256-3Wyt59aGj34TXBPzgQWz8jzJs+fg8sThUHk+/PhR4Z0=";
-            };
-            meta.homepage = "https://github.com/zellio/tree-sitter-gotmpl";
+      (final: prev: let
+        gotmpl-grammar = prev.tree-sitter.buildGrammar {
+          language = "gotmpl";
+          version = "0.2.0";
+          generate = true;
+          src = prev.fetchFromGitHub {
+            owner = "zellio";
+            repo = "tree-sitter-gotmpl";
+            rev = "5c91dafb003f4a63ff37853c958fc622fbf436e6";
+            hash = "sha256-3Wyt59aGj34TXBPzgQWz8jzJs+fg8sThUHk+/PhR4Z0=";
           };
-        in {
-          tree-sitter-grammars = prev.tree-sitter-grammars // {
+          meta.homepage = "https://github.com/zellio/tree-sitter-gotmpl";
+        };
+      in {
+        tree-sitter-grammars =
+          prev.tree-sitter-grammars
+          // {
             tree-sitter-gotmpl = gotmpl-grammar;
           };
-          tree-sitter = prev.tree-sitter // {
-            builtGrammars = prev.tree-sitter.builtGrammars // {
-              tree-sitter-gotmpl = gotmpl-grammar;
-            };
-            allGrammars = (builtins.filter
-              (g: g.pname or "" != "tree-sitter-gotmpl")
-              prev.tree-sitter.allGrammars
-            ) ++ [ gotmpl-grammar ];
+        tree-sitter =
+          prev.tree-sitter
+          // {
+            builtGrammars =
+              prev.tree-sitter.builtGrammars
+              // {
+                tree-sitter-gotmpl = gotmpl-grammar;
+              };
+            allGrammars =
+              (
+                builtins.filter
+                (g: g.pname or "" != "tree-sitter-gotmpl")
+                prev.tree-sitter.allGrammars
+              )
+              ++ [gotmpl-grammar];
           };
-        })
+      })
     ];
 
     pkgs = import nixpkgs {
@@ -181,7 +181,7 @@
         ./modules
         ./system/base
         pinnacle.nixosModules.default
-        inputs'.nix-index-database.nixosModules.default
+        inputs.nix-index-database.nixosModules.default
         {programs.nix-index-database.comma.enable = true;}
       ]
       ++ map (username: {
@@ -213,7 +213,7 @@
       name = username;
       value = {
         imports = [
-          inputs'.nix-index-database.homeModules.default
+          inputs.nix-index-database.homeModules.default
           (import ./user.nix {inherit username;})
         ];
         programs.nix-index-database.comma.enable = true;
