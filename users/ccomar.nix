@@ -249,6 +249,7 @@ in {
 
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     package = pkgs.firefox.override {
       extraPolicies = {DisableAppUpdate = true;};
     };
