@@ -38,6 +38,7 @@
   profdata = ./base/merged-intel.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
+    patches = builtins.filter (p: baseNameOf (toString p) != "tree-sitter-0.26.patch") old.patches;
     preConfigure = ''
       export CC=${pkgs.llvmPackages.clang}/bin/clang
       export CXX=${pkgs.llvmPackages.clang}/bin/clang++

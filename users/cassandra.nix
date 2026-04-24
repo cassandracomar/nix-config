@@ -38,6 +38,7 @@
   profdata = ./base/merged.profdata;
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
+    patches = builtins.filter (p: baseNameOf (toString p) != "tree-sitter-0.26.patch") old.patches;
     preConfigure = ''
       export CC=${pkgs.llvmPackages.clangUseLLVM}/bin/clang
       export CXX=${pkgs.llvmPackages.clangUseLLVM}/bin/clang++
