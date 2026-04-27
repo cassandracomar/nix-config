@@ -25,7 +25,7 @@
     evtest
     audacity
     # pkgs.ocenaudio
-    android-studio
+    # android-studio
     # ffmpeg-full
     # svt-av1
     # libopus
@@ -33,7 +33,7 @@
     arandr
     pinentry-rofi
     openconnect
-    android-tools
+    # android-tools
     fly
     veracrypt
     nixd
