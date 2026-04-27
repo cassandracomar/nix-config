@@ -107,6 +107,9 @@
             ];
         });
         electron_39 = prev.electron_39-bin;
+        openldap = prev.openldap.overrideAttrs (old: {
+          doCheck = false;
+        });
       })
       (final: prev: let
         gotmpl-grammar = prev.tree-sitter.buildGrammar {
