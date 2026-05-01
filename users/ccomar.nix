@@ -467,6 +467,26 @@ in {
     tags = +miro;-inbox;-new
     message = spam
 
+    [Filter.17]
+    query = 'from:/configserver@config-api/'
+    tags = +k8s;+releases;-inbox;-new
+    message = Tools Promotion Notification etc. from config-api pods
+
+    [Filter.18]
+    query = 'from:srv_email_reports@drwholdings.com'
+    tags = +reports;-inbox;-new
+    message = automated server/patching reports
+
+    [Filter.19]
+    query = 'from:iss@drw.com'
+    tags = +iss;-inbox;-new
+    message = certificate expiry / ISS auto-notifications
+
+    [Filter.20]
+    query = 'from:github@drwholdings.com'
+    tags = +github;-new;-inbox
+    message = github by sender, catches what to:github@drw misses
+
     [InboxFilter]
   '';
 
