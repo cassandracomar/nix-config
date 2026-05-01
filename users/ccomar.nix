@@ -487,6 +487,16 @@ in {
     tags = +github;-new;-inbox
     message = github by sender, catches what to:github@drw misses
 
+    [Filter.21]
+    query = 'from:jira-prod@drw.com and subject:TDA'
+    tags = +tda;-inbox;-new
+    message = TDA Global Notify broadcasts from Jira
+
+    [Filter.22]
+    query = 'from:no-reply@thecurrency.empower.com'
+    tags = +empower;-inbox;-new
+    message = spam
+
     [InboxFilter]
   '';
 
