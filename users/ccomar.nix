@@ -468,7 +468,7 @@ in {
     message = spam
 
     [Filter.17]
-    query = 'from:/configserver@config-api/'
+    query = 'from:configserver'
     tags = +k8s;+releases;-inbox;-new
     message = Tools Promotion Notification etc. from config-api pods
 
