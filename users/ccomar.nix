@@ -403,7 +403,7 @@ in {
     message = very spammy
 
     [Filter.4]
-    query = 'from:app@statushero.com or from:notifications@app.steady.space'
+    query = 'from:app@statushero.com or from:notifications@app.steady.space or team@mail.steady.space'
     tags = +statushero;-new;-inbox
     message = spam
 
@@ -456,6 +456,16 @@ in {
     query = 'tag:lists/sample-splunk-log'
     tags = +sentry;-inbox;-new
     message = too noisy and belongs to a different team
+
+    [Filter.15]
+    query = 'from:alertmanager-gem-unix@drw.com'
+    tags = +alertmanager;+alerts;+important;-inbox
+    message = keep an eye on these separately
+
+    [Filter.16]
+    query = 'from:team@mail.miro.com or from:important@notification.miro.com'
+    tags = +miro;-inbox;-new
+    message = spam
 
     [InboxFilter]
   '';
