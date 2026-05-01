@@ -388,7 +388,7 @@ in {
 
   programs.afew.extraConfig = ''
     [FolderNameFilter.2]
-    folder_transforms = ccomar@drwholdings.net:drwholdings.net
+    folder_transforms = ccomar@drwholdings.com:drwholdings.com
     maildir_separator = /
     folder_lowercases = true
 
