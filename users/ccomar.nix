@@ -497,6 +497,11 @@ in {
     tags = +empower;-inbox;-new
     message = spam
 
+    [Filter.23]
+    query = 'from:srv_observability@drwholdings.com'
+    tags = +observability;-inbox;-new
+    message = noisy
+
     [InboxFilter]
   '';
 
