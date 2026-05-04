@@ -493,7 +493,7 @@ in {
     message = TDA Global Notify broadcasts from Jira
 
     [Filter.22]
-    query = 'from:no-reply@thecurrency.empower.com'
+    query = from:no-reply@thecurrency.empower.com or from:no-reply@email.empower.com
     tags = +empower;-inbox;-new
     message = spam
 
@@ -501,6 +501,31 @@ in {
     query = 'from:srv_observability@drwholdings.com'
     tags = +observability;-inbox;-new
     message = noisy
+
+    [Filter.24]
+    query = from:do-not-reply-support@lastpass.com
+    tags = +lastpass;-inbox;-new
+    message = shared-folder notifications
+
+    [Filter.25]
+    query = from:announce@crunchydata.com
+    tags = +crunchy;-inbox;-new
+    message = release/advisory announcements
+
+    [Filter.26]
+    query = from:grmtechnology-do_not_reply@drw.com
+    tags = +grm;-inbox;-new
+    message = RMG report download confirmations
+
+    [Filter.27]
+    query = from:caresupport@hello.springhealth.com
+    tags = +springhealth;-inbox;-new
+    message = wellness reminders
+
+    [Filter.28]
+    query = from:no-reply@zoom.us or from:noreply-marketplace@zoom.us
+    tags = +zoom;-inbox;-new
+    message = "X joined your meeting" / app marketplace
 
     [InboxFilter]
   '';
