@@ -458,7 +458,7 @@ in {
     message = too noisy and belongs to a different team
 
     [Filter.15]
-    query = 'from:alertmanager-gem-unix@drw.com'
+    query = from:alertmanager-gem-unix@drw.com
     tags = +alertmanager;+alerts;+important;-inbox
     message = keep an eye on these separately
 
