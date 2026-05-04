@@ -453,7 +453,7 @@ in {
     message = too noisy
 
     [Filter.14]
-    query = 'tag:lists/sample-splunk-log'
+    query = tag:lists/sample-splunk-log
     tags = +sentry;-inbox;-new
     message = too noisy and belongs to a different team
 
