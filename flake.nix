@@ -65,7 +65,6 @@
       }
     ];
     system = "x86_64-linux";
-    patcher = flake-input-patcher.lib.${system};
 
     overlays = [
       cachyos-kernel.overlays.pinned
