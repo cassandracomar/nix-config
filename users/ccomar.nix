@@ -11,6 +11,7 @@
       user = "cassandracomar";
       "git.drwholdings.com/api/v3".user = "ccomar";
       "git.drwholdings.com/api".user = "ccomar";
+      "git.drwholdings.com".user = "ccomar";
     };
   };
 
