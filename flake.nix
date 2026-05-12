@@ -65,9 +65,12 @@
       }
     ];
     system = "x86_64-linux";
+    inputs' = flake-input-patcher.lib.x86_64-linux.patch inputs {
+      cachyos-kernel.patches = [./cachyos-kernel.patch];
+    };
 
     overlays = [
-      cachyos-kernel.overlays.pinned
+      inputs'.cachyos-kernel.overlays.pinned
       emacs.overlay
       nur.overlays.default
       pinnacle.overlays.default
@@ -77,7 +80,7 @@
       nh.overlays.default
       (final: prev: let
         iosevka-fonts = prev.callPackage ./packages/iosevka.nix {};
-        helpers = prev.callPackage "${cachyos-kernel.outPath}/helpers.nix" {};
+        helpers = prev.callPackage "${inputs'.cachyos-kernel.outPath}/helpers.nix" {};
       in {
         inherit (prev.lixPackageSets.latest) lix nix-eval-jobs nix-fast-build colmena nixpkgs-review;
         inherit (iosevka-fonts) iosevka-nerd-font pyftfeatfreeze iosevka-custom fontToolsPyEnv;
@@ -237,7 +240,10 @@
               users = pkgs.lib.listToAttrs (map
                 user-module
                 [user]);
-              extraSpecialArgs = {inherit pkgs user system pinnacle-config inputs;};
+              extraSpecialArgs = {
+                inherit pkgs user system pinnacle-config;
+                inputs = inputs';
+              };
             };
           }
         ]) []
