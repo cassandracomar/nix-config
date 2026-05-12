@@ -3,6 +3,7 @@
   pkgs,
   nixpkgs,
   lib,
+  inputs,
   ...
 }: let
   autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
@@ -24,12 +25,13 @@
 
     ${pkgs.llvm}/bin/llvm-profgen --kernel --binary=${config.boot.kernelPackages.kernel.dev}/vmlinux --perfdata=$WORKING_DIR/kernel.data -o /home/cassandra/src/github.com/cassandracomar/nix-config/kernel.afdo
   '';
+  helpers = pkgs.callPackage "${inputs.cachyos-kernel.outPath}/helpers.nix" {};
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
-  boot.kernelPackages = lib.mkForce (pkgs.mkCachyPackageSet autofdo-kernel);
+  boot.kernelPackages = lib.mkForce (helpers.kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
 
   boot.kernelPatches = [

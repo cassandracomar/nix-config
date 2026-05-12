@@ -65,12 +65,9 @@
       }
     ];
     system = "x86_64-linux";
-    inputs' = flake-input-patcher.lib.x86_64-linux.patch inputs {
-      cachyos-kernel.patches = [./cachyos-kernel.patch];
-    };
 
     overlays = [
-      inputs'.cachyos-kernel.overlays.pinned
+      cachyos-kernel.overlays.pinned
       emacs.overlay
       nur.overlays.default
       pinnacle.overlays.default
