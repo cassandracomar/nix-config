@@ -32,7 +32,11 @@ in {
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
   boot.kernelPackages = lib.mkForce (helpers.kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
-  boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    (zenpower.overrideAttrs (old: {
+      makeFlags = (old.makeFlags or []) ++ kernelPackages_.kernel.commonMakeFlags;
+    }))
+  ];
 
   boot.kernelPatches = [
     # {
