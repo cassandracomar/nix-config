@@ -27,10 +27,10 @@
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
+  boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
   boot.kernelPackages = lib.mkForce (pkgs.mkCachyPackageSet autofdo-kernel);
-  boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
+  # boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
 
   boot.kernelPatches = [
     # {
