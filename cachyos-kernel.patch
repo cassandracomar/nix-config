@@ -1,0 +1,12 @@
+diff --git a/helpers.nix b/helpers.nix
+index 6248017..a9cc26d 100644
+--- a/helpers.nix
++++ b/helpers.nix
+@@ -69,7 +69,6 @@ rec {
+           && ((v.overrideAttrs or null) != null)
+         then
+           v.overrideAttrs (old: {
+-            makeFlags = (old.makeFlags or [ ]) ++ kernelPackages_.kernel.commonMakeFlags;
+             postPatch = (if (old.postPatch or null) == null then "" else old.postPatch) + ''
+               if [ -f Makefile ]; then
+                 substituteInPlace Makefile --replace "gcc" "cc"
