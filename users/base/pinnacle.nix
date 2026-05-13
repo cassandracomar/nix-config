@@ -131,6 +131,7 @@ in {
     enableZshIntegration = true;
     extraConfig = ''
       local config = {}
+      local act = wezterm.action
 
       config.default_prog = { 'nu', '--config', '~/.config/nushell/wezterm-config.nu', '--env-config', '~/.config/nushell/env.nu' }
       config.color_scheme = 'Monokai (dark) (terminal.sexy)'
