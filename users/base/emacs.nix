@@ -25,17 +25,12 @@ in {
     gnumake
     config.programs.doom-emacs.finalDoomPackage
     (emacs-lsp-booster.override {inherit emacs;})
-    (mu.override {inherit emacs;})
     python3Packages.grip
     helm-ls
     jsonnet-language-server
     bash-language-server
     vscode-json-languageserver
   ];
-
-  programs.notmuch.package = (pkgs.notmuch.override {inherit emacs;}).overrideAttrs (old: {
-    doCheck = false;
-  });
 
   systemd.user.startServices = true;
 
@@ -50,7 +45,6 @@ in {
         sqlite3
         emacsql
         treesit-grammars.with-all-grammars
-        mu4e
       ];
     extraBinPackages = with pkgs; [
       nixd

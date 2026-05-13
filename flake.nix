@@ -112,6 +112,7 @@
         openldap = prev.openldap.overrideAttrs (old: {
           doCheck = false;
         });
+        notmuch = prev.notmuch.override {withEmacs = false;};
       })
       (final: prev: let
         gotmpl-grammar = prev.tree-sitter.buildGrammar {
