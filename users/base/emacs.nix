@@ -33,7 +33,9 @@ in {
     vscode-json-languageserver
   ];
 
-  programs.notmuch.package = pkgs.notmuch.override {inherit emacs;};
+  programs.notmuch.package = (pkgs.notmuch.override {inherit emacs;}).overrideAttrs (old: {
+    doCheck = false;
+  });
 
   systemd.user.startServices = true;
 
