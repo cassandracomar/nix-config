@@ -153,6 +153,18 @@ in {
         top = 0,
         bottom = 16,
       }
+      config.mouse_bindings = {
+        {
+          event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+          mods = 'NONE',
+          action = act.ScrollByLine(-3),
+        },
+        {
+          event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+          mods = 'NONE',
+          action = act.ScrollByLine(3),
+        },
+      }
 
       return config
     '';
