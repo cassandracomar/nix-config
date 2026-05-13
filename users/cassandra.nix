@@ -71,7 +71,6 @@ in {
     git-crypt
     complete_alias
     kubernetes_aliases
-    mu
     zoom-us
     vulkan-tools
     heroic

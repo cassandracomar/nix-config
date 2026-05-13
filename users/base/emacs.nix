@@ -3,7 +3,9 @@
   inputs,
   config,
   ...
-}: {
+}: let
+  emacs = config.programs.doom-emacs.emacs;
+in {
   home.packages = with pkgs; [
     sqlite
     direnv
@@ -22,14 +24,16 @@
     # stdenv_mold
     gnumake
     config.programs.doom-emacs.finalDoomPackage
-    emacs-lsp-booster
-    mu
+    (emacs-lsp-booster.override {inherit emacs;})
+    (mu.override {inherit emacs;})
     python3Packages.grip
     helm-ls
     jsonnet-language-server
     bash-language-server
     vscode-json-languageserver
   ];
+
+  programs.notmuch.package = pkgs.notmuch.override {inherit emacs;};
 
   systemd.user.startServices = true;
 
@@ -51,7 +55,7 @@
       gnumake
       sqlite
       pinentry-emacs
-      emacs-lsp-booster
+      (emacs-lsp-booster.override {inherit emacs;})
     ];
     emacsPackageOverrides = final: prev: {
       dumb-jump = prev.dumb-jump.overrideAttrs (old: {

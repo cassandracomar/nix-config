@@ -74,7 +74,7 @@
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@nie.rs && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@nie.rs && ${config.programs.notmuch.package}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@nie.rs";
       };
@@ -94,7 +94,7 @@
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@mountclare.net && ${pkgs.notmuch}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@mountclare.net && ${config.programs.notmuch.package}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@mountclare.net";
       };
