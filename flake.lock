@@ -112,11 +112,11 @@
     "doomemacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1778626510,
-        "narHash": "sha256-ItyK7DAbx8WwKt7SgkwrjVmp1U0PHwatrAZkJE22MV0=",
+        "lastModified": 1778727896,
+        "narHash": "sha256-3HNtdEuGAG9QQfJ+RvmNMSQjqb/xcVH+LiErQgzaRNk=",
         "owner": "doomemacs",
         "repo": "doomemacs",
-        "rev": "cc6c98c94ed3bb54fd0bcc596b4cd583af591b0e",
+        "rev": "e53b9dfecea20f26e654902b272453359b938a36",
         "type": "github"
       },
       "original": {
@@ -131,11 +131,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1778668105,
-        "narHash": "sha256-ANLrWpyzF0DW/KmjX7+wtdV9BKnxP1DNRE8dDx1IgLk=",
+        "lastModified": 1778756604,
+        "narHash": "sha256-IOM4sv+0NnchlJ10leGUcmmrWz5Wx6ZXJpw22of/kxw=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "409b251125f9368bd15710f6b7a9e486e6616f8b",
+        "rev": "370a91d75e2945cda4e29525891a75c859f658b7",
         "type": "github"
       },
       "original": {
@@ -242,11 +242,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1777233007,
-        "narHash": "sha256-Jiis/solTrHkALcodLMl4rlBb75Xpom7AMvlKyPGzc4=",
+        "lastModified": 1778738067,
+        "narHash": "sha256-I7typVsE23IR+a9brBK7qC1aqtIjLiPle5kd0A7XLuw=",
         "owner": "jfly",
         "repo": "flake-input-patcher",
-        "rev": "d4442d7274b5afeaa17423865e41dc4bd59fa706",
+        "rev": "f10fa74781ed0d0dfac6b055c6f016dc5b4223bf",
         "type": "github"
       },
       "original": {
@@ -417,11 +417,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778681890,
-        "narHash": "sha256-RK4sTgei29wBzLu+e4ljeixKutWhbMygFsdxdFKpZOU=",
+        "lastModified": 1778764020,
+        "narHash": "sha256-SGDbsxHy/OPPYyh7pLnWueW3HbDCOwt/XpWzlsZNUGI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7654d90b94bab7eba3a52fd6f73b3f5a4c544fa2",
+        "rev": "4f9cbe4384e00cf2cf80e99741e93f12a67a8f32",
         "type": "github"
       },
       "original": {
@@ -437,11 +437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778347637,
-        "narHash": "sha256-l3OQzO7bnfXk6rM8bbEWTVpimvgjij0XplDBYyJgJOY=",
+        "lastModified": 1778741608,
+        "narHash": "sha256-B14CmTmyokfvM/ADMTyMpaH2Ip8Gtyc35pLpocVf6X4=",
         "owner": "nix-community",
         "repo": "nh",
-        "rev": "8df68e3d25a0c04b8ff4351a7ba9b1a181062842",
+        "rev": "247d26d2058eda0ca26315cac8cb415ea599927f",
         "type": "github"
       },
       "original": {
@@ -460,11 +460,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1778669152,
-        "narHash": "sha256-tOO/jrQdYeOZdxpV8OfT/NZ3ro3ofoNz+gSJFyiDwM4=",
+        "lastModified": 1778755016,
+        "narHash": "sha256-mjJj7z9RBHkX1h62Xo7zoHfL/jykA/3TGGnKlRmxH88=",
         "owner": "marienz",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "d33ce4c5154b437d87f038d97c8e9c95e9e71dff",
+        "rev": "b1382c08a741d3fb4d2083d2e60c01498606c092",
         "type": "github"
       },
       "original": {
@@ -619,11 +619,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1778580735,
-        "narHash": "sha256-RmPrrfjRTwLZo9DhtwYjPH+TClmPZO5rufdl+rp7kio=",
-        "rev": "48d91f2c0ce7b9e589f967d4f685153dd765dcdd",
+        "lastModified": 1778672786,
+        "narHash": "sha256-Tf7q8/0aIwg4Btd/GUMNHXDTqlrWTr5o/vZ8euFUAQY=",
+        "rev": "eef00dfd8a712b34af845f9350bac681b1228bd1",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre996527.48d91f2c0ce7/nixexprs.tar.xz?lastModified=1778580735&rev=48d91f2c0ce7b9e589f967d4f685153dd765dcdd"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre997230.eef00dfd8a71/nixexprs.tar.xz?lastModified=1778672786&rev=eef00dfd8a712b34af845f9350bac681b1228bd1"
       },
       "original": {
         "type": "tarball",
@@ -638,11 +638,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778691167,
-        "narHash": "sha256-vEs9/V73gwupl23AcOKDXjIiTmw5qOq1MP+SMSUe2R0=",
+        "lastModified": 1778760998,
+        "narHash": "sha256-d0V33VuHOKFLTFMDAfY+zX8zg81bhWKdWPfl7fC7Ed8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b9da1795d8c78664a4e2e1b7badae96f32e3b076",
+        "rev": "012d562e5600571920728036a95ab265415df3fa",
         "type": "github"
       },
       "original": {
