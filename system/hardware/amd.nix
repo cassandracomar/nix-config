@@ -6,13 +6,21 @@
   inputs,
   ...
 }: let
-  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
-    autofdo = ../../kernel.afdo;
-  });
+  autofdo-kernel =
+    (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
+      autofdo = ../../kernel.afdo;
+    })).overrideAttrs (old: {
+      version = "7.0.1";
+
+      src = pkgs.fetchurl {
+        url = "https://github.com/CachyOS/linux/releases/download/cachyos-7.0.1-2/cachyos-7.0.1-2.tar.gz";
+        sha256 = "sha256-+wR9fJQy0/iO8GcYOpw3UcZSPK3QKb4Rqtq1akSAGfg=";
+      };
+    });
 
   perf = pkgs.perf.overrideAttrs (old: {
-    version = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.version;
-    src = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.src;
+    version = config.boot.kernelPackages.kernel.version;
+    src = config.boot.kernelPackages.kernel.src;
   });
 
   autofdo-profile = pkgs.writeScriptBin "autofdo-profile" ''
