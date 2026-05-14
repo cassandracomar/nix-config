@@ -9,6 +9,8 @@
   autofdo-kernel =
     (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
       autofdo = ../../kernel.afdo;
+      modDirVersion = "7.0.1-cachyos-lto";
+      version = "7.0.1";
     })).overrideAttrs (old: {
       version = "7.0.1";
 
