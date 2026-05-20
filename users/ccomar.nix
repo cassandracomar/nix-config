@@ -707,6 +707,8 @@ in {
   systemd.user.services.khalel-import = let
     importScript = pkgs.writeText "khalel-import-batch.el" ''
       ;;; khalel-import-batch.el --- batch import per khal calendar -*- lexical-binding: t; -*-
+      (setq make-backup-files nil
+            backup-directory-alist '(("." . "~/.cache/doom/nix/backup/")))
       (add-to-list 'load-path "${inputs.doom-config}")
       (require '+khalel)
       (setq khalel-khal-command "${pkgs.khal}/bin/khal")
