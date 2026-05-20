@@ -175,7 +175,12 @@ in {
 
   programs.eww = {
     enable = true;
-    configDir = ./eww;
+    yuckConfig = builtins.readFile ./eww/eww.yuck;
+    scssConfig = builtins.readFile ./eww/eww.scss;
+  };
+  xdg.configFile = {
+    "eww/modules".source = ./eww/modules;
+    "eww/lock.svg".source = ./eww/lock.svg;
   };
 
   systemd.user.services = {

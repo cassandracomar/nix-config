@@ -254,6 +254,20 @@ in {
 
   systemd.user = {
     services = {
+      rbw-agent = {
+        Unit = {
+          Description = "rbw (Bitwarden) credentials agent";
+          PartOf = ["graphical-session.target"];
+        };
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.rbw}/bin/rbw-agent --no-daemonize";
+          Restart = "on-failure";
+          RestartSec = 2;
+        };
+        Install.WantedBy = ["graphical-session.target"];
+      };
+
       llama-cpp = {
         Unit = {
           Description = "run llama.cpp";
