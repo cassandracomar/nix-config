@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   git_config = {
@@ -227,6 +228,20 @@ in {
       pinentry = pkgs.pinentry-rofi;
       lock_timeout = 86400;
     };
+  };
+
+  systemd.user.services.rbw-agent = {
+    Unit = {
+      Description = "rbw (Bitwarden) credentials agent";
+      PartOf = ["graphical-session.target"];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.rbw}/bin/rbw-agent --no-daemonize";
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+    Install.WantedBy = ["graphical-session.target"];
   };
 
   programs.git = {
@@ -609,6 +624,125 @@ in {
     ProtectKernelTunables = lib.mkForce false;
     CapabilityBoundingSet = lib.mkForce "~";
     Environment = ["JAVA_OPTS='-Xmx10G -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=3'"];
+  };
+
+  # vdirsyncer requires pair/storage names to match [A-Za-z0-9_] only, so the
+  # account keys use underscores (referenced by khal's default_calendar and
+  # the khalel use-package block in doom-config/config.el).
+  accounts.calendar = {
+    basePath = ".local/share/calendars";
+    accounts.ccomar_personal = {
+      primary = true;
+      local = {
+        type = "filesystem";
+        fileExt = ".ics";
+      };
+      remote = {
+        type = "caldav";
+        url = "http://127.0.0.32:1080/users/ccomar@drwholdings.com/calendar/";
+        userName = "ccomar";
+        passwordCommand = ["${pkgs.rbw}/bin/rbw" "get" "drwholdings.com" "ccomar"];
+      };
+      # Explicit collection aliasing: [pair-name, name-in-storage-a, name-in-b].
+      # home-manager wires a=remote, b=local, so the triplet reads:
+      # [pair-name, remote-collection, local-subdir]. Gives khal stable names
+      # ("personal", "pagerduty") instead of "calendar"/"calendar1".
+      vdirsyncer = {
+        enable = true;
+        collections = [
+          ["personal" "calendar" "personal"]
+          ["pagerduty" "Pagerduty Primary" "pagerduty"]
+        ];
+        conflictResolution = "remote wins";
+      };
+      khal = {
+        enable = true;
+        type = "discover";
+        color = "light blue";
+      };
+    };
+    accounts.up_platform_infra = {
+      local = {
+        type = "filesystem";
+        fileExt = ".ics";
+      };
+      remote = {
+        type = "caldav";
+        url = "http://127.0.0.32:1080/users/up-platform-infrastructure-calendar@drwholdings.com/calendar/";
+        userName = "ccomar";
+        passwordCommand = ["${pkgs.rbw}/bin/rbw" "get" "drwholdings.com" "ccomar"];
+      };
+      vdirsyncer = {
+        enable = true;
+        collections = [
+          ["team" "calendar" "team"]
+        ];
+        conflictResolution = "remote wins";
+      };
+      khal = {
+        enable = true;
+        type = "discover";
+        color = "light green";
+      };
+    };
+  };
+
+  programs.vdirsyncer.enable = true;
+  services.vdirsyncer = {
+    enable = true;
+    frequency = "*:0/15";
+  };
+
+  systemd.user.services.vdirsyncer = {
+    Install.WantedBy = ["anyconnect.service"];
+    Unit = {
+      Wants = ["davmail.service"];
+      After = ["davmail.service" "anyconnect.service"];
+      PartOf = ["anyconnect.service"];
+      OnSuccess = ["khalel-import.service"];
+    };
+    Service.ExecStartPre = "${pkgs.runtimeShell} -c 'until ${pkgs.netcat-openbsd}/bin/nc -z 127.0.0.32 1080; do sleep 1; done'";
+  };
+
+  systemd.user.services.khalel-import = let
+    importScript = pkgs.writeText "khalel-import-batch.el" ''
+      ;;; khalel-import-batch.el --- batch import per khal calendar -*- lexical-binding: t; -*-
+      (add-to-list 'load-path "${inputs.doom-config}")
+      (require '+khalel)
+      (setq khalel-khal-command "${pkgs.khal}/bin/khal")
+      (+khalel-import-events-per-calendar)
+      (kill-emacs 0)
+    '';
+  in {
+    Unit = {
+      Description = "Import each khal calendar into its own ~/todo/calendar-*.org file (batch)";
+      After = ["vdirsyncer.service"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${config.programs.doom-emacs.finalEmacsPackage}/bin/emacs --batch -l ${importScript}";
+    };
+  };
+
+  programs.khal = {
+    enable = true;
+    locale = {
+      timeformat = "%H:%M";
+      dateformat = "%Y-%m-%d";
+      longdateformat = "%Y-%m-%d %a";
+      datetimeformat = "%Y-%m-%d %H:%M";
+      longdatetimeformat = "%Y-%m-%d %a %H:%M";
+    };
+    settings = {
+      default = {
+        default_calendar = "personal";
+        timedelta = "30d";
+        highlight_event_days = "True";
+      };
+      view = {
+        agenda_event_format = "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
+      };
+    };
   };
 
   home.stateVersion = "21.11";
