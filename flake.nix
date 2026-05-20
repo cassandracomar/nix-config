@@ -65,8 +65,12 @@
       }
     ];
     system = "x86_64-linux";
-    inputs' = flake-input-patcher.lib.x86_64-linux.patch inputs {
-      cachyos-kernel.patches = [./cachyos-kernel.patch];
+    inputs' = flake-input-patcher.lib.x86_64-linux.patch {
+      unpatchedInputs = inputs;
+      flakePath = ./.;
+      patchSpec = {
+        cachyos-kernel.patches = [./cachyos-kernel.patch];
+      };
     };
 
     overlays = [
