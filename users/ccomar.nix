@@ -49,10 +49,8 @@
       pkgs.coreutils
     ]}
 
-    # afew --verbose logs to stderr; tee everything to journal AND a debug file
-    # so we can compare what the script actually produced vs what the journal kept
-    logfile=/tmp/mail-sync-ccomar-drwholdings.log
-    exec > >(tee -a "$logfile") 2>&1
+    # afew --verbose logs to stderr; route everything to journal
+    exec 2>&1
 
     start=$(date +%s)
     echo "=== sync start $(date -Iseconds) ==="
@@ -667,6 +665,7 @@ in {
       "davmail.enableOidc" = false;
       "davmail.graphUrl" = "https://webmail.drwholdings.com/owa/graph";
       "davmail.graphPrefix" = "beta";
+      "davmail.folderSizeLimit" = 10000;
       "log4j.logger.davmail" = "INFO";
       "log4j.logger.httpclient.wire" = "WARN";
       "log4j.logger.org.apache.commons.httpclient" = "WARN";
