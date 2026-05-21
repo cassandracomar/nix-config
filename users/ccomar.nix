@@ -39,6 +39,44 @@
     '';
   };
   profdata = ./base/merged-intel.profdata;
+  drwMailSyncScript = pkgs.writeShellScriptBin "mail-sync-ccomar-drwholdings" ''
+    set -euo pipefail
+    export PATH=${lib.makeBinPath [
+      pkgs.isync
+      config.programs.notmuch.package
+      pkgs.afew
+      pkgs.notifymuch
+      pkgs.coreutils
+    ]}
+
+    # afew --verbose logs to stderr; tee everything to journal AND a debug file
+    # so we can compare what the script actually produced vs what the journal kept
+    logfile=/tmp/mail-sync-ccomar-drwholdings.log
+    exec > >(tee -a "$logfile") 2>&1
+
+    start=$(date +%s)
+    echo "=== sync start $(date -Iseconds) ==="
+
+    mbsync -Ln ccomar@drwholdings.com
+    notmuch new --no-hooks --verbose
+
+    pre=$(notmuch count tag:new)
+    echo "tag:new count BEFORE afew: $pre"
+
+    afew --tag --new --verbose
+
+    post=$(notmuch count tag:new)
+    echo "tag:new count AFTER afew: $post"
+    if [ "$post" -gt 0 ]; then
+      echo "WARN messages still tagged new after afew:"
+      notmuch search --output=summary tag:new | head -50
+    fi
+
+    notifymuch
+
+    echo "=== sync end elapsed=$(( $(date +%s) - start ))s ==="
+  '';
+
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     patches = builtins.filter (p: baseNameOf (toString p) != "tree-sitter-0.26.patch") old.patches;
@@ -94,6 +132,33 @@ in {
     };
     Install = {
       WantedBy = ["timers.target"];
+    };
+  };
+
+  systemd.user.services.mail-sync-ccomar-drwholdings = {
+    Unit = {
+      Description = "Sync mail for ccomar@drwholdings.com";
+      After = ["anyconnect.service" "davmail.service"];
+      Wants = ["davmail.service"];
+      PartOf = ["anyconnect.service"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${drwMailSyncScript}/bin/mail-sync-ccomar-drwholdings";
+    };
+  };
+  systemd.user.timers.mail-sync-ccomar-drwholdings = {
+    Unit = {
+      Description = "Periodic mail sync for ccomar@drwholdings.com";
+      PartOf = ["anyconnect.service"];
+    };
+    Timer = {
+      OnCalendar = "*:0/5";
+      Persistent = true;
+      Unit = "mail-sync-ccomar-drwholdings.service";
+    };
+    Install = {
+      WantedBy = ["anyconnect.service"];
     };
   };
 
@@ -579,10 +644,7 @@ in {
           };
         };
         notmuch.enable = true;
-        imapnotify = {
-          enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln ccomar@drwholdings.com; ${config.programs.notmuch.package}/bin/notmuch new --no-hooks; ${pkgs.afew}/bin/afew --tag --new --verbose; ${pkgs.notifymuch}/bin/notifymuch";
-        };
+        imapnotify.enable = false;
         userName = "ccomar";
       };
     };
@@ -605,7 +667,7 @@ in {
       "davmail.enableOidc" = false;
       "davmail.graphUrl" = "https://webmail.drwholdings.com/owa/graph";
       "davmail.graphPrefix" = "beta";
-      "log4j.logger.davmail" = "DEBUG";
+      "log4j.logger.davmail" = "INFO";
       "log4j.logger.httpclient.wire" = "WARN";
       "log4j.logger.org.apache.commons.httpclient" = "WARN";
       "log4j.rootLogger" = "WARN";
