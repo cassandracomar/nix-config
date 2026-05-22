@@ -1,24 +1,22 @@
 {
   config,
   pkgs,
-  nixpkgs,
   lib,
   inputs,
   ...
 }: let
-  autofdo-kernel =
-    (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
+  autofdo-kernel = (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override
+    (old: {
       autofdo = ../../kernel.afdo;
       modDirVersion = "7.0.1-cachyos-lto";
       version = "7.0.1";
     })).overrideAttrs (old: {
-      version = "7.0.1";
-
-      src = pkgs.fetchurl {
-        url = "https://github.com/CachyOS/linux/releases/download/cachyos-7.0.1-2/cachyos-7.0.1-2.tar.gz";
-        sha256 = "sha256-+wR9fJQy0/iO8GcYOpw3UcZSPK3QKb4Rqtq1akSAGfg=";
-      };
-    });
+    version = "7.0.1";
+    src = pkgs.fetchurl {
+      url = "https://github.com/CachyOS/linux/releases/download/cachyos-7.0.1-2/cachyos-7.0.1-2.tar.gz";
+      sha256 = "sha256-+wR9fJQy0/iO8GcYOpw3UcZSPK3QKb4Rqtq1akSAGfg=";
+    };
+  });
 
   perf = pkgs.perf.overrideAttrs (old: {
     version = config.boot.kernelPackages.kernel.version;
@@ -35,13 +33,42 @@
 
     ${pkgs.llvm}/bin/llvm-profgen --kernel --binary=${config.boot.kernelPackages.kernel.dev}/vmlinux --perfdata=$WORKING_DIR/kernel.data -o /home/cassandra/src/github.com/cassandracomar/nix-config/kernel.afdo
   '';
-  helpers = pkgs.callPackage "${inputs.cachyos-kernel.outPath}/helpers.nix" {};
+
+  kernelModuleLLVMOverride = kernelPackages_:
+    kernelPackages_.extend (
+      _final: prev:
+        lib.mapAttrs (
+          n: v:
+            if
+              builtins.elem "LLVM=1" kernelPackages_.kernel.commonMakeFlags
+              && !(builtins.elem n ["kernel"])
+              && lib.isDerivation v
+              && ((v.overrideAttrs or null) != null)
+            then
+              v.overrideAttrs (old: {
+                makeFlags = (old.makeFlags or []) ++ kernelPackages_.kernel.commonMakeFlags;
+                postPatch =
+                  (
+                    if (old.postPatch or null) == null
+                    then ""
+                    else old.postPatch
+                  )
+                  + ''
+                    if [ -f Makefile ]; then
+                      substituteInPlace Makefile --replace "gcc" "cc"
+                    fi
+                  '';
+              })
+            else v
+        )
+        prev
+    );
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
-  boot.kernelPackages = lib.mkForce (helpers.kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
+  boot.kernelPackages = lib.mkForce (kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
 
   boot.kernelPatches = [
