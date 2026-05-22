@@ -5,18 +5,22 @@
   inputs,
   ...
 }: let
-  autofdo-kernel = (pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override
+  autofdo-kernel =
+    pkgs.cachyosKernels.linux-cachyos-rc-lto.override
     (old: {
       autofdo = ../../kernel.afdo;
-      modDirVersion = "7.0.1-cachyos-lto";
-      version = "7.0.1";
-    })).overrideAttrs (old: {
-    version = "7.0.1";
-    src = pkgs.fetchurl {
-      url = "https://github.com/CachyOS/linux/releases/download/cachyos-7.0.1-2/cachyos-7.0.1-2.tar.gz";
-      sha256 = "sha256-+wR9fJQy0/iO8GcYOpw3UcZSPK3QKb4Rqtq1akSAGfg=";
-    };
-  });
+      # modDirVersion = "7.0.1-cachyos-lto";
+      # version = "7.0.1";
+      processorOpt = "zen4";
+    })
+    # .overrideAttrs (old: {
+    #   version = "7.0.1";
+    #   src = pkgs.fetchurl {
+    #     url = "https://github.com/CachyOS/linux/releases/download/cachyos-7.0.1-2/cachyos-7.0.1-2.tar.gz";
+    #     sha256 = "sha256-+wR9fJQy0/iO8GcYOpw3UcZSPK3QKb4Rqtq1akSAGfg=";
+    #   };
+    # })
+    ;
 
   perf = pkgs.perf.overrideAttrs (old: {
     version = config.boot.kernelPackages.kernel.version;
@@ -63,6 +67,30 @@
         )
         prev
     );
+  decodeMbox = pkgs.writeShellScript "decodeMbox" ''
+    # The lore.kernel.org mailing list uses public-inbox, which supports
+    # downloading threads as a gzip-compressed mbox file (see the "mbox.gz" link
+    # next to "Thread overview"). This can be used to download a patch series in
+    # a single file. However, public-inbox may not sort the messages in the
+    # thread [1], which may break application of the patches. b4 am [2] can be
+    # used to sort patches in the mbox file and produce a patch that can be
+    # applied with git am or patch.
+    # [1]: https://public-inbox.org/meta/20240411-dancing-pink-marmoset-f442d0@meerkat/
+    # [2]: https://b4.docs.kernel.org/en/latest/maintainer/am-shazam.html
+    # b4 expects git to be in $PATH and $XDG_DATA_HOME to be writable.
+    export PATH="${lib.makeBinPath [pkgs.gitMinimal]}:$PATH"
+    export XDG_DATA_HOME="$(mktemp -d)"
+    gzip -dc | ${pkgs.b4}/bin/b4 -n --offline-mode am -m - -o -
+  '';
+  # corefreq = config.boot.kernelPackages.corefreq.overrideAttrs (old: {
+  #   version = "2.1.1";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "cyring";
+  #     repo = "CoreFreq";
+  #     rev = "2769038bbe4ec800e8454d2cbbb5d14a4b2ba767";
+  #     sha256 = "sha256-ZnGM9PZojYtxU2IV0U4+NdyP6Qn11Baw6t1sY6djSgI=";
+  #   };
+  # });
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
@@ -72,20 +100,28 @@ in {
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
 
   boot.kernelPatches = [
-    # {
-    #   name = "lact-max-clocks";
-    #   patch = pkgs.fetchpatch {
-    #     url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
-    #     sha256 = "sha256-vUW9N6urYbDOSpcHqkmAb2UY18FphkUl/oO8lIxvVxs=";
-    #   };
-    # }
+    {
+      name = "lact-max-clocks";
+      patch = pkgs.fetchpatch {
+        url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
+        sha256 = "sha256-8/pT7mReiGJILVBbgyMl6zqPCurlxI0+EEnEIYHezfI=";
+      };
+    }
+    {
+      name = "[PATCH v2 0/3] Fixes for flip_done timeouts";
+      patch = pkgs.fetchpatch {
+        url = "https://lore.kernel.org/amd-gfx/20260519220529.202096-1-sunpeng.li@amd.com/t.mbox.gz";
+        hash = "sha256-+AAisd7COhTkUGXnZHWHNgSd5gjGAqC70nXKAIijwmY=";
+        decode = decodeMbox;
+      };
+    }
   ];
 
   environment.systemPackages = [pkgs.lact perf autofdo-profile];
-  programs.corefreq = {
-    enable = true;
-    package = config.boot.kernelPackages.corefreq;
-  };
+  # programs.corefreq = {
+  #   enable = true;
+  #   package = corefreq;
+  # };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
     enable = true;
