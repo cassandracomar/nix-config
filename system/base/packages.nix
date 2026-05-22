@@ -138,7 +138,7 @@
     };
     generateCompletions = true;
   };
-  documentation.man.generateCaches = true;
+  documentation.man.cache.enable = true;
   services.transmission = {
     enable = true;
     package = pkgs.transmission_4;
