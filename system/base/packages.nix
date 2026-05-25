@@ -44,7 +44,7 @@
   # documentation.info.enable = false;
 
   services.pcscd.enable = true;
-  services.udev.packages = [pkgs.yubikey-personalization];
+  services.udev.packages = with pkgs; [yubikey-personalization game-devices-udev-rules];
   services.fwupd.enable = true;
   services.autorandr.enable = true;
 
@@ -103,6 +103,7 @@
   };
 
   hardware.steam-hardware.enable = true;
+  hardware.uinput.enable = true;
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="268b", MODE:="0666", GROUP="users"
   '';
