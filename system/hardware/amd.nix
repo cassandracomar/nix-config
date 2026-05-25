@@ -2,25 +2,12 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
-  autofdo-kernel =
-    pkgs.cachyosKernels.linux-cachyos-rc-lto.override
-    (old: {
-      autofdo = ../../kernel.afdo;
-      # modDirVersion = "7.0.1-cachyos-lto";
-      # version = "7.0.1";
-      processorOpt = "zen4";
-    })
-    # .overrideAttrs (old: {
-    #   version = "7.0.1";
-    #   src = pkgs.fetchurl {
-    #     url = "https://github.com/CachyOS/linux/releases/download/cachyos-7.0.1-2/cachyos-7.0.1-2.tar.gz";
-    #     sha256 = "sha256-+wR9fJQy0/iO8GcYOpw3UcZSPK3QKb4Rqtq1akSAGfg=";
-    #   };
-    # })
-    ;
+  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-rc-lto.override (old: {
+    autofdo = ../../kernel.afdo;
+    processorOpt = "zen4";
+  });
 
   perf = pkgs.perf.overrideAttrs (old: {
     version = config.boot.kernelPackages.kernel.version;
