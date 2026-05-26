@@ -146,16 +146,10 @@
     '';
   };
 
-  programs.bash.enable = true;
-  programs.bash.enableCompletion = true;
-  programs.bash.initExtra = ''
-    export XDG_DATA_DIRS=${config.home.profileDirectory}/share:$XDG_DATA_DIRS
-    . ${pkgs.bash-completion}/share/bash-completion/bash_completion
-    . ${pkgs.git}/share/git/contrib/completion/git-completion.bash
-    for c in ${config.home.profileDirectory}/share/bash-completion/completions/*; do
-      . $c
-    done
-  '';
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+  };
 
   programs.nix-index = {
     enable = true;
