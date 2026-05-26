@@ -216,6 +216,7 @@ in {
     complete_alias
     kubernetes_aliases
     iosevka-nerd-font
+    iosevka-nerd-font-mono
     inconsolata
     inconsolata-lgc
     # noto-fonts

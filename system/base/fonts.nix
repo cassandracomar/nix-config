@@ -53,6 +53,7 @@
     packages = with pkgs; [
       ubuntu-classic
       iosevka-nerd-font
+      iosevka-nerd-font-mono
       inconsolata
       inconsolata-lgc
       noto-fonts

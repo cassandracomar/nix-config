@@ -15,5 +15,6 @@
   nerdFontPatcher = callPackage ./nerdFontPatcher.nix {};
 in {
   inherit iosevka-custom;
-  iosevka-nerd-font = nerdFontPatcher iosevka-custom;
+  iosevka-nerd-font = nerdFontPatcher iosevka-custom {};
+  iosevka-nerd-font-mono = nerdFontPatcher iosevka-custom {mono = true;};
 }

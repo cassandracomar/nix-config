@@ -139,7 +139,7 @@ in {
         background = '#171717',
         foreground = '#d6d6d1'
       }
-      config.font = wezterm.font('Iosevka Nerd Font Mono')
+      config.font = wezterm.font('Iosevka Nerd Font')
       config.font_size = 16
       config.window_decorations  = "NONE"
       config.use_fancy_tab_bar = false
