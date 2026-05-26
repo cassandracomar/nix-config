@@ -808,5 +808,5 @@ in {
     };
   };
 
-  home.stateVersion = "21.11";
+  home.stateVersion = "26.05";
 }
