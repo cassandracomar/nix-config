@@ -33,7 +33,7 @@
       defaultFonts = {
         serif = ["Noto Serif Nerd Font"];
         sansSerif = ["Noto Sans Nerd Font"];
-        monospace = ["Iosevka Nerd Font"];
+        monospace = ["Iosevka Nerd Font Mono"];
       };
 
       # Fixes antialiasing blur
