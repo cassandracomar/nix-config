@@ -11,6 +11,6 @@ stdenv.mkDerivation {
   nativeBuildInputs = [nerd-font-patcher fd];
   installPhase = ''
     mkdir -p $out/share/fonts/{truetype,opentype}
-    fd -e ttf -e otf -j ''${NIX_BUILD_CORES} -x nerd-font-patcher --complete --careful --outputdir $out/{//} {//}/{/}
+    fd -e ttf -e otf -j ''${NIX_BUILD_CORES} -x nerd-font-patcher --complete --careful --mono --outputdir $out/{//} {//}/{/}
   '';
 }
