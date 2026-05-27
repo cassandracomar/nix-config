@@ -5,22 +5,22 @@ module eat {
     }
   }
 
-  # send eat the history file to ensure the emacs input ring and nushell's stay synced
-  #
-  # NOTE: this doesn't actually work. use `eat-line-load-input-history-from-file` in your emacs config instead.
-  #       having the shell send the contents once on startup doesn't really make sense, anyway.
+  # Tell eat where the nushell history file lives so it can populate its line-mode
+  # input ring directly.  Protocol (see eat.el `eat--get-shell-history`):
+  #   shell -> eat: OSC 51 e;I;0 ; <format> ; <host-b64> ; <path-b64> ST
+  #   eat  -> shell: OSC 51 e;I;0 ST                (file readable here -- handled)
+  #               or OSC 51 e;I;<ring-size> ST     (need shell to send entries via e;I;1)
+  # We only ever run in the same host as eat with a readable history file, so the
+  # `e;I;0` path always applies; eat reads the file directly and returns 0.
+  # `term query` blocks for the reply so it gets consumed instead of leaking onto
+  # reedline as stray bytes.
   export def history_file [] {
-    let hist_file_notice = notify "51;e;I;0" $"bash;(hostname | encode base64);($nu.history-path | encode base64)"
-    let raw_reply = term query $hist_file_notice --prefix (ansi escape) --terminator (ansi st)
-
-    # the number of lines of history to provide is sent as the fourth element of the response
-    let history_size = $raw_reply | bytes split ';' | get 3
-    if $history_size != (0 | into binary) {
-      # # there's not a function to do this and I don't want convert the number from binary by hand
-      # # `print -r` does this properly but none of the other conversion functions handle raw binary properly
-      let hist_size_text = nu -c $"\"($history_size | encode base64)\" | decode base64 | print -r"
-      notify "51;e;I;1" $"bash;(tail -n $hist_size_text | ^base64 -w 0)"
-    }
+    # `hostname` outputs a trailing newline; eat's `(string= host (system-name))`
+    # check fails if we include it, which makes eat fall back to the
+    # "ask the shell to send N entries" path instead of reading the file directly.
+    let host = (hostname | str trim)
+    let notice = notify "51;e;I;0" $"bash;($host | encode base64);($nu.history-path | encode base64)"
+    term query $notice --prefix (ansi escape) --terminator (ansi st) | ignore
   }
 
   def --env enable_integration_impl [] {
@@ -39,8 +39,8 @@ module eat {
     $env.PROMPT_MULTILINE_INDICATOR = $"(notify '51;e' 'D')($old_ml_prompt)(notify '51;e' 'E')"
     $env.PROMPT_COMMAND_RIGHT = null
 
-    # see the NOTE on the function on why this is commented out
-    # history_file
+    # hand eat the history file path so it can populate its input ring directly
+    history_file
 
     # set up hooks to handle notifications to eat
     #
