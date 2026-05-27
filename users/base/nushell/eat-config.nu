@@ -43,6 +43,13 @@ module eat {
     # history_file
 
     # set up hooks to handle notifications to eat
+    #
+    # Hook bodies must `print -n` the `notify` return value: the closure's return
+    # is ignored by nushell's hook runner, so an unprinted OSC string is silently
+    # discarded and the corresponding eat handler (eat--pre-cmd / eat--set-cmd /
+    # eat--set-cmd-status) never fires.  The PROMPT_COMMAND wrap above works
+    # without `print` because its closure return is *the* prompt text written to
+    # the terminal.
     $env.config = {
       hooks: {
         pre_execution: [
@@ -50,13 +57,9 @@ module eat {
             let full_command = (commandline | split words)
             if ($full_command | length) > 0 {
               let command = ($full_command | get 0 | encode base64)
-              let command_notice = '51;e;F'
-              notify $command_notice $command
-
-              let pre_exec_notice = '51;e;'
-              notify $pre_exec_notice "G"
-
-              title_notice
+              print -n (notify '51;e;F' $command)
+              print -n (notify '51;e' "G")
+              print -n (title_notice)
             }
           }
         ]
@@ -64,11 +67,9 @@ module eat {
         pre_prompt: [
           {||
             # send the exit code notice
-            let exit_code_notice = '51;e;H'
             let exit_code = $"($env.LAST_EXIT_CODE)"
-            notify $exit_code_notice $exit_code
-
-            title_notice
+            print -n (notify '51;e;H' $exit_code)
+            print -n (title_notice)
           }
           ...$env.config.hooks.pre_prompt
         ]

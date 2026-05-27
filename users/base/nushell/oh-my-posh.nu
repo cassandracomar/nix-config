@@ -3,9 +3,15 @@ $env.PROMPT_INDICATOR = ""
 $env.POSH_SESSION_ID = "fc4b54b0-2293-41d7-acf8-8fcc06fa6ea3"
 $env.POSH_SHELL = "nu"
 $env.POSH_SHELL_VERSION = (version | get version)
+
+# Resolve the upstream `devious-diamonds` theme bundled with oh-my-posh.
+# oh-my-posh does NOT read $env.POSH_THEME -- the config must be passed via
+# `--config` on every invocation; without it, oh-my-posh silently falls back
+# to its built-in default theme (single line, right-aligned git block bleeds
+# into the input area).
 let posh_dir = (realpath (which oh-my-posh | get 0 | get path)) | path dirname | path dirname
-let posh_theme = $'($posh_dir)/share/oh-my-posh/themes/devious-diamonds.omp.yaml'
-$env.POSH_THEME = $"($posh_theme)"
+let _posh_theme: string = $'($posh_dir)/share/oh-my-posh/themes/devious-diamonds.omp.yaml'
+$env.POSH_THEME = $_posh_theme
 
 # disable all known python virtual environment prompts
 $env.VIRTUAL_ENV_DISABLE_PROMPT = 1
@@ -36,6 +42,7 @@ def --env --wrapped _omp_get_prompt [
 
     (
         ^$_omp_executable print $type
+            --config $env.POSH_THEME
             --save-cache
             --shell=nu
             $"--shell-version=($env.POSH_SHELL_VERSION)"
@@ -50,6 +57,7 @@ def --env --wrapped _omp_get_prompt [
 
 $env.PROMPT_MULTILINE_INDICATOR = (
     ^$_omp_executable print secondary
+        --config $env.POSH_THEME
         --shell=nu
         $"--shell-version=($env.POSH_SHELL_VERSION)"
 )
@@ -71,5 +79,4 @@ $env.PROMPT_COMMAND = {||
 
 $env.PROMPT_COMMAND_RIGHT = null
 $env.config.render_right_prompt_on_last_line = false
-# set-env $env.config.render_right_prompt_on_last_line false
 $env.config | merge { render_right_prompt_on_last_line: false } | load-env
