@@ -494,7 +494,7 @@ in {
 
     [Filter.6]
     query = 'from:no-reply@pagerduty.com'
-    tags = +pagerduty;+alerts;+important;-inbox
+    tags = +pagerduty;+alerts;+important;-inbox;-new
     message = keep an eye on these separately
 
     [Filter.7]
@@ -504,7 +504,7 @@ in {
 
     [Filter.8]
     query = 'to:/up-.*-alerts@drw/'
-    tags = +alerts;+important;-inbox
+    tags = +alerts;+important;-inbox;0new
     message = keep an eye on these separately
 
     [Filter.9]
@@ -539,7 +539,7 @@ in {
 
     [Filter.15]
     query = from:alertmanager-gem-unix@drw.com
-    tags = +alertmanager;+alerts;+important;-inbox
+    tags = +alertmanager;+alerts;+important;-inbox;-new
     message = keep an eye on these separately
 
     [Filter.16]
