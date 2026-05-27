@@ -10,7 +10,7 @@
     ./kubernetes.nix
     ./mail.nix
     ./packages.nix
-    # ./rust.nix
+    ./rust.nix
     ./shell-cfg.nix
     ./pinnacle.nix
     # ./xmonad.nix
