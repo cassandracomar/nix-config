@@ -117,6 +117,32 @@ module eat {
     send "git" $command ...($args)
   }
 
+  # tee piped input into an emacs buffer (eshell's `>#<buffer>' equivalent)
+  #
+  # Reads stdin, sends a base64-wrapped copy to the running Emacs to be
+  # written into BUFFER (created if needed), and passes the original data
+  # through so it can continue down the pipeline or be displayed.  By
+  # default the buffer is REPLACED on each invocation, matching POSIX
+  # tee; pass --append (-a) to accumulate output across runs.
+  # Examples:
+  #   ls | eat tee "*ls-results*"
+  #   ^cargo build 2>&1 | eat tee -a "*build-log*"
+  #   open log.json | eat tee "*log*" | get errors
+  export def tee [
+    buffer: string  # emacs buffer name
+    --append (-a)   # append to buffer instead of replacing its contents
+  ] {
+    let data = $in
+    let data_str = if ($data | describe | str starts-with "string") {
+      $data
+    } else {
+      $data | to text
+    }
+    let mode = if $append { "append" } else { "replace" }
+    print -n (send "tee" $buffer $mode $data_str)
+    $data
+  }
+
   # update the eat terminal title
   export def title_notice [] {
     # this is technically `ansi title` but the `notify` function would insert the
