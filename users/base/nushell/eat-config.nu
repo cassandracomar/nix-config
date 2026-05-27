@@ -80,13 +80,13 @@ module eat {
   # send a notification to eat, properly inserting escape sequences to denote the start and end
   # of messages.
   export def notify [code, msg] {
-    # we need to insert the code as an `osc` code and use the `ansi` command
-    # to prepare the `escape_left` and `sc` sequences or the command isn't properly
-    # sent to the terminal -- rather portions of the message are rendered directly as output.
-    let prefix = ansi --osc $code
-
-    # we need to use `ansi` to escape the whole message, including the header and footer, for a similar reason
-    ansi --escape $"(ansi escape_left)($prefix);($msg)(ansi st)"
+    # `ansi --osc` emits the OSC introducer (ESC `]`) plus the code; `ansi st`
+    # emits the String Terminator (ESC `\`). Do NOT wrap with `ansi --escape`
+    # or prepend `ansi escape_left` -- both inject a spurious CSI introducer
+    # (ESC `[`) ahead of the OSC, which puts eat's parser into CSI state and
+    # silently swallows the OSC dispatch (eat--handle-uic never fires, so
+    # auto-line-mode and shell prompt annotation never engage).
+    $"(ansi --osc $code);($msg)(ansi st)"
   }
 
   # Send a command to eat
