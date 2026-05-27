@@ -143,6 +143,27 @@ module eat {
     $data
   }
 
+  # cat the contents of an emacs buffer as a stream
+  #
+  # Inverse of `tee' -- requests BUFFER's contents from the running emacs
+  # via an OSC roundtrip, decodes the base64 payload it sends back, and
+  # writes the result to stdout so it can flow into the next pipeline
+  # stage.  Empty string when the buffer doesn't exist.
+  # Examples:
+  #   eat cat "*build-log*" | grep -i error
+  #   eat cat "*scratch*" | from json
+  export def cat [
+    buffer: string # emacs buffer name (e.g. "*build-log*")
+  ] {
+    let request = notify "51;e;M" $"('cat' | encode base64);($buffer | encode base64)"
+    # Reply format: ]51;e;K;<base64-content>  (prefix `(ansi escape)` stripped,
+    # terminator `(ansi st)` stripped).  Split by `;', element 3 is the b64.
+    let raw = term query $request --prefix (ansi escape) --terminator (ansi st)
+    let parts = $raw | bytes split ';'
+    let b64 = $parts | get 3 | decode utf-8
+    $b64 | decode base64 | decode utf-8
+  }
+
   # update the eat terminal title
   export def title_notice [] {
     # this is technically `ansi title` but the `notify` function would insert the
