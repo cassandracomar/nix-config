@@ -39,8 +39,8 @@
 
       # set up fallback completions for commands carapace lacks
       $env.CARAPACE_BRIDGES = 'fish,bash,zsh,inshellisense'
-      $env.config.render_right_prompt_on_last_line: false
-      $env.config.histor.max_size = 9999999
+      $env.config.render_right_prompt_on_last_line = false
+      $env.config.history.max_size = 9999999
     '';
   };
 
