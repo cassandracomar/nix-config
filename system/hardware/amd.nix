@@ -9,11 +9,6 @@
     processorOpt = "zen4";
   });
 
-  perf = pkgs.perf.overrideAttrs (old: {
-    version = config.boot.kernelPackages.kernel.version;
-    src = config.boot.kernelPackages.kernel.src;
-  });
-
   autofdo-profile = pkgs.writeScriptBin "autofdo-profile" ''
     #!${pkgs.runtimeShell}
     WORKING_DIR=$(mktemp -d)
@@ -104,7 +99,7 @@ in {
     }
   ];
 
-  environment.systemPackages = [pkgs.lact perf autofdo-profile];
+  environment.systemPackages = with pkgs; [lact perf autofdo-profile];
   # programs.corefreq = {
   #   enable = true;
   #   package = corefreq;
@@ -119,7 +114,10 @@ in {
   powerManagement.cpuFreqGovernor = pkgs.lib.mkDefault "powersave";
   services.auto-epp = {
     enable = true;
-    settings.Settings.epp_state_for_AC = "balance_performance";
+    settings.Settings = {
+      epp_state_for_AC = "balance_performance";
+      epp_state_for_BAT = "balance_performance";
+    };
   };
 
   services.lact = {
