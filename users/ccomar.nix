@@ -771,7 +771,7 @@ in {
       ;;; khalel-import-batch.el --- batch import per khal calendar -*- lexical-binding: t; -*-
       (setq make-backup-files nil
             backup-directory-alist '(("." . "~/.cache/doom/nix/backup/")))
-      (add-to-list 'load-path "${inputs.doom-config}")
+      (add-to-list 'load-path "${config.programs.doom-emacs.doomDir}")
       (require '+khalel)
       (setq khalel-khal-command "${pkgs.khal}/bin/khal")
       (+khalel-import-events-per-calendar)
