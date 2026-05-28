@@ -174,7 +174,7 @@ module eat {
     let hostname = (hostname)
     let pwd = ($env.PWD | str replace $nu.home-dir '~')
     let user_indicator = if $user == "root" {
-      r#'\#'#
+      r##'\#'##
     } else {
       r#'$'#
     }
