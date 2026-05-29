@@ -72,7 +72,7 @@
 
   compiledDoomDir =
     pkgs.runCommandLocal "doom-config-compiled" {
-      nativeBuildInputs = [scratchDoom pkgs.git];
+      nativeBuildInputs = with pkgs; [scratchDoom git man];
       EMACS = "${scratchDoom.emacsWithPackages}/bin/emacs";
       DOOMPROFILELOADFILE = "${scratchDoom.doomProfile}/loader/init";
       DOOMPROFILE = "nix";
