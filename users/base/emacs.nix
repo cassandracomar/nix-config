@@ -146,7 +146,7 @@ in {
     # is loaded from .eln). `doom-emacs' binary is auto-installed by the HM
     # module when provideEmacs=false.
     finalEmacsWithEln
-    (emacs-lsp-booster.override {inherit emacs;})
+    emacs-lsp-booster
     python3Packages.grip
     helm-ls
     jsonnet-language-server
@@ -169,7 +169,7 @@ in {
       gnumake
       sqlite
       pinentry-emacs
-      (emacs-lsp-booster.override {inherit emacs;})
+      emacs-lsp-booster
     ];
   };
   services.emacs = {
