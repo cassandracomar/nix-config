@@ -96,11 +96,11 @@
     "doom-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1780439134,
-        "narHash": "sha256-2mW5qRib2r7mQAEKNyL/RtlA81hLyCgVKvaKlAnXesM=",
+        "lastModified": 1780489003,
+        "narHash": "sha256-TATxQkwtiPUeFV9BQhiY7LENE666/JyiM6gK68MOG6w=",
         "owner": "cassandracomar",
         "repo": "doom-config",
-        "rev": "380107ecc2be28c609db44212cfc657e332bf92f",
+        "rev": "7676bdc8ac7366e1b11bda698d70f32b57c84aaa",
         "type": "github"
       },
       "original": {
@@ -638,11 +638,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780484642,
-        "narHash": "sha256-nOcBrJ8Gt0Kyau1CK9oaMbcCRBaGODhs4K5aYK9F50c=",
+        "lastModified": 1780488672,
+        "narHash": "sha256-zl/6VqAKG0guooRx3xpzL4a5FIpCbbs+6O/a4oPZmA8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "05ab217b61478b9be8976b09eb9a21d0be4fb27b",
+        "rev": "df3b552d8b0d09772ecb8f65cb56fb695331c0a5",
         "type": "github"
       },
       "original": {
