@@ -3,9 +3,7 @@
   fd,
   stdenv,
   lib,
-}: pkg: {
-  mono ? false,
-}:
+}: pkg: {mono ? false}:
 stdenv.mkDerivation {
   pname = "${lib.strings.toLower pkg.pname}-nerd-font${lib.optionalString mono "-mono"}";
   version = pkg.version;
