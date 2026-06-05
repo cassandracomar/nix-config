@@ -141,7 +141,7 @@ in {
       }
       config.font = wezterm.font('Iosevka Nerd Font')
       config.font_size = 16
-      config.harfbuzz_features = { 'composite.dlig', 'simple.minus-minus' }
+      config.harfbuzz_features = { 'dlig', 'calt' }
       config.window_decorations  = "NONE"
       config.use_fancy_tab_bar = false
       config.show_new_tab_button_in_tab_bar = false
