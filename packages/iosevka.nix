@@ -14,7 +14,7 @@
     set = "-Custom";
   };
   iosevka-custom-mono = iosevka.override {
-    privateBuildPlan = privateBuildPlan // {spacing = "term";};
+    privateBuildPlan = privateBuildPlan // {spacing = "fontconfig-mono";};
     set = "-Custom";
   };
   nerdFontPatcher = callPackage ./nerdFontPatcher.nix {};
