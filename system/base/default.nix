@@ -102,7 +102,7 @@
         Host banyan-nix.local
           User nix-client
           HostKeyAlias banyan.local
-          Hostname 192.168.2.61
+          Hostname 192.168.2.24
           Port 22
           IdentityFile /etc/nix/banyan_client.key
       '';
