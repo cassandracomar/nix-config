@@ -26,7 +26,7 @@
   inputs.clipcat.url = "github:xrelkd/clipcat";
   inputs.clipcat.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened";
+  inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened/update";
   inputs.nix-doom.inputs.nixpkgs.follows = "";
   inputs.nix-doom.inputs.emacs-overlay.follows = "emacs";
   inputs.doom-config.url = "github:cassandracomar/doom-config";
@@ -168,7 +168,8 @@
       pkgs,
       config,
       ...
-    }: {
+    }: let
+    in {
       # nixpkgs.overlays = [cachyos-kernel.overlays.default];
       boot = {
         kernelPackages = pkgs.lib.mkDefault (pkgs.mkCachyPackageSet pkgs.cachyosKernels.linux-cachyos-latest-lto);
