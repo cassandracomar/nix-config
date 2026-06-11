@@ -48,24 +48,72 @@
 
     (setq byte-compile-warnings nil
           load-prefer-newer t
-          native-comp-async-report-warnings-errors nil)
+          native-comp-async-report-warnings-errors nil
+          inhibit-debugger t
+          debug-on-error nil
+          debug-on-signal nil)
 
     (let ((target (getenv "EMACSNATIVELOADPATH")))
       (when (and target (not (string-empty-p target)))
         (setq native-comp-eln-load-path
               (cons target (delete target native-comp-eln-load-path)))))
 
+    ;; Invocation: doomscript THIS MODE LISTFILE
+    ;;   MODE     = "byte" | "native"
+    ;;   LISTFILE = path to a newline-separated list of .el files to compile.
+    ;; Reading the file list from a file (rather than argv) keeps it robust to
+    ;; doomscript's own argument handling and lets the shell shard the list for
+    ;; parallel invocations.
     (let* ((args command-line-args-left)
            (_ (when (string= (car args) "--") (pop args)))
-           (mode (pop args)))
+           (mode (pop args))
+           (listfile (pop args))
+           (files (with-temp-buffer
+                    (insert-file-contents listfile)
+                    (split-string (buffer-string) "\n" t))))
       (setq command-line-args-left nil)
-      (dolist (f args)
+      (dolist (f files)
         (catch 'exit
           (condition-case err
               (pcase mode
                 ("byte" (byte-compile-file f))
                 ("native" (native-compile f)))
-            (error (princ (format "%s failed for %s: %S\n" mode f err)))))))
+            ;; Catch everything (t), not just `error': skipping a file that
+            ;; won't compile must never abort the build.
+            (t (princ (format "%s skipped %s: %S\n" mode f err)))))))
+  '';
+
+  parallelCompile = ''
+    jobs=''${NIX_BUILD_CORES:-1}
+    [ "$jobs" -lt 1 ] && jobs=1
+
+    printf '%s\n' "$files" > all-files.txt
+    nfiles=$(grep -c . all-files.txt || true)
+    echo "compiling $nfiles files across $jobs shards"
+
+    # Split into $jobs round-robin shards (round-robin balances large/small files).
+    rm -rf shards && mkdir shards
+    awk -v j="$jobs" 'NF{print > ("shards/shard." (NR % j))}' all-files.txt
+
+    run_pass () {
+      mode=$1
+      pids=""
+      for shard in shards/shard.*; do
+        [ -s "$shard" ] || continue
+        EMACSNATIVELOADPATH="$ELN" \
+          ${pkgs.runtimeShell} "$doomscript" ${doomCompileScript} "$mode" "$shard" &
+        pids="$pids $!"
+      done
+      rc=0
+      for p in $pids; do wait "$p" || rc=1; done
+      return $rc
+    }
+
+    # Pass 1: byte-compile (creates .elc next to each .el -- the eln-substitution
+    # trigger).
+    run_pass byte
+    # Pass 2: native-compile into $ELN.
+    run_pass native
   '';
 
   compiledDoomDir =
@@ -89,31 +137,65 @@
                 ! -name init.el ! -name packages.el -type f -printf '%P\n')
 
       doomscript=${scratchDoom.doomSource}/bin/doomscript
-
-      # Pass 1: byte-compile our private config via doomscript so all doom
-      # macros expand. Only our config lives under the writable $out, so this
-      # pass is scoped to it ($out is the doomscript's cwd / DOOMDIR).
-      ${pkgs.runtimeShell} $doomscript ${doomCompileScript} byte $files
-
-      # Pass 2: native-compile our config
-      EMACSNATIVELOADPATH="$out/eln-cache/" \
-        ${pkgs.runtimeShell} $doomscript ${doomCompileScript} native \
-          $files $coreFiles $moduleFiles
+      ELN="$out/eln-cache/"
+      ${parallelCompile}
     '';
 
-  doomDepsNativeLisp = "${config.programs.doom-emacs.finalDoomPackage.emacsWithPackages.deps}/share/emacs/native-lisp";
+  compileDoomTree = name: src:
+    pkgs.runCommandLocal name {
+      nativeBuildInputs = with pkgs; [scratchDoom git man];
+      EMACS = "${scratchDoom.emacsWithPackages}/bin/emacs";
+      DOOMPROFILELOADFILE = "${scratchDoom.doomProfile}/loader/init";
+      DOOMPROFILE = "nix";
+      DOOMDIR = "${scratchDoom.doomProfile}/doomdir";
+      disallowedReferences =
+        lib.optional (name == "doom-core-compiled")
+        inputs.nix-doom.inputs.doomemacs-modules;
+    } ''
+      mkdir -p $out $out/eln-cache
+      cp -rL ${src}/. $out/
+      chmod -R u+w $out
+
+      export HOME=$PWD/doom-home
+      export DOOMLOCALDIR=$PWD/doom-local
+      mkdir -p $HOME $DOOMLOCALDIR
+
+      cd $out
+      files=$(find . -name '*.el' ! -name packages.el \
+                ! -path './lisp/lib/profiles.el' -type f -printf '%P\n')
+
+      doomscript=${scratchDoom.doomSource}/bin/doomscript
+      ELN="$out/eln-cache/"
+      ${parallelCompile}
+    '';
+
+  compiledCore = compileDoomTree "doom-core-compiled" inputs.nix-doom.inputs.doomemacs;
+  compiledModules = compileDoomTree "doom-modules-compiled" inputs.nix-doom.inputs.doomemacs-modules;
+
+  realDoom = pkgs.callPackage (inputs.nix-doom + "/default.nix") {
+    inherit emacs extraPackages emacsPackageOverrides doomLocalDir;
+    doomDir = compiledDoomDir;
+    doomSource = compiledCore;
+    doomModules = compiledModules;
+    experimentalFetchTree = true;
+    toInit = lib.const (lib.const "");
+  };
+
+  doomDepsNativeLisp = "${realDoom.doomEmacs.emacsWithPackages.deps}/share/emacs/native-lisp";
   finalEmacsWithEln =
     pkgs.runCommandLocal "emacs-with-doom-eln" {
       nativeBuildInputs = [pkgs.makeBinaryWrapper];
-      inherit (config.programs.doom-emacs.finalEmacsPackage) meta;
+      inherit (realDoom.emacsWithDoom) meta;
     } ''
       mkdir -p $out/bin
       for name in emacs emacsclient ebrowse etags; do
-        src=${config.programs.doom-emacs.finalEmacsPackage}/bin/$name
+        src=${realDoom.emacsWithDoom}/bin/$name
         case "$name" in
           emacs|emacsclient)
             makeWrapper "$src" "$out/bin/$name" \
               --suffix EMACSNATIVELOADPATH : "${compiledDoomDir}/eln-cache" \
+              --suffix EMACSNATIVELOADPATH : "${compiledCore}/eln-cache" \
+              --suffix EMACSNATIVELOADPATH : "${compiledModules}/eln-cache" \
               --suffix EMACSNATIVELOADPATH : "${doomDepsNativeLisp}"
             ;;
           *)
@@ -121,7 +203,7 @@
             ;;
         esac
       done
-      for d in ${config.programs.doom-emacs.finalEmacsPackage}/*; do
+      for d in ${realDoom.emacsWithDoom}/*; do
         name=$(basename "$d")
         [ "$name" = bin ] && continue
         ln -s "$d" "$out/$name"
@@ -145,9 +227,6 @@ in {
     # gcc
     # stdenv_mold
     gnumake
-    # `emacs' binary (wrapped to add EMACSNATIVELOADPATH so config.el itself
-    # is loaded from .eln). `doom-emacs' binary is auto-installed by the HM
-    # module when provideEmacs=false.
     finalEmacsWithEln
     emacs-lsp-booster
     python3Packages.grip
@@ -164,8 +243,6 @@ in {
     doomDir = compiledDoomDir;
     inherit doomLocalDir extraPackages emacsPackageOverrides;
     experimentalFetchTree = true;
-    # Have HM auto-install only the `doom-emacs' binary; we install our
-    # eln-wrapped `emacs' binary manually via home.packages above.
     provideEmacs = false;
     extraBinPackages = with pkgs; [
       nixd
@@ -178,10 +255,6 @@ in {
   services.emacs = {
     enable = true;
     startWithUserSession = "graphical";
-    # HM only wires services.emacs.package to finalEmacsPackage when
-    # provideEmacs=true; since we turned that off, set the daemon's emacs to
-    # the eln-wrapped binary explicitly so emacsclient sessions also pick up
-    # the precompiled .eln cache.
     package = finalEmacsWithEln;
   };
 }
