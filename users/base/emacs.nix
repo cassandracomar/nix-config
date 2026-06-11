@@ -32,6 +32,8 @@
 
   doomLocalDir = "${config.xdg.dataHome}/nix-doom";
 
+  doomModules = inputs.nix-doom.inputs.doomemacs-modules;
+
   scratchDoom = pkgs.doomEmacs {
     inherit emacs extraPackages emacsPackageOverrides doomLocalDir;
     doomDir = inputs.doom-config;
@@ -45,7 +47,6 @@
 
     (doom-modules-initialize)
     (load (doom-profile-init-file doom-profile) nil 'nomessage 'must-suffix)
-    (require 'doom-start)
     (catch 'exit (doom-startup))
 
     (setq byte-compile-warnings nil
@@ -92,12 +93,19 @@
 
       doomscript=${scratchDoom.doomSource}/bin/doomscript
 
-      # Pass 1: byte-compile via doomscript so all doom macros expand.
+      # Pass 1: byte-compile our private config via doomscript so all doom
+      # macros expand. Only our config lives under the writable $out, so this
+      # pass is scoped to it ($out is the doomscript's cwd / DOOMDIR).
       ${pkgs.runtimeShell} $doomscript ${doomCompileScript} byte $files
 
-      # Pass 2: native-compile
+
+      # Pass 2: native-compile our config plus doom core and all modules.
+      coreFiles=$(find ${scratchDoom.doomSource}/lisp -name '*.el' -type f)
+      moduleFiles=$(find ${scratchDoom.doomSource}/modules ${doomModules}/modules \
+                      -name '*.el' -type f)
       EMACSNATIVELOADPATH="$out/eln-cache/" \
-        ${pkgs.runtimeShell} $doomscript ${doomCompileScript} native $files
+        ${pkgs.runtimeShell} $doomscript ${doomCompileScript} native \
+          $files $coreFiles $moduleFiles
     '';
 
   finalEmacsWithEln =
