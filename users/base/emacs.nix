@@ -31,9 +31,6 @@
   };
 
   doomLocalDir = "${config.xdg.dataHome}/nix-doom";
-
-  doomModules = inputs.nix-doom.inputs.doomemacs-modules;
-
   scratchDoom = pkgs.doomEmacs {
     inherit emacs extraPackages emacsPackageOverrides doomLocalDir;
     doomDir = inputs.doom-config;
@@ -98,16 +95,13 @@
       # pass is scoped to it ($out is the doomscript's cwd / DOOMDIR).
       ${pkgs.runtimeShell} $doomscript ${doomCompileScript} byte $files
 
-
-      # Pass 2: native-compile our config plus doom core and all modules.
-      coreFiles=$(find ${scratchDoom.doomSource}/lisp -name '*.el' -type f)
-      moduleFiles=$(find ${scratchDoom.doomSource}/modules ${doomModules}/modules \
-                      -name '*.el' -type f)
+      # Pass 2: native-compile our config
       EMACSNATIVELOADPATH="$out/eln-cache/" \
         ${pkgs.runtimeShell} $doomscript ${doomCompileScript} native \
           $files $coreFiles $moduleFiles
     '';
 
+  doomDepsNativeLisp = "${config.programs.doom-emacs.finalDoomPackage.emacsWithPackages.deps}/share/emacs/native-lisp";
   finalEmacsWithEln =
     pkgs.runCommandLocal "emacs-with-doom-eln" {
       nativeBuildInputs = [pkgs.makeBinaryWrapper];
@@ -119,7 +113,8 @@
         case "$name" in
           emacs|emacsclient)
             makeWrapper "$src" "$out/bin/$name" \
-              --suffix EMACSNATIVELOADPATH : "${compiledDoomDir}/eln-cache"
+              --suffix EMACSNATIVELOADPATH : "${compiledDoomDir}/eln-cache" \
+              --suffix EMACSNATIVELOADPATH : "${doomDepsNativeLisp}"
             ;;
           *)
             cp -P "$src" "$out/bin/$name"
