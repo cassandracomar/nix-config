@@ -80,6 +80,7 @@ in {
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
   boot.kernelPackages = lib.mkForce (kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
+  hardware.deviceTree.enable = true;
 
   boot.kernelPatches = [
     {
