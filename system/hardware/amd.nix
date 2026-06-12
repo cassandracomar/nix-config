@@ -69,8 +69,8 @@
   #   src = pkgs.fetchFromGitHub {
   #     owner = "cyring";
   #     repo = "CoreFreq";
-  #     rev = "2769038bbe4ec800e8454d2cbbb5d14a4b2ba767";
-  #     sha256 = "sha256-ZnGM9PZojYtxU2IV0U4+NdyP6Qn11Baw6t1sY6djSgI=";
+  #     rev = "develop/next";
+  #     sha256 = "sha256-q78Mhm+JnNEaguFfFcInWSLZypx0DbRVTMsWclb+XBA=";
   #   };
   # });
 in {
@@ -80,7 +80,6 @@ in {
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
   boot.kernelPackages = lib.mkForce (kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
   boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
-  hardware.deviceTree.enable = false;
 
   boot.kernelPatches = [
     {
