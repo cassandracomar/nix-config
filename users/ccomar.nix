@@ -504,7 +504,7 @@ in {
 
     [Filter.8]
     query = 'to:/up-.*-alerts@drw/'
-    tags = +alerts;+important;-inbox;0new
+    tags = +alerts;+important;-inbox;-new
     message = keep an eye on these separately
 
     [Filter.9]
