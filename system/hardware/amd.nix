@@ -70,7 +70,7 @@
   #     owner = "cyring";
   #     repo = "CoreFreq";
   #     rev = "develop/next";
-  #     sha256 = "sha256-q78Mhm+JnNEaguFfFcInWSLZypx0DbRVTMsWclb+XBA=";
+  #     sha256 = "sha256-JxvV7r5f9txmnnIBhwAk6q9A81RyAfr+PjOc03OEdsQ=";
   #   };
   # });
 in {
