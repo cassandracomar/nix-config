@@ -75,7 +75,7 @@
     echo "=== sync end elapsed=$(( $(date +%s) - start ))s ==="
   '';
 
-  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
+  emacs' = pkgs.emacs31-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     patches = builtins.filter (p: baseNameOf (toString p) != "tree-sitter-0.26.patch") old.patches;
     preConfigure = ''
