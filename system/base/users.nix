@@ -17,6 +17,7 @@
     "fs.inotify.max_user_instances" = 65535;
     "fs.inotify.max_user_watches" = 16777215;
     "fs.nr_open" = 16777216;
+    "fs.pipe-max-size" = 4194304;
   };
   #systemd.services."user@1000".serviceConfig.LimitNOFILE = "1073741816";
   security.pam.loginLimits = [
