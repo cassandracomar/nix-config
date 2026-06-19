@@ -6,21 +6,22 @@
 }:
 stdenv.mkDerivation rec {
   name = "corefreq-${version}-${kernelVersion}";
-  version = "2.0.9";
+  version = "2.1.2";
 
   src = fetchFromGitHub {
     owner = "cyring";
     repo = "CoreFreq";
-    rev = version;
-    sha256 = "sha256-SD3/3j8kIpxRA3Z0zxnkKczkBqJUzn40cTbllwIFrgc=";
+    tag = "2.1.2";
+    sha256 = "sha256-nCkQ03/h3uP0KcX1sTaOdaB1Eh9tBZgLnJu8AoRAa04=";
   };
 
   patches = [./corefreq-fix.patch];
 
-  nativeBuildInputs = kernelPackage.moduleBuildDependencies;
+  buildInputs = kernelPackage.moduleBuildDependencies;
   kernel = kernelPackage.dev;
   kernelVersion = kernelPackage.modDirVersion;
 
+  env.NIX_CFLAGS_COMPILE = "-I${src}/${stdenv.hostPlatform.qemuArch}";
   makeFlags = [
     "KERNELREL=${kernel}/lib/modules/${kernelVersion}"
     "INSTALL_MOD_PATH=$(out)"
@@ -32,6 +33,7 @@ stdenv.mkDerivation rec {
   preInstall = ''
     mkdir -p $out/bin
   '';
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "CoreFreq, a CPU monitoring software with BIOS like functionalities";

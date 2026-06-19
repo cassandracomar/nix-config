@@ -63,22 +63,23 @@
     export XDG_DATA_HOME="$(mktemp -d)"
     gzip -dc | ${pkgs.b4}/bin/b4 -n --offline-mode am -m - -o -
   '';
-  # corefreq = config.boot.kernelPackages.corefreq.overrideAttrs (old: {
-  #   version = "2.1.2";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "cyring";
-  #     repo = "CoreFreq";
-  #     tag = "2.1.2";
-  #     sha256 = "sha256-nCkQ03/h3uP0KcX1sTaOdaB1Eh9tBZgLnJu8AoRAa04=";
-  #   };
-  # });
+  corefreq = config.boot.kernelPackages.corefreq.overrideAttrs (old: {
+    version = "2.1.2";
+    src = pkgs.fetchFromGitHub {
+      owner = "cyring";
+      repo = "CoreFreq";
+      tag = "2.1.2";
+      sha256 = "sha256-nCkQ03/h3uP0KcX1sTaOdaB1Eh9tBZgLnJu8AoRAa04=";
+    };
+    patches = [../../packages/corefreq-fix.patch];
+  });
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1"];
   boot.kernelPackages = lib.mkForce (kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
-  boot.extraModulePackages = with config.boot.kernelPackages; [zenpower];
+  boot.extraModulePackages = with config.boot.kernelPackages; [zenpower corefreq];
 
   boot.kernelPatches = [
     {
@@ -99,10 +100,10 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [lact perf autofdo-profile];
-  # programs.corefreq = {
-  #   enable = true;
-  #   package = corefreq;
-  # };
+  programs.corefreq = {
+    enable = true;
+    package = corefreq;
+  };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
     enable = true;
