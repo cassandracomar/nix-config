@@ -28,6 +28,16 @@
     agent-shell-dispatch = prev.agent-shell-dispatch.overrideAttrs (old: {
       packageRequires = (old.packageRequires or []) ++ [final.agent-shell];
     });
+    eat = prev.eat.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.ncurses];
+      postBuild = ''
+        make terminfo
+      '';
+      postInstall = ''
+        mkdir -p $out/share
+        cp -r terminfo $out/share
+      '';
+    });
   };
 
   doomLocalDir = "${config.xdg.dataHome}/nix-doom";
