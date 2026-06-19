@@ -101,7 +101,7 @@ in {
   environment.systemPackages = with pkgs; [lact perf autofdo-profile];
   programs.corefreq = {
     enable = true;
-    package = pkgs.corefreq;
+    package = config.boot.kernelPackages.corefreq;
   };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
