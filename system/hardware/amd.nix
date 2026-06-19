@@ -72,6 +72,12 @@
       sha256 = "sha256-nCkQ03/h3uP0KcX1sTaOdaB1Eh9tBZgLnJu8AoRAa04=";
     };
     patches = [../../packages/corefreq-fix.patch];
+    makeFlags =
+      (old.makeFlags or [])
+      ++ [
+        "CORE_COUNT=1024"
+        "-j"
+      ];
   });
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
