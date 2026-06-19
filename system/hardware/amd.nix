@@ -63,15 +63,15 @@
     export XDG_DATA_HOME="$(mktemp -d)"
     gzip -dc | ${pkgs.b4}/bin/b4 -n --offline-mode am -m - -o -
   '';
-  # corefreq = config.boot.kernelPackages.corefreq.overrideAttrs (old: {
-  #   version = "2.1.1";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "cyring";
-  #     repo = "CoreFreq";
-  #     rev = "develop/next";
-  #     sha256 = "sha256-JxvV7r5f9txmnnIBhwAk6q9A81RyAfr+PjOc03OEdsQ=";
-  #   };
-  # });
+  corefreq = config.boot.kernelPackages.corefreq.overrideAttrs (old: {
+    version = "2.1.2";
+    src = pkgs.fetchFromGitHub {
+      owner = "cyring";
+      repo = "CoreFreq";
+      tag = "2.1.2";
+      sha256 = "sha256-nCkQ03/h3uP0KcX1sTaOdaB1Eh9tBZgLnJu8AoRAa04=";
+    };
+  });
 in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
@@ -101,7 +101,7 @@ in {
   environment.systemPackages = with pkgs; [lact perf autofdo-profile];
   programs.corefreq = {
     enable = true;
-    package = config.boot.kernelPackages.corefreq;
+    package = corefreq;
   };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   services.scx = {
