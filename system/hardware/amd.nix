@@ -4,9 +4,8 @@
   lib,
   ...
 }: let
-  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-rc-lto.override (old: {
+  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
     autofdo = ../../kernel.afdo;
-    processorOpt = "zen4";
   });
 
   autofdo-profile = pkgs.writeScriptBin "autofdo-profile" ''
