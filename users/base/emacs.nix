@@ -244,6 +244,8 @@ in {
     jsonnet-language-server
     bash-language-server
     vscode-json-languageserver
+    codex-acp
+    claude-agent-acp
   ];
 
   systemd.user.startServices = true;
