@@ -36,7 +36,7 @@
     nix-output-monitor
     nh
     llama-cpp-vulkan
-    (callPackage ../../packages/protonup-qt.nix {})
+    protonup-qt
   ];
 
   programs.zsh.enable = true;
@@ -68,20 +68,9 @@
       gamescope
       mangohud
     ];
-    extraCompatPackages = let
-      proton-ge-bin-11 = pkgs.proton-ge-bin.overrideAttrs (old: rec {
-        version = "GE-Proton11-1";
-
-        src = pkgs.fetchzip {
-          url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
-          hash = "sha256-I7SSvzQQ/NqdvwjpJ9IFFtAaTS+rgHUyXx0us1vIOnw=";
-        };
-      });
-    in
-      with pkgs; [
-        proton-ge-bin
-        proton-ge-bin-11
-      ];
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
 
     gamescopeSession = {
       enable = true;
