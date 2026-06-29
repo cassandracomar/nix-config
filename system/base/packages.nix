@@ -36,18 +36,7 @@
     nix-output-monitor
     nh
     llama-cpp-vulkan
-    (protonup-qt.overrideAttrs
-      (old: {
-        version = "2.15.1";
-
-        src = appimageTools.extractType2 {
-          inherit pname version;
-          src = fetchurl {
-            url = "https://github.com/DavidoTek/ProtonUp-Qt/releases/download/v${version}/ProtonUp-Qt-${version}-x86_64.AppImage";
-            hash = "sha256-/Xjvsf+gkHpSV4RGJJS5tCk4+f18AZ8+rqO4+vg36ME=";
-          };
-        };
-      }))
+    (callPackage ../../packages/protonup-qt.nix {})
   ];
 
   programs.zsh.enable = true;
