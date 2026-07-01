@@ -73,11 +73,7 @@ in {
     kubernetes_aliases
     zoom-us
     vulkan-tools
-    (heroic.override {
-      heroic-unwrapped = heroic-unwrapped.override {
-        pnpm_10_29_2 = pnpm_10;
-      };
-    })
+    heroic
     mangohud
     komikku
     mangayomi
