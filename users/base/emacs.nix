@@ -54,6 +54,10 @@
 
     (doom-modules-initialize)
     (load (doom-profile-init-file doom-profile) nil 'nomessage 'must-suffix)
+    (when (hash-table-p doom-modules)
+      (maphash (lambda (key module)
+                 (put (car key) (cdr key) (doom-module->context module)))
+               doom-modules))
     (catch 'exit (doom-startup))
 
     (setq byte-compile-warnings nil
