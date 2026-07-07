@@ -250,6 +250,7 @@ in {
     vscode-json-languageserver
     codex-acp
     claude-agent-acp
+    (texliveSmall.overrideAttrs {withDocs = true;})
   ];
 
   systemd.user.startServices = true;
