@@ -110,19 +110,6 @@
         "type": "github"
       }
     },
-    "doomdir": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-HvdpM0xCS55XTQvJF1fxBZNBrOyQ96mscWiBULVYowI=",
-        "path": "./doomdir",
-        "type": "path"
-      },
-      "original": {
-        "path": "./doomdir",
-        "type": "path"
-      }
-    },
     "doomemacs": {
       "flake": false,
       "locked": {
@@ -459,7 +446,9 @@
     },
     "nix-doom": {
       "inputs": {
-        "doomdir": "doomdir",
+        "doomdir": [
+          "doom-config"
+        ],
         "doomemacs": "doomemacs",
         "doomemacs-modules": "doomemacs-modules",
         "emacs-overlay": [
@@ -632,11 +621,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783437546,
-        "narHash": "sha256-XdniWgykFMCQSMB1sq4piSIrhkdsj5+uCxKyDP2IU40=",
+        "lastModified": 1783439237,
+        "narHash": "sha256-WUr8JF2v3n4Y30E5dxv4sAgNJXpVDBoCQNoQ/V4+n4o=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "211581f6d87e2e2187b9cbeef797d856ebb18988",
+        "rev": "b70bb66c7bcd162642f3a609bc16843c7059f503",
         "type": "github"
       },
       "original": {
