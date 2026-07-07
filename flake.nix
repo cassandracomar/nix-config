@@ -26,7 +26,7 @@
   inputs.clipcat.url = "github:xrelkd/clipcat";
   inputs.clipcat.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened/665a6abc7a8392f8dfb8236210519fa1e497b272";
+  inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened/lix";
   inputs.nix-doom.inputs.nixpkgs.follows = "";
   inputs.nix-doom.inputs.emacs-overlay.follows = "emacs";
   # inputs.nix-doom.inputs.doomdir.follows = "doom-config";
