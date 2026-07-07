@@ -29,7 +29,7 @@
   inputs.nix-doom.url = "github:marienz/nix-doom-emacs-unstraightened/lix";
   inputs.nix-doom.inputs.nixpkgs.follows = "";
   inputs.nix-doom.inputs.emacs-overlay.follows = "emacs";
-  # inputs.nix-doom.inputs.doomdir.follows = "doom-config";
+  inputs.nix-doom.inputs.doomdir.follows = "doom-config";
   inputs.doom-config.url = "github:cassandracomar/doom-config";
   inputs.doom-config.flake = false;
 
