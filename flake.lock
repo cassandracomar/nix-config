@@ -458,15 +458,16 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1783432043,
-        "narHash": "sha256-CAMJW/DX7mo773UyVQsLQUZgx6ftUtImYfOXH+DYnfY=",
+        "lastModified": 1783436511,
+        "narHash": "sha256-tt34jW/FNO+reu3L7GQiBhAE24EPXxFa5cFLIFwbAmY=",
         "owner": "marienz",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "565673164d1bf033081f5fd101bd7933f5ff9e7b",
+        "rev": "3efc832302aa30ae5f94c26e9edbb528d370d0cc",
         "type": "github"
       },
       "original": {
         "owner": "marienz",
+        "ref": "lix",
         "repo": "nix-doom-emacs-unstraightened",
         "type": "github"
       }
@@ -605,7 +606,7 @@
         "narHash": "sha256-2l8yOB5aYd+05Q9V9Y1YhgbSa1j1o5QX+nvYs5FL80A=",
         "rev": "f205b5574fd0cb7da5b702a2da51507b7f4fdd1b",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1028110.f205b5574fd0/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1028110.f205b5574fd0/nixexprs.tar.xz?lastModified=1783279667&rev=f205b5574fd0cb7da5b702a2da51507b7f4fdd1b"
       },
       "original": {
         "type": "tarball",
