@@ -9,7 +9,6 @@
     krew
     kind
     kubernetes-helm
-    minikube
     docker
     docker-buildx
     docker-credential-helpers
