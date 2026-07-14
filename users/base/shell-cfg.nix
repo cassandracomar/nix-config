@@ -23,7 +23,16 @@
     tokei
     htop
     rlwrap
-    oh-my-posh
+    (oh-my-posh.overrideAttrs (old: rec {
+      version = "29.28.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "JanDeDobbeleer";
+        repo = "oh-my-posh";
+        tag = "v${version}";
+        sha256 = "sha256-8V1Wu3wqakwSVNb/WPlxRy9KL33frb8nqWeorHuIuzI=";
+      };
+      vendorHash = "sha256-6DX/x9uWUbwXy9ccB6NIVRKsOc1nJXtctItONAI7zPQ=";
+    }))
     (writeScriptBin "nixos-rebuild" (builtins.readFile ../../scripts/nixos-rebuild))
     (writeScriptBin "hm" (builtins.readFile ../../scripts/hm))
   ];
