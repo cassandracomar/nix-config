@@ -620,11 +620,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784144814,
-        "narHash": "sha256-opllLL3Icj/SxwQZXGQGT7ybh9HRA0N+2Wdl7hFQgq0=",
+        "lastModified": 1784146875,
+        "narHash": "sha256-gtL0mMvE6SEupg6Yuf76bm+oS0MLG0NFJ0kW8wccHQc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "ba7c9f6d49356600d2957381fbc68bcfe01c429a",
+        "rev": "b0cedc27666230845b06100138378c58eb64d9ae",
         "type": "github"
       },
       "original": {
@@ -640,15 +640,16 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1782596476,
-        "narHash": "sha256-8d9DvGd9PdFqD33g7sCbtX/6u5inXNrr+KRZYZrdGio=",
-        "owner": "pinnacle-comp",
+        "lastModified": 1784147436,
+        "narHash": "sha256-m/bVGINhq7kAJ1qyK8arH50WLltWBo4TgKvDOKyQcQM=",
+        "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "12d0241ea6ef612d7e31596e4b2efb4c38565e83",
+        "rev": "af630e79850acfd1dd37a3b05efc5248a1fc4075",
         "type": "github"
       },
       "original": {
-        "owner": "pinnacle-comp",
+        "owner": "cassandracomar",
+        "ref": "fix/compat53-version",
         "repo": "pinnacle",
         "type": "github"
       }
