@@ -193,7 +193,6 @@
         kernel
         ./modules
         ./system/base
-        pinnacle.nixosModules.default
         inputs.nix-index-database.nixosModules.default
         {programs.nix-index-database.comma.enable = true;}
       ]
