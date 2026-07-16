@@ -18,7 +18,7 @@
   inputs.nur.url = "github:nix-community/NUR";
   inputs.nur.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.pinnacle.url = "github:pinnacle-comp/pinnacle";
+  inputs.pinnacle.url = "github:cassandracomar/pinnacle/fix/compat53-version";
   inputs.pinnacle.inputs.nixpkgs.follows = "";
   inputs.pinnacle-config.url = "github:cassandracomar/pinnacle-config";
   inputs.pinnacle-config.inputs.pinnacle.follows = "pinnacle";
