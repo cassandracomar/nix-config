@@ -640,15 +640,16 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1782596476,
-        "narHash": "sha256-8d9DvGd9PdFqD33g7sCbtX/6u5inXNrr+KRZYZrdGio=",
-        "owner": "pinnacle-comp",
+        "lastModified": 1784147755,
+        "narHash": "sha256-VEkW46alssMsSXe532l725nX6Q4QYlXenXbKsY68rxM=",
+        "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "12d0241ea6ef612d7e31596e4b2efb4c38565e83",
+        "rev": "94da96b65327e98941fb93b741efe1b7a84449a5",
         "type": "github"
       },
       "original": {
-        "owner": "pinnacle-comp",
+        "owner": "cassandracomar",
+        "ref": "fix/compat53-version",
         "repo": "pinnacle",
         "type": "github"
       }
