@@ -248,7 +248,6 @@ in {
     jsonnet-language-server
     bash-language-server
     vscode-json-languageserver
-    codex-acp
     claude-agent-acp
     (texliveSmall.overrideAttrs {withDocs = true;})
   ];
