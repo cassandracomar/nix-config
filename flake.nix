@@ -96,6 +96,7 @@
           helpers.kernelModuleLLVMOverride ((prev.linuxKernel.packagesFor kernel).extend (final': prev': {
             zfs_cachyos = final'.callPackage "${cachyos-kernel}/zfs-cachyos" {
               inherit inputs kernel;
+              variant = "linux-cachyos";
             };
           }));
         nix-output-monitor = nix-output-monitor.packages.${system}.default;
@@ -162,6 +163,9 @@
       config = {
         allowUnfree = true;
         nvidia.acceptLicense = true;
+        problems.handlers = {
+          markdown.broken = "warn"; # or "ignore"
+        };
       };
     };
 
