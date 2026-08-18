@@ -108,4 +108,9 @@ export def --wrapped "nh home upgrade" [...raw_args] {
   nh home switch -u ...($raw_args)
 }
 
+export def fucking_vpn [host] {
+  let check_dns = {|h| getent ahosts $h | complete | get exit_code}
+  while (do $check_dns $host) != 0 { sleep 1sec }
+}
+
 alias ls = eza
