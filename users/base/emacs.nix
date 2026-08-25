@@ -249,7 +249,7 @@ in {
     bash-language-server
     vscode-json-languageserver
     claude-agent-acp
-    (texliveSmall.overrideAttrs {withDocs = true;})
+    (texliveMedium.overrideAttrs {withDocs = true;})
   ];
 
   systemd.user.startServices = true;

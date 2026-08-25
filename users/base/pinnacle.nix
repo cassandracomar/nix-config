@@ -149,6 +149,7 @@ in {
       config.enable_tab_bar = false
       config.integrated_title_buttons = {}
       config.tiling_desktop_environments = {'Wayland'}
+      config.front_end = "OpenGL"
       config.window_padding = {
         left = 0,
         right = 0,
