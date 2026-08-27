@@ -75,9 +75,8 @@
     echo "=== sync end elapsed=$(( $(date +%s) - start ))s ==="
   '';
 
-  emacs' = pkgs.emacs31-pgtk.overrideAttrs (old: {
+  emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
-    patches = builtins.filter (p: baseNameOf (toString p) != "tree-sitter-0.26.patch") old.patches;
     preConfigure = ''
       export CC=${pkgs.llvmPackages.clang}/bin/clang
       export CXX=${pkgs.llvmPackages.clang}/bin/clang++
@@ -94,8 +93,8 @@
         "-march=meteorlake"
         "-mtune=meteorlake"
         "-flto=full"
-        # "-fcs-profile-generate"
-        "-fprofile-use=${profdata}"
+        "-fcs-profile-generate"
+        # "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
