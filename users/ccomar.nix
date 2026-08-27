@@ -91,13 +91,27 @@
     NIX_CFLAGS_COMPILE = toString (
       [
         "-O3"
+        "-pipe"
         "-march=meteorlake"
         "-mtune=meteorlake"
+        "-fno-omit-frame-pointer"
+        "-fno-plt"
         "-flto=full"
         # "-fcs-profile-generate"
         "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
+    );
+    NIX_LDFLAGS = toString (
+      [
+        "-O3"
+        "-z now"
+        "-z relro"
+        "--sort-common"
+        "--as-needed"
+        "-z pack-relative-relocs"
+      ]
+      ++ old.NIX_LDFLAGS or []
     );
   });
 in {
