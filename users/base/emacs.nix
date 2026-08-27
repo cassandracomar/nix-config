@@ -72,6 +72,57 @@
         (setq native-comp-eln-load-path
               (cons target (delete target native-comp-eln-load-path)))))
 
+    ;; `native-comp-compiler-options' specifies flags passed directly to the C
+    ;; compiler (for example, GCC) when compiling the Lisp-to-C output
+    ;; produced by the native compilation process. These flags affect code
+    ;; generation, optimization, and debugging information.
+    (setq native-comp-compiler-options `(;; The most meaningful optimizations:
+                                         "-O2"
+                                         ;; Reduce .eln size and compilation
+                                         ;; overhead.
+                                         "-g0"
+                                         ;; Good defensive choice for Emacs
+                                         ;; stability.
+                                         "-fno-omit-frame-pointer"
+                                         "-fno-finite-math-only"))
+
+    (setq native-comp-driver-options '(;; -Wl,-z,pack-relative-relocs compresses
+                                       ;; relocation tables to reduce file size and
+                                       ;; slightly improve load times.
+                                       "-Wl,-z,pack-relative-relocs"
+                                       ;; -Wl,-O2 applies standard linker-level
+                                       ;; optimizations (like string merging) to the
+                                       ;; generated shared object.
+                                       "-Wl,-O2"
+                                       ;; -Wl,--as-needed prevents the linker from
+                                       ;; recording dependencies on libraries that
+                                       ;; are not actually used by the code.
+                                       "-Wl,--as-needed"))
+
+    ;; URL: https://www.jamescherti.com/compiling-emacs/
+    (defun my-get-cpu-architecture ()
+      "Return the CPU architecture detected via GCC target help output.
+    The detected value is stored in `my-cpu-architecture' and returned as a
+    string.
+    If GCC is not available or no architecture information can be
+    extracted, the function returns nil."
+      (when (executable-find "gcc")
+        (with-temp-buffer
+          (let ((exit-code (call-process "gcc" nil t nil "-march=native"
+                                         "-Q" "--help=target")))
+            (when (zerop exit-code)
+              (goto-char (point-min))
+              (when (re-search-forward
+                     "^[[:space:]]*-march=[[:space:]]+\\([^[:space:]]+\\)" nil t)
+                (match-string 1)))))))
+
+    ;; Auto detect the CPU architecture
+    (when-let* ((cpu-architecture (my-get-cpu-architecture)))
+      (add-to-list 'native-comp-compiler-options
+                   (format "-march=%s" cpu-architecture))
+      (add-to-list 'native-comp-compiler-options
+                   (format "-mtune=%s" cpu-architecture)))
+
     ;; Invocation: doomscript THIS MODE LISTFILE
     ;;   MODE     = "byte" | "native"
     ;;   LISTFILE = path to a newline-separated list of .el files to compile.
