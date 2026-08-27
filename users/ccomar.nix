@@ -85,7 +85,7 @@
       export LD=${pkgs.lld}/bin/ld.lld
       export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
     '';
-    configureFlags = old.configureFlag ++ ["--enable-link-time-optimization" "--without-included-regex"];
+    configureFlags = old.configureFlags ++ ["--enable-link-time-optimization" "--without-included-regex"];
 
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
