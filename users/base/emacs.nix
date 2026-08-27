@@ -250,6 +250,8 @@ in {
     vscode-json-languageserver
     claude-agent-acp
     (texliveMedium.overrideAttrs {withDocs = true;})
+    leiningen
+    clojure-lsp
   ];
 
   systemd.user.startServices = true;
