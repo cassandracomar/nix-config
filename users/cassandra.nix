@@ -47,18 +47,33 @@
       export CC_LD=${pkgs.lld}/bin/ld.lld
       export RANLIB=${pkgs.llvm}/bin/llvm-ranlib
     '';
+    configureFlags = old.configureFlags ++ ["--enable-link-time-optimization" "--without-included-regex"];
 
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
       [
         "-O3"
+        "-pipe"
         "-march=znver4"
         "-mtune=znver4"
-        "-flto=thin"
+        "-fno-omit-frame-pointer"
+        "-fno-plt"
+        "-flto=full"
         "-fcs-profile-generate"
         # "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
+    );
+    NIX_LDFLAGS = toString (
+      [
+        "-O3"
+        "-z now"
+        "-z relro"
+        "--sort-common"
+        "--as-needed"
+        "-z pack-relative-relocs"
+      ]
+      ++ old.NIX_LDFLAGS or []
     );
   });
 in {

@@ -108,7 +108,7 @@
     extracted, the function returns nil."
       (when (executable-find "gcc")
         (with-temp-buffer
-          (let ((exit-code (call-process "gcc" nil t nil "-march=native"
+          (let ((exit-code (call-process "${pkgs.gcc}/bin/gcc" nil t nil "-march=native"
                                          "-Q" "--help=target")))
             (when (zerop exit-code)
               (goto-char (point-min))
