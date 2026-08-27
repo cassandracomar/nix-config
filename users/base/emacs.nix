@@ -86,19 +86,6 @@
                                          "-fno-omit-frame-pointer"
                                          "-fno-finite-math-only"))
 
-    (setq native-comp-driver-options '(;; -Wl,-z,pack-relative-relocs compresses
-                                       ;; relocation tables to reduce file size and
-                                       ;; slightly improve load times.
-                                       "-Wl,-z,pack-relative-relocs"
-                                       ;; -Wl,-O2 applies standard linker-level
-                                       ;; optimizations (like string merging) to the
-                                       ;; generated shared object.
-                                       "-Wl,-O2"
-                                       ;; -Wl,--as-needed prevents the linker from
-                                       ;; recording dependencies on libraries that
-                                       ;; are not actually used by the code.
-                                       "-Wl,--as-needed"))
-
     ;; URL: https://www.jamescherti.com/compiling-emacs/
     (defun my-get-cpu-architecture ()
       "Return the CPU architecture detected via GCC target help output.
@@ -183,7 +170,7 @@
 
   compiledDoomDir =
     pkgs.runCommandLocal "doom-config-compiled" {
-      nativeBuildInputs = with pkgs; [scratchDoom git man];
+      nativeBuildInputs = with pkgs; [scratchDoom git man binutils];
       EMACS = "${scratchDoom.emacsWithPackages}/bin/emacs";
       DOOMPROFILELOADFILE = "${scratchDoom.doomProfile}/loader/init";
       DOOMPROFILE = "nix";
@@ -208,7 +195,7 @@
 
   compileDoomTree = name: src:
     pkgs.runCommandLocal name {
-      nativeBuildInputs = with pkgs; [scratchDoom git man];
+      nativeBuildInputs = with pkgs; [scratchDoom git man binutils];
       EMACS = "${scratchDoom.emacsWithPackages}/bin/emacs";
       DOOMPROFILELOADFILE = "${scratchDoom.doomProfile}/loader/init";
       DOOMPROFILE = "nix";
@@ -301,6 +288,7 @@ in {
     vscode-json-languageserver
     claude-agent-acp
     (texliveMedium.overrideAttrs {withDocs = true;})
+    texlive.standalone
     leiningen
     clojure-lsp
   ];
