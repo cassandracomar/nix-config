@@ -85,8 +85,6 @@
     text = ''
       export PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128
       export WGPU_POWER_PREF=low
-      export LIBSEAT_LOGLEVEL=debug
-      export RUST_LOG=pinnacle::backend::udev=trace,smithay::backend::session=trace
       export XDG_CURRENT_DESKTOP="''${XDG_CURRENT_DESKTOP:-Pinnacle}"
       export XDG_SESSION_DESKTOP="''${XDG_SESSION_DESKTOP:-pinnacle}"
       export XDG_SESSION_TYPE=wayland
