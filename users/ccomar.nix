@@ -173,8 +173,8 @@
       [
         "-O3"
         "-pipe"
-        "-march=meteorlake"
-        "-mtune=meteorlake"
+        "-march=alderlake"
+        "-mtune=alderlake"
         "-fno-omit-frame-pointer"
         "-fno-plt"
         "-flto=full"

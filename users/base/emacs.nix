@@ -85,6 +85,19 @@
                                          ;; stability.
                                          "-fno-omit-frame-pointer"
                                          "-fno-finite-math-only"))
+    (setq native-comp-driver-options
+          (append native-comp-driver-options '(;; -Wl,-z,pack-relative-relocs compresses
+                                               ;; relocation tables to reduce file size and
+                                               ;; slightly improve load times.
+                                               "-Wl,-z,pack-relative-relocs"
+                                               ;; -Wl,-O2 applies standard linker-level
+                                               ;; optimizations (like string merging) to the
+                                               ;; generated shared object.
+                                               "-Wl,-O2"
+                                               ;; -Wl,--as-needed prevents the linker from
+                                               ;; recording dependencies on libraries that
+                                               ;; are not actually used by the code.
+                                               "-Wl,--as-needed")))
 
     ;; URL: https://www.jamescherti.com/compiling-emacs/
     (defun my-get-cpu-architecture ()
@@ -95,7 +108,7 @@
     extracted, the function returns nil."
       (when (executable-find "gcc")
         (with-temp-buffer
-          (let ((exit-code (call-process "${pkgs.gcc}/bin/gcc" nil t nil "-march=native"
+          (let ((exit-code (call-process "gcc" nil t nil "-march=native"
                                          "-Q" "--help=target")))
             (when (zerop exit-code)
               (goto-char (point-min))
