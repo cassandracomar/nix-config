@@ -75,85 +75,6 @@
     echo "=== sync end elapsed=$(( $(date +%s) - start ))s ==="
   '';
 
-  pinnacleSession = pkgs.writeShellApplication {
-    name = "pinnacle-session";
-    runtimeInputs = [
-      pkgs.coreutils
-      pkgs.dbus
-      pkgs.systemd
-    ];
-    text = ''
-      export PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128
-      export WGPU_POWER_PREF=low
-      export XDG_CURRENT_DESKTOP="''${XDG_CURRENT_DESKTOP:-Pinnacle}"
-      export XDG_SESSION_DESKTOP="''${XDG_SESSION_DESKTOP:-pinnacle}"
-      export XDG_SESSION_TYPE=wayland
-      unset DISPLAY
-
-      marker=$(mktemp --tmpdir="$XDG_RUNTIME_DIR" pinnacle-session.XXXXXX)
-      pinnacle_pid=
-
-      terminate() {
-        trap - HUP INT TERM
-        if [ -n "$pinnacle_pid" ]; then
-          kill -TERM "$pinnacle_pid" 2>/dev/null || true
-        fi
-      }
-
-      cleanup() {
-        status=$?
-        trap - EXIT HUP INT TERM
-        if [ -n "$marker" ]; then
-          rm -f "$marker"
-        fi
-        systemctl --user stop pinnacle-session.target >/dev/null 2>&1 || true
-        if [ -n "$pinnacle_pid" ] && kill -0 "$pinnacle_pid" 2>/dev/null; then
-          kill -TERM "$pinnacle_pid" 2>/dev/null || true
-          wait "$pinnacle_pid" 2>/dev/null || true
-        fi
-        exit "$status"
-      }
-
-      trap terminate HUP INT TERM
-      trap cleanup EXIT
-
-      ${pkgs.pinnacle}/bin/pinnacle --session &
-      pinnacle_pid=$!
-
-      wayland_display=
-      pinnacle_grpc_socket="$XDG_RUNTIME_DIR/pinnacle-grpc-$pinnacle_pid.sock"
-      while kill -0 "$pinnacle_pid" 2>/dev/null; do
-        for socket in "$XDG_RUNTIME_DIR"/wayland-*; do
-          if [ -S "$socket" ] && [ "$socket" -nt "$marker" ]; then
-            wayland_display="''${socket##*/}"
-            break
-          fi
-        done
-        if [ -n "$wayland_display" ] && [ -S "$pinnacle_grpc_socket" ]; then
-          break
-        fi
-        sleep 0.05
-      done
-
-      if [ -z "$wayland_display" ] || [ ! -S "$pinnacle_grpc_socket" ]; then
-        wait "$pinnacle_pid"
-        exit $?
-      fi
-
-      rm -f "$marker"
-      marker=
-      export WAYLAND_DISPLAY="$wayland_display"
-      export PINNACLE_GRPC_SOCKET="$pinnacle_grpc_socket"
-
-      dbus-update-activation-environment --systemd \
-        WAYLAND_DISPLAY PINNACLE_GRPC_SOCKET \
-        XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE
-      systemctl --user start pinnacle-session.target
-
-      wait "$pinnacle_pid"
-    '';
-  };
-
   emacs' = pkgs.emacs-igc-pgtk.overrideAttrs (old: {
     stdenv = pkgs.llvmPackages.stdenv;
     preConfigure = ''
@@ -284,18 +205,20 @@ in {
   };
   systemd.user.services.eww-daemon = {
     Unit = {
-      PartOf = ["pinnacle-session.target"];
-      Wants = lib.mkForce ["graphical-session-pre.target"];
-      After = lib.mkForce ["graphical-session-pre.target"];
+      Wants = lib.mkForce ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
+      After = lib.mkForce ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
     };
-    Install.WantedBy = lib.mkForce ["pinnacle-session.target"];
   };
+  xdg.configFile."uwsm/env-pinnacle".text = ''
+    export PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128
+    export WGPU_POWER_PREF=low
+  '';
   xdg.dataFile."wayland-sessions/pinnacle.desktop".text = ''
     [Desktop Entry]
     Name=Pinnacle
     Comment=A Wayland compositor inspired by AwesomeWM
-    Exec=${config.home.homeDirectory}/.nix-profile/bin/pinnacle-session
-    TryExec=${config.home.homeDirectory}/.nix-profile/bin/pinnacle-session
+    Exec=${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.pinnacle}/bin/pinnacle --session
+    TryExec=${pkgs.uwsm}/bin/uwsm
     Type=Application
     DesktopNames=pinnacle
     X-GDM-SessionRegisters=true
@@ -309,12 +232,12 @@ in {
   programs.eww.package = pkgs.eww;
 
   systemd.user.services.wpaperd = {
-    Unit.PartOf = lib.mkForce ["pinnacle-session.target"];
-    Install.WantedBy = lib.mkForce ["pinnacle-session.target"];
+    Unit.PartOf = lib.mkForce ["graphical-session.target"];
+    Install.WantedBy = lib.mkForce ["graphical-session.target"];
   };
   systemd.user.services.clipcat = {
-    Unit.PartOf = lib.mkForce ["pinnacle-session.target"];
-    Install.WantedBy = lib.mkForce ["pinnacle-session.target"];
+    Unit.PartOf = lib.mkForce ["graphical-session.target"];
+    Install.WantedBy = lib.mkForce ["graphical-session.target"];
     Service = {
       ExecStartPre = lib.mkForce "${pkgs.writeShellScript "clipcatd-exec-start-pre" ''
         PATH=${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin::/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -330,7 +253,6 @@ in {
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
   home.packages = with pkgs; [
-    (lib.hiPrio pinnacleSession)
     cachix
     git-crypt
     complete_alias
