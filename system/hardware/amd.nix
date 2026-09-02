@@ -48,21 +48,6 @@
         )
         prev
     );
-  decodeMbox = pkgs.writeShellScript "decodeMbox" ''
-    # The lore.kernel.org mailing list uses public-inbox, which supports
-    # downloading threads as a gzip-compressed mbox file (see the "mbox.gz" link
-    # next to "Thread overview"). This can be used to download a patch series in
-    # a single file. However, public-inbox may not sort the messages in the
-    # thread [1], which may break application of the patches. b4 am [2] can be
-    # used to sort patches in the mbox file and produce a patch that can be
-    # applied with git am or patch.
-    # [1]: https://public-inbox.org/meta/20240411-dancing-pink-marmoset-f442d0@meerkat/
-    # [2]: https://b4.docs.kernel.org/en/latest/maintainer/am-shazam.html
-    # b4 expects git to be in $PATH and $XDG_DATA_HOME to be writable.
-    export PATH="${lib.makeBinPath [pkgs.gitMinimal]}:$PATH"
-    export XDG_DATA_HOME="$(mktemp -d)"
-    gzip -dc | ${pkgs.b4}/bin/b4 -n --offline-mode am -m - -o -
-  '';
   corefreq = config.boot.kernelPackages.corefreq.overrideAttrs (old: {
     version = "2.1.2";
     src = pkgs.fetchFromGitHub {
@@ -93,14 +78,6 @@ in {
       patch = pkgs.fetchpatch {
         url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
         sha256 = "sha256-8/pT7mReiGJILVBbgyMl6zqPCurlxI0+EEnEIYHezfI=";
-      };
-    }
-    {
-      name = "[PATCH v2 0/3] Fixes for flip_done timeouts";
-      patch = pkgs.fetchpatch {
-        url = "https://lore.kernel.org/amd-gfx/20260519220529.202096-1-sunpeng.li@amd.com/t.mbox.gz";
-        hash = "sha256-+AAisd7COhTkUGXnZHWHNgSd5gjGAqC70nXKAIijwmY=";
-        decode = decodeMbox;
       };
     }
   ];
