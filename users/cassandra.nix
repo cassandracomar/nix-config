@@ -59,8 +59,8 @@
         "-fno-omit-frame-pointer"
         "-fno-plt"
         "-flto=full"
-        "-fcs-profile-generate"
-        # "-fprofile-use=${profdata}"
+        # "-fcs-profile-generate"
+        "-fprofile-use=${profdata}"
       ]
       ++ old.NIX_CFLAGS_COMPILE or []
     );
