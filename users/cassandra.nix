@@ -52,7 +52,7 @@
     # Extra compiler flags (Clang-flavored)
     NIX_CFLAGS_COMPILE = toString (
       [
-        "-O3"
+        "-O2"
         "-pipe"
         "-march=znver4"
         "-mtune=znver4"
@@ -66,7 +66,7 @@
     );
     NIX_LDFLAGS = toString (
       [
-        "-O3"
+        "-O2"
         "-z now"
         "-z relro"
         "--sort-common"
