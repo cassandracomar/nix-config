@@ -213,6 +213,10 @@ in {
     export PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128
     export WGPU_POWER_PREF=low
   '';
+  xdg.dataFile."systemd/user" = {
+    source = "${pkgs.uwsm}/share/systemd/user";
+    recursive = true;
+  };
   xdg.dataFile."wayland-sessions/pinnacle.desktop".text = ''
     [Desktop Entry]
     Name=Pinnacle
