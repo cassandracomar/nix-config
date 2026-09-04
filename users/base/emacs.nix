@@ -328,12 +328,6 @@ in {
     package = finalEmacsWithEln;
   };
   systemd.user.services.emacs = {
-    Service.ExecStartPost = pkgs.writeShellScript "wait-for-emacs-daemon.sh" ''
-      #!${pkgs.runtimeShell}
-      until ${config.services.emacs.package}/bin/emacsclient -s /run/user/${config.home.uid}/emacs/server -e '(daemonp)' >/dev/null 2>&1;
-      do
-        ${pkgs.coreutils}/bin/sleep 0.1
-      done
-    '';
+    Service.ExecStartPost = ''${pkgs.runtimeShell} -c "until ${config.services.emacs.package}/bin/emacsclient -s %t/emacs/server -e '(daemonp)' >/dev/null 2>&1; do ${pkgs.coreutils}/bin/sleep 0.1; done"'';
   };
 }
