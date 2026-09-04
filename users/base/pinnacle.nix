@@ -199,9 +199,11 @@ in {
         Slice = ["session.slice"];
         Type = "exec";
         ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+        ExecStartPost = ''${pkgs.runtimeShell} -c "until ${pkgs.eww}/bin/eww ping --no-daemonize >/dev/null 2>&1; do ${pkgs.coreutils}/bin/sleep 0.1; done"'';
         ExecReload = "${pkgs.eww}/bin/eww reload --no-daemonize";
         Restart = "on-failure";
         RestartSec = "1s";
+        TimeoutStartSec = "10s";
       };
       Install = {
         WantedBy = ["graphical-session.target"];
@@ -211,11 +213,13 @@ in {
       Unit = {
         Description = "launch eww windows for the output";
         StartLimitIntervalSec = 0;
+        Requires = ["eww-daemon.service"];
+        After = ["eww-daemon.service"];
       };
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --screen %i primary --arg monitor=%i";
-        ExecStop = "${pkgs.eww}/bin/eww close --no-daemonize primary";
+        ExecStart = "${pkgs.eww}/bin/eww open --no-daemonize --id primary-%i --screen %i primary --arg monitor=%i";
+        ExecStop = "${pkgs.eww}/bin/eww close --no-daemonize primary-%i";
         RemainAfterExit = true;
         Restart = "on-failure";
         RestartSec = "1s";
