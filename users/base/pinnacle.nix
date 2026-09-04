@@ -213,8 +213,8 @@ in {
       Unit = {
         Description = "launch eww windows for the output";
         StartLimitIntervalSec = 0;
-        Requires = ["eww-daemon.service"];
         After = ["eww-daemon.service"];
+        BindsTo = ["eww-daemon.service"];
       };
       Service = {
         Type = "oneshot";
