@@ -300,8 +300,8 @@ in {
     bash-language-server
     vscode-json-languageserver
     claude-agent-acp
-    (texliveMedium.overrideAttrs {withDocs = true;})
-    texlivePackages.standalone
+    # (texliveMedium.overrideAttrs {withDocs = true;})
+    # texlivePackages.standalone
     leiningen
     clojure-lsp
   ];
