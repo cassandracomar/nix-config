@@ -253,6 +253,7 @@ in {
       slurp
       grim
       nixfmt
+      jq
     ];
 
   services.clipcat = {

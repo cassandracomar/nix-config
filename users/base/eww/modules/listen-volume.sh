@@ -6,13 +6,14 @@ get_sink_volume_and_mute_status() {
     volume=$(pactl list sinks | grep -A 10 "Sink #$sink_id" | grep 'Volume:' | awk '{print $5}' | cut -d'%' -f1)
     # Extract mute status
     mute_status=$(pactl list sinks | grep -A 15 "Sink #$sink_id" | grep 'Mute:' | awk '{print $2}')
+    muted=$([[ "$mute_status" == "yes" ]] && echo "true" || echo "false")
 
     if [[ -z "$volume" || -z "$mute_status" ]]; then
         return 1
     fi
 
     # Format the output
-    echo "{\"volume\": $volume, \"muted\": $( [[ "$mute_status" == "yes" ]] && echo "true" || echo "false" ) }"
+    jq -nc --arg volume $volume --arg muted $muted '.volume = $volume | .muted = $muted'
 }
 
 DEFAULT_SINK_NAME="$(pactl get-default-sink)"
