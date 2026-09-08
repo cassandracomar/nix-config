@@ -145,7 +145,7 @@ export def generate_cluster_aliases [] {
       let environment = $parts.1
       let region = $parts.2
       let n = $parts.3
-      $"alias ($domain)-($environment)-($region)-($n)ctl = kubectl --context=($cluster)"
+      $"alias ($domain)-($environment)-($region)($n)ctl = kubectl --context=($cluster)"
     }
   }
   | where not ($it | is-empty)
