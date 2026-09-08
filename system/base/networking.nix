@@ -194,9 +194,9 @@
     checkReversePath = "loose";
     allowedTCPPorts = [80 443 8384 22000 5353];
     allowedUDPPorts = [22000 21027 5353];
-    logRefusedConnections = true;
-    logRefusedPackets = true;
-    logRefusedUnicastsOnly = true;
+    logRefusedConnections = false;
+    logRefusedPackets = false;
+    logRefusedUnicastsOnly = false;
   };
 
   security = {
