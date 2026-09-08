@@ -150,5 +150,6 @@ export def generate_cluster_aliases [] {
 if ("~/.kube/config" | path exists) {
   const cluster_aliases = ($nu.default-config-dir | path join "cluster-aliases.nu")
   generate_cluster_aliases | save -f $cluster_aliases
-  source $cluster_aliases
+  const source_target = if ($cluster_aliases | path exists) { $cluster_aliases } else { null }
+  source $source_target
 }
