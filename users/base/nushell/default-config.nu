@@ -147,5 +147,7 @@ export def generate_cluster_aliases [] {
   | str join "\n"
 }
 
-generate_cluster_aliases | save -f `~/.config/nushell/cluster-aliases.nu`
-source `~/.config/nushell/cluster-aliases.nu`
+if ("~/.kube/config" | path exists) {
+  generate_cluster_aliases | save -f `~/.config/nushell/cluster-aliases.nu`
+  source `~/.config/nushell/cluster-aliases.nu`
+}
