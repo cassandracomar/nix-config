@@ -242,7 +242,6 @@ in {
       usbutils
       gptfdisk
       bind
-      rofi-pass-wayland
       go # oh-my-posh demands this, sigh
       xwayland
       wl-clipboard-rs
