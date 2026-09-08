@@ -130,3 +130,27 @@ export def fucking_vpn [host] {
 }
 
 alias ls = eza
+
+export def generate_cluster_aliases [] {
+  kubectl config get-contexts
+  | tr -s " " "\t"
+  | from tsv
+  | get NAME
+  | each {|cluster|
+    let parts = $cluster | split row "-"
+    if ($parts | length) != 4 {
+      ""
+    } else {
+      let domain = $parts.0
+      let environment = $parts.1
+      let region = $parts.2
+      let n = $parts.3
+      $"alias ($domain)-($environment)-($region)-($n)ctl = kubectl --context=($cluster)"
+    }
+  }
+  | where not ($it | is-empty)
+  | str join "\n"
+}
+
+generate_cluster_aliases | save -f `~/.config/nushell/cluster-aliases.nu`
+source `~/.config/nushell/cluster-aliases.nu`
