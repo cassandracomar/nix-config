@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }: let
   git_config = {
@@ -185,8 +184,8 @@ in {
       enable = true;
       nvidia = {
         enable = true;
-        version = "595.84";
-        sha256 = "sha256-mcQE5SExvye8ptoCaNzOPr7cenOrF0BxqZXPGmxeugY=";
+        version = "610.43.02";
+        sha256 = "sha256-MDSgVLtM33dS/43CclZMsQVROAS/9TU4lFkBsWyndGM=";
       };
     };
   };
