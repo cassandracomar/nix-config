@@ -33,9 +33,29 @@ let external_completer = {|spans|
       do $quote_if_needed $row.value
     }
   }
+  let systemd_completer = {|spans|
+    let previous = $spans | reverse | get --optional 1
+    let use_user_manager = ("--user" in $spans) or (
+      $spans.0 == "systemctl" and "--u" in $spans
+    )
+    let completing_unit = ($previous in ["-u" "--unit"]) or (
+      $spans.0 == "systemctl" and $use_user_manager
+    )
+
+    if $completing_unit {
+      let manager = if $use_user_manager { ["--user"] } else { [] }
+
+      systemctl ...$manager list-units --all --full --plain --no-legend --no-pager
+      | lines
+      | parse --regex '^(?<value>\S+)\s+\S+\s+\S+\s+\S+\s+(?<description>.*)$'
+    } else {
+      do $fish_completer $spans
+    }
+  }
   let carapace_completer = {|spans| carapace $spans.0 nushell ...$spans | from json}
 
   match $spans.0 {
+    "systemctl" | "journalctl" => $systemd_completer
     _ => $fish_completer
   } | do $in $spans
 }
