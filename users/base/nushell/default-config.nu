@@ -4,16 +4,16 @@ source `~/.config/nushell/config.nu`
 # manually configure carapace completions so we can replace nix completions with
 # those from fish
 let external_completer = {|spans|
-  # if the current command is an alias, get it's expansion
-  let expanded_alias = (scope aliases | where name == $spans.0 | $in.0?.expansion?)
+  # if the current command is an alias, get its expansion
+  let expanded_alias = scope aliases
+    | where name == $spans.0
+    | $in.0?.expansion?
+    | default $spans.0
 
   # overwrite
-  let spans = (if $expanded_alias != null  {
-    # put the first word of the expanded alias first in the span
-    $spans | skip 1 | prepend ($expanded_alias | split row " ")
-  } else {
-    $spans | skip 1 | prepend ($spans.0)
-  })
+  let spans = $spans
+    | skip 1
+    | prepend (ast $expanded_alias --flatten | get content)
   let quote_if_needed = {|value|
     let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
     if ($need_quote) {
