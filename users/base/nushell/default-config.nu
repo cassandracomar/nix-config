@@ -66,6 +66,7 @@ let external_completer = {|spans|
 $env.config.completions.external = {
   enable: true
   completer: $external_completer
+  max_results: 100
 }
 $env.config.render_right_prompt_on_last_line = false
 
