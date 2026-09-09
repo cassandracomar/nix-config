@@ -1,0 +1,26 @@
+diff --git a/src/AgentMode.ts b/src/AgentMode.ts
+index 88c5d4c..49722f6 100644
+--- a/src/AgentMode.ts
++++ b/src/AgentMode.ts
+@@ -36,18 +36,12 @@ export class AgentMode {
+     static readonly ReadOnly = new AgentMode(
+         "read-only",
+         "Ask for approval",
+-        "Always ask to edit external files and use the internet",
++        "Always ask to edit files and use the internet",
+         "standard",
+         "on-request",
+         "user",
+-        {
+-            type: "workspaceWrite",
+-            writableRoots: [],
+-            networkAccess: false,
+-            excludeTmpdirEnvVar: false,
+-            excludeSlashTmp: false,
+-        },
+-        "workspace-write",
++        {type: "readOnly", networkAccess: false},
++        "read-only",
+     );
+     static readonly Agent = new AgentMode(
+         "agent",

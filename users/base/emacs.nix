@@ -304,6 +304,7 @@ in {
     # texlivePackages.standalone
     leiningen
     clojure-lsp
+    codex-acp
   ];
 
   systemd.user.startServices = true;

@@ -90,6 +90,7 @@
         inherit (prev.lixPackageSets.latest) lix nix-eval-jobs nix-fast-build colmena nixpkgs-review;
         inherit (iosevka-fonts) iosevka-nerd-font iosevka-nerd-font-mono pyftfeatfreeze iosevka-custom fontToolsPyEnv;
         yaml-schema-router = prev.callPackage ./packages/yaml-schema-router.nix {};
+        codex-acp = prev.callPackage ./packages/codex-acp {};
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         mkCachyPackageSet = kernel:
