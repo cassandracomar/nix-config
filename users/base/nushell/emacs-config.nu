@@ -7,4 +7,4 @@ alias vi = eat open
 alias cat = eat cat
 
 $env.PAGER = "bat -f -pp"
-$env.SYSTEMD_PAGER = "bat -f -pp"
+$env.SYSTEMD_PAGER = "cat"
