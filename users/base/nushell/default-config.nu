@@ -48,6 +48,7 @@ let external_completer = {|spans|
       systemctl ...$manager list-units --all --full --plain --no-legend --no-pager
       | lines
       | parse --regex '^(?<value>\S+)\s+\S+\s+\S+\s+\S+\s+(?<description>.*)$'
+      | where $it =~ $completing_unit
     } else {
       do $fish_completer $spans
     }
