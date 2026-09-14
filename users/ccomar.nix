@@ -854,6 +854,14 @@ in {
     };
   };
 
+  programs.npm = {
+    enable = true;
+    settings = {
+      registry = "https://artifacts.drwholdings.com/artifactory/api/npm/npm/";
+      prefix = "~/.npm-global";
+    };
+  };
+
   home.stateVersion = "26.05";
   home.enableNixpkgsReleaseCheck = false;
 }
