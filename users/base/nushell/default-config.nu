@@ -34,16 +34,44 @@ let external_completer = {|spans|
     }
   }
   let systemd_completer = {|spans|
-    let previous = $spans | reverse | get --optional 1
-    let use_user_manager = ("--user" in $spans) or (
-      $spans.0 == "systemctl" and "--u" in $spans
-    )
-    let completing_unit = ($previous in ["-u" "--unit"]) or (
-      $spans.0 == "systemctl" and $use_user_manager
-    )
     let current = $spans | last | default ""
+    let previous = $spans | reverse | get --optional 1
+    let spans_before_current = $spans | drop 1
+    let use_user_manager = ("--user" in $spans_before_current) or (
+      $spans.0 == "systemctl" and "--u" in $spans_before_current
+    )
 
-    if $completing_unit {
+    # Only bypass fish once systemctl has a complete verb whose remaining
+    # positional arguments are units. This leaves options and partial verbs to
+    # fish, which knows how to complete them.
+    let systemctl_unit_verbs = [
+      "list-units" "is-active" "is-failed" "status" "show" "cat" "help"
+      "list-dependencies" "start" "stop" "reload" "restart" "try-restart"
+      "reload-or-restart" "try-reload-or-restart" "isolate" "kill" "clean"
+      "freeze" "thaw" "reset-failed" "enable" "disable" "reenable" "preset"
+      "is-enabled" "mask" "unmask" "revert" "add-wants" "add-requires"
+      "edit" "set-default"
+    ]
+    let systemctl_options_with_values = [
+      "-H" "--host" "-M" "--machine" "-t" "--type" "--state" "-p"
+      "--property" "-P" "--job-mode" "--check-inhibitors" "-s" "--signal"
+      "--kill-whom" "--kill-value" "--what" "--preset-mode" "--root"
+      "--image" "--image-policy" "-n" "--lines" "-o" "--output"
+      "--boot-loader-menu" "--boot-loader-entry" "--timestamp" "--drop-in"
+      "--when"
+    ]
+    let completing_journal_unit = (
+      $spans.0 == "journalctl" and $previous in ["-u" "--unit"]
+    )
+    let completing_systemctl_unit = (
+      $spans.0 == "systemctl"
+      and $use_user_manager
+      and not ($current | str starts-with "-")
+      and not ($previous in $systemctl_options_with_values)
+      and ($spans_before_current | any {|span| $span in $systemctl_unit_verbs})
+    )
+
+    if $completing_journal_unit or $completing_systemctl_unit {
       let manager = if $use_user_manager { ["--user"] } else { [] }
 
       systemctl ...$manager list-units --all --full --plain --no-legend --no-pager
