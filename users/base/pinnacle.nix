@@ -125,50 +125,57 @@ in {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    extraConfig = ''
-      local config = {}
-      local act = wezterm.action
-
-      config.default_prog = { 'nu', '--config', '~/.config/nushell/wezterm-config.nu', '--env-config', '~/.config/nushell/env.nu' }
-      config.color_scheme = 'Monokai (dark) (terminal.sexy)'
-      config.colors = {
-        background = '#171717',
-        foreground = '#d6d6d1'
-      }
-      config.font = wezterm.font('Iosevka Nerd Font')
-      config.font_size = 16
-      config.harfbuzz_features = { 'dlig', 'calt' }
-      config.window_decorations  = "NONE"
-      config.use_fancy_tab_bar = false
-      config.show_new_tab_button_in_tab_bar = false
-      config.default_cursor_style = 'SteadyBar'
-      config.enable_tab_bar = false
-      config.integrated_title_buttons = {}
-      config.tiling_desktop_environments = {'Wayland'}
-      config.front_end = "WebGpu"
-      config.window_padding = {
-        left = 0,
-        right = 0,
-        top = 0,
-        bottom = 16,
-      }
-      config.mouse_bindings = {
+    settings = {
+      default_prog = [
+        "nu"
+        "--config"
+        "~/.config/nushell/wezterm-config.nu"
+        "--env-config"
+        "~/.config/nushell/env.nu"
+      ];
+      color_scheme = "Monokai (dark) (terminal.sexy)";
+      colors = {
+        background = "#171717";
+        foreground = "#d6d6d1";
+      };
+      font = lib.generators.mkLuaInline "wezterm.font('Iosevka Nerd Font')";
+      font_size = 16;
+      harfbuzz_features = ["dlig" "calt"];
+      window_decorations = "NONE";
+      use_fancy_tab_bar = false;
+      show_new_tab_button_in_tab_bar = false;
+      default_cursor_style = "SteadyBar";
+      enable_tab_bar = false;
+      integrated_title_buttons = [];
+      tiling_desktop_environments = ["Wayland"];
+      front_end = "WebGpu";
+      window_padding = {
+        left = 0;
+        right = 0;
+        top = 0;
+        bottom = 16;
+      };
+      mouse_bindings = [
         {
-          event = { Down = { streak = 1, button = { WheelUp = 1 } } },
-          mods = 'NONE',
-          action = act.ScrollByLine(-3),
-          alt_screen = false,
-        },
+          event.Down = {
+            streak = 1;
+            button.WheelUp = 1;
+          };
+          mods = "NONE";
+          action = lib.generators.mkLuaInline "wezterm.action.ScrollByLine(-3)";
+          alt_screen = false;
+        }
         {
-          event = { Down = { streak = 1, button = { WheelDown = 1 } } },
-          mods = 'NONE',
-          action = act.ScrollByLine(3),
-          alt_screen = false,
-        },
-      }
-
-      return config
-    '';
+          event.Down = {
+            streak = 1;
+            button.WheelDown = 1;
+          };
+          mods = "NONE";
+          action = lib.generators.mkLuaInline "wezterm.action.ScrollByLine(3)";
+          alt_screen = false;
+        }
+      ];
+    };
   };
 
   programs.eww = {

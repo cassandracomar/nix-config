@@ -253,6 +253,8 @@ in {
     };
   };
 
+  programs.wezterm.settings.font_dirs = ["${pkgs.iosevka-nerd-font}/share/fonts/truetype"];
+
   home.username = "ccomar";
   home.homeDirectory = "/home/ccomar";
   home.packages = with pkgs; [
