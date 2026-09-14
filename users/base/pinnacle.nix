@@ -67,10 +67,6 @@ in {
     cycle = true;
     font = "Iosevka Nerd Font 32";
     location = "top";
-    pass = {
-      enable = false;
-      package = pkgs.rofi-pass-wayland;
-    };
     terminal = "${pkgs.wezterm}/bin/wezterm";
     theme = "${rofi-themes-collection}/themes/rounded-pink-dark.rasi";
     extraConfig = {
