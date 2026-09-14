@@ -65,7 +65,6 @@ let external_completer = {|spans|
     )
     let completing_systemctl_unit = (
       $spans.0 == "systemctl"
-      and $use_user_manager
       and not ($current | str starts-with "-")
       and not ($previous in $systemctl_options_with_values)
       and ($spans_before_current | any {|span| $span in $systemctl_unit_verbs})
