@@ -49,7 +49,7 @@ let external_completer = {|spans|
       systemctl ...$manager list-units --all --full --plain --no-legend --no-pager
       | lines
       | parse --regex '^(?<value>\S+)\s+\S+\s+\S+\s+\S+\s+(?<description>.*)$'
-      | where {|candidate| $candidate.value | str contains $current}
+      | where ($it.value | str contains $current)
     } else {
       do $fish_completer $spans
     }
