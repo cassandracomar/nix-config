@@ -41,6 +41,7 @@ let external_completer = {|spans|
     let completing_unit = ($previous in ["-u" "--unit"]) or (
       $spans.0 == "systemctl" and $use_user_manager
     )
+    let current = $spans | last | default ""
 
     if $completing_unit {
       let manager = if $use_user_manager { ["--user"] } else { [] }
@@ -48,7 +49,7 @@ let external_completer = {|spans|
       systemctl ...$manager list-units --all --full --plain --no-legend --no-pager
       | lines
       | parse --regex '^(?<value>\S+)\s+\S+\s+\S+\s+\S+\s+(?<description>.*)$'
-      | where $it =~ $completing_unit
+      | where {|candidate| $candidate.value | str starts-with $current}
     } else {
       do $fish_completer $spans
     }
