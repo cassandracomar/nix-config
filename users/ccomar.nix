@@ -253,6 +253,9 @@ in {
     };
   };
 
+  # wezterm loses track of the font location on every `switch` that updates the home profile.
+  # so set a fixed location, ensuring it always finds the font, rather than relying on FontConfig
+  # search paths that home-manager is updating regularly.
   programs.wezterm.settings.font_dirs = ["${pkgs.iosevka-nerd-font}/share/fonts/truetype"];
 
   home.username = "ccomar";
