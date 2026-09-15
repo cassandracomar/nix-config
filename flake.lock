@@ -605,16 +605,16 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1786022574,
-        "narHash": "sha256-0WuglrZXS5RMqwOXNfaE9RVUMWUhZMMsiSvuvwqQq8Q=",
+        "lastModified": 1789492275,
+        "narHash": "sha256-g9jmEzqweyLgPNLB7UhhBfN0pehXhP3iZveR3bqCWis=",
         "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "49ecbb1ddc99d3b4c5e354cb1b196ae0469145c4",
+        "rev": "b7bb0d5700333bb1bc070786a100affb4f3136c2",
         "type": "github"
       },
       "original": {
         "owner": "cassandracomar",
-        "ref": "fix/compat53-version",
+        "ref": "fix/pointer-warping",
         "repo": "pinnacle",
         "type": "github"
       }
