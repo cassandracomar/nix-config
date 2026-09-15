@@ -156,4 +156,5 @@
 
   services.ollama.host = "yew.local";
   hardware.openrazer.enable = true;
+  users.users.cassandra.extraGroups = ["openrazer"];
 }
