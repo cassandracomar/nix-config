@@ -101,8 +101,9 @@
     cpuid
     cpu-x
     lm_sensors
-    (pkgs.writeScriptBin "firefox" (builtins.readFile ../scripts/firefox))
+    (writeScriptBin "firefox" (builtins.readFile ../scripts/firefox))
     keyd
+    polychromatic
   ];
 
   services.openssh.enable = true;
@@ -154,4 +155,5 @@
   };
 
   services.ollama.host = "yew.local";
+  hardware.openrazer.enable = true;
 }
