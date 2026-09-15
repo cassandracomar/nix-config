@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     wineWow64Packages.stagingFull
     winetricks
-    lutris
     virt-viewer
     chessx
     stockfish
@@ -22,4 +21,10 @@
         pcsx-rearmed
       ]))
   ];
+  programs.lutris = {
+    enable = true;
+    defaultWinePackage = pkgs.wineWow64Packages.stagingFull;
+    winePackages = with pkgs; [wineWow64Packages.stagingFull wineWow64Packages.waylandFull];
+    protonPackages = with pkgs; [proton-ge-bin];
+  };
 }
