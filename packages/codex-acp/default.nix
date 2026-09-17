@@ -6,18 +6,16 @@
 }:
 buildNpmPackage rec {
   pname = "codex-acp";
-  version = "1.10.0";
+  version = "1.12.0";
 
   src = fetchFromGitHub {
     owner = "agentclientprotocol";
     repo = "codex-acp";
-    rev = "v${version}";
-    sha256 = "sha256-D8uYd30NRXQYUSBFCi66Oq0iRZXpl8P7nWv2m3+KBig=";
+    rev = "7455eef95f172998421c26ebaa3aac4239a28f14";
+    sha256 = "sha256-RXn/yDQANFpuac1Tv8RPnk6PT9tHXGI9Po97Vel2ALE=";
   };
 
-  patches = [./ask-for-approval-read-only.patch];
-
-  npmDepsHash = "sha256-df1/kPiZFBEq9Um26Qbo9XaYj2J8BOXQmunCQWquDTo=";
+  npmDepsHash = "sha256-BeRj6LpIpGV4ONEHE//nYXTfkB1nfVQpPeJF3LRlyRM=";
   nodejs = nodejs_22;
 
   meta = {
