@@ -103,7 +103,7 @@
             sourceRoot = "${final.src.name}/codex-rs";
             hash = "sha256-4nN98UcBtF2tC44so051iLW6DVQW5Q23mJ9LKlr8rL8=";
           };
-          patches = [./packages/codex-nsfs-mount-root.patch ./packages/codex-linux-sandbox-unix-socket-allowlist.patch];
+          patches = [./packages/codex-nsfs-mount-root.patch];
           postPatch =
             ''
               sed -i 's/version = "0.0.0"/version = "0.154.0"/' Cargo.toml
