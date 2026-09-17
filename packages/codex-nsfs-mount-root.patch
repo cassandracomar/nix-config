@@ -1,0 +1,136 @@
+diff --git a/linux-sandbox/src/daemon_mounts.rs b/linux-sandbox/src/daemon_mounts.rs
+--- a/linux-sandbox/src/daemon_mounts.rs
++++ b/linux-sandbox/src/daemon_mounts.rs
+@@ -61,7 +61,8 @@ fn check_mounts(
+         let [id, parent, mount_device, root, destination] = fields.as_slice() else {
+             return Err(invalid());
+         };
+-        let root = mount_path(root)?;
++        let root = decode_mount_path(root)?;
++        let root = root.is_absolute().then_some(root);
+         let destination = mount_path(destination)?;
+         mounts.push((*id, *parent, *mount_device, root, destination));
+     }
+@@ -76,6 +77,7 @@ fn check_mounts(
+         if *mount_device != device.as_bytes() {
+             return Err(invalid());
+         }
++        let root = root.as_ref().ok_or_else(invalid)?;
+         let relative = directory.strip_prefix(destination).map_err(|_| invalid())?;
+         let mut current = Some(selected);
+         let mut visible_child: Option<&Path> = None;
+@@ -106,10 +108,12 @@ fn check_mounts(
+             .iter()
+             .filter(|(_, _, mount_device, ..)| *mount_device == device.as_bytes())
+             .filter_map(|(_, _, _, root, destination)| {
+-                directory
+-                    .strip_prefix(destination)
+-                    .ok()
+-                    .map(|relative| root.join(relative))
++                root.as_ref().and_then(|root| {
++                    directory
++                        .strip_prefix(destination)
++                        .ok()
++                        .map(|relative| root.join(relative))
++                })
+             })
+             .collect();
+         if locations.len() != 1 {
+@@ -121,13 +125,15 @@ fn check_mounts(
+         // Nested mounts can introduce another filesystem (or an individual socket) under the mask.
+         let nested = destination != directory && destination.starts_with(directory);
+         let alias = if *mount_device == device.as_bytes() {
+-            if let Ok(relative) = location.strip_prefix(root) {
+-                Some(destination.join(relative))
+-            } else if root.starts_with(&location) {
+-                Some(destination.clone())
+-            } else {
+-                None
+-            }
++            root.as_ref().and_then(|root| {
++                if let Ok(relative) = location.strip_prefix(root) {
++                    Some(destination.join(relative))
++                } else if root.starts_with(&location) {
++                    Some(destination.clone())
++                } else {
++                    None
++                }
++            })
+         } else {
+             None
+         };
+@@ -171,6 +177,14 @@ fn check_mounts(
+ }
+ 
+ fn mount_path(encoded: &[u8]) -> io::Result<PathBuf> {
++    let path = decode_mount_path(encoded)?;
++    if !path.is_absolute() {
++        return Err(io::Error::other("mountinfo path is not absolute"));
++    }
++    Ok(path)
++}
++
++fn decode_mount_path(encoded: &[u8]) -> io::Result<PathBuf> {
+     let mut decoded = Vec::new();
+     let mut bytes = encoded.iter().copied();
+     while let Some(byte) = bytes.next() {
+@@ -188,11 +202,7 @@ fn mount_path(encoded: &[u8]) -> io::Result<PathBuf> {
+             byte
+         });
+     }
+-    let path = PathBuf::from(std::ffi::OsString::from_vec(decoded));
+-    if !path.is_absolute() {
+-        return Err(io::Error::other("mountinfo path is not absolute"));
+-    }
+-    Ok(path)
++    Ok(PathBuf::from(std::ffi::OsString::from_vec(decoded)))
+ }
+ 
+ #[cfg(test)]
+diff --git a/linux-sandbox/src/daemon_mounts_tests.rs b/linux-sandbox/src/daemon_mounts_tests.rs
+--- a/linux-sandbox/src/daemon_mounts_tests.rs
++++ b/linux-sandbox/src/daemon_mounts_tests.rs
+@@ -42,6 +42,43 @@ fn rejects_only_mounts_that_compromise_the_directory(root: &str, destination: &s
+     }
+ }
+ 
++#[test]
++fn accepts_unrelated_non_path_mount_root() {
++    let mounts = b"1 0 0:1 / / rw - ext4 disk rw\n\
++                   2 1 0:5 net:[4026531833] /run/docker/netns/default rw - nsfs nsfs rw\n";
++    let directory = Path::new("/tmp/codex-daemon-1000");
++    for mount_id in [Some("1"), None] {
++        assert!(check_mounts(directory, "0:1", mount_id, mounts).is_ok());
++    }
++}
++
++#[test]
++fn rejects_relevant_non_path_mount_roots() {
++    let directory = Path::new("/tmp/codex-daemon-1000");
++
++    let nested = b"1 0 0:1 / / rw - ext4 disk rw\n\
++                   2 1 0:5 net:[4026531833] /tmp/codex-daemon-1000/nested rw - nsfs nsfs rw\n";
++    for mount_id in [Some("1"), None] {
++        assert!(check_mounts(directory, "0:1", mount_id, nested).is_err());
++    }
++
++    let containing = b"1 0 0:1 / / rw - ext4 disk rw\n\
++                       2 1 0:5 net:[4026531833] /tmp rw - nsfs nsfs rw\n";
++    for mount_id in [Some("1"), None] {
++        assert!(check_mounts(directory, "0:1", mount_id, containing).is_err());
++    }
++
++    assert!(
++        check_mounts(
++            Path::new("/run/docker/netns/default"),
++            "0:5",
++            Some("2"),
++            nested
++        )
++        .is_err()
++    );
++}
++
+ #[test]
+ fn rejects_alias_when_tmp_is_itself_a_bind_mount() {
+     let mounts = b"1 0 0:1 / / rw - ext4 disk rw\n2 1 0:1 /backing/tmp /tmp rw - ext4 disk rw\n";
