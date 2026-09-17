@@ -91,7 +91,7 @@
         inherit (iosevka-fonts) iosevka-nerd-font iosevka-nerd-font-mono pyftfeatfreeze iosevka-custom fontToolsPyEnv;
         yaml-schema-router = prev.callPackage ./packages/yaml-schema-router.nix {};
         codex-acp = prev.callPackage ./packages/codex-acp {};
-        codex = prev.codex.overrideAttrs (final: _old: {
+        codex = prev.codex.overrideAttrs (final: old: {
           src = prev.fetchFromGitHub {
             owner = "openai";
             repo = "codex";
@@ -103,6 +103,13 @@
             sourceRoot = "${final.src.name}/codex-rs";
             hash = "sha256-4nN98UcBtF2tC44so051iLW6DVQW5Q23mJ9LKlr8rL8=";
           };
+          postPatch =
+            ''
+              sed -i 's/version = "0.0.0"/version = "0.154.0"/' Cargo.toml
+              sed -i '1i #![recursion_limit = "256"]' chatgpt/src/lib.rs
+            ''
+            + (old.postPatch or "");
+          doInstallCheck = false;
         });
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};

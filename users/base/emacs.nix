@@ -305,6 +305,7 @@ in {
     leiningen
     clojure-lsp
     codex-acp
+    codex
   ];
 
   systemd.user.startServices = true;
