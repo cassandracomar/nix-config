@@ -187,6 +187,8 @@
         nvidia.acceptLicense = true;
         problems.handlers = {
           markdown.broken = "warn"; # or "ignore"
+          agent-shell.broken = "warn";
+          envrc.broken = "warn";
         };
       };
     };
