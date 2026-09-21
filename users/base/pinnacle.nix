@@ -65,7 +65,6 @@ in {
     enable = true;
     plugins = rofi-plugins;
     settings = {
-      cycle = true;
       font = "Iosevka Nerd Font 32";
       location = "top";
       terminal = "${pkgs.wezterm}/bin/wezterm";
