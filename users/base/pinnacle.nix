@@ -66,7 +66,7 @@ in {
     plugins = rofi-plugins;
     settings = {
       font = "Iosevka Nerd Font 32";
-      location = "top";
+      location = 2;
       terminal = "${pkgs.wezterm}/bin/wezterm";
       theme = "${rofi-themes-collection}/themes/rounded-pink-dark.rasi";
       threads = 0;
