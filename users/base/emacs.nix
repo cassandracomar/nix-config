@@ -331,5 +331,6 @@ in {
   };
   systemd.user.services.emacs = {
     Service.ExecStartPost = ''${pkgs.runtimeShell} -c "until ${config.services.emacs.package}/bin/emacsclient -s %t/emacs/server -e '(daemonp)' >/dev/null 2>&1; do ${pkgs.coreutils}/bin/sleep 0.1; done"'';
+    Service.Delegate = true;
   };
 }

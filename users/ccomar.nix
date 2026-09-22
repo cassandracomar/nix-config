@@ -193,6 +193,8 @@ in {
     GITHUB_USER = git_config.github.user;
     GSETTINGS_SCHEMA_DIR = "/usr/share/glib-2.0/schemas";
     NH_FLAKE = "${config.home.homeDirectory}/src/github.com/cassandracomar/nix-config";
+    DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock";
+    KIND_EXPERIMENTAL_PROVIDER = "podman";
   };
   programs.doom-emacs.emacs = emacs';
   wayland.windowManager.pinnacle = {
