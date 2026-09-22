@@ -64,11 +64,11 @@ in {
   programs.rofi = {
     enable = true;
     plugins = rofi-plugins;
+    theme = "${rofi-themes-collection}/themes/rounded-pink-dark.rasi";
     settings = {
       font = "Iosevka Nerd Font 32";
       location = 2;
       terminal = "${pkgs.wezterm}/bin/wezterm";
-      theme = "${rofi-themes-collection}/themes/rounded-pink-dark.rasi";
       threads = 0;
       scroll-method = 1;
       case-smart = true;
