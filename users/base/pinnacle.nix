@@ -19,7 +19,6 @@
   ];
   rofi-packages = with pkgs; [
     rofi-bluetooth
-    clerk
     rofi-rbw-wayland
     rofi-pulse-select
     rofi-screenshot
