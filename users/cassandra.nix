@@ -92,7 +92,11 @@ in {
     komikku
     mangayomi
   ];
-  home.sessionVariables.GITHUB_USER = git_config.github.user;
+  home.sessionVariables = {
+    GITHUB_USER = git_config.github.user;
+    MESA_SHADER_CACHE_MAX_SIZE = "10G";
+    MESA_SHADER_CACHE_DISABLE = "false";
+  };
   programs.doom-emacs.emacs = emacs';
 
   programs.rbw = {
