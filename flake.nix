@@ -92,25 +92,23 @@
         yaml-schema-router = prev.callPackage ./packages/yaml-schema-router.nix {};
         codex-acp = prev.callPackage ./packages/codex-acp {};
         codex = prev.codex.overrideAttrs (final: old: {
+          version = "0.156.0";
           src = prev.fetchFromGitHub {
             owner = "openai";
             repo = "codex";
-            rev = "96aca987f72e29a639ecabe5b76ccd6e5693fc88";
-            hash = "sha256-IOJJUn181QKG/Q3Vt7W+49Hqt17yVsEBYrA0Rpk9e9s=";
+            tag = "rust-v${final.version}";
+            hash = "sha256-KGhOvpHi+Z2TemgrBTkWWY6Y3DdL0b2Fhmv2HcUjXhg=";
           };
           cargoDeps = prev.rustPlatform.fetchCargoVendor {
             inherit (final) src;
             sourceRoot = "${final.src.name}/codex-rs";
-            hash = "sha256-4nN98UcBtF2tC44so051iLW6DVQW5Q23mJ9LKlr8rL8=";
+            hash = "sha256-W87rX/W2J1pwqNrihX+Rj6DfagoZYuB6C+l/S4BhyJM=";
           };
-          patches = [./packages/codex-nsfs-mount-root.patch];
           postPatch =
             ''
-              sed -i 's/version = "0.0.0"/version = "0.154.0"/' Cargo.toml
               sed -i '1i #![recursion_limit = "256"]' chatgpt/src/lib.rs
             ''
             + (old.postPatch or "");
-          doInstallCheck = false;
         });
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
