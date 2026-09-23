@@ -11,7 +11,7 @@
     ../system/hardware/acpid.nix
   ];
   nix.extraOptions = ''
-    system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test big-parallel benchmark
+    system-features = gccarch-znver3 gccarch-znver4 gccarch-znver5 kvm nixos-test benchmark
   '';
 
   console.font = "ter-v32b";

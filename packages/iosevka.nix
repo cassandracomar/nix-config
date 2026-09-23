@@ -9,10 +9,13 @@
     ligations.enables = ["slasheq"];
     exportGlyphNames = true;
   };
-  iosevka-custom = iosevka.override {
-    inherit privateBuildPlan;
-    set = "-Custom";
-  };
+  iosevka-custom =
+    (iosevka.override {
+      inherit privateBuildPlan;
+      set = "-Custom";
+    }).overrideAttrs (old: {
+      requiredSystemFeatures = (old.requiredSystemFeatures or []) ++ ["big-parallel"];
+    });
   iosevka-custom-mono = iosevka.override {
     privateBuildPlan = privateBuildPlan // {spacing = "term";};
     set = "-Custom";
