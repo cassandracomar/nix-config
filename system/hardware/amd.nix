@@ -68,7 +68,7 @@ in {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["amd_pstate" "kvm_amd" "cpuid" "i2c-dev" "zenpower" "corefreqk"];
-  boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1" "amdgpu.gpu_recovery=1" "amdgpu.lockup_timeout=15000,60000,15000,15000"];
+  boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=video" "initcall_blacklist=acpi_cpufreq_init" "amd_pstate=active" "usbcore.autosuspend=-1" "amdgpu.noretry=0"];
   boot.kernelPackages = lib.mkForce (kernelModuleLLVMOverride (pkgs.mkCachyPackageSet autofdo-kernel));
   boot.extraModulePackages = with config.boot.kernelPackages; [corefreq];
 
