@@ -22,7 +22,7 @@
         hostName = "banyan-nix.local";
         system = "x86_64-linux";
         supportedFeatures = ["kvm" "benchmark" "big-parallel" "gccarch-znver4"];
-        speedFactor = 800;
+        speedFactor = 1;
         maxJobs = 384;
         protocol = "ssh-ng";
       }
