@@ -92,12 +92,12 @@
         yaml-schema-router = prev.callPackage ./packages/yaml-schema-router.nix {};
         codex-acp = prev.callPackage ./packages/codex-acp {};
         codex = prev.codex.overrideAttrs (final: old: {
-          version = "0.156.0";
+          version = "0.156.1";
           src = prev.fetchFromGitHub {
             owner = "openai";
             repo = "codex";
             tag = "rust-v${final.version}";
-            hash = "sha256-KGhOvpHi+Z2TemgrBTkWWY6Y3DdL0b2Fhmv2HcUjXhg=";
+            hash = "sha256-H53f57hmnyCtn5yPxtBe/A92qyQyzQBeU/vK2qSBrvI=";
           };
           cargoDeps = prev.rustPlatform.fetchCargoVendor {
             inherit (final) src;
