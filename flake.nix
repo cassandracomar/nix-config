@@ -91,25 +91,6 @@
         inherit (iosevka-fonts) iosevka-nerd-font iosevka-nerd-font-mono pyftfeatfreeze iosevka-custom fontToolsPyEnv;
         yaml-schema-router = prev.callPackage ./packages/yaml-schema-router.nix {};
         codex-acp = prev.callPackage ./packages/codex-acp {};
-        codex = prev.codex.overrideAttrs (final: old: {
-          version = "0.156.1";
-          src = prev.fetchFromGitHub {
-            owner = "openai";
-            repo = "codex";
-            tag = "rust-v${final.version}";
-            hash = "sha256-H53f57hmnyCtn5yPxtBe/A92qyQyzQBeU/vK2qSBrvI=";
-          };
-          cargoDeps = prev.rustPlatform.fetchCargoVendor {
-            inherit (final) src;
-            sourceRoot = "${final.src.name}/codex-rs";
-            hash = "sha256-W87rX/W2J1pwqNrihX+Rj6DfagoZYuB6C+l/S4BhyJM=";
-          };
-          postPatch =
-            ''
-              sed -i '1i #![recursion_limit = "256"]' chatgpt/src/lib.rs
-            ''
-            + (old.postPatch or "");
-        });
         clipcat = clipcat.packages.${system}.clipcat;
         rofi-screenshot = prev.callPackage ./packages/rofi-screenshot.nix {};
         mkCachyPackageSet = kernel:
