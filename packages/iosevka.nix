@@ -16,9 +16,8 @@
     }).overrideAttrs (old: {
       requiredSystemFeatures = (old.requiredSystemFeatures or []) ++ ["big-parallel"];
     });
-  iosevka-custom-mono = iosevka.override {
+  iosevka-custom-mono = iosevka-custom.override {
     privateBuildPlan = privateBuildPlan // {spacing = "term";};
-    set = "-Custom";
   };
   nerdFontPatcher = callPackage ./nerdFontPatcher.nix {};
 in {

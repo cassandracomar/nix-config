@@ -13,4 +13,5 @@ stdenv.mkDerivation {
     mkdir -p $out/share/fonts/{truetype,opentype}
     fd -e ttf -e otf -j ''${NIX_BUILD_CORES} -x nerd-font-patcher --complete --careful${lib.optionalString mono " --mono"} --outputdir $out/{//} {//}/{/}
   '';
+  requiredSystemFeatures = ["big-parallel"];
 }
