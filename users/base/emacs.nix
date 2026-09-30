@@ -299,21 +299,7 @@ in {
     jsonnet-language-server
     bash-language-server
     vscode-json-languageserver
-    (claude-agent-acp.overrideAttrs (final: prev: {
-      version = "0.81.1";
-      src = pkgs.fetchFromGitHub {
-        owner = "agentclientprotocol";
-        repo = "claude-agent-acp";
-        tag = "v${final.version}";
-        hash = "sha256-TKJjsfYaJzqd8gnbyv0PwX9AS475qPd4pLEZW2Z1FSY=";
-      };
-      npmDepsHash = "sha256-0hFXriLHUBHHvqmSMSurY7ORWHipJyJsu3zhp+/s4uw=";
-      npmDeps =
-        final.finalPackage.passthru.fetchNpmDeps or (pkgs.fetchNpmDeps {
-          inherit (final) src;
-          hash = final.npmDepsHash;
-        });
-    }))
+    claude-agent-acp
     # (texliveMedium.overrideAttrs {withDocs = true;})
     # texlivePackages.standalone
     leiningen
