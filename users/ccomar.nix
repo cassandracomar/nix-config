@@ -184,8 +184,8 @@ in {
       enable = true;
       nvidia = {
         enable = true;
-        version = "610.43.02";
-        sha256 = "sha256-MDSgVLtM33dS/43CclZMsQVROAS/9TU4lFkBsWyndGM=";
+        version = "610.57.04";
+        sha256 = "sha256-suk1xmuDuwDAyFe8jg7g/VLekoa0DJzB7sKafOfrEW0=";
       };
     };
   };
