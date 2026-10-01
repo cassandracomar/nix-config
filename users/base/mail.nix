@@ -8,16 +8,18 @@
   programs.msmtp.enable = true;
   programs.notmuch = {
     enable = true;
-    hooks = {
-      preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
-      postNew = lib.concatStringsSep "\n" ["${pkgs.afew}/bin/afew --tag --new --verbose" "${pkgs.notifymuch}/bin/notifymuch"];
+    settings = {
+      hooks = {
+        preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
+        postNew = lib.concatStringsSep "\n" ["${pkgs.afew}/bin/afew --tag --new --verbose" "${pkgs.notifymuch}/bin/notifymuch"];
+      };
+      new = {
+        ignore = ["trash" "*.json"];
+        tags = ["new"];
+      };
+      search.excludeTags = ["trash" "deleted" "spam"];
+      maildir.synchronizeFlags = true;
     };
-    new = {
-      ignore = ["trash" "*.json"];
-      tags = ["new"];
-    };
-    search.excludeTags = ["trash" "deleted" "spam"];
-    maildir.synchronizeFlags = true;
   };
   programs.afew = {
     enable = true;
