@@ -245,13 +245,41 @@ in {
           };
         };
         userChrome = ''
+          :root {
+            --content-area-shadow: none !important;
+          }
+
           #TabsToolbar > * {
             visibility: collapse !important;
           }
 
-          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
-            > #sidebar-header {
-            display: none;
+          #sidebar-panel-header {
+            display: none !important;
+          }
+
+          #sidebar-box {
+            padding: 0 !important;
+          }
+
+          #sidebar {
+            @media -moz-pref("sidebar.revamp") {
+              border-radius: 0 !important;
+              outline: 0 solid transparent !important;
+            }
+          }
+
+          .sidebar-splitter {
+            border: none !important;
+            width: 0 !important;
+            min-width: 2 !important;
+          }
+
+          .browserContainer {
+            --content-area-start-radius: 0 !important;
+          }
+
+          #sidebar-container {
+            display: none !important;
           }
 
           #navigator-toolbox {
