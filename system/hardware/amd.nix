@@ -77,7 +77,7 @@ in {
       name = "lact-max-clocks";
       patch = pkgs.fetchpatch {
         url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
-        sha256 = "sha256-8/pT7mReiGJILVBbgyMl6zqPCurlxI0+EEnEIYHezfI=";
+        sha256 = "sha256-m4zq+1fhuvAuR0IyDmK6Fli5NrxDTLSOLNKqArUG5hc=";
       };
     }
   ];
