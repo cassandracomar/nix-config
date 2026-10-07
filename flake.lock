@@ -605,11 +605,11 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1791389753,
-        "narHash": "sha256-fGgPilhVBgNee05l9vNWVi4fNk8NKVfZfVG7OK9b6z0=",
+        "lastModified": 1791389841,
+        "narHash": "sha256-/VCbP+KD4XWVMK+hVIjOUzI0sW78FQ6G1Sj3GSLJ694=",
         "owner": "cassandracomar",
         "repo": "pinnacle",
-        "rev": "34a3e5a5b783a789cf987561ce66200361517b0f",
+        "rev": "d6ccd22a5eea5adb2f253c0227a56f36fb40b9c6",
         "type": "github"
       },
       "original": {
