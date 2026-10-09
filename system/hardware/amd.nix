@@ -4,9 +4,7 @@
   lib,
   ...
 }: let
-  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-lto-zen4.override (old: {
-    autofdo = ../../kernel.afdo;
-  });
+  autofdo-kernel = pkgs.cachyosKernels.linux-cachyos-latest-zen4;
 
   autofdo-profile = pkgs.writeScriptBin "autofdo-profile" ''
     #!${pkgs.runtimeShell}
@@ -77,7 +75,7 @@ in {
       name = "lact-max-clocks";
       patch = pkgs.fetchpatch {
         url = "https://gitlab.com/fpsflow/power_limit_removal/-/raw/main/highest_clocks.patch";
-        sha256 = "sha256-m4zq+1fhuvAuR0IyDmK6Fli5NrxDTLSOLNKqArUG5hc=";
+        sha256 = "sha256-nbtUv7ty36xqdIDvBJAPh/2Bl92oYZdTkSwp0ctPhPI=";
       };
     }
   ];
