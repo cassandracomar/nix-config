@@ -145,14 +145,14 @@
       };
     };
   };
-  virtualisation.virtualbox = {
-    host = {
-      enable = true;
-      enableExtensionPack = true;
-      enableKvm = true;
-      addNetworkInterface = false;
-    };
-  };
+  # virtualisation.virtualbox = {
+  #   host = {
+  #     enable = true;
+  #     enableExtensionPack = true;
+  #     enableKvm = true;
+  #     addNetworkInterface = false;
+  #   };
+  # };
 
   services.ollama.host = "yew.local";
   hardware.openrazer.enable = true;

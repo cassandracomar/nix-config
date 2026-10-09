@@ -15,7 +15,7 @@
       #   # dns = [ "127.0.0.11" ];
       # };
     };
-    libvirtd.enable = true;
+    libvirtd.enable = false;
     # containers.storage.settings = {
     #   storage = {
     #     driver = "zfs";
