@@ -105,14 +105,9 @@
           src = prev.fetchFromGitHub {
             owner = "mguessan";
             repo = "davmail";
-            rev = "8e2a7a8e7b3c865f7dbf3c481a31631ee8bd4af0";
-            sha256 = "sha256-ursQCilIkJ4gRXpTBiuhbUwXOBX2uEPfBzI/N34xtjo=";
+            rev = "d452b6d89a7cf8159e72a5005911af23b3c2f7dc";
+            sha256 = "sha256-XROKeSKWqS7a+Z5SPWitbMdOyy0AWdCN+Qg5uoRclNs=";
           };
-          patches =
-            (old.patches or [])
-            ++ [
-              ./davmail.patch
-            ];
         });
         electron_39 = prev.electron_39-bin;
         openldap = prev.openldap.overrideAttrs (old: {
