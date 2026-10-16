@@ -11,7 +11,7 @@
     settings = {
       hooks = {
         preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
-        postNew = lib.concatStringsSep "\n" ["${pkgs.afew}/bin/afew --tag --new --verbose" "${pkgs.notifymuch}/bin/notifymuch"];
+        postNew = lib.concatStringsSep "; " ["${pkgs.afew}/bin/afew --tag --new --verbose" "${pkgs.notifymuch}/bin/notifymuch"];
       };
       new = {
         ignore = ["trash" "*.json"];

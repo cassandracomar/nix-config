@@ -706,12 +706,12 @@ in {
         primary = true;
         realName = "Cassandra Comar";
         imap = {
-          host = "127.0.0.32";
+          host = "localhost";
           port = 1143;
           tls.enable = false;
         };
         smtp = {
-          host = "127.0.0.32";
+          host = "localhost";
           port = 1025;
           tls.enable = false;
         };
@@ -724,7 +724,7 @@ in {
         };
         notmuch.enable = true;
         imapnotify.enable = false;
-        userName = "ccomar";
+        userName = "ccomar@us.drwholdings.com";
       };
     };
   };
@@ -733,19 +733,25 @@ in {
     enable = true;
     settings = {
       "davmail.server" = true;
-      "davmail.allowRemote" = false;
-      "davmail.bindAddress" = "127.0.0.32";
+      "davmail.bindAddress" = "localhost";
       "davmail.mode" = "O365Graph";
-      "davmail.url" = "https://login.microsoftonline.com";
-      "davmail.defaultDomain" = "us";
+      "davmail.authentication" = "O365Manual";
+      "davmail.loginUrl" = "https://login.microsoftonline.com";
+      "davmail.url" = "https://outlook.office365.com/EWS/Exchange.asmx";
+      "davmail.userAgent" = "Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0";
+      # "davmail.defaultDomain" = "us";
+      # "davmail.tld" = "drwholdings.com";
       "davmail.outlookUrl" = "https://outlook.office365.com";
       "davmail.oauth.clientId" = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
       "davmail.enableGraph" = true;
-      "davmail.enableOidc" = true;
+      "davmail.enableOidc" = false;
+      # "davmail.oauth.tenantId" = "drwholdings.com";
+      "davmail.oauth.scope" = "openid profile offline_access Mail.ReadWrite Calendars.ReadWrite MailboxSettings.Read Mail.ReadWrite.Shared Contacts.ReadWrite Tasks.ReadWrite Mail.Send";
+      # "davmail.oauth.redirectUri" = "http://localhost/owa/common/oauth2/nativeclient";
       "davmail.graphUrl" = "https://graph.microsoft.com";
       "davmail.graphPrefix" = "beta";
       "davmail.folderSizeLimit" = 10000;
-      "log4j.logger.davmail" = "INFO";
+      "log4j.logger.davmail" = "DEBUG";
       "log4j.logger.httpclient.wire" = "WARN";
       "log4j.logger.org.apache.commons.httpclient" = "WARN";
       "log4j.rootLogger" = "WARN";
@@ -779,7 +785,7 @@ in {
       };
       remote = {
         type = "caldav";
-        url = "http://127.0.0.32:1080/users/ccomar@drwholdings.com/calendar/";
+        url = "http://localhost:1080/users/ccomar@drwholdings.com/calendar/";
         userName = "ccomar";
         passwordCommand = ["${pkgs.rbw}/bin/rbw" "get" "drwholdings.com" "ccomar"];
       };
@@ -808,7 +814,7 @@ in {
       };
       remote = {
         type = "caldav";
-        url = "http://127.0.0.32:1080/users/up-platform-infrastructure-calendar@drwholdings.com/calendar/";
+        url = "http://localhost:1080/users/up-platform-infrastructure-calendar@drwholdings.com/calendar/";
         userName = "ccomar";
         passwordCommand = ["${pkgs.rbw}/bin/rbw" "get" "drwholdings.com" "ccomar"];
       };
@@ -841,7 +847,7 @@ in {
       PartOf = ["anyconnect.service"];
       OnSuccess = ["khalel-import.service"];
     };
-    Service.ExecStartPre = "${pkgs.runtimeShell} -c 'until ${pkgs.netcat-openbsd}/bin/nc -z 127.0.0.32 1080; do sleep 1; done'";
+    Service.ExecStartPre = "${pkgs.runtimeShell} -c 'until ${pkgs.netcat-openbsd}/bin/nc -z localhost 1080; do sleep 1; done'";
   };
 
   systemd.user.services.khalel-import = let
