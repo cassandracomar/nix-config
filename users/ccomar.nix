@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   git_config = {
@@ -43,7 +44,7 @@
     export PATH=${lib.makeBinPath [
       pkgs.isync
       config.programs.notmuch.package
-      pkgs.afew
+      config.programs.afew.package
       pkgs.notifymuch
       pkgs.coreutils
     ]}
@@ -857,7 +858,7 @@ in {
             backup-directory-alist '(("." . "~/.cache/doom/nix/backup/")))
       (add-to-list 'load-path "${config.programs.doom-emacs.doomDir}")
       (require '+khalel)
-      (setq khalel-khal-command "${pkgs.khal}/bin/khal")
+      (setq khalel-khal-command "${inputs.nixpkgs-master.legacyPackages.x86_64-linux.khal}/bin/khal")
       (+khalel-import-events-per-calendar)
       (kill-emacs 0)
     '';
@@ -874,6 +875,7 @@ in {
 
   programs.khal = {
     enable = true;
+    package = inputs.nixpkgs-master.legacyPackages.x86_64-linux.khal;
     locale = {
       timeformat = "%H:%M";
       dateformat = "%Y-%m-%d";

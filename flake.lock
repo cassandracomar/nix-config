@@ -564,6 +564,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1792600747,
+        "narHash": "sha256-r0mGUYSSeJF9TlvmZNczgNh8sbSl8jwT3lLPprGZ7dI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f8bdf9a8f9433030951d76068c3c6bbd35016214",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1792506237,
@@ -655,6 +670,7 @@
         "nix-output-monitor": "nix-output-monitor",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "pinnacle": "pinnacle",
         "pinnacle-config": "pinnacle-config"

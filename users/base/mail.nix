@@ -11,7 +11,7 @@
     settings = {
       hooks = {
         preNew = "${pkgs.isync}/bin/mbsync -Ln --all";
-        postNew = lib.concatStringsSep "; " ["${pkgs.afew}/bin/afew --tag --new --verbose" "${pkgs.notifymuch}/bin/notifymuch"];
+        postNew = lib.concatStringsSep "; " ["${config.programs.afew.package}/bin/afew --tag --new --verbose" "${pkgs.notifymuch}/bin/notifymuch"];
       };
       new = {
         ignore = ["trash" "*.json"];
@@ -23,6 +23,15 @@
   };
   programs.afew = {
     enable = true;
+    package = pkgs.afew.overrideAttrs (old: {
+      sphinxBuilders = ["html man"];
+      makeWrapperArgs = [
+        "--prefix"
+        "PATH"
+        ":"
+        "${pkgs.notmuch}/bin"
+      ];
+    });
     extraConfig = ''
       [SpamFilter]
       [KillThreadsFilter]
@@ -76,7 +85,7 @@
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@nie.rs && ${config.programs.notmuch.package}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@nie.rs && ${config.programs.notmuch.package}/bin/notmuch new --no-hooks && ${config.programs.afew.package}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@nie.rs";
       };
@@ -96,7 +105,7 @@
         notmuch.enable = true;
         imapnotify = {
           enable = true;
-          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@mountclare.net && ${config.programs.notmuch.package}/bin/notmuch new --no-hooks && ${pkgs.afew}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
+          onNotify = "${pkgs.isync}/bin/mbsync -Ln cass@mountclare.net && ${config.programs.notmuch.package}/bin/notmuch new --no-hooks && ${config.programs.afew.package}/bin/afew --tag --new --verbose && ${pkgs.notifymuch}/bin/notifymuch";
         };
         userName = "cass@mountclare.net";
       };

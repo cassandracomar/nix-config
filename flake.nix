@@ -1,6 +1,7 @@
 {
   # pkg registries
   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+  inputs.nixpkgs-master.url = "github:nixos/nixpkgs";
   inputs.flake-input-patcher.url = "github:jfly/flake-input-patcher";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";

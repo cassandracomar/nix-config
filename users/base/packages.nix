@@ -23,7 +23,7 @@
     lilypond
     reaper
     evtest
-    audacity
+    # audacity
     # pkgs.ocenaudio
     # android-studio
     # ffmpeg-full
