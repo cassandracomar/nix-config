@@ -206,10 +206,13 @@ in {
     };
   };
   systemd.user.services.eww-daemon = {
+    # only start with pinnacle's uwsm session: hanging off graphical-session.target with
+    # Wants=wayland-wm@pinnacle.service made GNOME/Ubuntu sessions launch pinnacle too.
     Unit = {
-      Wants = lib.mkForce ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
+      Wants = lib.mkForce ["graphical-session-pre.target"];
       After = lib.mkForce ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
     };
+    Install.WantedBy = lib.mkForce ["wayland-session@pinnacle.target"];
   };
   # uwsm's env preloader sources ~/.profile with the systemd user manager's environment. if anything
   # (e.g. Ubuntu's Xsession running `dbus-update-activation-environment --all`) leaked the
