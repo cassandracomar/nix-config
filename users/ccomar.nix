@@ -217,13 +217,26 @@ in {
   # uwsm's env preloader sources ~/.profile with the systemd user manager's environment. if anything
   # (e.g. Ubuntu's Xsession running `dbus-update-activation-environment --all`) leaked the
   # "already sourced" guards into the manager, hm-session-vars/nix.sh no-op and PATH ends up bare.
+  # only re-source when the profile actually skipped (its PATH entry is missing), otherwise every
+  # entry gets added twice.
   xdg.configFile."uwsm/env".text = ''
-    unset __HM_SESS_VARS_SOURCED __ETC_PROFILE_NIX_SOURCED
     # system nix (lix) lives in the default profile, which only nix-daemon.sh adds to PATH
-    if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
-      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    fi
-    . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+    case ":$PATH:" in
+      *:/nix/var/nix/profiles/default/bin:*) ;;
+      *)
+        unset __ETC_PROFILE_NIX_SOURCED
+        if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+          . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        fi
+        ;;
+    esac
+    case ":$PATH:" in
+      *:${lib.head config.home.sessionPath}:*) ;;
+      *)
+        unset __HM_SESS_VARS_SOURCED
+        . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+        ;;
+    esac
   '';
   xdg.configFile."uwsm/env-pinnacle".text = ''
     export PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128

@@ -42,7 +42,7 @@
       $env.config.render_right_prompt_on_last_line = false
       $env.config.history.max_size = 9999999
     '';
-    loadSessionVariables = true;
+    loadSessionVariables = false;
   };
 
   # interop configuration that ensures nushell is providing the right OSC codes for eat
