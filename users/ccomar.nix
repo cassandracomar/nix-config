@@ -211,6 +211,13 @@ in {
       After = lib.mkForce ["graphical-session-pre.target" "wayland-wm@pinnacle.service"];
     };
   };
+  # uwsm's env preloader sources ~/.profile with the systemd user manager's environment. if anything
+  # (e.g. Ubuntu's Xsession running `dbus-update-activation-environment --all`) leaked the
+  # "already sourced" guards into the manager, hm-session-vars/nix.sh no-op and PATH ends up bare.
+  xdg.configFile."uwsm/env".text = ''
+    unset __HM_SESS_VARS_SOURCED __ETC_PROFILE_NIX_SOURCED
+    . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+  '';
   xdg.configFile."uwsm/env-pinnacle".text = ''
     export PINNACLE_DRM_DEVICES=/dev/dri/card1:/dev/dri/renderD128
     export WGPU_POWER_PREF=low
