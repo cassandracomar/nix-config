@@ -237,6 +237,13 @@ in {
     X-GDM-SessionRegisters=true
     X-GDM-CanRunHeadless=true
   '';
+  # pin GDM's remembered session (stored in AccountsService) to pinnacle so a stray pick on the
+  # login screen doesn't stick. polkit allows users to change their own session without root.
+  home.activation.gdmDefaultSession = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    run ${pkgs.systemd}/bin/busctl --system call org.freedesktop.Accounts \
+      /org/freedesktop/Accounts/User$(id -u) org.freedesktop.Accounts.User SetSession s pinnacle \
+      || warnEcho "failed to set GDM default session to pinnacle"
+  '';
   xdg.systemDirs.data = ["/usr/share/ubuntu" "/usr/share/gnome" "/usr/local/share" "/usr/share"];
 
   services.wpaperd.package = pkgs.wpaperd;
