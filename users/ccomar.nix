@@ -256,11 +256,11 @@ in {
 
   systemd.user.services.wpaperd = {
     Unit.PartOf = lib.mkForce ["graphical-session.target"];
-    Install.WantedBy = lib.mkForce ["graphical-session.target"];
+    Install.WantedBy = lib.mkForce ["wayland-session@pinnacle.target"];
   };
   systemd.user.services.clipcat = {
     Unit.PartOf = lib.mkForce ["graphical-session.target"];
-    Install.WantedBy = lib.mkForce ["graphical-session.target"];
+    Install.WantedBy = lib.mkForce ["wayland-session@pinnacle.target"];
     Service = {
       ExecStartPre = lib.mkForce "${pkgs.writeShellScript "clipcatd-exec-start-pre" ''
         PATH=${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin::/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
