@@ -359,6 +359,7 @@ in {
     nh
     nodejs-slim
     prettier
+    uv
   ];
 
   programs.rbw = {
