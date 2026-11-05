@@ -219,6 +219,10 @@ in {
   # "already sourced" guards into the manager, hm-session-vars/nix.sh no-op and PATH ends up bare.
   xdg.configFile."uwsm/env".text = ''
     unset __HM_SESS_VARS_SOURCED __ETC_PROFILE_NIX_SOURCED
+    # system nix (lix) lives in the default profile, which only nix-daemon.sh adds to PATH
+    if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    fi
     . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
   '';
   xdg.configFile."uwsm/env-pinnacle".text = ''
