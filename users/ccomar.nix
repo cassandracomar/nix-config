@@ -260,7 +260,9 @@ in {
 
   systemd.user.services.wpaperd = {
     Unit.PartOf = lib.mkForce ["graphical-session.target"];
-    Install.WantedBy = lib.mkForce ["wayland-session@pinnacle.target"];
+    # wpaperd is After=graphical-session.target, and wayland-session@ is Before= it, so hanging off
+    # wayland-session@ is an ordering cycle. the xdg-autostart target is pinnacle-only and After= it.
+    Install.WantedBy = lib.mkForce ["wayland-session-xdg-autostart@pinnacle.target"];
   };
   systemd.user.services.clipcat = {
     Unit.PartOf = lib.mkForce ["graphical-session.target"];
