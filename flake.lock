@@ -566,11 +566,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1793906542,
-        "narHash": "sha256-iLYj1D+l6Wxtu4rzg8ivfPEjNBxVS8fFucyxAs6yxfk=",
+        "lastModified": 1793916068,
+        "narHash": "sha256-TVcxl9lIEijitZc0OhH/hfEzBQQXYVbTUwTMS/9GNxc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "72eaffa1920fcee9e899299d58bf06f2d345ec53",
+        "rev": "fb5c4451d5cf2f886dd2ef8c92704001a591a454",
         "type": "github"
       },
       "original": {
@@ -581,11 +581,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1793795574,
-        "narHash": "sha256-ey4jOibbc003QnvG+D7j8S5w2m33vf0S800hWUMoDOI=",
-        "rev": "13e53762c5afaf384d4614e94527a9ccfafe41d0",
+        "lastModified": 1793826729,
+        "narHash": "sha256-JiTUXdoNJNvdD+fjVlftWiLKJfHut3cIi8j2HXL9kT4=",
+        "rev": "6dadaf4375be35033e1c84395adbd53ff5fded96",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1108269.13e53762c5af/nixexprs.tar.xz?lastModified=1793795574&rev=13e53762c5afaf384d4614e94527a9ccfafe41d0"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1108556.6dadaf4375be/nixexprs.tar.xz?lastModified=1793826729&rev=6dadaf4375be35033e1c84395adbd53ff5fded96"
       },
       "original": {
         "type": "tarball",
@@ -600,11 +600,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793906700,
-        "narHash": "sha256-80QfbPihMuhEtSTTe0jinkr3QaRv+YmUHMicSWJvZ6M=",
+        "lastModified": 1793917389,
+        "narHash": "sha256-j89cPbFR+qlyimfNjh1j9MLXDMXsIRfVdw78swpJkd4=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7fe77da1440d97fe4756a2463cf094e4deeca0a3",
+        "rev": "d66f946ff89db501472110874f09fcf0462dfe2b",
         "type": "github"
       },
       "original": {
@@ -642,11 +642,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790870199,
-        "narHash": "sha256-NRG10Zesbi1l7LL8dHPNceLR87+KgPTmw7V5wz46uBU=",
+        "lastModified": 1793917175,
+        "narHash": "sha256-z3q6o9YpRDFlhlbPPu9dTcEiFIoRvw1wjH0GQBHB6gg=",
         "owner": "cassandracomar",
         "repo": "pinnacle-config",
-        "rev": "000e6b2693b7ba2058bb5dd48986c295cb711092",
+        "rev": "f77ffc362113d168aa05fb863602cce4458366dc",
         "type": "github"
       },
       "original": {
